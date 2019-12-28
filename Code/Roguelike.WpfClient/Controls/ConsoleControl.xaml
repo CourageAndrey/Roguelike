@@ -1,0 +1,8 @@
+﻿<UserControl x:Class="Roguelike.WpfClient.ConsoleControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:winforms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms">
+	<WindowsFormsHost>
+		<winforms:RichTextBox BackColor="Black" ForeColor="White" ReadOnly="True" WordWrap="False"  ScrollBars="None" SizeChanged="sizeChanged" TabStop="False" GotFocus="fixTextFieldFocus" />
+	</WindowsFormsHost>
+</UserControl>

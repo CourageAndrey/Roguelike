@@ -67,5 +67,10 @@ namespace Roguelike.Core.ActiveObjects
 			game.Defeat();
 			return base.Die(reason);
 		}
+
+		public override List<Interaction> GetAvailableInteractions(Object actor)
+		{
+			return new List<Interaction>(); // Because it is not possible to interact with yourself.
+		}
 	}
 }

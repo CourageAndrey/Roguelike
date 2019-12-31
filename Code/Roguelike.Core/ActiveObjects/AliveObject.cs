@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 using Roguelike.Core.Interfaces;
@@ -7,7 +8,7 @@ using Roguelike.Core.StaticObjects;
 
 namespace Roguelike.Core.ActiveObjects
 {
-	public abstract class AliveObject : ActiveObject, IRequireGravitation
+	public abstract class AliveObject : ActiveObject, IRequireGravitation, IInteractive
 	{
 		#region Properties
 
@@ -100,5 +101,22 @@ namespace Roguelike.Core.ActiveObjects
 		}
 
 		public abstract Body CreateBody();
+
+		public virtual List<Interaction> GetAvailableInteractions(Object actor)
+		{
+			var game = CurrentCell.Region.World.Game;
+			var balance = game.Balance;
+			var language = game.Language;
+
+			return new List<Interaction>
+			{
+				new Interaction(language.InteractionBackstab, true, target =>
+				{
+					Die("backstabbed");
+#warning Finish implementation, translate it and make not so easy.
+					return ActionResult.GetEmpty(balance);
+				})
+			};
+		}
 	}
 }

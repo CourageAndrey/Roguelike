@@ -13,8 +13,6 @@ namespace Roguelike.WpfClient
 		public ChoiceWindow()
 		{
 			InitializeComponent();
-
-			buttonsPanel.Children.OfType<Control>().Last().Focus();
 		}
 
 		public Game Game
@@ -31,7 +29,12 @@ namespace Roguelike.WpfClient
 		public IEnumerable<ListItem> Items
 		{
 			get { return listBox.ItemsSource as IEnumerable<ListItem>; }
-			set { listBox.ItemsSource = value; }
+			set
+			{
+				listBox.ItemsSource = value;
+				listBox.SelectedItem = value.FirstOrDefault(i => i.IsAvailable);
+				(listBox.SelectedItem == null ? buttonCancel : buttonOk).Focus();
+			}
 		}
 
 		public ListItem SelectedItem
@@ -47,10 +50,32 @@ namespace Roguelike.WpfClient
 
 		private void cancelClick(object sender, RoutedEventArgs e)
 		{
-			DialogResult = false;
+			chooseCancel();
 		}
 
 		private void itemSelectClick(object sender, MouseButtonEventArgs e)
+		{
+			tryToChooseSelectedItem();
+		}
+
+		private void exitKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Escape)
+			{
+				chooseCancel();
+			}
+			else if (e.Key == Key.Enter)
+			{
+				tryToChooseSelectedItem();
+			}
+		}
+
+		private void chooseCancel()
+		{
+			DialogResult = false;
+		}
+
+		private void tryToChooseSelectedItem()
 		{
 			if (SelectedItem != null && SelectedItem.IsAvailable)
 			{

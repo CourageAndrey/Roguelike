@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using Roguelike.Core;
@@ -20,10 +21,17 @@ namespace Roguelike.WpfClient
 
 		public bool TrySelectItem(Game game, string question, IEnumerable<ListItem> items, out ListItem selectedItem)
 		{
+			var itemsList = items.ToList();
+			if (itemsList.Count(i => i.IsAvailable) == 0)
+			{
+				selectedItem = null;
+				return false;
+			}
+
 			var dialog = new ChoiceWindow
 			{
 				Title = question,
-				Items = items,
+				Items = itemsList,
 				Game = game,
 			};
 			if (dialog.ShowDialog() == true)

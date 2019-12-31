@@ -1,4 +1,6 @@
-﻿using Roguelike.Core.Localization;
+﻿using System.Windows.Input;
+
+using Roguelike.Core.Localization;
 
 namespace Roguelike.WpfClient
 {
@@ -13,6 +15,14 @@ namespace Roguelike.WpfClient
 		{
 			get { return buttonsPanel.DataContext as Language; }
 			set { buttonsPanel.DataContext = value; }
+		}
+
+		private void exitKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Escape)
+			{
+				DialogResult = false;
+			}
 		}
 	}
 }

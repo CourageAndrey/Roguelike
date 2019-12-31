@@ -27,6 +27,18 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string InteractionChopTree
 		{ get; set; }
+		[XmlElement]
+		public string InteractionBackstab
+		{ get; set; }
+		[XmlElement]
+		public string InteractionChat
+		{ get; set; }
+		[XmlElement]
+		public string InteractionTrade
+		{ get; set; }
+		[XmlElement]
+		public string InteractionPickpocket
+		{ get; set; }
 
 		[XmlElement]
 		public string LogActionFormatOpenDoor
@@ -283,6 +295,10 @@ namespace Roguelike.Core.Localization
 				InteractionOpenDoor = "Open the door.",
 				InteractionCloseDoor = "Close the door",
 				InteractionChopTree = "Chop the tree",
+				InteractionBackstab = "Backstab",
+				InteractionChat = "Chat",
+				InteractionTrade = "Trade",
+				InteractionPickpocket = "Pickpocket",
 
 				LogActionFormatOpenDoor = "{0} opens the door at {1}.",
 				LogActionFormatCloseDoor = "{0} closes the door at {1}.",

@@ -78,9 +78,9 @@ namespace Roguelike.Core.ActiveObjects
 			var balance = game.Balance;
 			var language = game.Language;
 
-			result.Add(new Interaction(language.InteractionChat, true, target => { throw new NotImplementedException(); }));
-			result.Add(new Interaction(language.InteractionTrade, true, target => { throw new NotImplementedException(); }));
-			result.Add(new Interaction(language.InteractionPickpocket, true, target => { throw new NotImplementedException(); }));
+			result.Add(new Interaction(language.InteractionChat, true, target => game.UserInterface.BeginChat(game, this)));
+			result.Add(new Interaction(language.InteractionTrade, true, target => game.UserInterface.BeginTrade(game, this)));
+			result.Add(new Interaction(language.InteractionPickpocket, true, target => game.UserInterface.BeginPickpocket(game, this)));
 
 			return result;
 		}

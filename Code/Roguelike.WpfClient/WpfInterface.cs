@@ -5,6 +5,7 @@ using System.Text;
 using Roguelike.Core;
 using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
+using Roguelike.WpfClient.Windows;
 
 namespace Roguelike.WpfClient
 {
@@ -72,6 +73,40 @@ namespace Roguelike.WpfClient
 			{
 				GameLanguage = game.Language,
 			}.ShowDialog();
+		}
+
+
+		public ActionResult BeginChat(Game game, Humanoid humanoid)
+		{
+			var dialog = new ChatWindow
+			{
+				Game = game,
+				Companion = humanoid,
+			};
+			dialog.ShowDialog();
+			return dialog.Result;
+		}
+
+		public ActionResult BeginTrade(Game game, Humanoid humanoid)
+		{
+			var dialog = new TradeWindow
+			{
+				Game = game,
+				Trader = humanoid,
+			};
+			dialog.ShowDialog();
+			return dialog.Result;
+		}
+
+		public ActionResult BeginPickpocket(Game game, Humanoid humanoid)
+		{
+			var dialog = new PickpocketWindow
+			{
+				Game = game,
+				Victim = humanoid,
+			};
+			dialog.ShowDialog();
+			return dialog.Result;
 		}
 	}
 }

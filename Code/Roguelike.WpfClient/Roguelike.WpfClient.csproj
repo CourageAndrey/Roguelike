@@ -60,6 +60,9 @@
     </Compile>
     <Compile Include="Converters\ItemSelectedConverter.cs" />
     <Compile Include="Converters\BorderConverter.cs" />
+    <Compile Include="Windows\ChatWindow.xaml.cs">
+      <DependentUpon>ChatWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ChoiceWindow.xaml.cs">
       <DependentUpon>ChoiceWindow.xaml</DependentUpon>
     </Compile>
@@ -72,6 +75,9 @@
     </Compile>
     <Compile Include="Windows\MultiChoiceWindow.xaml.cs">
       <DependentUpon>MultiChoiceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PickpocketWindow.xaml.cs">
+      <DependentUpon>PickpocketWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\RoguelikeWindow.cs" />
     <Compile Include="RogulikeApplication.cs" />
@@ -86,8 +92,15 @@
     <Compile Include="ViewModels\TreeViewModel.cs" />
     <Compile Include="ViewModels\PoolViewModel.cs" />
     <Compile Include="ViewModels\WallViewModel.cs" />
+    <Compile Include="Windows\TradeWindow.xaml.cs">
+      <DependentUpon>TradeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WpfInterface.cs" />
     <Page Include="Windows\CharacherWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ChatWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,6 +134,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\MultiChoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PickpocketWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TradeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

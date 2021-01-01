@@ -8,7 +8,7 @@ using Roguelike.Core.StaticObjects;
 
 namespace Roguelike.Core.ActiveObjects
 {
-	public abstract class AliveObject : ActiveObject, IRequireGravitation, IInteractive
+	public abstract class AliveObject : ActiveObject, IRequireGravitation, IInteractive, IAlive
 	{
 		#region Properties
 
@@ -18,10 +18,10 @@ namespace Roguelike.Core.ActiveObjects
 		public Time Age
 		{ get; private set; }
 
-		public Properties Properties
+		public IProperties Properties
 		{ get; private set; }
 
-		public Body Body
+		public IBody Body
 		{ get; }
 
 		public IInventory Inventory

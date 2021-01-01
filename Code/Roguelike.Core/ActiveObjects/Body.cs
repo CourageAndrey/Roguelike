@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Roguelike.Core.Interfaces;
+
 namespace Roguelike.Core.ActiveObjects
 {
-	public class Body
+	public class Body : IBody
 	{
 		#region Properties
 
-		public AliveObject Owner
+		public IAlive Owner
 		{ get; }
 
 		public ICollection<BodyPart> Parts

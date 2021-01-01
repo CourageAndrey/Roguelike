@@ -1,8 +1,6 @@
 ﻿namespace Roguelike.Core.Interfaces
 {
-	interface IHasOwner
+	public interface IProperties
 	{
-		IObject Owner
-		{ get; }
 	}
 }

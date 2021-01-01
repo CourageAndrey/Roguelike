@@ -4,7 +4,7 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core
 {
-	public class Object : IHasOwner
+	public class Object : IObject, IHasOwner
 	{
 		#region Properties
 
@@ -23,7 +23,7 @@ namespace Roguelike.Core
 
 		#region Ownership
 
-		public Object Owner
+		public IObject Owner
 		{ get; internal set; }
 
 		#endregion

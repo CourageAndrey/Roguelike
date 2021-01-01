@@ -49,7 +49,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		public override Body CreateBody()
 		{
-			return Body.CreateAnimal(this);
+			return ActiveObjects.Body.CreateAnimal(this);
 		}
 	}
 }

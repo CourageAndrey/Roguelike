@@ -81,7 +81,7 @@ namespace Roguelike.WpfClient
 			var dialog = new ChatWindow
 			{
 				Game = game,
-				Companion = humanoid,
+				Interlocutor = humanoid,
 			};
 			dialog.ShowDialog();
 			return dialog.Result;

@@ -281,6 +281,31 @@ namespace Roguelike.Core.Localization
 		public string ItemTypeFood
 		{ get; set; }
 
+		[XmlElement]
+		public string QuestionWhatIsYourName
+		{ get; set; }
+		[XmlElement]
+		public string QuestionHowOldAreYou
+		{ get; set; }
+		[XmlElement]
+		public string QuestionWhatDoYouDo
+		{ get; set; }
+		[XmlElement]
+		public string QuestionWhereAreWeNow
+		{ get; set; }
+		[XmlElement]
+		public string QuestionWhereAreYouFrom
+		{ get; set; }
+		[XmlElement]
+		public string AnswerFormatNameAgain
+		{ get; set; }
+		[XmlElement]
+		public string AnswerFormatNameFirst
+		{ get; set; }
+		[XmlElement]
+		public string AnswerFormatAge
+		{ get; set; }
+
 		#endregion
 
 		public static Language CreateDefault()
@@ -385,6 +410,16 @@ namespace Roguelike.Core.Localization
 				ItemTypeWear = "Wear",
 				ItemTypeFood = "Food",
 				ItemTypeTool = "Tool",
+
+				QuestionWhatIsYourName = "What is your name?",
+				QuestionHowOldAreYou = "How old are you?",
+				QuestionWhatDoYouDo = "What do you do?",
+				QuestionWhereAreWeNow = "Where are we now?",
+				QuestionWhereAreYouFrom = "Where are you from?",
+
+				AnswerFormatNameAgain = "As I've said before, my name is {0}.",
+				AnswerFormatNameFirst = "My name is {0}. - Nice to get aquainted, my name is {1}.",
+				AnswerFormatAge = "I'm {0} yeras old.",
 			};
 		}
 

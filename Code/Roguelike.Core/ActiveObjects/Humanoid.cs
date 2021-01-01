@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 using Roguelike.Core.Chat;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.ActiveObjects
 {
@@ -48,24 +50,75 @@ namespace Roguelike.Core.ActiveObjects
 
 		#region Implementation of IInterlocutor
 
+		private readonly ICollection<Humanoid> _knownPersons = new HashSet<Humanoid>();
+		private readonly IDictionary<Humanoid, Attitude> _attitudes = new Dictionary<Humanoid, Attitude>();
+
+		public SocialGroup SocialGroup
+		{ get { return SocialGroup.No; } }
+
 		public string GetName(Humanoid interlocutor)
 		{
-			throw new NotImplementedException();
+			return Name;
 		}
 
 		public Attitude GetAttitude(Humanoid interlocutor)
 		{
-			throw new NotImplementedException();
+			Attitude attitude;
+			return _attitudes.TryGetValue(interlocutor, out attitude)
+				? attitude
+				: SocialGroup.GetAttitude(interlocutor.SocialGroup);
 		}
 
 		public ICollection<Topic> GetTopics(Humanoid interlocutor)
 		{
-			throw new NotImplementedException();
+			return new[]
+			{
+				Topic.WhatIsYourName,
+				Topic.HowOldAreYou,
+				Topic.WhatDoYouDo,
+				Topic.WhereAreWeNow,
+				Topic.WhereAreYouFrom,
+			};
 		}
 
-		public Text Discuss(Humanoid interlocutor, Topic topic)
+		public void GetAcquainted(Humanoid other)
 		{
-			throw new NotImplementedException();
+			_knownPersons.Add(other);
+			other._knownPersons.Add(this);
+		}
+
+		public Text Discuss(Humanoid interlocutor, Topic topic, Language language)
+		{
+			if (topic == Topic.WhatIsYourName)
+			{
+				if (_knownPersons.Contains(interlocutor))
+				{
+					return new Text(string.Format(
+						CultureInfo.InvariantCulture,
+						language.AnswerFormatNameAgain,
+						Name));
+				}
+				else
+				{
+					GetAcquainted(interlocutor);
+					return new Text(string.Format(
+						CultureInfo.InvariantCulture,
+						language.AnswerFormatNameFirst,
+						Name,
+						interlocutor.Name));
+				}
+			}
+			else if (topic == Topic.HowOldAreYou)
+			{
+				return new Text(string.Format(
+					CultureInfo.InvariantCulture,
+					language.AnswerFormatAge,
+					Age));
+			}
+			else
+			{
+				throw new NotImplementedException("I have nothing to say.");
+			}
 		}
 
 		#endregion

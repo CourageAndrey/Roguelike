@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Roguelike.Core.Chat;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 
 namespace Roguelike.Core.ActiveObjects
 {
-	public abstract class Humanoid : AliveObject
+	public abstract class Humanoid : AliveObject, IInterlocutor
 	{
 		#region Properties
 
@@ -42,6 +43,30 @@ namespace Roguelike.Core.ActiveObjects
 
 		public IDictionary<Skill, double> SkillExperience
 		{ get; }
+
+		#endregion
+
+		#region Implementation of IInterlocutor
+
+		public string GetName(Humanoid interlocutor)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Attitude GetAttitude(Humanoid interlocutor)
+		{
+			throw new NotImplementedException();
+		}
+
+		public ICollection<Topic> GetTopics(Humanoid interlocutor)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Text Discuss(Humanoid interlocutor, Topic topic)
+		{
+			throw new NotImplementedException();
+		}
 
 		#endregion
 

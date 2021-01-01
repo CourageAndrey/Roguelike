@@ -7,7 +7,7 @@ using Roguelike.Core.Items;
 
 namespace Roguelike.Core.ActiveObjects
 {
-	public abstract class Humanoid : AliveObject, IInterlocutor
+	public abstract class Humanoid : AliveObject, IInterlocutor, IManequin
 	{
 		#region Properties
 
@@ -92,7 +92,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		public override Body CreateBody()
 		{
-			return Body.CreateHumanoid(this);
+			return ActiveObjects.Body.CreateHumanoid(this);
 		}
 
 		public override List<Interaction> GetAvailableInteractions(Object actor)

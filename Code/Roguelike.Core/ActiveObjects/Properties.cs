@@ -1,6 +1,8 @@
-﻿namespace Roguelike.Core.ActiveObjects
+﻿using Roguelike.Core.Interfaces;
+
+namespace Roguelike.Core.ActiveObjects
 {
-	public class Properties
+	public class Properties : IProperties
 	{
 	}
 }

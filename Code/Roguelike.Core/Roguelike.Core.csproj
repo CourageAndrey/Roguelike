@@ -53,11 +53,16 @@
     <Compile Include="Chat\Topic.cs" />
     <Compile Include="Configuration\Balance.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Interfaces\IAlive.cs" />
+    <Compile Include="Interfaces\IBody.cs" />
     <Compile Include="Interfaces\IFireSource.cs" />
     <Compile Include="Interfaces\IHasOwner.cs" />
     <Compile Include="Interfaces\IInteractive.cs" />
     <Compile Include="Interfaces\IInterlocutor.cs" />
     <Compile Include="Interfaces\IInventory.cs" />
+    <Compile Include="Interfaces\IManequin.cs" />
+    <Compile Include="Interfaces\IObject.cs" />
+    <Compile Include="Interfaces\IProperties.cs" />
     <Compile Include="Interfaces\IRequireGravitation.cs" />
     <Compile Include="Interfaces\ISleepingArea.cs" />
     <Compile Include="Interfaces\IWaterSource.cs" />

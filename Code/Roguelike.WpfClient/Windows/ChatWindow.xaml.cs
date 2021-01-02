@@ -1,8 +1,11 @@
 ﻿using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 using Roguelike.Core;
 using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Chat;
 
 namespace Roguelike.WpfClient.Windows
 {
@@ -33,7 +36,21 @@ namespace Roguelike.WpfClient.Windows
 			_textName.Text = Interlocutor.GetName(hero);
 			_textSocialGroup.Text = Interlocutor.SocialGroup.Name;
 			_textAttitude.Text = Interlocutor.GetAttitude(hero).ToString();
-			_listTopics.ItemsSource = Interlocutor.GetTopics(hero).Select(topic => topic.Ask(Game.Language));
+			_listTopics.ItemsSource = Interlocutor.GetTopics(hero).Select(topic => new ListItem<Topic>(topic, topic.Ask(Game.Language)));
+		}
+
+		private void topicMouseDown(object sender, MouseButtonEventArgs e)
+		{
+			var hero = Game.Hero;
+
+			var contextControl = (Label) ((ContentPresenter) ((FrameworkElement) e.OriginalSource).TemplatedParent).TemplatedParent;
+			var listItem = (ListItem<Topic>) contextControl.DataContext;
+			var topic = listItem.Value;
+
+			var text = Interlocutor.Discuss(hero, topic, Game.Language);
+
+#warning Works from time to time, nned to load correct HTML.
+			_dialogArea.NavigateToString(text.PlainString);
 		}
 	}
 }

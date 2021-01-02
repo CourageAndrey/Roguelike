@@ -30,13 +30,14 @@
 	{
 		#region Properties
 
-		public T Value
-		{ get; }
+		public T Value { get; }
 
 		#endregion
 
 		public ListItem(T value, string text, bool isAvailable = true)
 			: base(value, text, isAvailable)
-		{ }
+		{
+			Value = value;
+		}
 	}
 }

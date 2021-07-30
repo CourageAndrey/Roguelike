@@ -419,7 +419,7 @@ namespace Roguelike.Core.Localization
 
 				AnswerFormatNameAgain = "As I've said before, my name is {0}.",
 				AnswerFormatNameFirst = "My name is {0}. - Nice to get aquainted, my name is {1}.",
-				AnswerFormatAge = "I'm {0} yeras old.",
+				AnswerFormatAge = "I'm {0} years old.",
 			};
 		}
 

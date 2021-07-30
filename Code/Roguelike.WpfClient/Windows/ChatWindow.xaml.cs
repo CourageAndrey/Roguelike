@@ -43,7 +43,8 @@ namespace Roguelike.WpfClient.Windows
 		{
 			var hero = Game.Hero;
 
-			var contextControl = (Label) ((ContentPresenter) ((FrameworkElement) e.OriginalSource).TemplatedParent).TemplatedParent;
+			var parentControl = ((FrameworkElement) e.OriginalSource).TemplatedParent;
+			var contextControl = (parentControl as Label) ?? (((ContentPresenter) parentControl).TemplatedParent as Label);
 			var listItem = (ListItem<Topic>) contextControl.DataContext;
 			var topic = listItem.Value;
 

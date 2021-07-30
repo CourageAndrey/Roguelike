@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{616F47CE-E20F-4651-821A-B1C77AD9F43E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Roguelike</RootNamespace>
+    <AssemblyName>Roguelike</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Roguelike.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Roguelike.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\Action.cs" />
+    <Compile Include="Actions\ActionResult.cs" />
+    <Compile Include="Body\Affix.cs" />
+    <Compile Include="Body\Body.cs" />
+    <Compile Include="Body\Bonus.cs" />
+    <Compile Include="Body\Features.cs" />
+    <Compile Include="Body\Interfaces.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GUI\BigTextForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\BigTextForm.Designer.cs">
+      <DependentUpon>BigTextForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\BodyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\BodyDialog.Designer.cs">
+      <DependentUpon>BodyDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ConsoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ConsoleForm.Designer.cs">
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\InventoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\InventoryControl.Designer.cs">
+      <DependentUpon>InventoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\InventoryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\InventoryDialog.Designer.cs">
+      <DependentUpon>InventoryDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\MainMenuDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\MainMenuDialog.Designer.cs">
+      <DependentUpon>MainMenuDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Items\Book.cs" />
+    <Compile Include="Items\ItemClass.cs" />
+    <Compile Include="Language\FullAdjunctive.cs" />
+    <Compile Include="Language\Noun.cs" />
+    <Compile Include="Items\Wear.cs" />
+    <Compile Include="Items\HerbPack.cs" />
+    <Compile Include="Items\Inventory.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Language\NameType.cs" />
+    <Compile Include="Objects\ActiveEnvironment\River.cs" />
+    <Compile Include="Actions\Interaction.cs" />
+    <Compile Include="Objects\StaticEnvironment\Corpse.cs" />
+    <Compile Include="Worlds\Cell.cs" />
+    <Compile Include="Worlds\World.SaveLoad.cs" />
+    <Compile Include="Worlds\Elementals\FireElemental.cs" />
+    <Compile Include="Worlds\Elementals\WaterElemental.cs" />
+    <Compile Include="Objects\Interfaces\IInteractive.cs" />
+    <Compile Include="Objects\HeightDisplayOrder.cs" />
+    <Compile Include="Worlds\Balance.cs" />
+    <Compile Include="Objects\Actor.cs" />
+    <Compile Include="Body\BodyPart.cs" />
+    <Compile Include="Body\BodyPartType.cs" />
+    <Compile Include="Worlds\CellBackground.cs" />
+    <Compile Include="GUI\ConsoleScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ConsoleScreen.Designer.cs">
+      <DependentUpon>ConsoleScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\CreateHeroDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\CreateHeroDialog.Designer.cs">
+      <DependentUpon>CreateHeroDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\SelectionDialog.Designer.cs">
+      <DependentUpon>SelectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objects\ActiveCharacters\Hero.cs" />
+    <Compile Include="GUI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objects\Interfaces\IActiveObject.cs" />
+    <Compile Include="Objects\ActiveCharacters\Npc.cs" />
+    <Compile Include="Objects\StaticEnvironment\BloodPool.cs" />
+    <Compile Include="Objects\StaticEnvironment\Door.cs" />
+    <Compile Include="Objects\ActiveEnvironment\Fire.cs" />
+    <Compile Include="Objects\StaticEnvironment\Herb.cs" />
+    <Compile Include="Objects\Symbols.cs" />
+    <Compile Include="Objects\StaticEnvironment\Wall.cs" />
+    <Compile Include="RoguelikeProgram.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Worlds\Direction.cs" />
+    <Compile Include="Worlds\HerbKindType.cs" />
+    <Compile Include="Worlds\HerbKind.cs" />
+    <Compile Include="Worlds\StartBonus.cs" />
+    <Compile Include="Worlds\StartSettings.cs" />
+    <Compile Include="Worlds\Vector.cs" />
+    <Compile Include="Worlds\World.cs" />
+    <Compile Include="Objects\WorldObject.cs" />
+    <EmbeddedResource Include="GUI\BigTextForm.resx">
+      <DependentUpon>BigTextForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\BodyDialog.resx">
+      <DependentUpon>BodyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ConsoleForm.resx">
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ConsoleScreen.resx">
+      <DependentUpon>ConsoleScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\CreateHeroDialog.resx">
+      <DependentUpon>CreateHeroDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\InventoryControl.resx">
+      <DependentUpon>InventoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\InventoryDialog.resx">
+      <DependentUpon>InventoryDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MainMenuDialog.resx">
+      <DependentUpon>MainMenuDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SelectionDialog.resx">
+      <DependentUpon>SelectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\DataSources\Roguelike.Body.Body.datasource" />
+    <None Include="Properties\DataSources\Roguelike.Body.BodyPart.datasource" />
+    <None Include="Properties\DataSources\Roguelike.Items.Item.datasource" />
+    <None Include="Properties\DataSources\Roguelike.Objects.BaseActor.datasource" />
+    <None Include="Properties\DataSources\Roguelike.Worlds.StartBonus.datasource" />
+    <None Include="Properties\DataSources\Roguelike.Worlds.World.datasource" />
+    <None Include="Properties\DataSources\Roguelike._.ConsoleCell.datasource" />
+    <None Include="Properties\DataSources\StartSettings.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Worlds\World.Generator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Books.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\help.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\HerbNames.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sef\Sef.csproj">
+      <Project>{BC52F2B4-9F80-42D7-B799-6AD860013D8C}</Project>
+      <Name>Sef</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,7 @@
+*.suo
+*.user
+*.userprefs
+TestResults
+*/bin
+*/obj
+.vs

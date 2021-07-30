@@ -113,7 +113,7 @@ namespace Roguelike.Core.ActiveObjects
 				return new Text(string.Format(
 					CultureInfo.InvariantCulture,
 					language.AnswerFormatAge,
-					Age));
+					Age.Year));
 			}
 			else
 			{

@@ -43,15 +43,34 @@ namespace Roguelike.WpfClient.Windows
 		{
 			var hero = Game.Hero;
 
-			var parentControl = ((FrameworkElement) e.OriginalSource).TemplatedParent;
-			var contextControl = (parentControl as Label) ?? (((ContentPresenter) parentControl).TemplatedParent as Label);
-			var listItem = (ListItem<Topic>) contextControl.DataContext;
+			var contextControl = getContextControl<Label>((FrameworkElement) e.OriginalSource);
+			var listItem = (ListItem<Topic>) (contextControl != null
+				? contextControl.DataContext
+				: ((ListBox) e.Source).SelectedItem);
 			var topic = listItem.Value;
 
 			var text = Interlocutor.Discuss(hero, topic, Game.Language);
 
-#warning Works from time to time, nned to load correct HTML.
+#warning Works from time to time, need to load correct HTML.
 			_dialogArea.NavigateToString(text.PlainString);
+		}
+
+		private static ControlT getContextControl<ControlT>(FrameworkElement control)
+			where ControlT : FrameworkElement
+		{
+			do
+			{
+				if (control is ControlT)
+				{
+					return control as ControlT;
+				}
+				else
+				{
+					control = control.TemplatedParent as FrameworkElement;
+				}
+			} while (control != null);
+
+			return null;
 		}
 	}
 }

@@ -38,7 +38,7 @@ namespace Roguelike.WpfClient.Windows
 			_textAttitude.Text = Interlocutor.GetAttitude(hero).ToString();
 			_listTopics.ItemsSource = Interlocutor.GetTopics(hero).Select(topic => new ListItem<Topic>(topic, topic.Ask(Game.Language)));
 
-			_dialogArea.NavigateToString(formatToBrowser(string.Empty)); // because first call is always skipped
+			_dialogArea.NavigateToString(formatToBrowser()); // because first call is always skipped
 		}
 
 		private void topicMouseDown(object sender, MouseButtonEventArgs e)
@@ -51,9 +51,14 @@ namespace Roguelike.WpfClient.Windows
 				: ((ListBox) e.Source).SelectedItem);
 			var topic = listItem.Value;
 
-			var text = Interlocutor.Discuss(hero, topic, Game.Language);
+			dialogueText += $"<b>{hero.Name}</b><br/>";
+			dialogueText += $"{topic.Ask(Game.Language)}</b><br/><br/>";
 
-			_dialogArea.NavigateToString(formatToBrowser(text.PlainString));
+			var text = Interlocutor.Discuss(hero, topic, Game.Language);
+			dialogueText += $"<b>{_textName.Text}</b><br/>";
+			dialogueText += $"{text.PlainString}</b><br/><br/>";
+
+			_dialogArea.NavigateToString(formatToBrowser());
 		}
 
 		private static ControlT getContextControl<ControlT>(FrameworkElement control)
@@ -74,9 +79,11 @@ namespace Roguelike.WpfClient.Windows
 			return null;
 		}
 
-		private static string formatToBrowser(string text)
+		private string dialogueText = string.Empty;
+
+		private string formatToBrowser()
 		{
-			return "<html><head /><body><p>" + text + "</p></body></html>";
+			return "<html><head /><body><p>" + dialogueText + "</p></body></html>";
 		}
 	}
 }

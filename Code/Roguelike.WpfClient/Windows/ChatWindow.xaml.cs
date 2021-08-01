@@ -46,21 +46,25 @@ namespace Roguelike.WpfClient.Windows
 			var hero = Game.Hero;
 
 			var contextControl = getContextControl<Label>((FrameworkElement) e.OriginalSource);
-			var listItem = (ListItem<Topic>) (contextControl != null
+			var listItem = (contextControl != null
 				? contextControl.DataContext
-				: ((ListBox) e.Source).SelectedItem);
-			var topic = listItem.Value;
+				: ((ListBox) e.Source).SelectedItem) as ListItem<Topic>;
 
-			dialogueText += $"<b>{hero.Name}</b><br/>";
-			dialogueText += $"{topic.Ask(Game.Language)}</b><br/><br/>";
+			if (listItem != null)
+			{
+				var topic = listItem.Value;
 
-			var text = Interlocutor.Discuss(hero, topic, Game.Language);
-			dialogueText += $"<b>{_textName.Text}</b><br/>";
-			dialogueText += $"{text.PlainString}</b><br/><br/>";
+				dialogueText += $"<b>{hero.Name}</b><br/>";
+				dialogueText += $"{topic.Ask(Game.Language)}</b><br/><br/>";
 
-			_dialogArea.NavigateToString(formatToBrowser());
+				var text = Interlocutor.Discuss(hero, topic, Game.Language);
+				dialogueText += $"<b>{_textName.Text}</b><br/>";
+				dialogueText += $"{text.PlainString}</b><br/><br/>";
 
-			e.Handled = true;
+				_dialogArea.NavigateToString(formatToBrowser());
+
+				e.Handled = true;
+			}
 		}
 
 		private static ControlT getContextControl<ControlT>(FrameworkElement control)

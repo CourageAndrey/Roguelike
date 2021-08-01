@@ -38,7 +38,7 @@ namespace Roguelike.WpfClient.Windows
 			_textAttitude.Text = Interlocutor.GetAttitude(hero).ToString();
 			_listTopics.ItemsSource = Interlocutor.GetTopics(hero).Select(topic => new ListItem<Topic>(topic, topic.Ask(Game.Language)));
 
-			_dialogArea.NavigateToString("<html><head /><body><p/></body></html>"); // because first call is always skipped
+			_dialogArea.NavigateToString(formatToBrowser(string.Empty)); // because first call is always skipped
 		}
 
 		private void topicMouseDown(object sender, MouseButtonEventArgs e)
@@ -53,7 +53,7 @@ namespace Roguelike.WpfClient.Windows
 
 			var text = Interlocutor.Discuss(hero, topic, Game.Language);
 
-			_dialogArea.NavigateToString("<html><head /><body><p>" + text.PlainString + "</p></body></html>");
+			_dialogArea.NavigateToString(formatToBrowser(text.PlainString));
 		}
 
 		private static ControlT getContextControl<ControlT>(FrameworkElement control)
@@ -72,6 +72,11 @@ namespace Roguelike.WpfClient.Windows
 			} while (control != null);
 
 			return null;
+		}
+
+		private static string formatToBrowser(string text)
+		{
+			return "<html><head /><body><p>" + text + "</p></body></html>";
 		}
 	}
 }

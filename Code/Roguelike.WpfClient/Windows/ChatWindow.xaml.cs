@@ -59,6 +59,8 @@ namespace Roguelike.WpfClient.Windows
 			dialogueText += $"{text.PlainString}</b><br/><br/>";
 
 			_dialogArea.NavigateToString(formatToBrowser());
+
+			e.Handled = true;
 		}
 
 		private static ControlT getContextControl<ControlT>(FrameworkElement control)

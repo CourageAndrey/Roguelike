@@ -37,6 +37,8 @@ namespace Roguelike.WpfClient.Windows
 			_textSocialGroup.Text = Interlocutor.SocialGroup.Name;
 			_textAttitude.Text = Interlocutor.GetAttitude(hero).ToString();
 			_listTopics.ItemsSource = Interlocutor.GetTopics(hero).Select(topic => new ListItem<Topic>(topic, topic.Ask(Game.Language)));
+
+			_dialogArea.NavigateToString("<html><head /><body><p/></body></html>"); // because first call is always skipped
 		}
 
 		private void topicMouseDown(object sender, MouseButtonEventArgs e)
@@ -51,8 +53,7 @@ namespace Roguelike.WpfClient.Windows
 
 			var text = Interlocutor.Discuss(hero, topic, Game.Language);
 
-#warning Works from time to time, need to load correct HTML.
-			_dialogArea.NavigateToString(text.PlainString);
+			_dialogArea.NavigateToString("<html><head /><body><p>" + text.PlainString + "</p></body></html>");
 		}
 
 		private static ControlT getContextControl<ControlT>(FrameworkElement control)

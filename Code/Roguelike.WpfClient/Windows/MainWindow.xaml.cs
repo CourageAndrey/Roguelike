@@ -7,7 +7,6 @@ using System.Windows.Input;
 
 using Roguelike.Core;
 using Roguelike.Core.Interfaces;
-using Vector = Roguelike.Core.Vector;
 
 namespace Roguelike.WpfClient
 {

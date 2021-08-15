@@ -48,7 +48,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected AliveObject(bool sexIsMale, Time age, Properties properties, IInventory inventory)
+		protected AliveObject(bool sexIsMale, Time age, IProperties properties, IInventory inventory)
 		{
 			if (age == null) throw new ArgumentNullException(nameof(age));
 			if (properties == null) throw new ArgumentNullException(nameof(properties));

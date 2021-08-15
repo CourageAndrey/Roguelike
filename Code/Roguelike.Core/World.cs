@@ -44,14 +44,17 @@ namespace Roguelike.Core
 				(uint) seed.Next(0, (int) balance.TicksInDay));
 
 			Regions = this.GenerateRegions(balance.DefaultRegionsCount);
+			var region = Regions.First();
 
-#warning Hero has to be placed not just in first available region.
-			(Hero = new Hero(true, Time.FromYears(balance, 25), new Properties(), new Inventory(), "Andor Drakon")).MoveTo(Regions.First().GetCell(0, 0, 0));
+			Hero = new Hero(true, Time.FromYears(balance, 25), new Properties(), new Inventory(), "Andor Drakon");
+			Hero.MoveTo(region.GetCell(
+				seed.Next(100, balance.DefaultRegionXdimension - 100),
+				seed.Next(100, balance.DefaultRegionYdimension - 100),
+				0));
 			Hero.Inventory.TryAdd(new Hatchet());
 			Hero.MakeMapKnown(balance.HeroInitialViewDistance);
 
 			//------------------------------ test objects below
-			var region = Regions.First();
 			region.CreateRoom(1, 5, 1, 5, 0, Direction.Up);
 			new Pool().MoveTo(region.GetCell(6, 7, 0));
 			new Tree().MoveTo(region.GetCell(7, 7, 0));

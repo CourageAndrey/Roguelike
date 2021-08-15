@@ -52,7 +52,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public Hero(bool sexIsMale, Time age, Properties properties, IInventory inventory, string name)
+		public Hero(bool sexIsMale, Time age, IProperties properties, IInventory inventory, string name)
 			: base(sexIsMale, age, properties, inventory, name)
 		{ }
 

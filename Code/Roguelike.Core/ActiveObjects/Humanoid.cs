@@ -123,7 +123,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected Humanoid(bool sexIsMale, Time age, Properties properties, IInventory inventory, string name)
+		protected Humanoid(bool sexIsMale, Time age, IProperties properties, IInventory inventory, string name)
 			: base(sexIsMale, age, properties, inventory)
 		{
 			if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));

@@ -72,9 +72,9 @@ namespace Roguelike.WpfClient
 			new CharacherWindow
 			{
 				GameLanguage = game.Language,
+				Character = game.Hero,
 			}.ShowDialog();
 		}
-
 
 		public ActionResult BeginChat(Game game, Humanoid humanoid)
 		{

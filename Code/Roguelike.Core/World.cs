@@ -57,9 +57,10 @@ namespace Roguelike.Core
 
 			region.CreateVillage(
 				balance,
+				seed,
 				heroCell.Position.X + 1,
-				heroCell.Position.Y + 1,
 				heroCell.Position.X + 30,
+				heroCell.Position.Y + 1,
 				heroCell.Position.Y + 30,
 				heroCell.Position.Z);
 		}

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Windows;
 
 using Roguelike.Core;
 using Roguelike.Core.ActiveObjects;
@@ -53,6 +55,29 @@ namespace Roguelike.WpfClient
 			{ typeof(Corpse), o => new CorpseViewModel((Corpse) o) },
 			{ typeof(Stump), o => new StumpViewModel((Stump) o) },
 		};
+
+		#endregion
+
+		#region Routed events
+
+		public static void RemoveRoutedEventHandlers(this UIElement element, RoutedEvent routedEvent)
+		{
+			var eventHandlersStoreProperty = typeof(UIElement).GetProperty("EventHandlersStore", BindingFlags.Instance | BindingFlags.NonPublic);
+			object eventHandlersStore = eventHandlersStoreProperty.GetValue(element, null);
+			if (eventHandlersStore == null) return;
+
+			var getRoutedEventHandlers = eventHandlersStore.GetType().GetMethod(
+				"GetRoutedEventHandlers",
+				BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+			var routedEventHandlers = (RoutedEventHandlerInfo[]) getRoutedEventHandlers.Invoke(
+				eventHandlersStore,
+				new object[] { routedEvent });
+
+			foreach (var routedEventHandler in routedEventHandlers)
+			{
+				element.RemoveHandler(routedEvent, routedEventHandler.Handler);
+			}
+		}
 
 		#endregion
 	}

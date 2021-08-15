@@ -4,28 +4,28 @@ namespace Roguelike.Core.Interfaces
 {
 	public interface IManequin
 	{
-		IItem WearHead
+		IHeadWear HeadWear
 		{ get; }
 
-		IItem WearUpperBody
+		IUpperBodyWear UpperBodyWear
 		{ get; }
 
-		IItem WearLowerBody
+		ILowerBodyWear LowerBodyWear
 		{ get; }
 
-		IItem WearCover
+		ICoverWear CoverWear
 		{ get; }
 
-		IItem WearHands
+		IHandWear HandsWear
 		{ get; }
 
-		IItem WearFoots
+		IFootWear FootsWear
 		{ get; }
 
-		ICollection<IItem> WearNecklaces
+		ICollection<INecklace> Necklaces
 		{ get; }
 
-		ICollection<IItem> WearRings
+		ICollection<IRing> Rings
 		{ get; }
 	}
 
@@ -33,42 +33,42 @@ namespace Roguelike.Core.Interfaces
 	{
 		public static IEnumerable<IItem> GetAllIItems(this IManequin manequin)
 		{
-			if (manequin.WearHead != null)
+			if (manequin.HeadWear != null)
 			{
-				yield return manequin.WearHead;
+				yield return manequin.HeadWear;
 			}
 
-			if (manequin.WearUpperBody != null)
+			if (manequin.UpperBodyWear != null)
 			{
-				yield return manequin.WearUpperBody;
+				yield return manequin.UpperBodyWear;
 			}
 
-			if (manequin.WearLowerBody != null)
+			if (manequin.LowerBodyWear != null)
 			{
-				yield return manequin.WearLowerBody;
+				yield return manequin.LowerBodyWear;
 			}
 
-			if (manequin.WearCover != null)
+			if (manequin.CoverWear != null)
 			{
-				yield return manequin.WearCover;
+				yield return manequin.CoverWear;
 			}
 
-			if (manequin.WearHands != null)
+			if (manequin.HandsWear != null)
 			{
-				yield return manequin.WearHands;
+				yield return manequin.HandsWear;
 			}
 
-			if (manequin.WearFoots != null)
+			if (manequin.FootsWear != null)
 			{
-				yield return manequin.WearFoots;
+				yield return manequin.FootsWear;
 			}
 
-			foreach (var necklace in manequin.WearNecklaces)
+			foreach (var necklace in manequin.Necklaces)
 			{
 				yield return necklace;
 			}
 
-			foreach (var ring in manequin.WearRings)
+			foreach (var ring in manequin.Rings)
 			{
 				yield return ring;
 			}

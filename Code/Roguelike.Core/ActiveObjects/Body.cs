@@ -63,9 +63,9 @@ namespace Roguelike.Core.ActiveObjects
 			return body;
 		}
 
-		private static List<BodyPart> createFingers(Body body, int count)
+		private static List<IBodyPart> createFingers(Body body, int count)
 		{
-			var result = new List<BodyPart>();
+			var result = new List<IBodyPart>();
 			for (int i = 0; i < count; i++)
 			{
 				result.Add(new BodyPart(body, 0.01, language => language.BodyPartFinger));
@@ -122,7 +122,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		private static BodyPart createUsualHead(Body body, int teeth)
 		{
-			var parts = new List<BodyPart>
+			var parts = new List<IBodyPart>
 			{
 				new BodyPart(body, 1, language => language.BodyPartSkull),
 				new BodyPart(body, 1.5, language => language.BodyPartBrain, true),

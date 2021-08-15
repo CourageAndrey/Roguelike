@@ -1,7 +1,8 @@
-﻿<local:RoguelikeWindow x:Class="Roguelike.WpfClient.MainWindow"
+﻿<windows:RoguelikeWindow x:Class="Roguelike.WpfClient.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:Roguelike.WpfClient"
+        xmlns:windows="clr-namespace:Roguelike.WpfClient.Windows"
+        xmlns:controls="clr-namespace:Roguelike.WpfClient.Controls"
         Title="Roguelike" Height="600" Width="800" Loaded="windowLoaded" PreviewKeyDown="keyPress" WindowState="Maximized" >
-	<local:ConsoleControl x:Name="consoleControl" />
-</local:RoguelikeWindow>
+	<controls:ConsoleControl x:Name="consoleControl" />
+</windows:RoguelikeWindow>

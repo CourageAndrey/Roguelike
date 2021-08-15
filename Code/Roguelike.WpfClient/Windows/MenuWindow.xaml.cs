@@ -15,7 +15,7 @@ using Roguelike.Core;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
-namespace Roguelike.WpfClient
+namespace Roguelike.WpfClient.Windows
 {
 	public partial class MenuWindow
 	{

@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 using Roguelike.Core;
 
-namespace Roguelike.WpfClient
+namespace Roguelike.WpfClient.Windows
 {
 	public partial class MultiChoiceWindow
 	{

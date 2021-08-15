@@ -11,7 +11,7 @@ namespace Roguelike.WpfClient
 			DispatcherUnhandledException += dispatcherUnhandledException;
 			AppDomain.CurrentDomain.UnhandledException += dispatcherAppDomainException;
 
-			this.MainWindow = new MainWindow();
+			this.MainWindow = new Windows.MainWindow();
 			this.ShutdownMode = ShutdownMode.OnMainWindowClose;
 		}
 
@@ -33,10 +33,10 @@ namespace Roguelike.WpfClient
 		private static void Main()
 		{
 			var application = new RogulikeApplication();
-			var menu = new MenuWindow();
+			var menu = new Windows.MenuWindow();
 			if (menu.ShowDialog() == true)
 			{
-				((MainWindow) application.MainWindow).Game = menu.Game;
+				((Windows.MainWindow) application.MainWindow).Game = menu.Game;
 				application.MainWindow.Show();
 				application.Run();
 			}

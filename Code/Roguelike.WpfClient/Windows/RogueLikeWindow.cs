@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Roguelike.WpfClient
+namespace Roguelike.WpfClient.Windows
 {
 	public class RoguelikeWindow : Window
 	{

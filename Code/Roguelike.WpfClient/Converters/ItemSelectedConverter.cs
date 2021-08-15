@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 using Roguelike.Core;
 
-namespace Roguelike.WpfClient
+namespace Roguelike.WpfClient.Converters
 {
 	[ValueConversion(typeof(object), typeof(bool))]
 	public class ItemSelectedConverter : IValueConverter

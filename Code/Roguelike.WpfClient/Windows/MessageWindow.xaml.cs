@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace Roguelike.WpfClient
+namespace Roguelike.WpfClient.Windows
 {
 	public partial class MessageWindow
 	{

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Configuration;
 using Roguelike.Core.StaticObjects;
 
 namespace Roguelike.Core
@@ -69,6 +70,21 @@ namespace Roguelike.Core
 			var doorCell = region.GetCell(doorX, doorY, z);
 			doorCell.RemoveObject(doorCell.Objects.OfType<Wall>().First());
 			new Door().MoveTo(doorCell);
+		}
+
+		public static void CreateVillage(this Region region, Balance balance, int x1, int x2, int y1, int y2, int z)
+		{
+			if (Math.Abs(x1 - x2) < 10 || Math.Abs(y1 - y2) < 10) throw new Exception("Village is too small - 10x10 is minimal size.");
+
+			region.CreateRoom(1, 5, 1, 5, 0, Direction.Up);
+			new Pool().MoveTo(region.GetCell(6, 7, 0));
+			new Tree().MoveTo(region.GetCell(7, 7, 0));
+			new Fire().MoveTo(region.GetCell(2, 2, 0));
+			new Bed().MoveTo(region.GetCell(4, 4, 0));
+			var npc = new Npc(true, Time.FromYears(balance, 50), new Properties(), new Inventory(), "John Smith");
+			npc.MoveTo(region.GetCell(2, 10, 0));
+			new Npc(true, Time.FromYears(balance, 14), new Properties(), new Inventory(), "Jack Smiley").Die("just die").MoveTo(region.GetCell(0, 1, 0));
+			new Animal(false, Time.FromYears(balance, 5), new Properties(), new Inventory()) { Owner = npc }.MoveTo(region.GetCell(3, 10, 0));
 		}
 
 		public static void MakeMapKnown(this Hero hero, int viewDistance)

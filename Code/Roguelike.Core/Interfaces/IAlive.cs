@@ -23,7 +23,7 @@
 		string DeadReason
 		{ get; }
 
-		Item WeaponToFight
+		IItem WeaponToFight
 		{ get; }
 
 		bool IsAgressive

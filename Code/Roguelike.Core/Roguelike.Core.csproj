@@ -61,6 +61,7 @@
     <Compile Include="Interfaces\IInteractive.cs" />
     <Compile Include="Interfaces\IInterlocutor.cs" />
     <Compile Include="Interfaces\IInventory.cs" />
+    <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Interfaces\IManequin.cs" />
     <Compile Include="Interfaces\IObject.cs" />
     <Compile Include="Interfaces\IProperties.cs" />

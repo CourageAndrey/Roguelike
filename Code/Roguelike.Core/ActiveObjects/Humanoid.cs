@@ -16,28 +16,28 @@ namespace Roguelike.Core.ActiveObjects
 		public string Name
 		{ get; private set; }
 
-		public Item WearHead
+		public IItem WearHead
 		{ get; private set; }
 
-		public Item WearUpperBody
+		public IItem WearUpperBody
 		{ get; private set; }
 
-		public Item WearLowerBody
+		public IItem WearLowerBody
 		{ get; private set; }
 
-		public Item WearCover
+		public IItem WearCover
 		{ get; private set; }
 
-		public Item WearHands
+		public IItem WearHands
 		{ get; private set; }
 
-		public Item WearFoots
+		public IItem WearFoots
 		{ get; private set; }
 
-		public ICollection<Item> WearNecklaces
+		public ICollection<IItem> WearNecklaces
 		{ get; }
 
-		public ICollection<Item> WearRings
+		public ICollection<IItem> WearRings
 		{ get; }
 
 		public IDictionary<Skill, int> Skills
@@ -136,8 +136,8 @@ namespace Roguelike.Core.ActiveObjects
 			WearCover = new Naked(this);
 			WearHands = new Naked(this);
 			WearFoots = new Naked(this);
-			WearNecklaces = new List<Item>();
-			WearRings = new List<Item>();
+			WearNecklaces = new List<IItem>();
+			WearRings = new List<IItem>();
 
 			Skills = new Dictionary<Skill, int>();
 			SkillExperience = new Dictionary<Skill, double>();

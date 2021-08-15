@@ -4,34 +4,34 @@ namespace Roguelike.Core.Interfaces
 {
 	public interface IManequin
 	{
-		Item WearHead
+		IItem WearHead
 		{ get; }
 
-		Item WearUpperBody
+		IItem WearUpperBody
 		{ get; }
 
-		Item WearLowerBody
+		IItem WearLowerBody
 		{ get; }
 
-		Item WearCover
+		IItem WearCover
 		{ get; }
 
-		Item WearHands
+		IItem WearHands
 		{ get; }
 
-		Item WearFoots
+		IItem WearFoots
 		{ get; }
 
-		ICollection<Item> WearNecklaces
+		ICollection<IItem> WearNecklaces
 		{ get; }
 
-		ICollection<Item> WearRings
+		ICollection<IItem> WearRings
 		{ get; }
 	}
 
 	public static class ManequinExtensions
 	{
-		public static IEnumerable<Item> GetAllItems(this IManequin manequin)
+		public static IEnumerable<IItem> GetAllIItems(this IManequin manequin)
 		{
 			if (manequin.WearHead != null)
 			{

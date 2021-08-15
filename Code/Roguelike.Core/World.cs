@@ -46,12 +46,12 @@ namespace Roguelike.Core
 
 			Regions = this.GenerateRegions(balance.DefaultRegionsCount);
 
-#warning Hero has to placed not just in first available region.
+#warning Hero has to be placed not just in first available region.
 			(Hero = new Hero(true, Time.FromYears(balance, 25), new Properties(), new Inventory(), "Andor Drakon")).MoveTo(Regions.First().GetCell(0, 0, 0));
 			Hero.Inventory.TryAdd(new Hatchet());
-			for (int x = 0; x < 15; x++)
+			for (int x = 0; x < balance.HeroInitialViewDistance; x++)
 			{
-				for (int y = 0; y < 15; y++)
+				for (int y = 0; y < balance.HeroInitialViewDistance; y++)
 				{
 					Hero.MapMemory.Add(Hero.CurrentCell.Region.GetCell(x, y, 0));
 				}

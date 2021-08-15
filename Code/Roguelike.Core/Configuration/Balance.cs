@@ -73,8 +73,15 @@
 
 		#endregion
 
+		#region Distances
+
 		public int AiDistance
 		{ get; set; }
+
+		public int HeroInitialViewDistance
+		{ get; set; }
+
+		#endregion
 
 		#endregion
 
@@ -106,6 +113,7 @@
 				DefaultRegionZdimension = 1,
 
 				AiDistance = 30,
+				HeroInitialViewDistance = 15,
 			};
 		}
 	}

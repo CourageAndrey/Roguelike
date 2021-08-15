@@ -1,0 +1,11 @@
+﻿<local:RoguelikeWindow x:Class="Roguelike.WpfClient.Windows.PersonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Roguelike.WpfClient"
+        Title="Person" SizeToContent="WidthAndHeight" MinHeight="200" MinWidth="200" PreviewKeyDown="exitKeyDown" WindowStartupLocation="CenterScreen">
+	<Window.Resources>
+		<local:BorderConverter x:Key="borderConverter" />
+	</Window.Resources>
+	<DockPanel LastChildFill="True">
+	</DockPanel>
+</local:RoguelikeWindow>

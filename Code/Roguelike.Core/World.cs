@@ -47,23 +47,21 @@ namespace Roguelike.Core
 			var region = Regions.First();
 
 			Hero = new Hero(true, Time.FromYears(balance, 25), new Properties(), new Inventory(), "Andor Drakon");
-			Hero.MoveTo(region.GetCell(
-				seed.Next(100, balance.DefaultRegionXdimension - 100),
-				seed.Next(100, balance.DefaultRegionYdimension - 100),
-				0));
+			var heroCell = region.GetCell(
+				seed.Next(10, balance.DefaultRegionXdimension - 50),
+				seed.Next(10, balance.DefaultRegionYdimension - 50),
+				0);
+			Hero.MoveTo(heroCell);
 			Hero.Inventory.TryAdd(new Hatchet());
 			Hero.MakeMapKnown(balance.HeroInitialViewDistance);
 
-			//------------------------------ test objects below
-			region.CreateRoom(1, 5, 1, 5, 0, Direction.Up);
-			new Pool().MoveTo(region.GetCell(6, 7, 0));
-			new Tree().MoveTo(region.GetCell(7, 7, 0));
-			new Fire().MoveTo(region.GetCell(2, 2, 0));
-			new Bed().MoveTo(region.GetCell(4, 4, 0));
-			var npc = new Npc(true, Time.FromYears(balance, 50), new Properties(), new Inventory(), "John Smith");
-			npc.MoveTo(region.GetCell(2, 10, 0));
-			new Npc(true, Time.FromYears(balance, 14), new Properties(), new Inventory(), "Jack Smiley").Die("just die").MoveTo(region.GetCell(0, 1, 0));
-			new Animal(false, Time.FromYears(balance, 5), new Properties(), new Inventory()) { Owner = npc }.MoveTo(region.GetCell(3, 10, 0));
+			region.CreateVillage(
+				balance,
+				heroCell.Position.X + 1,
+				heroCell.Position.Y + 1,
+				heroCell.Position.X + 30,
+				heroCell.Position.Y + 30,
+				heroCell.Position.Z);
 		}
 
 		public static Random Randomize()

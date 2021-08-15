@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -145,14 +144,6 @@ namespace Roguelike.WpfClient.Windows
 			{
 				string configFullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings.txt");
 				File.WriteAllText(configFullPath, ((Language) listBoxLanguages.SelectedItem).Name);
-			}
-		}
-
-		private void exitKeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Key == Key.Escape)
-			{
-				DialogResult = false;
 			}
 		}
 	}

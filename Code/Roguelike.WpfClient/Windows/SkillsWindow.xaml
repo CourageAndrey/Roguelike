@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:windows="clr-namespace:Roguelike.WpfClient.Windows"
         xmlns:converters="clr-namespace:Roguelike.WpfClient.Converters"
-        Title="Skills" SizeToContent="WidthAndHeight" MinHeight="200" MinWidth="200" PreviewKeyDown="exitKeyDown" WindowStartupLocation="CenterScreen">
+        Title="Skills" MinHeight="200" MinWidth="200">
 	<Window.Resources>
 		<converters:BorderConverter x:Key="borderConverter" />
 	</Window.Resources>

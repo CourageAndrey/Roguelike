@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-
-namespace Roguelike.WpfClient.Windows
+﻿namespace Roguelike.WpfClient.Windows
 {
 	public partial class MessageWindow
 	{
@@ -15,14 +13,6 @@ namespace Roguelike.WpfClient.Windows
 		{
 			get { return text.Text; }
 			set { text.Text = value; }
-		}
-
-		private void exitKeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Key == Key.Escape)
-			{
-				DialogResult = false;
-			}
 		}
 	}
 }

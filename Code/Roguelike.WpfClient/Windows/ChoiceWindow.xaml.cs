@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 using Roguelike.Core;
@@ -58,13 +57,9 @@ namespace Roguelike.WpfClient.Windows
 			tryToChooseSelectedItem();
 		}
 
-		private void exitKeyDown(object sender, KeyEventArgs e)
+		private void enterKeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.Key == Key.Escape)
-			{
-				chooseCancel();
-			}
-			else if (e.Key == Key.Enter)
+			if (e.Key == Key.Enter)
 			{
 				tryToChooseSelectedItem();
 			}

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Roguelike.WpfClient.Windows
@@ -10,7 +11,9 @@ namespace Roguelike.WpfClient.Windows
 		{
 			FontFamily = new FontFamily("Courier New");
 			Background = Brushes.Black;
-			WindowStartupLocation = WindowStartupLocation.CenterOwner;
+			SizeToContent = SizeToContent.WidthAndHeight;
+			WindowStartupLocation = WindowStartupLocation.CenterScreen;
+			PreviewKeyDown += exitKeyDown;
 
 			var commonControlStyle = new Style
 			{
@@ -41,6 +44,14 @@ namespace Roguelike.WpfClient.Windows
 			Resources.Add(typeof(Button), buttonStyle);
 			Resources.Add(typeof(ListBox), commonControlStyle);
 			Resources.Add(typeof(TextBox), commonControlStyle);
+		}
+
+		private void exitKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Escape)
+			{
+				DialogResult = false;
+			}
 		}
 	}
 }

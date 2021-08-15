@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 using Roguelike.Core;
 
@@ -54,14 +53,6 @@ namespace Roguelike.WpfClient.Windows
 		private void cancelClick(object sender, RoutedEventArgs e)
 		{
 			DialogResult = false;
-		}
-
-		private void exitKeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Key == Key.Escape)
-			{
-				DialogResult = false;
-			}
 		}
 	}
 }

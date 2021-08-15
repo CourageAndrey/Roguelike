@@ -14,6 +14,7 @@ namespace Roguelike.WpfClient.Windows
 	{
 		public MainWindow()
 		{
+			SizeToContent = SizeToContent.Manual;
 			InitializeComponent();
 		}
 

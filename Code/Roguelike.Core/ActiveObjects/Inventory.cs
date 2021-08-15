@@ -6,27 +6,27 @@ namespace Roguelike.Core.ActiveObjects
 {
 	public class Inventory : IInventory
 	{
-		private readonly List<Item> items = new List<Item>();
+		private readonly List<IItem> items = new List<IItem>();
 
-		public bool TryAdd(Item item)
+		public bool TryAdd(IItem item)
 		{
 			items.Add(item);
 			return true;
 		}
 
-		public bool TryDelete(Item item)
+		public bool TryDelete(IItem item)
 		{
 			items.Remove(item);
 			return true;
 		}
 
-		public Item this[int index]
+		public IItem this[int index]
 		{ get { return items[index]; } }
 
 		public int Count
 		{ get { return items.Count; } }
 
-		public IEnumerator<Item> GetEnumerator()
+		public IEnumerator<IItem> GetEnumerator()
 		{
 			return items.GetEnumerator();
 		}

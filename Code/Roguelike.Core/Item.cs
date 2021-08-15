@@ -2,7 +2,7 @@
 
 namespace Roguelike.Core
 {
-	public abstract class Item : IRequireGravitation
+	public abstract class Item : IItem
 	{
 		#region Properties
 

@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IInventory : IReadOnlyList<Item>
+	public interface IInventory : IReadOnlyList<IItem>
 	{
-		bool TryAdd(Item item);
+		bool TryAdd(IItem item);
 
-		bool TryDelete(Item item);
+		bool TryDelete(IItem item);
 	}
 
 	public static class InventoryHelper

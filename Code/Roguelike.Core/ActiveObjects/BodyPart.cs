@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.ActiveObjects
 {
-	public class BodyPart
+	public class BodyPart : IBodyPart
 	{
 		#region Properties
 
-		public Body Body
+		public IBody Body
 		{ get; }
 
-		public IReadOnlyList<BodyPart> Parts
+		public IReadOnlyList<IBodyPart> Parts
 		{ get; }
 
 		public bool IsVital
@@ -28,16 +29,16 @@ namespace Roguelike.Core.ActiveObjects
 
 		#region Constructors
 
-		internal BodyPart(Body body, double weight, Func<Language, string> getName, bool isVital = false)
-			: this(body, weight, getName, new BodyPart[0], isVital)
+		internal BodyPart(IBody body, double weight, Func<Language, string> getName, bool isVital = false)
+			: this(body, weight, getName, new IBodyPart[0], isVital)
 		{ }
 
-		internal BodyPart(Body body, double weight, Func<Language, string> getName, IList<BodyPart> parts, bool isVital = false)
+		internal BodyPart(IBody body, double weight, Func<Language, string> getName, IList<IBodyPart> parts, bool isVital = false)
 		{
 			Body = body;
 			Weight = weight;
 			this.getName = getName;
-			Parts = new ReadOnlyCollection<BodyPart>(parts);
+			Parts = new ReadOnlyCollection<IBodyPart>(parts);
 			IsVital = isVital;
 		}
 

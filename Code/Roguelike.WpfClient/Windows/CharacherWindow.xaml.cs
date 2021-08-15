@@ -4,7 +4,7 @@ using System.Windows.Input;
 using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Localization;
 
-namespace Roguelike.WpfClient
+namespace Roguelike.WpfClient.Windows
 {
 	public partial class CharacherWindow
 	{

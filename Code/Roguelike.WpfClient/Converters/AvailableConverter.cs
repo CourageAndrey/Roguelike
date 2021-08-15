@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Roguelike.WpfClient
+namespace Roguelike.WpfClient.Converters
 {
 	[ValueConversion(typeof(bool), typeof(Brush))]
 	public class AvailableConverter : IValueConverter

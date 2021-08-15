@@ -1,12 +1,13 @@
-﻿<local:RoguelikeWindow x:Class="Roguelike.WpfClient.ChoiceWindow"
+﻿<windows:RoguelikeWindow x:Class="Roguelike.WpfClient.Windows.ChoiceWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:Roguelike.WpfClient"
+        xmlns:windows="clr-namespace:Roguelike.WpfClient.Windows"
+        xmlns:converters="clr-namespace:Roguelike.WpfClient.Converters"
         SizeToContent="WidthAndHeight" MinHeight="200" MinWidth="200" PreviewKeyDown="exitKeyDown" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
-		<local:ItemSelectedConverter x:Key="validationConverter" />
-		<local:AvailableConverter x:Key="availableConverter" />
-		<local:BorderConverter x:Key="borderConverter" />
+		<converters:ItemSelectedConverter x:Key="validationConverter" />
+		<converters:AvailableConverter x:Key="availableConverter" />
+		<converters:BorderConverter x:Key="borderConverter" />
 	</Window.Resources>
 	<DockPanel LastChildFill="True">
 		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Name="buttonsPanel">
@@ -21,4 +22,4 @@
 			</ListBox.ItemTemplate>
 		</ListBox>
 	</DockPanel>
-</local:RoguelikeWindow>
+</windows:RoguelikeWindow>

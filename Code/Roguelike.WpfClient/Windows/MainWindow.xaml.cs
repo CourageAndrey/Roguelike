@@ -8,7 +8,7 @@ using System.Windows.Input;
 using Roguelike.Core;
 using Roguelike.Core.Interfaces;
 
-namespace Roguelike.WpfClient
+namespace Roguelike.WpfClient.Windows
 {
 	public partial class MainWindow
 	{

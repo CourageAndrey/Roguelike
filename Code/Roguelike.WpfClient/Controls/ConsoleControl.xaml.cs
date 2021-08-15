@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using Roguelike.Core;
 using Roguelike.Core.Interfaces;
 
-namespace Roguelike.WpfClient
+namespace Roguelike.WpfClient.Controls
 {
 	public partial class ConsoleControl
 	{

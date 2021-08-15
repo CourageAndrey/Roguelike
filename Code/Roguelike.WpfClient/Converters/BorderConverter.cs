@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Text;
 using System.Windows.Data;
 
-namespace Roguelike.WpfClient
+namespace Roguelike.WpfClient.Converters
 {
 	[ValueConversion(typeof(string), typeof(string))]
 	public class BorderConverter : IValueConverter

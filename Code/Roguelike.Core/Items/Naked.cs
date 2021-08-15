@@ -1,10 +1,11 @@
 ﻿using System;
 
 using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Items
 {
-	public class Naked : Item
+	public class Naked : Item, IHeadWear, IUpperBodyWear, ILowerBodyWear, ICoverWear, IHandWear, IFootWear
 	{
 		#region Properties
 

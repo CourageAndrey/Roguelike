@@ -56,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\AvailableConverter.cs" />
+    <Compile Include="Windows\BodyWindow.xaml.cs">
+      <DependentUpon>BodyWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\CharacherWindow.xaml.cs">
       <DependentUpon>CharacherWindow.xaml</DependentUpon>
     </Compile>
@@ -67,6 +70,12 @@
     <Compile Include="Windows\ChoiceWindow.xaml.cs">
       <DependentUpon>ChoiceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\EffectsWindow.xaml.cs">
+      <DependentUpon>EffectsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\InventoryWindow.xaml.cs">
+      <DependentUpon>InventoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -76,6 +85,9 @@
     </Compile>
     <Compile Include="Windows\MultiChoiceWindow.xaml.cs">
       <DependentUpon>MultiChoiceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PersonWindow.xaml.cs">
+      <DependentUpon>PersonWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\PickpocketWindow.xaml.cs">
       <DependentUpon>PickpocketWindow.xaml</DependentUpon>
@@ -93,10 +105,23 @@
     <Compile Include="ViewModels\TreeViewModel.cs" />
     <Compile Include="ViewModels\PoolViewModel.cs" />
     <Compile Include="ViewModels\WallViewModel.cs" />
+    <Compile Include="Windows\SkillsWindow.xaml.cs">
+      <DependentUpon>SkillsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\StatsWindow.xaml.cs">
+      <DependentUpon>StatsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\TradeWindow.xaml.cs">
       <DependentUpon>TradeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\WearingsWindow.xaml.cs">
+      <DependentUpon>WearingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WpfInterface.cs" />
+    <Page Include="Windows\BodyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\CharacherWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,6 +135,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ConsoleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EffectsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\InventoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -138,11 +171,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\PersonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\PickpocketWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\SkillsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\StatsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\TradeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WearingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

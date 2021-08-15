@@ -8,13 +8,13 @@
 	</Window.Resources>
 	<DockPanel LastChildFill="True">
 		<StackPanel DockPanel.Dock="Left" Orientation="Vertical" Name="buttonsPanel">
-			<Button Content="{Binding Path=UiCharacterGeneral, Converter={StaticResource borderConverter}, Mode=OneWay}" />
-			<Button Content="{Binding Path=UiCharacterBody, Converter={StaticResource borderConverter}, Mode=OneWay}" />
-			<Button Content="{Binding Path=UiCharacterEffects, Converter={StaticResource borderConverter}, Mode=OneWay}" />
-			<Button Content="{Binding Path=UiCharacterStats, Converter={StaticResource borderConverter}, Mode=OneWay}" />
-			<Button Content="{Binding Path=UiCharacterSkills, Converter={StaticResource borderConverter}, Mode=OneWay}" />
-			<Button Content="{Binding Path=UiCharacterWearedItems, Converter={StaticResource borderConverter}, Mode=OneWay}" />
-			<Button Content="{Binding Path=UiCharacterInventory, Converter={StaticResource borderConverter}, Mode=OneWay}" />
+			<Button Content="{Binding Path=UiCharacterGeneral, Converter={StaticResource borderConverter}, Mode=OneWay}" Click="generalClick" />
+			<Button Content="{Binding Path=UiCharacterBody, Converter={StaticResource borderConverter}, Mode=OneWay}" Click="bodyClick" />
+			<Button Content="{Binding Path=UiCharacterEffects, Converter={StaticResource borderConverter}, Mode=OneWay}" Click="effectsClick" />
+			<Button Content="{Binding Path=UiCharacterStats, Converter={StaticResource borderConverter}, Mode=OneWay}" Click="statsClick" />
+			<Button Content="{Binding Path=UiCharacterSkills, Converter={StaticResource borderConverter}, Mode=OneWay}" Click="skillsClick" />
+			<Button Content="{Binding Path=UiCharacterWearedItems, Converter={StaticResource borderConverter}, Mode=OneWay}" Click="wearedClick" />
+			<Button Content="{Binding Path=UiCharacterInventory, Converter={StaticResource borderConverter}, Mode=OneWay}" Click="inventoryClick" />
 		</StackPanel>
 	</DockPanel>
 	<!--StackPanel Orientation="Vertical">

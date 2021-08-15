@@ -19,11 +19,16 @@ namespace Roguelike.Core
 
 		public static void MakeMapKnown(this Hero hero, int viewDistance)
 		{
-			for (int x = 0; x < viewDistance; x++)
+			var region = hero.CurrentCell.Region;
+			for (int x = -viewDistance; x < viewDistance; x++)
 			{
-				for (int y = 0; y < viewDistance; y++)
+				for (int y = -viewDistance; y < viewDistance; y++)
 				{
-					hero.MapMemory.Add(hero.CurrentCell.Region.GetCell(x, y, 0));
+					var cell = region.GetCell(hero.CurrentCell.Position.X + x, hero.CurrentCell.Position.Y + y, 0);
+					if (cell != null)
+					{
+						hero.MapMemory.Add(cell);
+					}
 				}
 			}
 		}

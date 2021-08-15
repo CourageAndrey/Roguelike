@@ -81,6 +81,7 @@
     <Compile Include="StaticObjects\Fire.cs" />
     <Compile Include="StaticObjects\Stump.cs" />
     <Compile Include="StaticObjects\Tree.cs" />
+    <Compile Include="WorldGenerator.cs" />
     <Compile Include="WorldSave.cs" />
     <Compile Include="ListItem.cs" />
     <Compile Include="Interfaces\IUserInterface.cs" />

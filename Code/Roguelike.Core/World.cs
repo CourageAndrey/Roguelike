@@ -44,12 +44,7 @@ namespace Roguelike.Core
 				(byte) seed.Next(0, balance.DaysInWeek),
 				(uint) seed.Next(0, (int) balance.TicksInDay));
 
-			var regions = new Region[balance.DefaultRegionsCount];
-			for (int r = 0; r < balance.DefaultRegionsCount; r++)
-			{
-				regions[r] = new Region(this);
-			}
-			Regions = new ReadOnlyCollection<Region>(regions);
+			Regions = this.GenerateRegions(balance.DefaultRegionsCount);
 
 #warning Hero has to placed not just in first available region.
 			(Hero = new Hero(true, Time.FromYears(balance, 25), new Properties(), new Inventory(), "Andor Drakon")).MoveTo(Regions.First().GetCell(0, 0, 0));

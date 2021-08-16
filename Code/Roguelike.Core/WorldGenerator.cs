@@ -41,7 +41,7 @@ namespace Roguelike.Core
 					doorY = Math.Max(y1, y2);
 					break;
 				case Direction.Down:
-					doorX = (y1 + y2) / 2;
+					doorX = (x1 + x2) / 2;
 					doorY = Math.Min(y1, y2);
 					break;
 				default:

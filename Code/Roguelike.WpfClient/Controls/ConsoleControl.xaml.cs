@@ -42,7 +42,7 @@ namespace Roguelike.WpfClient.Controls
 		private CellViewModel[,] cellViewModels = new CellViewModel[0, 0];
 		private readonly RichTextBox richTextBox;
 		private ICamera camera;
-		private List<Cell> visibleCellsCache = new List<Cell>();
+		private ICollection<Cell> visibleCellsCache = new List<Cell>();
 
 		private void sizeChanged(object sender, EventArgs e)
 		{

@@ -45,13 +45,14 @@ namespace Roguelike.Core.Interfaces
 			return result;
 		}
 
-		public static List<Cell> SelectVisibleCells(this ICamera camera)
+		public static ICollection<Cell> SelectVisibleCells(this ICamera camera)
 		{
 			var cameraPosition = camera.Cell.Position;
 			var cameraRegion = camera.Cell.Region;
 			double visibleDistance = camera.Distance + 1;
 			int viewRadius = (int) Math.Ceiling(camera.Distance);
 			var result = new Dictionary<Cell, bool>();
+
 			for (int radius = 1; radius < viewRadius; radius++)
 			{
 				Vector vector;
@@ -87,8 +88,11 @@ namespace Roguelike.Core.Interfaces
 					}
 				}
 			}
-			var visibleCells = result.Where(c => c.Value).Select(c => c.Key).ToList();
-			visibleCells.Add(cameraRegion.GetCell(cameraPosition));
+
+			var visibleCells = new HashSet<Cell>(result.Where(c => c.Value).Select(c => c.Key))
+			{
+				cameraRegion.GetCell(cameraPosition)
+			};
 			foreach (var visibleCell in visibleCells)
 			{
 				camera.MapMemory.Add(visibleCell);

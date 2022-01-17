@@ -189,19 +189,107 @@ namespace Roguelike.Console
 
 		#region Implementation of IUserInterface
 
+		private void startDialog(Action code)
+		{
+			System.Console.Clear();
+			System.Console.CursorVisible = true;
+			System.Console.CursorTop = 0;
+			System.Console.CursorLeft = 0;
+			System.Console.ForegroundColor = ConsoleColor.White;
+			System.Console.BackgroundColor = ConsoleColor.Black;
+
+			code();
+
+			System.Console.CursorTop = 0;
+			System.Console.CursorLeft = 0;
+			System.Console.CursorVisible = false;
+			RedrawAll();
+		}
+
 		public void ShowMessage(string title, StringBuilder text)
 		{
-			throw new NotImplementedException();
+			startDialog(() =>
+			{
+				if (!string.IsNullOrEmpty(title))
+				{
+					System.Console.WriteLine($"=== {title} ===");
+					System.Console.WriteLine();
+				}
+
+				System.Console.Write(text);
+				System.Console.ReadKey();
+			});
 		}
 
 		public bool TrySelectItem(Game game, string question, IEnumerable<ListItem> items, out ListItem selectedItem)
 		{
-			throw new NotImplementedException();
+			bool result = false;
+			ListItem selected = null;
+
+			startDialog(() =>
+			{
+				System.Console.WriteLine(question);
+				System.Console.WriteLine();
+
+				var itemsList = new List<ListItem>(items);
+				int index = 1;
+				foreach (var item in itemsList)
+				{
+					System.Console.ForegroundColor = item.IsAvailable ? ConsoleColor.White : ConsoleColor.Gray;
+					System.Console.WriteLine($"{index++}. {item.Text}");
+				}
+
+				System.Console.WriteLine();
+
+				string input = System.Console.ReadLine();
+				if (int.TryParse(input, out index) &&
+					index >= 1 &&
+					index <= itemsList.Count &&
+					itemsList[index - 1].IsAvailable)
+				{
+					result = true;
+					selected = itemsList[index - 1];
+				}
+			});
+
+			selectedItem = selected;
+			return result;
 		}
 
 		public bool TrySelectItems(Game game, string question, IEnumerable<ListItem> items, out IList<ListItem> selectedItems)
 		{
-			throw new NotImplementedException();
+			var selected = new List<ListItem>();
+
+			startDialog(() =>
+			{
+				System.Console.WriteLine(question);
+				System.Console.WriteLine();
+
+				var itemsList = new List<ListItem>(items);
+				int index = 1;
+				foreach (var item in itemsList)
+				{
+					System.Console.ForegroundColor = item.IsAvailable ? ConsoleColor.White : ConsoleColor.Gray;
+					System.Console.WriteLine($"{index++}. {item.Text}");
+				}
+
+				System.Console.WriteLine();
+
+				string inputs = System.Console.ReadLine();
+				foreach (string input in (inputs ?? string.Empty).Split(" "))
+				{
+					if (int.TryParse(input, out index) &&
+						index >= 1 &&
+						index <= itemsList.Count &&
+						itemsList[index - 1].IsAvailable)
+					{
+						selected.Add(itemsList[index - 1]);
+					}
+				}
+			});
+
+			selectedItems = selected;
+			return selectedItems.Count > 0;
 		}
 
 		public void ShowCharacter(Game game, Humanoid humanoid)

@@ -1,8 +1,0 @@
-﻿<windows:RoguelikeWindow x:Class="Roguelike.WpfClient.Windows.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:windows="clr-namespace:Roguelike.WpfClient.Windows"
-        xmlns:controls="clr-namespace:Roguelike.WpfClient.Controls"
-        Title="Roguelike" Height="600" Width="800" Loaded="windowLoaded" PreviewKeyDown="keyPress" WindowState="Maximized" >
-	<controls:ConsoleControl x:Name="consoleControl" />
-</windows:RoguelikeWindow>

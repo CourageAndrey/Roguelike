@@ -77,12 +77,17 @@ namespace Roguelike.Console
 
 			var cells = _camera.SelectRegionCells(_screenWidth, _screenHeight);
 			_visibleCellsCache = _camera.SelectVisibleCells();
+			Redraw(cells, 0, _screenHeight, 0, _screenWidth);
+		}
+
+		public void Redraw(Cell[][] cells, int minRow, int maxRow, int minColumn, int maxColumn)
+		{
 			var text = new StringBuilder();
 			System.Console.ForegroundColor = ObjectViewModel.DefaultForeground;
 			System.Console.BackgroundColor = ObjectViewModel.DefaultBackground;
-			for (int r = 0; r < _screenHeight; r++)
+			for (int r = minRow; r < maxRow; r++)
 			{
-				for (int c = 0; c < _screenWidth; c++)
+				for (int c = minColumn; c < maxColumn; c++)
 				{
 					Cell currentCell;
 					_cellViewModels[c, r].Cell = currentCell = cells[r][c];

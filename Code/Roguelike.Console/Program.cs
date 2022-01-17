@@ -20,20 +20,19 @@ namespace Roguelike.Console
 			var world = game.World;
 			var hero = world.Hero;
 			game.StateChanged += (g, state) =>
-			{/*
-				var game.Language = g.game.Language;
+			{
 				switch (state)
 				{
 					case GameState.Win:
-						new RoguelikeWindow { Title = Title, Content = language.GameWin }.ShowDialog();
-						consoleControl.IsEnabled = false;
+						ui.ShowMessage(null, new StringBuilder(language.GameWin));
+						Environment.Exit(0);
 						break;
 					case GameState.Defeat:
-						new RoguelikeWindow { Title = Title, Content = language.GameDefeat }.ShowDialog();
-						consoleControl.IsEnabled = false;
+						ui.ShowMessage(null, new StringBuilder(language.GameDefeat));
+						Environment.Exit(0);
 						break;
 				}
-			*/};
+			};
 			game.Start();
 
 			ui.Camera = hero;

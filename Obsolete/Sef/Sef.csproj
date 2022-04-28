@@ -104,23 +104,6 @@
       <DependentUpon>SpinEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UiHelper.cs" />
-    <Compile Include="Xml\Convertors\BoolConvertor.cs" />
-    <Compile Include="Xml\Convertors\ByteConvertor.cs" />
-    <Compile Include="Xml\Convertors\DateTimeConvertor.cs" />
-    <Compile Include="Xml\Convertors\DecimalConvertor.cs" />
-    <Compile Include="Xml\Convertors\DoubleConvertor.cs" />
-    <Compile Include="Xml\Convertors\Int16Convertor.cs" />
-    <Compile Include="Xml\Convertors\Int32Convertor.cs" />
-    <Compile Include="Xml\Convertors\Int64Convertor.cs" />
-    <Compile Include="Xml\Convertors\SbyteConvertor.cs" />
-    <Compile Include="Xml\Convertors\SingleConvertor.cs" />
-    <Compile Include="Xml\Convertors\StringConvertor.cs" />
-    <Compile Include="Xml\Convertors\TimeSpanConvertor.cs" />
-    <Compile Include="Xml\Convertors\Uint16Convertor.cs" />
-    <Compile Include="Xml\Convertors\Uint32Convertor.cs" />
-    <Compile Include="Xml\Convertors\Uint64Convertor.cs" />
-    <Compile Include="Xml\IXmlConvertor.cs" />
-    <Compile Include="Xml\XmlConvertorBase.cs" />
     <Compile Include="Xml\XmlHelper.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -4,11 +4,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
-
-using Sef.Localization;
 
 namespace Sef.Xml
 {
@@ -79,108 +76,15 @@ namespace Sef.Xml
 
 		#region Attributes
 
-		#region Work methods
-
-		public static void SetAttributeEx<T>(this XmlElement element, String attribute, T value, IXmlConvertor<T> convertor = null)
+		public static void SetAttribute<T>(this XmlElement element, String attribute, T value)
 		{
-			element.SetAttribute(attribute, getConvertor(convertor).ConvertToString(value));
+			element.SetAttribute(attribute, (string) Convert.ChangeType(value, typeof(string)));
 		}
 
-		public static T GetAttributeEx<T>(this XmlElement element, String attribute, IXmlConvertor<T> convertor = null)
+		public static T GetAttribute<T>(this XmlElement element, String attribute)
 		{
-			return getConvertor(convertor).ParseEx(element.GetAttribute(attribute));
+			return (T) Convert.ChangeType(element.GetAttribute(attribute), typeof(T));
 		}
-
-		public static void SetAttributeEnum<EnumT>(this XmlElement element, String attribute, EnumT value)
-		  where EnumT : struct
-		{
-			element.SetAttribute(attribute, value.ToString());
-		}
-
-		public static EnumT GetAttributeEnum<EnumT>(this XmlElement element, String attribute)
-		  where EnumT : struct
-		{
-			return (EnumT)Enum.Parse(typeof(EnumT), element.GetAttribute(attribute), true);
-		}
-
-		#endregion
-
-		#region Conversion mechanism
-
-		public static ICollection<Type> GetSupportedAttributeTypes()
-		{
-			var resultList = new List<Type>();
-			resultList.AddRange(customConvertors.Keys);
-			resultList.AddRange(defaultConvertors.Keys.Where(t => !resultList.Contains(t)));
-			return resultList.AsReadOnly();
-		}
-
-		public static void RegisterCustomConvertor<T>(IXmlConvertor<T> convertor)
-		{
-			if (convertor != null)
-			{
-				customConvertors[typeof(T)] = convertor;
-			}
-			else
-			{
-				throw new ArgumentNullException("convertor");
-			}
-		}
-
-		public static void RemoveCustomConvertor<T>()
-		{
-			if (customConvertors.ContainsKey(typeof(T)))
-			{
-				customConvertors.Remove(typeof(T));
-			}
-			else
-			{
-				throw new TypeNotSupportedException(typeof(T));
-			}
-		}
-
-		private static IXmlConvertor<T> getConvertor<T>(IXmlConvertor<T> convertor)
-		{
-			if (convertor == null)
-			{
-				IXmlConvertor c;
-				if (customConvertors.TryGetValue(typeof(T), out c) || defaultConvertors.TryGetValue(typeof(T), out c))
-				{
-					convertor = (IXmlConvertor<T>) c;
-				}
-				else
-				{
-					throw new TypeNotSupportedException(typeof(T));
-				}
-			}
-			return convertor;
-		}
-
-		private static readonly Dictionary<Type, IXmlConvertor> defaultConvertors = new Dictionary<Type, IXmlConvertor>();
-		private static readonly Dictionary<Type, IXmlConvertor> customConvertors = new Dictionary<Type, IXmlConvertor>();
-
-		static XmlHelper()
-		{
-            IEnumerable<Type> types = Assembly.GetAssembly(typeof(IXmlConvertor)).GetTypes();
-            types = types.Where(t => t.IsClass && t.IsSealed && typeof(IXmlConvertor).IsAssignableFrom(t) && (t.BaseType != null));
-
-            foreach (var convertorType in types)
-			{
-			    if (convertorType.BaseType != null)
-			    {
-                    defaultConvertors[convertorType.BaseType.GetGenericArguments().Single()] = (IXmlConvertor) Activator.CreateInstance(convertorType);
-			    }
-			}
-		}
-
-		private class TypeNotSupportedException : NotSupportedException
-		{
-			public TypeNotSupportedException(Type type)
-				: base(String.Format(Language.Current.Errors.TypeNotSerializable, type.FullName))
-			{ }
-		}
-
-		#endregion
 
 		#endregion
 

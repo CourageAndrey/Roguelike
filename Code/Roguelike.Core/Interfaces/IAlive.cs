@@ -31,5 +31,7 @@
 
 		double Toughness
 		{ get; }
+
+		ActionResult Attack(IAlive target);
 	}
 }

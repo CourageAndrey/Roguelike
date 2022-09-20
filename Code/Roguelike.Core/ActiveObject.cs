@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-
+using System.Linq;
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core
@@ -29,13 +29,23 @@ namespace Roguelike.Core
 					? newCell.Position.GetDistance(CurrentCell.Position)
 					: 0;
 				var language = game.Language;
-				return TryMoveTo(newCell)
-					? new ActionResult(
-						Time.FromTicks(balance, (int)(balance.ActionLongevityStep * distance)),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormatMove, this, oldPosition, newCell.Position))
-					: new ActionResult(
-						Time.FromTicks(balance, balance.ActionLongevityDisabled),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormatMoveDisabled, this, oldPosition, newCell.Position));
+
+				var alive = this as IAlive;
+				IAlive target = null;
+				if (alive?.IsAgressive == true && (target = newCell.Objects.OfType<IAlive>().FirstOrDefault()) != null)
+				{
+					return alive.Attack(target);
+				}
+				else
+				{
+					return TryMoveTo(newCell)
+						? new ActionResult(
+							Time.FromTicks(balance, (int)(balance.ActionLongevityStep * distance)),
+							string.Format(CultureInfo.InvariantCulture, language.LogActionFormatMove, this, oldPosition, newCell.Position))
+						: new ActionResult(
+							Time.FromTicks(balance, balance.ActionLongevityDisabled),
+							string.Format(CultureInfo.InvariantCulture, language.LogActionFormatMoveDisabled, this, oldPosition, newCell.Position));
+				}
 			}
 			else
 			{

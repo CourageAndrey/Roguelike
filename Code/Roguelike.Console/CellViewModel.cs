@@ -57,7 +57,7 @@ namespace Roguelike.Console
 			{
 				hero.SelectVisibleCells();
 				hero.RefreshCamera();
-				if (hero.MapMemory.Contains(_cell))
+				if (hero.MapMemory.Contains(_cell) && IsVisible)
 				{
 					Update();
 				}
@@ -71,14 +71,11 @@ namespace Roguelike.Console
 				CurrentObjectView = _cell != null ? ConsoleUiHelper.GetModel(_cell) : ObjectViewModel.Empty;
 			}
 
-			if (IsVisible)
-			{
-				System.Console.CursorLeft = X;
-				System.Console.CursorTop = Y;
-				System.Console.ForegroundColor = IsVisible ? CurrentObjectView.Foreground : ToGrayScale(CurrentObjectView.Foreground);
-				System.Console.BackgroundColor = IsVisible ? CurrentObjectView.Background : ToGrayScale(CurrentObjectView.Background);
-				System.Console.Write(CurrentObjectView.Text);
-			}
+			System.Console.CursorLeft = X;
+			System.Console.CursorTop = Y;
+			System.Console.ForegroundColor = IsVisible ? CurrentObjectView.Foreground : ToGrayScale(CurrentObjectView.Foreground);
+			System.Console.BackgroundColor = IsVisible ? CurrentObjectView.Background : ToGrayScale(CurrentObjectView.Background);
+			System.Console.Write(CurrentObjectView.Text);
 		}
 
 		public static ConsoleColor ToGrayScale(ConsoleColor color)

@@ -81,6 +81,9 @@
 		public int HeroInitialViewDistance
 		{ get; set; }
 
+		public int ActionLongevityAttack
+		{ get; set; }
+
 		#endregion
 
 		#endregion
@@ -96,6 +99,7 @@
 				ActionLongevityChopTree = 24 * 60 * 60 * 1000,
 				ActionLongevityChangeWeapon = 1000,
 				ActionLongevityWait = 500,
+				ActionLongevityAttack = 1000,
 
 				BeginYear = 1400,
 				MonthInYear = 12,

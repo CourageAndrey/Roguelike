@@ -118,5 +118,20 @@ namespace Roguelike.Core.ActiveObjects
 				})
 			};
 		}
+
+		public virtual ActionResult Attack(IAlive target)
+		{
+			var world = CurrentCell.Region.World;
+			var game = world.Game;
+			var balance = game.Balance;
+			var language = game.Language;
+
+			((AliveObject) target).Die($"killed by {this}");
+#warning Translate message.
+
+			return new ActionResult(
+				Time.FromTicks(balance, (int)(balance.ActionLongevityAttack)),
+				string.Format(CultureInfo.InvariantCulture, language.LogActionFormatAttack, this, target, WeaponToFight));
+		}
 	}
 }

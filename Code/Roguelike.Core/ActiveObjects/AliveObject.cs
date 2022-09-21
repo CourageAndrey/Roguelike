@@ -36,7 +36,7 @@ namespace Roguelike.Core.ActiveObjects
 		public double Weight
 		{ get { return Body.Weight + Inventory.GetItemsWeight(); } }
 
-		public IItem WeaponToFight
+		public IWeapon WeaponToFight
 		{ get; private set; }
 
 		public bool IsAgressive

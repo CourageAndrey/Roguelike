@@ -1,6 +1,8 @@
-﻿namespace Roguelike.Core.Items
+﻿using Roguelike.Core.Interfaces;
+
+namespace Roguelike.Core.Items
 {
-	public class Hatchet : Item
+	public class Hatchet : Item, IWeapon
 	{
 		#region Properties
 

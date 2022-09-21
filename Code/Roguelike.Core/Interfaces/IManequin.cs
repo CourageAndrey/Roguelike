@@ -22,10 +22,7 @@ namespace Roguelike.Core.Interfaces
 		IFootWear FootsWear
 		{ get; }
 
-		ICollection<INecklace> Necklaces
-		{ get; }
-
-		ICollection<IRing> Rings
+		ICollection<IJewelry> Jewelry
 		{ get; }
 	}
 
@@ -63,14 +60,9 @@ namespace Roguelike.Core.Interfaces
 				yield return manequin.FootsWear;
 			}
 
-			foreach (var necklace in manequin.Necklaces)
+			foreach (var jewelry in manequin.Jewelry)
 			{
-				yield return necklace;
-			}
-
-			foreach (var ring in manequin.Rings)
-			{
-				yield return ring;
+				yield return jewelry;
 			}
 		}
 	}

@@ -6,30 +6,33 @@
 		{ get; }
 	}
 
-	#region Item interfaces
-
-	public interface IHeadWear : IItem
+	public interface IWear : IItem
 	{ }
 
-	public interface IUpperBodyWear : IItem
+	public interface IWeapon : IItem
 	{ }
 
-	public interface ILowerBodyWear : IItem
+	#region Wear interfaces
+
+	public interface IHeadWear : IWear
 	{ }
 
-	public interface ICoverWear : IItem
+	public interface IUpperBodyWear : IWear
 	{ }
 
-	public interface IHandWear : IItem
+	public interface ILowerBodyWear : IWear
 	{ }
 
-	public interface IFootWear : IItem
+	public interface ICoverWear : IWear
 	{ }
 
-	public interface INecklace : IItem
+	public interface IHandWear : IWear
 	{ }
 
-	public interface IRing : IItem
+	public interface IFootWear : IWear
+	{ }
+
+	public interface IJewelry : IWear
 	{ }
 
 	#endregion

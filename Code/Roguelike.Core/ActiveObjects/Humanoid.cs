@@ -34,10 +34,7 @@ namespace Roguelike.Core.ActiveObjects
 		public IFootWear FootsWear
 		{ get; private set; }
 
-		public ICollection<INecklace> Necklaces
-		{ get; }
-
-		public ICollection<IRing> Rings
+		public ICollection<IJewelry> Jewelry
 		{ get; }
 
 		public IDictionary<Skill, int> Skills
@@ -136,8 +133,7 @@ namespace Roguelike.Core.ActiveObjects
 			CoverWear = new Naked(this);
 			HandsWear = new Naked(this);
 			FootsWear = new Naked(this);
-			Necklaces = new List<INecklace>();
-			Rings = new List<IRing>();
+			Jewelry = new List<IJewelry>();
 
 			Skills = new Dictionary<Skill, int>();
 			SkillExperience = new Dictionary<Skill, double>();

@@ -145,7 +145,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		public override Body CreateBody()
 		{
-			return ActiveObjects.Body.CreateHumanoid(this);
+			return ActiveObjects.Body.CreateHumanoid();
 		}
 
 		public override List<Interaction> GetAvailableInteractions(Object actor)

@@ -9,29 +9,25 @@ namespace Roguelike.Core.ActiveObjects
 	{
 		#region Properties
 
-		public IAlive Owner
-		{ get; }
-
 		public ICollection<BodyPart> Parts
 		{ get; }
 
 		public double Weight
-		{ get { return Owner.Toughness * Parts.Sum(part => part.Weight); } }
+		{ get { return Parts.Sum(part => part.Weight); } }
 
 		#endregion
 
-		private Body(AliveObject owner, ICollection<BodyPart> parts)
+		private Body(ICollection<BodyPart> parts)
 		{
-			Owner = owner;
 			Parts = parts;
 		}
 
 		#region Body constructors
 
-		public static Body CreateHumanoid(AliveObject owner)
+		public static Body CreateHumanoid()
 		{
 			var parts = new List<BodyPart>();
-			var body = new Body(owner, parts);
+			var body = new Body(parts);
 			parts.AddRange(new[]
 			{
 				createUsualHead(body, 32),
@@ -45,10 +41,10 @@ namespace Roguelike.Core.ActiveObjects
 			return body;
 		}
 
-		public static Body CreateAnimal(AliveObject owner)
+		public static Body CreateAnimal()
 		{
 			var parts = new List<BodyPart>();
-			var body = new Body(owner, parts);
+			var body = new Body(parts);
 			parts.AddRange(new[]
 			{
 				createUsualHead(body, 20),

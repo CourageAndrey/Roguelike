@@ -1,5 +1,8 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
+
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core
@@ -53,5 +56,20 @@ namespace Roguelike.Core
 			}
 #warning Take reflexes speed into account.
 		}
+
+		#region Log messages
+
+		public event LogMessageRaisedDelegate OnLogMessage;
+
+		protected void WriteToLog(ICollection<string> messages)
+		{
+			var handler = Volatile.Read(ref OnLogMessage);
+			if (handler != null)
+			{
+				handler(this, messages);
+			}
+		}
+
+		#endregion
 	}
 }

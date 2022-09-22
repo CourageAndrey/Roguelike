@@ -7,7 +7,7 @@ namespace Roguelike.Core.Interfaces
 		IBody Body
 		{ get; }
 
-		IReadOnlyList<IBodyPart> Parts
+		IReadOnlyCollection<IBodyPart> Parts
 		{ get; }
 
 		bool IsVital

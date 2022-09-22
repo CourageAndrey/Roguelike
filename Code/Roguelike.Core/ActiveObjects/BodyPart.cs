@@ -14,7 +14,7 @@ namespace Roguelike.Core.ActiveObjects
 		public IBody Body
 		{ get; }
 
-		public IReadOnlyList<IBodyPart> Parts
+		public IReadOnlyCollection<IBodyPart> Parts
 		{ get; }
 
 		public bool IsVital

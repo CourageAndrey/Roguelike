@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Roguelike.Core.Interfaces;
+
 namespace Roguelike.Core
 {
 	public class Region
@@ -177,6 +179,12 @@ namespace Roguelike.Core
 				{
 					actives = actives.OrderBy(a => a.NextActionTime).ToList();
 				}
+
+				foreach (var active in actives)
+				{
+					active.OnLogMessage += OnLogMessage;
+				}
+
 				_activeCache = new Queue<ActiveObject>(actives);
 			}
 			return _activeCache;
@@ -184,10 +192,25 @@ namespace Roguelike.Core
 
 		internal void ResetActiveCache()
 		{
+			if (_activeCache != null)
+			{
+				foreach (var active in _activeCache)
+				{
+					active.OnLogMessage -= OnLogMessage;
+				}
+			}
 			_activeCache = null;
 		}
 
 		private Queue<ActiveObject> _activeCache;
+
+		private void OnLogMessage(IActive sender, ICollection<string> messages)
+		{
+			foreach (string line in messages)
+			{
+				World.Game.WriteLog(line);
+			}
+		}
 
 		#endregion
 	}

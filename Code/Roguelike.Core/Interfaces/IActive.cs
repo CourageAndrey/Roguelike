@@ -2,7 +2,7 @@
 {
 	public interface IActive
 	{
-		Time NextActionTime
+		Time? NextActionTime
 		{ get; }
 
 		ActionResult Do();

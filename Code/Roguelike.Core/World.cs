@@ -90,10 +90,10 @@ namespace Roguelike.Core
 			{
 				Game.WriteLog(line);
 			}
-			actor.NextActionTime = actor.NextActionTime + actionResult.Longevity;
+			actor.NextActionTime += actionResult.Longevity;
 			if ((actor.NextActionTime != null) && (actor.NextActionTime > time))
 			{
-				time = actor.NextActionTime;
+				time = actor.NextActionTime.Value;
 			}
 		}
 

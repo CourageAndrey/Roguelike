@@ -4,7 +4,7 @@ using Roguelike.Core.Configuration;
 
 namespace Roguelike.Core
 {
-	public class Time : IEquatable<Time>, IComparable<Time>
+	public struct Time : IEquatable<Time>, IComparable<Time>
 	{
 		#region Properties
 

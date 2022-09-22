@@ -50,7 +50,6 @@ namespace Roguelike.Core.ActiveObjects
 
 		protected AliveObject(bool sexIsMale, Time age, IProperties properties, IInventory inventory)
 		{
-			if (age == null) throw new ArgumentNullException(nameof(age));
 			if (properties == null) throw new ArgumentNullException(nameof(properties));
 			if (inventory == null) throw new ArgumentNullException(nameof(inventory));
 

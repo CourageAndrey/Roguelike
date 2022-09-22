@@ -43,7 +43,7 @@ namespace Roguelike.Core
 			get
 			{
 				var logString = new StringBuilder();
-				foreach (var line in log.Reverse())
+				foreach (var line in _log.Reverse())
 				{
 					logString.AppendLine(line);
 				}
@@ -55,15 +55,15 @@ namespace Roguelike.Core
 		{
 			if (!string.IsNullOrEmpty(message))
 			{
-				if (log.Count == Balance.MaxLogSize)
+				if (_log.Count == Balance.MaxLogSize)
 				{
-					log.Dequeue();
+					_log.Dequeue();
 				}
-				log.Enqueue(message);
+				_log.Enqueue(message);
 			}
 		}
 
-		private readonly Queue<string> log;
+		private readonly Queue<string> _log;
 
 		#endregion
 
@@ -73,7 +73,7 @@ namespace Roguelike.Core
 		{
 			Balance = balance;
 			State = GameState.Initialize;
-			log = new Queue<string>(balance.MaxLogSize);
+			_log = new Queue<string>(balance.MaxLogSize);
 			World = world ?? new World(this);
 			Language = language;
 			UserInterface = userInterface;

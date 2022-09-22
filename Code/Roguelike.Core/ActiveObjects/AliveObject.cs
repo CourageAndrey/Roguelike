@@ -81,12 +81,17 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			IsDead = true;
 			DeadReason = reason;
+
+#warning Localize
+			WriteToLog($"{this} die: {reason}");
+
 			var corpse = new Corpse(this);
 			if (CurrentCell != null)
 			{
 				CurrentCell.AddObject(corpse);
 				CurrentCell.RemoveObject(this);
 			}
+
 			return corpse;
 		}
 

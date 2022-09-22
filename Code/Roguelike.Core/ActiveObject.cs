@@ -70,6 +70,11 @@ namespace Roguelike.Core
 			}
 		}
 
+		protected void WriteToLog(string message)
+		{
+			WriteToLog(new[] { message });
+		}
+
 		#endregion
 	}
 }

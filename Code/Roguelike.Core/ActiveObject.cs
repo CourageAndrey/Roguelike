@@ -40,10 +40,10 @@ namespace Roguelike.Core
 				{
 					return TryMoveTo(newCell)
 						? new ActionResult(
-							Time.FromTicks(balance, (int)(balance.ActionLongevityStep * distance)),
+							Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Step * distance)),
 							string.Format(CultureInfo.InvariantCulture, language.LogActionFormatMove, this, oldPosition, newCell.Position))
 						: new ActionResult(
-							Time.FromTicks(balance, balance.ActionLongevityDisabled),
+							Time.FromTicks(balance.Time, balance.ActionLongevity.Disabled),
 							string.Format(CultureInfo.InvariantCulture, language.LogActionFormatMoveDisabled, this, oldPosition, newCell.Position));
 				}
 			}

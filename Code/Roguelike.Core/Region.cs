@@ -23,11 +23,11 @@ namespace Roguelike.Core
 		public Region(World world)
 		{
 			World = world;
-			var balance = world.Game.Balance;
+			var balance = world.Game.Balance.WorldSize;
 			Size = new Vector(
-				balance.DefaultRegionXdimension,
-				balance.DefaultRegionYdimension,
-				balance.DefaultRegionZdimension);
+				balance.RegionXdimension,
+				balance.RegionYdimension,
+				balance.RegionZdimension);
 			cells = new Cell[Size.X, Size.Y, Size.Z];
 			for (int x = 0; x < Size.X; x++)
 			{

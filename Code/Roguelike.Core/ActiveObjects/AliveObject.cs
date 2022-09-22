@@ -85,7 +85,7 @@ namespace Roguelike.Core.ActiveObjects
 			if (IsAgressive != agressive)
 			{
 				IsAgressive = agressive;
-				time = balance.ActionLongevityChangeWeapon;
+				time = balance.ActionLongevity.ChangeWeapon;
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,
 					IsAgressive ? language.LogActionFormatStartFight : language.LogActionFormatStopFight,
@@ -94,10 +94,10 @@ namespace Roguelike.Core.ActiveObjects
 			}
 			else
 			{
-				time = balance.ActionLongevityDisabled;
+				time = balance.ActionLongevity.Disabled;
 				logMessage = string.Format(CultureInfo.InvariantCulture, language.LogActionFormatChangeWeaponDisabled, this);
 			}
-			return new ActionResult(Time.FromTicks(balance, time), logMessage);
+			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage);
 		}
 
 		public abstract Body CreateBody();
@@ -130,7 +130,7 @@ namespace Roguelike.Core.ActiveObjects
 #warning Translate message.
 
 			return new ActionResult(
-				Time.FromTicks(balance, (int)(balance.ActionLongevityAttack)),
+				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Attack)),
 				string.Format(CultureInfo.InvariantCulture, language.LogActionFormatAttack, this, target, WeaponToFight));
 		}
 	}

@@ -32,7 +32,7 @@ namespace Roguelike.Core
 
 		internal static ActionResult GetEmpty(Balance balance)
 		{
-			return new ActionResult(Time.FromTicks(balance, balance.ActionLongevityNull), string.Empty);
+			return new ActionResult(Time.FromTicks(balance.Time, balance.ActionLongevity.Null), string.Empty);
 		}
 	}
 }

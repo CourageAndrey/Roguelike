@@ -15,8 +15,24 @@ namespace Roguelike.Core.ActiveObjects
 		public bool SexIsMale
 		{ get; private set; }
 
-		public Time Age
-		{ get; private set; }
+		public Time BirthDate
+		{ get; }
+
+		public uint Age
+		{
+			get
+			{
+				if (CurrentCell != null)
+				{
+					var world = CurrentCell.Region.World;
+					return (uint) (world.Time - BirthDate).Year;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+		}
 
 		public IProperties Properties
 		{ get; private set; }
@@ -48,13 +64,13 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected AliveObject(bool sexIsMale, Time age, IProperties properties, IInventory inventory)
+		protected AliveObject(bool sexIsMale, Time birthDate, IProperties properties, IInventory inventory)
 		{
 			if (properties == null) throw new ArgumentNullException(nameof(properties));
 			if (inventory == null) throw new ArgumentNullException(nameof(inventory));
 
 			SexIsMale = sexIsMale;
-			Age = age;
+			BirthDate = birthDate;
 			Properties = properties;
 			Body = CreateBody();
 			Inventory = inventory;

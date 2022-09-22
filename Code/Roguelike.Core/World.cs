@@ -45,7 +45,7 @@ namespace Roguelike.Core
 			Regions = this.GenerateRegions(balance.WorldSize.RegionsCount);
 			var region = Regions.First();
 
-			Hero = new Hero(true, Time.FromYears(balance.Time, 25), new Properties(), new Inventory(), "Andor Drakon");
+			Hero = new Hero(true, _time.AddYears(-25), new Properties(), new Inventory(), "Andor Drakon");
 			var heroCell = region.GetCell(
 				seed.Next(10, balance.WorldSize.RegionXdimension - 50),
 				seed.Next(10, balance.WorldSize.RegionYdimension - 50),

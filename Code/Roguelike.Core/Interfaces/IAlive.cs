@@ -5,7 +5,7 @@
 		bool SexIsMale
 		{ get; }
 
-		Time Age
+		uint Age
 		{ get; }
 
 		IProperties Properties

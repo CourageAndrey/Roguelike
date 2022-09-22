@@ -14,8 +14,8 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public Animal(bool sexIsMale, Time age, Properties properties, IInventory inventory)
-			: base(sexIsMale, age, properties, inventory)
+		public Animal(bool sexIsMale, Time birthDate, Properties properties, IInventory inventory)
+			: base(sexIsMale, birthDate, properties, inventory)
 		{ }
 
 		public override ActionResult Do()

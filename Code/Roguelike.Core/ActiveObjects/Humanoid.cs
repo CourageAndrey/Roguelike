@@ -110,7 +110,7 @@ namespace Roguelike.Core.ActiveObjects
 				return new Text(string.Format(
 					CultureInfo.InvariantCulture,
 					language.AnswerFormatAge,
-					Age.Year));
+					Age));
 			}
 			else
 			{
@@ -120,8 +120,8 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected Humanoid(bool sexIsMale, Time age, IProperties properties, IInventory inventory, string name)
-			: base(sexIsMale, age, properties, inventory)
+		protected Humanoid(bool sexIsMale, Time birthDate, IProperties properties, IInventory inventory, string name)
+			: base(sexIsMale, birthDate, properties, inventory)
 		{
 			if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
 

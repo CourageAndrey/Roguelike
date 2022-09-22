@@ -140,13 +140,13 @@ namespace Roguelike.Core
 
 			for (int i = 0; i < totalHouses; i++)
 			{
-				var husband = new Npc(true, Time.FromYears(balance.Time, 50), new Properties(), new Inventory(), "John Smith " + i);
+				var husband = new Npc(true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(), new Inventory(), "John Smith " + i);
 				husband.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var wife = new Npc(false, Time.FromYears(balance.Time, 50), new Properties(), new Inventory(), "Mary Poppins " + i);
+				var wife = new Npc(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(), new Inventory(), "Mary Poppins " + i);
 				wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var pet = new Animal(false, Time.FromYears(balance.Time, 5), new Properties(), new Inventory()) { Owner = husband };
+				var pet = new Animal(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), new Properties(), new Inventory()) { Owner = husband };
 				pet.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 			}
 		}

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roguelike.Core", "Roguelike
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roguelike.Console", "Roguelike.Console\Roguelike.Console.csproj", "{19ADB3E0-D435-4417-BD90-F62D412AE31A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roguelike.Tests", "Roguelike.Tests\Roguelike.Tests.csproj", "{7D4DCEC3-9C15-4A1E-BA34-A5E29C51400B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{19ADB3E0-D435-4417-BD90-F62D412AE31A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19ADB3E0-D435-4417-BD90-F62D412AE31A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19ADB3E0-D435-4417-BD90-F62D412AE31A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D4DCEC3-9C15-4A1E-BA34-A5E29C51400B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D4DCEC3-9C15-4A1E-BA34-A5E29C51400B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D4DCEC3-9C15-4A1E-BA34-A5E29C51400B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D4DCEC3-9C15-4A1E-BA34-A5E29C51400B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

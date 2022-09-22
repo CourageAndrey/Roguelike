@@ -22,7 +22,10 @@ namespace Roguelike.Core
 		public byte Day
 		{ get; }
 
-		internal uint Ticks
+		public short MonthDay
+		{ get { return (short) (Week * _balance.DaysInWeek + Day); } }
+
+		public uint Ticks
 		{ get; }
 
 		#endregion
@@ -82,8 +85,18 @@ namespace Roguelike.Core
 
 		#region Comparison
 
+		private static void EnsureSameBalance(TimeBalance balance1, TimeBalance balance2)
+		{
+			if (balance1 != balance2)
+			{
+				throw new InvalidOperationException("Impossible to compare date & time with different scale.");
+			}
+		}
+
 		public bool Equals(Time other)
 		{
+			EnsureSameBalance(_balance, other._balance);
+
 			return	Year == other.Year &&
 					Month == other.Month &&
 					Week == other.Week &&
@@ -93,6 +106,8 @@ namespace Roguelike.Core
 
 		public int CompareTo(Time other)
 		{
+			EnsureSameBalance(_balance, other._balance);
+
 			int result = Year.CompareTo(other.Year);
 			if (result == 0)
 			{
@@ -133,12 +148,24 @@ namespace Roguelike.Core
 			return a.CompareTo(b) <= 0;
 		}
 
+		public static bool operator ==(Time a, Time b)
+		{
+			return a.Equals(b);
+		}
+
+		public static bool operator !=(Time a, Time b)
+		{
+			return !a.Equals(b);
+		}
+
 		#endregion
 
 		#region Mathematics
 
 		public Time AddYears(int delta)
 		{
+			if (delta == 0) return this;
+
 			return new Time(
 				_balance,
 				Year + delta,
@@ -150,74 +177,130 @@ namespace Roguelike.Core
 
 		public Time AddMonths(int delta)
 		{
-			int nextLevelDelta = (Month + delta) / _balance.MonthInYear;
-			int thisLevelValue = (Month + delta) % _balance.MonthInYear;
-			var result = this;
-			if (nextLevelDelta != 0)
+			if (delta == 0) return this;
+
+			int thisLevelValue = Month + delta;
+			int nextLevelDelta;
+			int multiplier = _balance.MonthInYear;
+
+			if (thisLevelValue < 0)
 			{
-				result = result.AddYears(nextLevelDelta);
+				nextLevelDelta = - (int) Math.Ceiling((double) Math.Abs(thisLevelValue) / multiplier);
+				thisLevelValue -= nextLevelDelta * multiplier;
 			}
+			else if (thisLevelValue >= multiplier)
+			{
+				nextLevelDelta = thisLevelValue / multiplier;
+				thisLevelValue -= nextLevelDelta * multiplier;
+			}
+			else
+			{
+				nextLevelDelta = 0;
+			}
+
 			return new Time(
 				_balance,
-				result.Year,
-				(byte)thisLevelValue,
-				result.Week,
-				result.Day,
-				result.Ticks);
+				Year,
+				(byte) thisLevelValue,
+				Week,
+				Day,
+				Ticks).AddYears(nextLevelDelta);
 		}
 
 		public Time AddWeeks(int delta)
 		{
-			int nextLevelDelta = (Week + delta) / _balance.WeeksInMonth;
-			int thisLevelValue = (Week + delta) % _balance.WeeksInMonth;
-			var result = this;
-			if (nextLevelDelta != 0)
+			if (delta == 0) return this;
+
+			int thisLevelValue = Week + delta;
+			int nextLevelDelta;
+			int multiplier = _balance.WeeksInMonth;
+
+			if (thisLevelValue < 0)
 			{
-				result = result.AddMonths(nextLevelDelta);
+				nextLevelDelta = - (int) Math.Ceiling((double) Math.Abs(thisLevelValue) / multiplier);
+				thisLevelValue -= nextLevelDelta * multiplier;
 			}
+			else if (thisLevelValue >= multiplier)
+			{
+				nextLevelDelta = thisLevelValue / multiplier;
+				thisLevelValue -= nextLevelDelta * multiplier;
+			}
+			else
+			{
+				nextLevelDelta = 0;
+			}
+
 			return new Time(
 				_balance,
-				result.Year,
-				result.Month,
-				(byte)thisLevelValue,
-				result.Day,
-				result.Ticks);
+				Year,
+				Month,
+				(byte) thisLevelValue,
+				Day,
+				Ticks).AddMonths(nextLevelDelta);
 		}
 
 		public Time AddDays(int delta)
 		{
-			int nextLevelDelta = (Day + delta) / _balance.DaysInWeek;
-			int thisLevelValue = (Day + delta) % _balance.DaysInWeek;
-			var result = this;
-			if (nextLevelDelta != 0)
+			if (delta == 0) return this;
+
+			int thisLevelValue = Day + delta;
+			int nextLevelDelta;
+			int multiplier = _balance.DaysInWeek;
+
+			if (thisLevelValue < 0)
 			{
-				result = result.AddWeeks(nextLevelDelta);
+				nextLevelDelta = - (int) Math.Ceiling((double) Math.Abs(thisLevelValue) / multiplier);
+				thisLevelValue -= nextLevelDelta * multiplier;
 			}
+			else if (thisLevelValue >= multiplier)
+			{
+				nextLevelDelta = thisLevelValue / multiplier;
+				thisLevelValue -= nextLevelDelta * multiplier;
+			}
+			else
+			{
+				nextLevelDelta = 0;
+			}
+
 			return new Time(
 				_balance,
-				result.Year,
-				result.Month,
-				result.Week,
-				(byte)thisLevelValue,
-				result.Ticks);
+				Year,
+				Month,
+				Week,
+				(byte) thisLevelValue,
+				Ticks).AddWeeks(nextLevelDelta);
 		}
 
 		public Time AddTicks(long delta)
 		{
-			int nextLevelDelta = (int)((Ticks + delta) / _balance.TicksInDay);
-			long thisLevelValue = (Ticks + delta) % _balance.TicksInDay;
-			var result = this;
-			if (nextLevelDelta != 0)
+			if (delta == 0) return this;
+
+			long thisLevelValue = Ticks + delta;
+			long nextLevelDelta;
+			uint multiplier = _balance.TicksInDay;
+
+			if (thisLevelValue < 0)
 			{
-				result = result.AddDays(nextLevelDelta);
+				nextLevelDelta = - (int) Math.Ceiling((double) Math.Abs(thisLevelValue) / multiplier);
+				thisLevelValue -= nextLevelDelta * multiplier;
 			}
+			else if (thisLevelValue >= multiplier)
+			{
+				nextLevelDelta = thisLevelValue / multiplier;
+				thisLevelValue -= nextLevelDelta * multiplier;
+			}
+			else
+			{
+				nextLevelDelta = 0;
+			}
+
 			return new Time(
 				_balance,
-				result.Year,
-				result.Month,
-				result.Week,
-				result.Day,
-				(uint)thisLevelValue);
+				Year,
+				Month,
+				Week,
+				Day,
+				(uint) thisLevelValue).AddDays((int) nextLevelDelta);
 		}
 
 		public Time Date()
@@ -263,5 +346,10 @@ namespace Roguelike.Core
 		}
 
 		#endregion
+
+		public override string ToString()
+		{
+			return $"DATE {Year}.{Month + 1}.{MonthDay + 1} TIME {Ticks}";
+		}
 	}
 }

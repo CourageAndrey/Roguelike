@@ -8,7 +8,7 @@ namespace Roguelike.Core
 	{
 		#region Properties
 
-		public Time NextActionTime
+		public Time? NextActionTime
 		{ get; internal set; }
 
 		#endregion

@@ -160,7 +160,7 @@ namespace Roguelike.Core
 
 		internal Queue<ActiveObject> GetActiveObjects(bool orderByNextActionTime = true)
 		{
-			if (activeCache == null)
+			if (_activeCache == null)
 			{
 				var actives = new List<ActiveObject>();
 				for (int x = 0; x < Size.X; x++)
@@ -177,17 +177,17 @@ namespace Roguelike.Core
 				{
 					actives = actives.OrderBy(a => a.NextActionTime).ToList();
 				}
-				activeCache = new Queue<ActiveObject>(actives);
+				_activeCache = new Queue<ActiveObject>(actives);
 			}
-			return activeCache;
+			return _activeCache;
 		}
 
 		internal void ResetActiveCache()
 		{
-			activeCache = null;
+			_activeCache = null;
 		}
 
-		private Queue<ActiveObject> activeCache;
+		private Queue<ActiveObject> _activeCache;
 
 		#endregion
 	}

@@ -15,7 +15,7 @@ namespace Roguelike.Core
 		{ get; }
 
 		public Time Time
-		{ get { return time; } }
+		{ get { return _time; } }
 
 		public IReadOnlyCollection<Region> Regions
 		{ get; }
@@ -23,7 +23,7 @@ namespace Roguelike.Core
 		public Hero Hero
 		{ get; }
 
-		private Time time;
+		private Time _time;
 
 		#endregion
 
@@ -34,7 +34,7 @@ namespace Roguelike.Core
 
 			var seed = Randomize();
 
-			time = new Time(
+			_time = new Time(
 				balance.Time,
 				balance.Time.BeginYear,
 				(byte) seed.Next(0, balance.Time.MonthInYear),
@@ -91,9 +91,9 @@ namespace Roguelike.Core
 				Game.WriteLog(line);
 			}
 			actor.NextActionTime += actionResult.Longevity;
-			if ((actor.NextActionTime != null) && (actor.NextActionTime > time))
+			if ((actor.NextActionTime != null) && (actor.NextActionTime > _time))
 			{
-				time = actor.NextActionTime.Value;
+				_time = actor.NextActionTime.Value;
 			}
 		}
 

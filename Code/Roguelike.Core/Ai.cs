@@ -8,7 +8,7 @@ namespace Roguelike.Core
 	{
 		public static IEnumerable<Vector> CalculateRoute(Region region, Vector from, Vector to)
 		{
-			int aiDistanceSquare = region.World.Game.Balance.AiDistance;
+			int aiDistanceSquare = region.World.Game.Balance.Distance.AiRange;
 			aiDistanceSquare *= aiDistanceSquare;
 
 			var viewedCells = new Dictionary<Vector, Tuple<Vector, double>> { { from, new Tuple<Vector, double>(null, 0) } };

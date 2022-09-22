@@ -4,87 +4,20 @@
 	{
 		#region Properties
 
-		#region Action longevities
-
-		public int ActionLongevityNull
+		public ActionLongevityBalance ActionLongevity
 		{ get; set; }
 
-		public int ActionLongevityStep
+		public TimeBalance Time
 		{ get; set; }
 
-		public int ActionLongevityDisabled
+		public WorldSizeBalance WorldSize
 		{ get; set; }
 
-		public int ActionLongevityOpenCloseDoor
+		public DistanceBalance Distance
 		{ get; set; }
-
-		public int ActionLongevityChopTree
-		{ get; set; }
-
-		public int ActionLongevityChangeWeapon
-		{ get; set; }
-
-		public int ActionLongevityWait
-		{ get; set; }
-
-		#endregion
-
-		#region Time settings
-
-		public int BeginYear
-		{ get; set; }
-
-		public int MonthInYear
-		{ get; set; }
-
-		public int SeasonCount
-		{ get; set; }
-
-		public int WeeksInMonth
-		{ get; set; }
-
-		public int DaysInWeek
-		{ get; set; }
-
-		public uint TicksInDay
-		{ get; set; }
-
-		public int DaytimeCount
-		{ get; set; }
-
-		#endregion
 
 		public int MaxLogSize
 		{ get; set; }
-
-		#region World size
-
-		public int DefaultRegionsCount
-		{ get; set; }
-
-		public int DefaultRegionXdimension
-		{ get; set; }
-
-		public int DefaultRegionYdimension
-		{ get; set; }
-
-		public int DefaultRegionZdimension
-		{ get; set; }
-
-		#endregion
-
-		#region Distances
-
-		public int AiDistance
-		{ get; set; }
-
-		public int HeroInitialViewDistance
-		{ get; set; }
-
-		public int ActionLongevityAttack
-		{ get; set; }
-
-		#endregion
 
 		#endregion
 
@@ -92,32 +25,12 @@
 		{
 			return new Balance
 			{
-				ActionLongevityNull = 0,
-				ActionLongevityStep = 1000,
-				ActionLongevityDisabled = 1000,
-				ActionLongevityOpenCloseDoor = 2000,
-				ActionLongevityChopTree = 24 * 60 * 60 * 1000,
-				ActionLongevityChangeWeapon = 1000,
-				ActionLongevityWait = 500,
-				ActionLongevityAttack = 1000,
-
-				BeginYear = 1400,
-				MonthInYear = 12,
-				SeasonCount = 4,
-				WeeksInMonth = 4,
-				DaysInWeek = 7,
-				TicksInDay = 24 * 60 * 60 * 1000,
-				DaytimeCount = 4,
+				ActionLongevity = ActionLongevityBalance.CreateDefault(),
+				Time = TimeBalance.CreateDefault(),
+				WorldSize = WorldSizeBalance.CreateDefault(),
+				Distance = DistanceBalance.CreateDefault(),
 
 				MaxLogSize = 512,
-
-				DefaultRegionsCount = 1,
-				DefaultRegionXdimension = 128,
-				DefaultRegionYdimension = 64,
-				DefaultRegionZdimension = 1,
-
-				AiDistance = 30,
-				HeroInitialViewDistance = 15,
 			};
 		}
 	}

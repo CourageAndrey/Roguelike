@@ -50,14 +50,14 @@ namespace Roguelike.Core.StaticObjects
 				{
 					IsOpened = true;
 					return new ActionResult(
-						Time.FromTicks(balance, balance.ActionLongevityOpenCloseDoor),
+						Time.FromTicks(balance.Time, balance.ActionLongevity.OpenCloseDoor),
 						string.Format(CultureInfo.InvariantCulture, language.LogActionFormatOpenDoor, a, CurrentCell.Position));
 				}),
 				new Interaction(language.InteractionCloseDoor, IsOpened && CurrentCell.Objects.FirstOrDefault(o => o.IsSolid) == null, a =>
 				{
 					IsClosed = true;
 					return new ActionResult(
-						Time.FromTicks(balance, balance.ActionLongevityOpenCloseDoor),
+						Time.FromTicks(balance.Time, balance.ActionLongevity.OpenCloseDoor),
 						string.Format(CultureInfo.InvariantCulture, language.LogActionFormatCloseDoor, a, CurrentCell.Position));
 				}),
 			};

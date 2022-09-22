@@ -38,7 +38,7 @@ namespace Roguelike.Core.ActiveObjects
 					var game = CurrentCell.Region.World.Game;
 					var balance = game.Balance;
 					return new ActionResult(
-						Time.FromTicks(balance, balance.ActionLongevityWait),
+						Time.FromTicks(balance.Time, balance.ActionLongevity.Wait),
 						string.Format(
 							CultureInfo.InvariantCulture,
 							game.Language.LogActionFormatWait,

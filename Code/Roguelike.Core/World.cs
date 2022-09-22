@@ -4,7 +4,6 @@ using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Items;
-using Roguelike.Core.StaticObjects;
 
 namespace Roguelike.Core
 {
@@ -36,24 +35,24 @@ namespace Roguelike.Core
 			var seed = Randomize();
 
 			time = new Time(
-				balance,
-				balance.BeginYear,
-				(byte) seed.Next(0, balance.MonthInYear),
-				(byte) seed.Next(0, balance.WeeksInMonth),
-				(byte) seed.Next(0, balance.DaysInWeek),
-				(uint) seed.Next(0, (int) balance.TicksInDay));
+				balance.Time,
+				balance.Time.BeginYear,
+				(byte) seed.Next(0, balance.Time.MonthInYear),
+				(byte) seed.Next(0, balance.Time.WeeksInMonth),
+				(byte) seed.Next(0, balance.Time.DaysInWeek),
+				(uint) seed.Next(0, (int) balance.Time.TicksInDay));
 
-			Regions = this.GenerateRegions(balance.DefaultRegionsCount);
+			Regions = this.GenerateRegions(balance.WorldSize.RegionsCount);
 			var region = Regions.First();
 
-			Hero = new Hero(true, Time.FromYears(balance, 25), new Properties(), new Inventory(), "Andor Drakon");
+			Hero = new Hero(true, Time.FromYears(balance.Time, 25), new Properties(), new Inventory(), "Andor Drakon");
 			var heroCell = region.GetCell(
-				seed.Next(10, balance.DefaultRegionXdimension - 50),
-				seed.Next(10, balance.DefaultRegionYdimension - 50),
+				seed.Next(10, balance.WorldSize.RegionXdimension - 50),
+				seed.Next(10, balance.WorldSize.RegionYdimension - 50),
 				0);
 			Hero.MoveTo(heroCell);
 			Hero.Inventory.TryAdd(new Hatchet());
-			Hero.MakeMapKnown(balance.HeroInitialViewDistance);
+			Hero.MakeMapKnown(balance.Distance.HeroInitialView);
 
 			region.CreateVillage(
 				balance,

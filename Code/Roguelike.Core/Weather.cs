@@ -50,7 +50,7 @@ namespace Roguelike.Core
 			Precipitation = false;
 
 			var seed = new Random(DateTime.Now.Millisecond);
-			var balance = Region.World.Game.Balance;
+			var balance = Region.World.Game.Balance.Time;
 			NextChangeTime = Region.World.Time.AddTicks(seed.Next((int)(balance.TicksInDay / 48), (int)(balance.TicksInDay * 3)));
 
 			Volatile.Read(ref Changed)?.Invoke(this, EventArgs.Empty);

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Threading;
 
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
@@ -40,7 +42,7 @@ namespace Roguelike.Core.ActiveObjects
 		public IBody Body
 		{ get; }
 
-		public IInventory Inventory
+		public ICollection<Item> Inventory
 		{ get; }
 
 		public bool IsDead
@@ -50,7 +52,7 @@ namespace Roguelike.Core.ActiveObjects
 		{ get; private set; }
 
 		public double Weight
-		{ get { return Body.Weight + Inventory.GetItemsWeight(); } }
+		{ get; private set; }
 
 		public IWeapon WeaponToFight
 		{ get; private set; }
@@ -64,23 +66,53 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected AliveObject(bool sexIsMale, Time birthDate, IProperties properties, IInventory inventory)
-		{
-			if (properties == null) throw new ArgumentNullException(nameof(properties));
-			if (inventory == null) throw new ArgumentNullException(nameof(inventory));
+		#region Events
 
-			SexIsMale = sexIsMale;
-			BirthDate = birthDate;
-			Properties = properties;
-			Body = CreateBody();
-			Inventory = inventory;
-			WeaponToFight = new Unarmed(this);
+		public event ValueChangedEventHandler<IRequireGravitation, double> WeightChanged;
+
+		public event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
+
+		public event ValueChangedEventHandler<IAlive, IWeapon> WeaponChanged;
+
+		public event EventHandler<IAlive, string> OnDeath;
+
+		protected void RaiseWeightChanged(double oldWeight, double newWeight)
+		{
+			var handler = Volatile.Read(ref WeightChanged);
+			if (handler != null)
+			{
+				handler(this, oldWeight, newWeight);
+			}
+		}
+
+		protected void RaiseAgressiveChanged(bool oldAgressive, bool newAgressive)
+		{
+			var handler = Volatile.Read(ref AgressiveChanged);
+			if (handler != null)
+			{
+				handler(this, oldAgressive, newAgressive);
+			}
+		}
+
+		protected void RaiseWeaponChanged(IWeapon oldWeapon, IWeapon newWeapon)
+		{
+			var handler = Volatile.Read(ref WeaponChanged);
+			if (handler != null)
+			{
+				handler(this, oldWeapon, newWeapon);
+			}
 		}
 
 		public virtual Corpse Die(string reason)
 		{
 			IsDead = true;
 			DeadReason = reason;
+
+			var handler = Volatile.Read(ref OnDeath);
+			if (handler != null)
+			{
+				handler(this, reason);
+			}
 
 #warning Localize
 			WriteToLog($"{this} die: {reason}");
@@ -95,6 +127,60 @@ namespace Roguelike.Core.ActiveObjects
 			return corpse;
 		}
 
+		#endregion
+
+		protected AliveObject(bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory)
+		{
+			if (properties == null) throw new ArgumentNullException(nameof(properties));
+			if (inventory == null) throw new ArgumentNullException(nameof(inventory));
+
+			SexIsMale = sexIsMale;
+			BirthDate = birthDate;
+			Properties = properties;
+			WeaponToFight = new Unarmed(this);
+
+			double getTotalWeigth()
+			{
+				return Toughness * Body.Weight + Inventory.Sum(item => item.Weight);
+			};
+
+			void updateWeight()
+			{
+				var weight = getTotalWeigth();
+				RaiseWeightChanged(Weight, weight);
+				Weight = weight;
+			}
+
+			Body = CreateBody();
+			Body.WeightChanged += (sender, value, newValue) => updateWeight();
+
+			void updateOnItemChange(IRequireGravitation item, double oldWeight, double newWeight)
+			{
+				updateWeight();
+			}
+
+			var _inventory = new EventCollection<Item>(inventory);
+			_inventory.ItemAdded += (sender, args) =>
+			{
+				updateWeight();
+
+				args.Item.WeightChanged += updateOnItemChange;
+
+				args.Item.RaisePicked(this);
+			};
+			_inventory.ItemRemoved += (sender, args) =>
+			{
+				args.Item.RaiseDropped(this);
+
+				args.Item.WeightChanged -= updateOnItemChange;
+
+				updateWeight();
+			};
+			Inventory = _inventory;
+
+			Weight = getTotalWeigth();
+		}
+
 		public ActionResult ChangeAggressive(bool agressive)
 		{
 			int time;
@@ -105,6 +191,9 @@ namespace Roguelike.Core.ActiveObjects
 			if (IsAgressive != agressive)
 			{
 				IsAgressive = agressive;
+
+				RaiseAgressiveChanged(!agressive, agressive);
+
 				time = balance.ActionLongevity.ChangeAgressive;
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,

@@ -1,11 +1,10 @@
 ﻿using System;
 
 using Roguelike.Core.ActiveObjects;
-using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Items
 {
-	public class Unarmed : Item, IWeapon
+	public class Unarmed : Weapon
 	{
 		#region Properties
 

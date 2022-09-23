@@ -4,5 +4,7 @@
 	{
 		IObject Owner
 		{ get; }
+
+		event ValueChangedEventHandler<IObject, IObject> OwnerChanged;
 	}
 }

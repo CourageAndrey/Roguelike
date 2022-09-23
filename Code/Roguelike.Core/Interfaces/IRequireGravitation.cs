@@ -4,5 +4,7 @@
 	{
 		double Weight
 		{ get; }
+
+		event ValueChangedEventHandler<IRequireGravitation, double> WeightChanged;
 	}
 }

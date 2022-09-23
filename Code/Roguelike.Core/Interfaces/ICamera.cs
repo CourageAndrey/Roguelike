@@ -17,7 +17,7 @@ namespace Roguelike.Core.Interfaces
 		HashSet<Cell> MapMemory
 		{ get; }
 
-		event Action<ICamera> Changed;
+		event EventHandler<ICamera> Changed;
 
 		#endregion
 	}

@@ -1,6 +1,5 @@
 ﻿using System;
-
-using Roguelike.Core.Interfaces;
+using System.Collections.Generic;
 
 namespace Roguelike.Core.ActiveObjects
 {
@@ -12,7 +11,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public Npc(bool sexIsMale, Time birthDate, Properties properties, IInventory inventory, string name)
+		public Npc(bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string name)
 			: base(sexIsMale, birthDate, properties, inventory, name)
 		{ }
 

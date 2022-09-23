@@ -43,7 +43,6 @@
     <Compile Include="ActiveObjects\Animal.cs" />
     <Compile Include="ActiveObjects\Body.cs" />
     <Compile Include="ActiveObjects\BodyPart.cs" />
-    <Compile Include="ActiveObjects\Inventory.cs" />
     <Compile Include="ActiveObjects\Properties.cs" />
     <Compile Include="ActiveObjects\Humanoid.cs" />
     <Compile Include="Ai.cs" />
@@ -67,7 +66,6 @@
     <Compile Include="Interfaces\IHasOwner.cs" />
     <Compile Include="Interfaces\IInteractive.cs" />
     <Compile Include="Interfaces\IInterlocutor.cs" />
-    <Compile Include="Interfaces\IInventory.cs" />
     <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Interfaces\IManequin.cs" />
     <Compile Include="Interfaces\IObject.cs" />
@@ -80,6 +78,8 @@
     <Compile Include="Items\Log.cs" />
     <Compile Include="Items\Naked.cs" />
     <Compile Include="Items\Unarmed.cs" />
+    <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Items\Wear.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Skill.cs" />
     <Compile Include="StaticObjects\Bed.cs" />

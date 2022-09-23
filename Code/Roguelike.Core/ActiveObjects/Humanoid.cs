@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
 
 using Roguelike.Core.Chat;
 using Roguelike.Core.Interfaces;
@@ -17,31 +18,91 @@ namespace Roguelike.Core.ActiveObjects
 		{ get; private set; }
 
 		public IHeadWear HeadWear
-		{ get; private set; }
+		{
+			get { return _headWear; }
+			private set
+			{
+				_headWear = value;
+				RaiseEquipmentChanged();
+			}
+		}
 
 		public IUpperBodyWear UpperBodyWear
-		{ get; private set; }
+		{
+			get { return _upperBodyWear; }
+			private set
+			{
+				_upperBodyWear = value;
+				RaiseEquipmentChanged();
+			}
+		}
 
 		public ILowerBodyWear LowerBodyWear
-		{ get; private set; }
+		{
+			get { return _lowerBodyWear; }
+			private set
+			{
+				_lowerBodyWear = value;
+				RaiseEquipmentChanged();
+			}
+		}
 
 		public ICoverWear CoverWear
-		{ get; private set; }
+		{
+			get { return _coverWear; }
+			private set
+			{
+				_coverWear = value;
+				RaiseEquipmentChanged();
+			}
+		}
 
 		public IHandWear HandsWear
-		{ get; private set; }
+		{
+			get { return _handsWear; }
+			private set
+			{
+				_handsWear = value;
+				RaiseEquipmentChanged();
+			}
+		}
 
 		public IFootWear FootsWear
-		{ get; private set; }
+		{
+			get { return _footsWear; }
+			private set
+			{
+				_footsWear = value;
+				RaiseEquipmentChanged();
+			}
+		}
 
 		public ICollection<IJewelry> Jewelry
 		{ get; }
+
+		private IHeadWear _headWear;
+		private IUpperBodyWear _upperBodyWear;
+		private ILowerBodyWear _lowerBodyWear;
+		private ICoverWear _coverWear;
+		private IHandWear _handsWear;
+		private IFootWear _footsWear;
+
+		public event EventHandler<IManequin> EquipmentChanged;
 
 		public IDictionary<Skill, int> Skills
 		{ get; }
 
 		public IDictionary<Skill, double> SkillExperience
 		{ get; }
+
+		protected void RaiseEquipmentChanged()
+		{
+			var handler = Volatile.Read(ref EquipmentChanged);
+			if (handler != null)
+			{
+				handler(this);
+			}
+		}
 
 		#endregion
 
@@ -120,7 +181,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected Humanoid(bool sexIsMale, Time birthDate, IProperties properties, IInventory inventory, string name)
+		protected Humanoid(bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
 			: base(sexIsMale, birthDate, properties, inventory)
 		{
 			if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
@@ -133,7 +194,15 @@ namespace Roguelike.Core.ActiveObjects
 			CoverWear = new Naked(this);
 			HandsWear = new Naked(this);
 			FootsWear = new Naked(this);
-			Jewelry = new List<IJewelry>();
+
+			var jewelry = new EventCollection<IJewelry>();
+			void jewelryChanged(object sender, ItemEventArgs<IJewelry> eventArgs)
+			{
+				RaiseEquipmentChanged();
+			}
+			jewelry.ItemAdded += jewelryChanged;
+			jewelry.ItemRemoved += jewelryChanged;
+			Jewelry = jewelry;
 
 			Skills = new Dictionary<Skill, int>();
 			SkillExperience = new Dictionary<Skill, double>();

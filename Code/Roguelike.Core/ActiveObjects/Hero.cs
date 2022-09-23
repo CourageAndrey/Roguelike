@@ -32,13 +32,16 @@ namespace Roguelike.Core.ActiveObjects
 		public HashSet<Cell> MapMemory
 		{ get; } = new HashSet<Cell>();
 
-		public event Action<ICamera> Changed;
+		public event EventHandler<ICamera> Changed;
 
-		protected override void HandleCellChanged(Cell from, Cell to)
+		protected override void HandleCellChanged(Cell oldCell, Cell newCell)
 		{
-			if (from == null || to == null) return; // check of insert and remove Hero object
+			base.HandleCellChanged(oldCell, newCell);
 
-			RefreshCamera();
+			if (oldCell != null && newCell != null) // check of insert and remove Hero object
+			{
+				RefreshCamera();
+			}
 		}
 
 		public void RefreshCamera()
@@ -52,7 +55,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public Hero(bool sexIsMale, Time birthDate, IProperties properties, IInventory inventory, string name)
+		public Hero(bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
 			: base(sexIsMale, birthDate, properties, inventory, name)
 		{ }
 

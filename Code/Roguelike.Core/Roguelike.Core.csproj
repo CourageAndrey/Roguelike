@@ -57,6 +57,7 @@
     <Compile Include="Chat\Text.cs" />
     <Compile Include="Chat\Topic.cs" />
     <Compile Include="Configuration\Balance.cs" />
+    <Compile Include="EventCollection.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Interfaces\IAlive.cs" />

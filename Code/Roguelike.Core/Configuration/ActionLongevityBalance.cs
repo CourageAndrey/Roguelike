@@ -19,7 +19,10 @@
 		public int ChopTree
 		{ get; set; }
 
-		public int ChangeWeapon
+		public int EquipWeapon
+		{ get; set; }
+
+		public int ChangeAgressive
 		{ get; set; }
 
 		public int Wait
@@ -39,7 +42,8 @@
 				Disabled = 1000,
 				OpenCloseDoor = 2000,
 				ChopTree = 24 * 60 * 60 * 1000,
-				ChangeWeapon = 1000,
+				EquipWeapon = 2000,
+				ChangeAgressive = 1000,
 				Wait = 500,
 				Attack = 1000,
 			};

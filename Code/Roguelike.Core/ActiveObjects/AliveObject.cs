@@ -105,7 +105,7 @@ namespace Roguelike.Core.ActiveObjects
 			if (IsAgressive != agressive)
 			{
 				IsAgressive = agressive;
-				time = balance.ActionLongevity.ChangeWeapon;
+				time = balance.ActionLongevity.ChangeAgressive;
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,
 					IsAgressive ? language.LogActionFormatStartFight : language.LogActionFormatStopFight,

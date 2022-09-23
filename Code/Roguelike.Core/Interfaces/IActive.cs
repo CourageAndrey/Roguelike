@@ -2,8 +2,6 @@
 
 namespace Roguelike.Core.Interfaces
 {
-	public delegate void LogMessageRaisedDelegate(IActive sender, ICollection<string> messages);
-
 	public interface IActive
 	{
 		Time? NextActionTime
@@ -11,6 +9,6 @@ namespace Roguelike.Core.Interfaces
 
 		ActionResult Do();
 
-		event LogMessageRaisedDelegate OnLogMessage;
+		event EventHandler<IActive, ICollection<string>> OnLogMessage;
 	}
 }

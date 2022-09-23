@@ -59,7 +59,7 @@ namespace Roguelike.Core
 
 		#region Log messages
 
-		public event LogMessageRaisedDelegate OnLogMessage;
+		public event EventHandler<IActive, ICollection<string>> OnLogMessage;
 
 		protected void WriteToLog(ICollection<string> messages)
 		{

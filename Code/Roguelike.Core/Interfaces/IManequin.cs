@@ -24,11 +24,13 @@ namespace Roguelike.Core.Interfaces
 
 		ICollection<IJewelry> Jewelry
 		{ get; }
+
+		event EventHandler<IManequin> EquipmentChanged;
 	}
 
 	public static class ManequinExtensions
 	{
-		public static IEnumerable<IItem> GetAllIItems(this IManequin manequin)
+		public static IEnumerable<IWear> GetAllIItems(this IManequin manequin)
 		{
 			if (manequin.HeadWear != null)
 			{

@@ -28,7 +28,7 @@ namespace Roguelike.Core.StaticObjects
 			{
 				new Interaction(language.InteractionChopTree, (actor as Humanoid)?.Inventory.OfType<Hatchet>().Any() == true, a =>
 				{
-					(a as Humanoid).Inventory.TryAdd(new Log());
+					(a as Humanoid).Inventory.Add(new Log());
 					CurrentCell.AddObject(new Stump());
 					CurrentCell.RemoveObject(this);
 					return new ActionResult(

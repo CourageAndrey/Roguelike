@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 
 using Roguelike.Core.Interfaces;
 
@@ -11,6 +12,8 @@ namespace Roguelike.Core
 		public Cell CurrentCell
 		{ get; private set; }
 
+		public event ValueChangedEventHandler<IObject, Cell> CellChanged;
+
 		#region Physical properties
 
 		/// <summary>
@@ -19,12 +22,34 @@ namespace Roguelike.Core
 		public virtual bool IsSolid
 		{ get { return true; } }
 
+		public event ValueChangedEventHandler<IObject, bool> IsSolidChanged;
+
+		protected void RaiseIsSolidChanged(bool oldSolid, bool newSolid)
+		{
+			var handler = Volatile.Read(ref IsSolidChanged);
+			if (handler != null)
+			{
+				handler(this, oldSolid, newSolid);
+			}
+		}
+
 		#endregion
 
 		#region Ownership
 
 		public IObject Owner
 		{ get; internal set; }
+
+		public event ValueChangedEventHandler<IObject, IObject> OwnerChanged;
+
+		protected void RaiseOwnerChanged(IObject oldOwner, IObject newOwner)
+		{
+			var handler = Volatile.Read(ref OwnerChanged);
+			if (handler != null)
+			{
+				handler(this, oldOwner, newOwner);
+			}
+		}
 
 		#endregion
 
@@ -64,8 +89,14 @@ namespace Roguelike.Core
 			HandleCellChanged(oldCell, cell);
 		}
 
-		protected virtual void HandleCellChanged(Cell from, Cell to)
-		{ }
+		protected virtual void HandleCellChanged(Cell oldCell, Cell newCell)
+		{
+			var handler = Volatile.Read(ref CellChanged);
+			if (handler != null)
+			{
+				handler(this, oldCell, newCell);
+			}
+		}
 
 		#endregion
 	}

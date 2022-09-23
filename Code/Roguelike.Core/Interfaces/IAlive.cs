@@ -1,4 +1,6 @@
-﻿namespace Roguelike.Core.Interfaces
+﻿using System.Collections.Generic;
+
+namespace Roguelike.Core.Interfaces
 {
 	public interface IAlive : IActive
 	{
@@ -14,7 +16,7 @@
 		IBody Body
 		{ get; }
 
-		IInventory Inventory
+		ICollection<Item> Inventory
 		{ get; }
 
 		bool IsDead
@@ -33,5 +35,11 @@
 		{ get; }
 
 		ActionResult Attack(IAlive target);
+
+		event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
+
+		event ValueChangedEventHandler<IAlive, IWeapon> WeaponChanged;
+
+		event EventHandler<IAlive, string> OnDeath;
 	}
 }

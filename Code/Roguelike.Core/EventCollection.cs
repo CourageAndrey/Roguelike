@@ -9,13 +9,13 @@ namespace Roguelike.Core
 	{
 		#region Properties
 
-		public event EventHandler<ItemEventArgs<T>> ItemAdded;
+		public event System.EventHandler<ItemEventArgs<T>> ItemAdded;
 
-		public event EventHandler<ItemEventArgs<T>> ItemRemoved;
+		public event System.EventHandler<ItemEventArgs<T>> ItemRemoved;
 
-		public event EventHandler<CancelableItemEventArgs<T>> ItemAdding;
+		public event System.EventHandler<CancelableItemEventArgs<T>> ItemAdding;
 
-		public event EventHandler<CancelableItemEventArgs<T>> ItemRemoving;
+		public event System.EventHandler<CancelableItemEventArgs<T>> ItemRemoving;
 
 		private readonly ICollection<T> _collection;
 

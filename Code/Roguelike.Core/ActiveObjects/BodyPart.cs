@@ -25,6 +25,8 @@ namespace Roguelike.Core.ActiveObjects
 		public double Weight
 		{ get; }
 
+		public event ValueChangedEventHandler<IRequireGravitation, double> WeightChanged;
+
 		#endregion
 
 		#region Constructors

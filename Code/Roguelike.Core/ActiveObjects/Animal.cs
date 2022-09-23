@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-
-using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.ActiveObjects
 {
@@ -14,7 +13,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public Animal(bool sexIsMale, Time birthDate, Properties properties, IInventory inventory)
+		public Animal(bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory)
 			: base(sexIsMale, birthDate, properties, inventory)
 		{ }
 

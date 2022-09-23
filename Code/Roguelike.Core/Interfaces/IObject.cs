@@ -9,5 +9,9 @@
 		{ get; }
 
 		bool TryMoveTo(Cell cell);
+
+		event ValueChangedEventHandler<IObject, bool> IsSolidChanged;
+
+		event ValueChangedEventHandler<IObject, Cell> CellChanged;
 	}
 }

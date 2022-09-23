@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 using Roguelike.Core.Interfaces;
 
@@ -14,6 +15,17 @@ namespace Roguelike.Core.ActiveObjects
 
 		public double Weight
 		{ get { return Parts.Sum(part => part.Weight); } }
+
+		public event ValueChangedEventHandler<IRequireGravitation, double> WeightChanged;
+
+		protected void RaiseWeightChanged(double oldWeight, double newWeight)
+		{
+			var handler = Volatile.Read(ref WeightChanged);
+			if (handler != null)
+			{
+				handler(this, oldWeight, newWeight);
+			}
+		}
 
 		#endregion
 

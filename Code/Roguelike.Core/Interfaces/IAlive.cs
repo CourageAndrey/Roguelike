@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Roguelike.Core.StaticObjects;
+using System.Collections.Generic;
 
 namespace Roguelike.Core.Interfaces
 {
@@ -19,12 +20,6 @@ namespace Roguelike.Core.Interfaces
 		ICollection<Item> Inventory
 		{ get; }
 
-		bool IsDead
-		{ get; }
-
-		string DeadReason
-		{ get; }
-
 		IWeapon WeaponToFight
 		{ get; }
 
@@ -39,6 +34,14 @@ namespace Roguelike.Core.Interfaces
 		event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
 
 		event ValueChangedEventHandler<IAlive, IWeapon> WeaponChanged;
+
+		bool IsDead
+		{ get; }
+
+		string DeadReason
+		{ get; }
+
+		Corpse Die(string reason);
 
 		event EventHandler<IAlive, string> OnDeath;
 	}

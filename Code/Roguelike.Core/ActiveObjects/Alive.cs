@@ -275,7 +275,7 @@ namespace Roguelike.Core.ActiveObjects
 			var balance = game.Balance;
 			var language = game.Language;
 
-			((Alive) target).Die(string.Format(CultureInfo.InvariantCulture, language.ReathReasonKilled, this));
+			target.Die(string.Format(CultureInfo.InvariantCulture, language.ReathReasonKilled, this));
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Attack)),

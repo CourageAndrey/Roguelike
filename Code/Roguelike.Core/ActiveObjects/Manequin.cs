@@ -11,6 +11,8 @@ namespace Roguelike.Core.ActiveObjects
 	{
 		#region Properties
 
+		private readonly IHumanoid _owner;
+
 		public IHeadWear HeadWear
 		{
 			get { return _headWear; }
@@ -82,6 +84,8 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			if (owner == null) throw new ArgumentNullException(nameof(owner));
 
+			_owner = owner;
+
 			HeadWear = headWear ?? new Naked(owner);
 			UpperBodyWear = upperBodyWear ?? new Naked(owner);
 			LowerBodyWear = lowerBodyWear ?? new Naked(owner);
@@ -90,12 +94,16 @@ namespace Roguelike.Core.ActiveObjects
 			FootsWear = footsWear ?? new Naked(owner);
 
 			var jewelryCollection = new EventCollection<IJewelry>(jewelry ?? new IJewelry[0]);
-			void jewelryChanged(object sender, ItemEventArgs<IJewelry> eventArgs)
+			jewelryCollection.ItemAdded += (sender, eventArgs) =>
+			{
+				eventArgs.Item.RaiseEquipped(_owner);
+				RaiseEquipmentChanged();
+			};
+			jewelryCollection.ItemRemoved += (sender, eventArgs) =>
 			{
 				RaiseEquipmentChanged();
-			}
-			jewelryCollection.ItemAdded += jewelryChanged;
-			jewelryCollection.ItemRemoved += jewelryChanged;
+				eventArgs.Item.RaiseUnequipped(_owner);
+			};
 			Jewelry = jewelryCollection;
 		}
 
@@ -104,7 +112,9 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			if (newItem == null) throw new ArgumentNullException(nameof(newItem));
 
+			itemSlot?.RaiseUnequipped(_owner);
 			itemSlot = newItem;
+			itemSlot.RaiseEquipped(_owner);
 
 			RaiseEquipmentChanged();
 		}

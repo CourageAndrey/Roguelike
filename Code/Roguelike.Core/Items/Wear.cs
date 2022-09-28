@@ -10,7 +10,7 @@ namespace Roguelike.Core.Items
 
 		public event EventHandler<IWear, IAlive> Unequipped;
 
-		protected void RaiseEquipped(IAlive who)
+		public void RaiseEquipped(IAlive who)
 		{
 			var handler = Volatile.Read(ref Equipped);
 			if (handler != null)
@@ -19,7 +19,7 @@ namespace Roguelike.Core.Items
 			}
 		}
 
-		protected void RaiseUnequipped(IAlive who)
+		public void RaiseUnequipped(IAlive who)
 		{
 			var handler = Volatile.Read(ref Unequipped);
 			if (handler != null)

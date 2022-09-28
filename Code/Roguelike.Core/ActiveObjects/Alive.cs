@@ -274,8 +274,14 @@ namespace Roguelike.Core.ActiveObjects
 			var game = world.Game;
 			var balance = game.Balance;
 			var language = game.Language;
+			var random = new Random(DateTime.Now.Millisecond);
 
-			target.Die(string.Format(CultureInfo.InvariantCulture, language.ReathReasonKilled, this));
+			int hitPossibility = balance.BaseHitPossibility;
+			hitPossibility += ((int) Properties.Reaction - (int) target.Properties.Reaction) * 10;
+			if (random.Next(0, 100) < hitPossibility)
+			{
+				target.Die(string.Format(CultureInfo.InvariantCulture, language.ReathReasonKilled, this));
+			}
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Attack)),

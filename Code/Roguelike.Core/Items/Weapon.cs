@@ -10,7 +10,7 @@ namespace Roguelike.Core.Items
 
 		public event EventHandler<IWeapon, IAlive> StoppedBattle;
 
-		protected void RaisePreparedForBattle(IAlive who)
+		public void RaisePreparedForBattle(IAlive who)
 		{
 			var handler = Volatile.Read(ref PreparedForBattle);
 			if (handler != null)
@@ -19,7 +19,7 @@ namespace Roguelike.Core.Items
 			}
 		}
 
-		protected void RaiseStoppedBattle(IAlive who)
+		public void RaiseStoppedBattle(IAlive who)
 		{
 			var handler = Volatile.Read(ref StoppedBattle);
 			if (handler != null)

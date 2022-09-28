@@ -6,6 +6,7 @@ using System.Text;
 
 using Roguelike.Core;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Console
@@ -135,6 +136,29 @@ namespace Roguelike.Console
 
 					case ConsoleKey.F:
 						performedAction = hero.ChangeAggressive(!hero.IsAgressive);
+						break;
+
+					case ConsoleKey.W:
+						var weapons = new List<IWeapon>(hero.Inventory.OfType<IWeapon>()).ToList();
+						if (hero.WeaponToFight.GetType() != typeof(Unarmed))
+						{
+							weapons.Remove(hero.WeaponToFight);
+							weapons.Add(new Unarmed(hero));
+						}
+						//var currentWeapon = 
+
+						IWeapon selectedWeapon;
+						ListItem selectedWeaponItem;
+						if (ui.TrySelectItem(game, language.SelectWeaponPromt, weapons.Select(w => new ListItem<IWeapon>(w, w.ToString())), out selectedWeaponItem))
+						{
+							selectedWeapon = ((ListItem<IWeapon>) selectedWeaponItem).Value;
+						}
+						else
+						{
+							selectedWeapon = hero.WeaponToFight;
+						}
+
+						performedAction = hero.ChangeWeapon(selectedWeapon);
 						break;
 
 						#endregion

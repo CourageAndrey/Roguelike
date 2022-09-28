@@ -15,6 +15,9 @@ namespace Roguelike.Core.Localization
 		public string SelectInteractionPromt
 		{ get; set; }
 		[XmlElement]
+		public string SelectWeaponPromt
+		{ get; set; }
+		[XmlElement]
 		public string InteractionFormat
 		{ get; set; }
 
@@ -63,6 +66,12 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 		[XmlElement]
 		public string LogActionFormatChangeFightModeDisabled
+		{ get; set; }
+		[XmlElement]
+		public string LogActionFormatChangeWeapon
+		{ get; set; }
+		[XmlElement]
+		public string LogActionFormatChangeWeaponDisabled
 		{ get; set; }
 		[XmlElement]
 		public string LogActionFormatWait
@@ -318,6 +327,7 @@ namespace Roguelike.Core.Localization
 				Name = "English",
 
 				SelectInteractionPromt = "Please, select what to do.",
+				SelectWeaponPromt = "Please, select weapon to equip.",
 				InteractionFormat = "{0} ({1})",
 
 				InteractionOpenDoor = "Open the door.",
@@ -337,6 +347,8 @@ namespace Roguelike.Core.Localization
 				LogActionFormatStopFight = "{0} stopped to fight using {1}",
 				LogActionFormatWait = "{0} waits",
 				LogActionFormatChangeFightModeDisabled = "{0} didn't manage to become more or less agressive",
+				LogActionFormatChangeWeapon = "{0} changed weapon from {1} to {2}",
+				LogActionFormatChangeWeaponDisabled = "{0} didn't manage to change weapon",
 				LogActionFormatAttack = "{0} attacks {1} with {2}",
 
 				UiCommonOk = "OK",

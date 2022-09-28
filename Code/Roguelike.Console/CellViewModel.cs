@@ -52,12 +52,12 @@ namespace Roguelike.Console
 		private void cellViewChanged(Cell sender)
 		{
 			CurrentObjectView = null;
-			var hero = sender?.Region.World.Hero;
-			if (hero != null)
+			var camera = sender?.Region.World.Hero.Camera;
+			if (camera != null)
 			{
-				hero.SelectVisibleCells();
-				hero.RefreshCamera();
-				if (hero.MapMemory.Contains(_cell) && IsVisible)
+				camera.SelectVisibleCells();
+				camera.Refresh();
+				if (camera.MapMemory.Contains(_cell) && IsVisible)
 				{
 					Update();
 				}

@@ -1,38 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.StaticObjects;
 
 namespace Roguelike.Core.ActiveObjects
 {
-	public class Hero : Humanoid, ICamera
+	public class Hero : Humanoid, IHero
 	{
 		#region Properties
 
-
+		public ICamera Camera
+		{ get; }
 
 		#endregion
-
-		#region Implementation of ICamera
-
-		Cell ICamera.Cell
-		{ get { return CurrentCell; } }
-
-		public double Distance
-		{
-			get
-			{
-#warning Implement visibility length depending of senses.
-				return 10;
-			}
-		}
-
-		public ICollection<Cell> MapMemory
-		{ get; } = new HashSet<Cell>();
-
-		public event EventHandler<ICamera> Changed;
 
 		protected override void HandleCellChanged(Cell oldCell, Cell newCell)
 		{
@@ -40,24 +21,15 @@ namespace Roguelike.Core.ActiveObjects
 
 			if (oldCell != null && newCell != null) // check of insert and remove Hero object
 			{
-				RefreshCamera();
+				Camera.Refresh();
 			}
 		}
-
-		public void RefreshCamera()
-		{
-			var handler = Volatile.Read(ref Changed);
-			if (handler != null)
-			{
-				handler(this);
-			}
-		}
-
-		#endregion
 
 		public Hero(bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
 			: base(sexIsMale, birthDate, properties, inventory, name)
-		{ }
+		{
+			Camera = new HeroCamera(this);
+		}
 
 		public override ActionResult Do()
 		{

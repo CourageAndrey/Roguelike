@@ -43,6 +43,7 @@
     <Compile Include="ActiveObjects\Animal.cs" />
     <Compile Include="ActiveObjects\Body.cs" />
     <Compile Include="ActiveObjects\BodyPart.cs" />
+    <Compile Include="ActiveObjects\HeroCamera.cs" />
     <Compile Include="ActiveObjects\Properties.cs" />
     <Compile Include="ActiveObjects\Humanoid.cs" />
     <Compile Include="Ai.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="EventCollection.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Interfaces\IHero.cs" />
     <Compile Include="Interfaces\IAlive.cs" />
     <Compile Include="Interfaces\IBody.cs" />
     <Compile Include="Interfaces\IBodyPart.cs" />

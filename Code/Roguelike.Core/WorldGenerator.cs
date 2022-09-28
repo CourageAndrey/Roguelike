@@ -173,7 +173,7 @@ namespace Roguelike.Core
 					var cell = region.GetCell(hero.CurrentCell.Position.X + x, hero.CurrentCell.Position.Y + y, 0);
 					if (cell != null)
 					{
-						hero.MapMemory.Add(cell);
+						hero.Camera.MapMemory.Add(cell);
 					}
 				}
 			}

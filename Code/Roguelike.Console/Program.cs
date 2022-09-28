@@ -39,7 +39,7 @@ namespace Roguelike.Console
 
 			do
 			{
-				var key = System.Console.ReadKey();
+				var key = System.Console.ReadKey(true);
 
 				ActionResult performedAction = null;
 				switch (key.Key)

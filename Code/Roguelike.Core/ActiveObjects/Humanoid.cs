@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Threading;
 
 using Roguelike.Core.Chat;
 using Roguelike.Core.Interfaces;
-using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.ActiveObjects
@@ -17,92 +15,14 @@ namespace Roguelike.Core.ActiveObjects
 		public string Name
 		{ get; private set; }
 
-		public IHeadWear HeadWear
-		{
-			get { return _headWear; }
-			private set
-			{
-				_headWear = value;
-				RaiseEquipmentChanged();
-			}
-		}
-
-		public IUpperBodyWear UpperBodyWear
-		{
-			get { return _upperBodyWear; }
-			private set
-			{
-				_upperBodyWear = value;
-				RaiseEquipmentChanged();
-			}
-		}
-
-		public ILowerBodyWear LowerBodyWear
-		{
-			get { return _lowerBodyWear; }
-			private set
-			{
-				_lowerBodyWear = value;
-				RaiseEquipmentChanged();
-			}
-		}
-
-		public ICoverWear CoverWear
-		{
-			get { return _coverWear; }
-			private set
-			{
-				_coverWear = value;
-				RaiseEquipmentChanged();
-			}
-		}
-
-		public IHandWear HandsWear
-		{
-			get { return _handsWear; }
-			private set
-			{
-				_handsWear = value;
-				RaiseEquipmentChanged();
-			}
-		}
-
-		public IFootWear FootsWear
-		{
-			get { return _footsWear; }
-			private set
-			{
-				_footsWear = value;
-				RaiseEquipmentChanged();
-			}
-		}
-
-		public ICollection<IJewelry> Jewelry
+		public IManequin Manequin
 		{ get; }
-
-		private IHeadWear _headWear;
-		private IUpperBodyWear _upperBodyWear;
-		private ILowerBodyWear _lowerBodyWear;
-		private ICoverWear _coverWear;
-		private IHandWear _handsWear;
-		private IFootWear _footsWear;
-
-		public event EventHandler<IManequin> EquipmentChanged;
 
 		public IDictionary<Skill, int> Skills
 		{ get; }
 
 		public IDictionary<Skill, double> SkillExperience
 		{ get; }
-
-		protected void RaiseEquipmentChanged()
-		{
-			var handler = Volatile.Read(ref EquipmentChanged);
-			if (handler != null)
-			{
-				handler(this);
-			}
-		}
 
 		#endregion
 
@@ -188,21 +108,7 @@ namespace Roguelike.Core.ActiveObjects
 
 			Name = name;
 
-			HeadWear = new Naked(this);
-			UpperBodyWear = new Naked(this);
-			LowerBodyWear = new Naked(this);
-			CoverWear = new Naked(this);
-			HandsWear = new Naked(this);
-			FootsWear = new Naked(this);
-
-			var jewelry = new EventCollection<IJewelry>();
-			void jewelryChanged(object sender, ItemEventArgs<IJewelry> eventArgs)
-			{
-				RaiseEquipmentChanged();
-			}
-			jewelry.ItemAdded += jewelryChanged;
-			jewelry.ItemRemoved += jewelryChanged;
-			Jewelry = jewelry;
+			Manequin = new Manequin(this);
 
 			Skills = new Dictionary<Skill, int>();
 			SkillExperience = new Dictionary<Skill, double>();

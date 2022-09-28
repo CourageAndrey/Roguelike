@@ -29,7 +29,7 @@ namespace Roguelike.Core.ActiveObjects
 			}
 		}
 
-		public HashSet<Cell> MapMemory
+		public ICollection<Cell> MapMemory
 		{ get; } = new HashSet<Cell>();
 
 		public event EventHandler<ICamera> Changed;

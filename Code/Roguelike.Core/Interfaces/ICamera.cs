@@ -14,7 +14,7 @@ namespace Roguelike.Core.Interfaces
 		double Distance
 		{ get; }
 
-		HashSet<Cell> MapMemory
+		ICollection<Cell> MapMemory
 		{ get; }
 
 		event EventHandler<ICamera> Changed;

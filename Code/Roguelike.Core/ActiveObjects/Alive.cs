@@ -203,7 +203,7 @@ namespace Roguelike.Core.ActiveObjects
 			else
 			{
 				time = balance.ActionLongevity.Disabled;
-				logMessage = string.Format(CultureInfo.InvariantCulture, language.LogActionFormatChangeWeaponDisabled, this);
+				logMessage = string.Format(CultureInfo.InvariantCulture, language.LogActionFormatChangeFightModeDisabled, this);
 			}
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage);
 		}

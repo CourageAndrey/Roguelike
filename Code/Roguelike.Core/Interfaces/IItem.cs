@@ -15,6 +15,10 @@
 		event EventHandler<IWear, IAlive> Equipped;
 
 		event EventHandler<IWear, IAlive> Unequipped;
+
+		void RaiseEquipped(IAlive who);
+
+		void RaiseUnequipped(IAlive who);
 	}
 
 	public interface IWeapon : IItem

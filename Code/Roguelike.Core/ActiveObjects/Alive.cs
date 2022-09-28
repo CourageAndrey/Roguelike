@@ -113,8 +113,17 @@ namespace Roguelike.Core.ActiveObjects
 				handler(this, reason);
 			}
 
-#warning Localize
-			WriteToLog($"{this} die: {reason}");
+			string deathMessage;
+			if (CurrentCell != null)
+			{
+				var language = CurrentCell.Region.World.Game.Language;
+				deathMessage = string.Format(CultureInfo.InvariantCulture, language.LogActionFormatDeath, this, reason);
+			}
+			else
+			{
+				deathMessage = $"{this} die: {reason}";
+			}
+			WriteToLog(deathMessage);
 
 			var corpse = new Corpse(this);
 			if (CurrentCell != null)
@@ -266,8 +275,7 @@ namespace Roguelike.Core.ActiveObjects
 			var balance = game.Balance;
 			var language = game.Language;
 
-			((Alive) target).Die($"killed by {this}");
-#warning Translate message.
+			((Alive) target).Die(string.Format(CultureInfo.InvariantCulture, language.ReathReasonKilled, this));
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Attack)),

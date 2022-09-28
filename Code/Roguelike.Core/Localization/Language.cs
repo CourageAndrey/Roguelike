@@ -79,6 +79,13 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string LogActionFormatAttack
 		{ get; set; }
+		[XmlElement]
+		public string LogActionFormatDeath
+		{ get; set; }
+
+		[XmlElement]
+		public string ReathReasonKilled
+		{ get; set; }
 
 		[XmlElement]
 		public string UiCommonOk
@@ -350,6 +357,9 @@ namespace Roguelike.Core.Localization
 				LogActionFormatChangeWeapon = "{0} changed weapon from {1} to {2}",
 				LogActionFormatChangeWeaponDisabled = "{0} didn't manage to change weapon",
 				LogActionFormatAttack = "{0} attacks {1} with {2}",
+				LogActionFormatDeath = "{0} die: {1}",
+
+				ReathReasonKilled = "killed by {0}",
 
 				UiCommonOk = "OK",
 				UiCommonCancel = "Cancel",

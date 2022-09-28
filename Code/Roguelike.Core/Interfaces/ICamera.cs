@@ -19,6 +19,8 @@ namespace Roguelike.Core.Interfaces
 
 		event EventHandler<ICamera> Changed;
 
+		void Refresh();
+
 		#endregion
 	}
 

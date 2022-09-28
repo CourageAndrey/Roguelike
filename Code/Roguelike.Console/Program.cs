@@ -35,7 +35,7 @@ namespace Roguelike.Console
 			};
 			game.Start();
 
-			ui.Camera = hero;
+			ui.Camera = hero.Camera;
 
 			do
 			{

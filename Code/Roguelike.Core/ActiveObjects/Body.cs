@@ -29,9 +29,33 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		private Body(ICollection<BodyPart> parts)
+		private Body(IEnumerable<BodyPart> parts)
 		{
-			Parts = parts;
+			var collection = new EventCollection<BodyPart>(parts);
+			collection.ItemAdded += (sender, args) =>
+			{
+				args.Item.WeightChanged += onPartWeightChanged;
+				onPartWeightChanged(args.Item, 0, args.Item.Weight);
+			};
+			collection.ItemRemoved += (sender, args) =>
+			{
+				args.Item.WeightChanged -= onPartWeightChanged;
+				onPartWeightChanged(args.Item, args.Item.Weight, 0);
+			};
+
+			Parts = collection;
+
+			foreach (var part in collection)
+			{
+				part.WeightChanged += onPartWeightChanged;
+			}
+		}
+
+		private void onPartWeightChanged(IRequireGravitation part, double oldPartWeight, double newPartWeight)
+		{
+			double newWeight = Weight;
+			double oldWeigth = newWeight - newPartWeight + oldPartWeight;
+			RaiseWeightChanged(oldWeigth, newWeight);
 		}
 
 		#region Body constructors

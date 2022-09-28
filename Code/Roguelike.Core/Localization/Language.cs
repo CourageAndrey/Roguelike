@@ -62,10 +62,10 @@ namespace Roguelike.Core.Localization
 		public string LogActionFormatStopFight
 		{ get; set; }
 		[XmlElement]
-		public string LogActionFormatWait
+		public string LogActionFormatChangeFightModeDisabled
 		{ get; set; }
 		[XmlElement]
-		public string LogActionFormatChangeWeaponDisabled
+		public string LogActionFormatWait
 		{ get; set; }
 		[XmlElement]
 		public string LogActionFormatAttack
@@ -336,7 +336,7 @@ namespace Roguelike.Core.Localization
 				LogActionFormatStartFight = "{0} prepared to fight using {1}",
 				LogActionFormatStopFight = "{0} stopped to fight using {1}",
 				LogActionFormatWait = "{0} waits",
-				LogActionFormatChangeWeaponDisabled = "{0} didn't manage to change weapon",
+				LogActionFormatChangeFightModeDisabled = "{0} didn't manage to become more or less agressive",
 				LogActionFormatAttack = "{0} attacks {1} with {2}",
 
 				UiCommonOk = "OK",

@@ -25,6 +25,9 @@
 		public int ChangeAgressive
 		{ get; set; }
 
+		public int ChangeWeapon
+		{ get; set; }
+
 		public int Wait
 		{ get; set; }
 
@@ -44,6 +47,7 @@
 				ChopTree = 24 * 60 * 60 * 1000,
 				EquipWeapon = 2000,
 				ChangeAgressive = 1000,
+				ChangeWeapon = 2500,
 				Wait = 500,
 				Attack = 1000,
 			};

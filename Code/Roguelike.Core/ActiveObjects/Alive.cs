@@ -187,6 +187,7 @@ namespace Roguelike.Core.ActiveObjects
 			var game = CurrentCell.Region.World.Game;
 			var language = game.Language;
 			var balance = game.Balance;
+
 			if (IsAgressive != agressive)
 			{
 				IsAgressive = agressive;
@@ -204,6 +205,37 @@ namespace Roguelike.Core.ActiveObjects
 			{
 				time = balance.ActionLongevity.Disabled;
 				logMessage = string.Format(CultureInfo.InvariantCulture, language.LogActionFormatChangeFightModeDisabled, this);
+			}
+			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage);
+		}
+
+		public ActionResult ChangeWeapon(IWeapon weapon)
+		{
+			int time;
+			string logMessage;
+			var game = CurrentCell.Region.World.Game;
+			var language = game.Language;
+			var balance = game.Balance;
+
+			var oldWeapon = WeaponToFight;
+			if (oldWeapon != weapon)
+			{
+				WeaponToFight = weapon;
+
+				RaiseWeaponChanged(oldWeapon, weapon);
+
+				time = balance.ActionLongevity.ChangeWeapon;
+				logMessage = string.Format(
+					CultureInfo.InvariantCulture,
+					language.LogActionFormatChangeWeapon,
+					this,
+					oldWeapon,
+					weapon);
+			}
+			else
+			{
+				time = balance.ActionLongevity.Disabled;
+				logMessage = string.Format(CultureInfo.InvariantCulture, language.LogActionFormatChangeWeaponDisabled, this);
 			}
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage);
 		}

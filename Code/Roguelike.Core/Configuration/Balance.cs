@@ -19,6 +19,9 @@
 		public int MaxLogSize
 		{ get; set; }
 
+		public int BaseHitPossibility
+		{ get; set; }
+
 		#endregion
 
 		public static Balance CreateDefault()
@@ -31,6 +34,8 @@
 				Distance = DistanceBalance.CreateDefault(),
 
 				MaxLogSize = 512,
+
+				BaseHitPossibility = 50,
 			};
 		}
 	}

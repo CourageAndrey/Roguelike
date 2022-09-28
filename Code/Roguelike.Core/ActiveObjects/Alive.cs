@@ -203,6 +203,15 @@ namespace Roguelike.Core.ActiveObjects
 
 				RaiseAgressiveChanged(!agressive, agressive);
 
+				if (agressive)
+				{
+					WeaponToFight.RaisePreparedForBattle(this);
+				}
+				else
+				{
+					WeaponToFight.RaiseStoppedBattle(this);
+				}
+
 				time = balance.ActionLongevity.ChangeAgressive;
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,

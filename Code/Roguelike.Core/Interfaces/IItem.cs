@@ -26,6 +26,10 @@
 		event EventHandler<IWeapon, IAlive> PreparedForBattle;
 
 		event EventHandler<IWeapon, IAlive> StoppedBattle;
+
+		void RaisePreparedForBattle(IAlive who);
+
+		void RaiseStoppedBattle(IAlive who);
 	}
 
 	#region Wear interfaces

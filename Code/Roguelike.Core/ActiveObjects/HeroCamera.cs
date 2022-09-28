@@ -15,13 +15,7 @@ namespace Roguelike.Core.ActiveObjects
 		{ get { return _hero.CurrentCell; } }
 
 		public double Distance
-		{
-			get
-			{
-#warning Implement visibility length depending of hero senses.
-				return 10;
-			}
-		}
+		{ get { return _hero.Properties.Perception; } }
 
 		public ICollection<Cell> MapMemory
 		{ get; } = new HashSet<Cell>();

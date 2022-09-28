@@ -61,8 +61,7 @@ namespace Roguelike.Core.ActiveObjects
 		{ get; private set; }
 
 		public double Toughness
-#warning This setting has to be adjustable
-		{ get { return 1; } }
+		{ get { return Properties.Endurance; } }
 
 		#endregion
 

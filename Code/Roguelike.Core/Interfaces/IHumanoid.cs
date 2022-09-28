@@ -2,9 +2,12 @@
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IHumanoid : IAlive, IInterlocutor, IManequin
+	public interface IHumanoid : IAlive, IInterlocutor
 	{
 		string Name
+		{ get; }
+
+		IManequin Manequin
 		{ get; }
 
 		IDictionary<Skill, int> Skills

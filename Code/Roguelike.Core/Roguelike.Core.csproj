@@ -44,6 +44,7 @@
     <Compile Include="ActiveObjects\Body.cs" />
     <Compile Include="ActiveObjects\BodyPart.cs" />
     <Compile Include="ActiveObjects\HeroCamera.cs" />
+    <Compile Include="ActiveObjects\Manequin.cs" />
     <Compile Include="ActiveObjects\Properties.cs" />
     <Compile Include="ActiveObjects\Humanoid.cs" />
     <Compile Include="Ai.cs" />

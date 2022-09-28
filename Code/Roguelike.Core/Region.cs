@@ -160,18 +160,18 @@ namespace Roguelike.Core
 			}
 		}
 
-		internal Queue<ActiveObject> GetActiveObjects(bool orderByNextActionTime = true)
+		internal Queue<Active> GetActiveObjects(bool orderByNextActionTime = true)
 		{
 			if (_activeCache == null)
 			{
-				var actives = new List<ActiveObject>();
+				var actives = new List<Active>();
 				for (int x = 0; x < Size.X; x++)
 				{
 					for (int y = 0; y < Size.Y; y++)
 					{
 						for (int z = 0; z < Size.Z; z++)
 						{
-							actives.AddRange(cells[x, y, z].Objects.OfType<ActiveObject>());
+							actives.AddRange(cells[x, y, z].Objects.OfType<Active>());
 						}
 					}
 				}
@@ -185,7 +185,7 @@ namespace Roguelike.Core
 					active.OnLogMessage += OnLogMessage;
 				}
 
-				_activeCache = new Queue<ActiveObject>(actives);
+				_activeCache = new Queue<Active>(actives);
 			}
 			return _activeCache;
 		}
@@ -202,7 +202,7 @@ namespace Roguelike.Core
 			_activeCache = null;
 		}
 
-		private Queue<ActiveObject> _activeCache;
+		private Queue<Active> _activeCache;
 
 		private void OnLogMessage(IActive sender, ICollection<string> messages)
 		{

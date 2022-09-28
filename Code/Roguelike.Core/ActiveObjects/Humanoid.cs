@@ -10,7 +10,7 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.ActiveObjects
 {
-	public abstract class Humanoid : AliveObject, IInterlocutor, IManequin
+	public abstract class Humanoid : Alive, IHumanoid
 	{
 		#region Properties
 

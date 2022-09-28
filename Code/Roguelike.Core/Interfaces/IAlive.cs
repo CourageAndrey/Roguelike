@@ -2,7 +2,7 @@
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IAlive : IActive
+	public interface IAlive : IActive, IRequireGravitation, IInteractive
 	{
 		bool SexIsMale
 		{ get; }

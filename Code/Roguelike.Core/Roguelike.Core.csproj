@@ -38,8 +38,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionResult.cs" />
-    <Compile Include="ActiveObject.cs" />
-    <Compile Include="ActiveObjects\AliveObject.cs" />
+    <Compile Include="Active.cs" />
+    <Compile Include="ActiveObjects\Alive.cs" />
     <Compile Include="ActiveObjects\Animal.cs" />
     <Compile Include="ActiveObjects\Body.cs" />
     <Compile Include="ActiveObjects\BodyPart.cs" />
@@ -60,6 +60,7 @@
     <Compile Include="EventCollection.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Interfaces\IHumanoid.cs" />
     <Compile Include="Interfaces\IHero.cs" />
     <Compile Include="Interfaces\IAlive.cs" />
     <Compile Include="Interfaces\IBody.cs" />

@@ -9,12 +9,12 @@ namespace Roguelike.Core.StaticObjects
 		public override bool IsSolid
 		{ get { return false; } }
 
-		public AliveObject Alive
+		public Alive Alive
 		{ get; }
 
 		#endregion
 
-		public Corpse(AliveObject alive)
+		public Corpse(Alive alive)
 		{
 			Alive = alive;
 		}

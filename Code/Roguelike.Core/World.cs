@@ -84,7 +84,7 @@ namespace Roguelike.Core
 			currentRegion.ResetActiveCache();
 		}
 
-		public void ApplyAction(ActiveObject actor, ActionResult actionResult)
+		public void ApplyAction(Active actor, ActionResult actionResult)
 		{
 			foreach (string line in actionResult.LogMessages)
 			{

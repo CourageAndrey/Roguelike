@@ -14,12 +14,12 @@ namespace Roguelike.Core.Items
 		public override ItemType Type
 		{ get { throw new NotSupportedException(); } }
 
-		public AliveObject Fighter
+		public Alive Fighter
 		{ get; }
 
 		#endregion
 
-		public Unarmed(AliveObject fighter)
+		public Unarmed(Alive fighter)
 		{
 			Fighter = fighter;
 		}

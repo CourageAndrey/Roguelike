@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Roguelike.Core.ActiveObjects
 {
-	public class Animal : AliveObject
+	public class Animal : Alive
 	{
 		#region Properties
 

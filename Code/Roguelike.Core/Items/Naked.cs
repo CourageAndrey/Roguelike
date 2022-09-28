@@ -1,6 +1,5 @@
 ﻿using System;
 
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Items
@@ -15,12 +14,12 @@ namespace Roguelike.Core.Items
 		public override ItemType Type
 		{ get { throw new NotSupportedException(); } }
 
-		public Humanoid Owner
+		public IHumanoid Owner
 		{ get; }
 
 		#endregion
 
-		public Naked(Humanoid owner)
+		public Naked(IHumanoid owner)
 		{
 			Owner = owner;
 		}

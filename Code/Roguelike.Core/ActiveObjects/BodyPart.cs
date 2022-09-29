@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
+using System.Threading;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
@@ -40,11 +40,32 @@ namespace Roguelike.Core.ActiveObjects
 			Body = body;
 			Weight = weight;
 			this.getName = getName;
-			Parts = new ReadOnlyCollection<IBodyPart>(parts);
 			IsVital = isVital;
+
+			Parts = new ReadOnlyCollection<IBodyPart>(parts);
+			foreach (var part in parts)
+			{
+				part.WeightChanged += onPartWeightChanged;
+			}
 		}
 
 		#endregion
+
+		protected void RaiseWeightChanged(double oldWeight, double newWeight)
+		{
+			var handler = Volatile.Read(ref WeightChanged);
+			if (handler != null)
+			{
+				handler(this, oldWeight, newWeight);
+			}
+		}
+
+		private void onPartWeightChanged(IRequireGravitation part, double oldPartWeight, double newPartWeight)
+		{
+			double newWeight = Weight;
+			double oldWeigth = newWeight - newPartWeight + oldPartWeight;
+			RaiseWeightChanged(oldWeigth, newWeight);
+		}
 
 		public string GetName(Language language)
 		{

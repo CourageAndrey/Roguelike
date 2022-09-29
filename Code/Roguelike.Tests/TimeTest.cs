@@ -542,6 +542,38 @@ namespace Roguelike.Tests
 			Assert.AreEqual(new Time(_balance, 11, 1, 1, 1, 1), result);
 		}
 
+		[Test]
+		public void CheckNormalUpscaling()
+		{
+			// arrange
+			var ticksToCheck = new long[] { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000 };
+
+			const int scale = 10;
+
+			// act & assert
+			foreach (long ticks in ticksToCheck)
+			{
+				var time = Time.FromTicks(_balance, ticks) * scale;
+				Assert.AreEqual(ticks * scale, time.TotalTicks);
+			}
+		}
+
+		[Test]
+		public void CheckNormalDownscaling()
+		{
+			// arrange
+			var ticksToCheck = new long[] { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000 };
+
+			const int scale = 10;
+
+			// act & assert
+			foreach (long ticks in ticksToCheck)
+			{
+				var time = Time.FromTicks(_balance, ticks) / scale;
+				Assert.AreEqual(ticks / scale, time.TotalTicks);
+			}
+		}
+
 		#endregion
 
 		[Test]

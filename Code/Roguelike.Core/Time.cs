@@ -28,6 +28,19 @@ namespace Roguelike.Core
 		public uint Ticks
 		{ get; }
 
+		public long TotalTicks
+		{
+			get
+			{
+				long ticks = Year;
+				ticks = ticks * _balance.MonthInYear + Month;
+				ticks = ticks * _balance.WeeksInMonth + Week;
+				ticks = ticks * _balance.DaysInWeek + Day;
+				ticks = ticks * _balance.TicksInDay + Ticks;
+				return ticks;
+			}
+		}
+
 		#endregion
 
 		#region Constructors
@@ -76,7 +89,7 @@ namespace Roguelike.Core
 			return new Time(balance).AddDays(value);
 		}
 
-		public static Time FromTicks(TimeBalance balance, int value)
+		public static Time FromTicks(TimeBalance balance, long value)
 		{
 			return new Time(balance).AddTicks(value);
 		}

@@ -566,5 +566,19 @@ namespace Roguelike.Tests
 			// act & assert
 			Assert.AreEqual(8, time.MonthDay);
 		}
+
+		[Test]
+		public void CheckTicks()
+		{
+			// arrange
+			var ticksToCheck = new long[] { 0, 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000 };
+
+			// act & assert
+			foreach (long ticks in ticksToCheck)
+			{
+				var time = Time.FromTicks(_balance, ticks);
+				Assert.AreEqual(ticks, time.TotalTicks);
+			}
+		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Roguelike.Core.Configuration;
+using Roguelike.Core.Items;
 
 namespace Roguelike.Core
 {
@@ -156,6 +157,16 @@ namespace Roguelike.Core
 		public static bool operator !=(Time a, Time b)
 		{
 			return !a.Equals(b);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return base.Equals((Time) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			return (Year ^ Month ^ Week ^ Day ^ Ticks).GetHashCode();
 		}
 
 		#endregion

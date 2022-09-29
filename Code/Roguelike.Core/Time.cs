@@ -1,11 +1,10 @@
 ﻿using System;
 
 using Roguelike.Core.Configuration;
-using Roguelike.Core.Items;
 
 namespace Roguelike.Core
 {
-	public struct Time : IEquatable<Time>, IComparable<Time>
+	public readonly struct Time : IEquatable<Time>, IComparable<Time>
 	{
 		#region Properties
 

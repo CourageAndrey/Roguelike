@@ -54,7 +54,6 @@ namespace Roguelike.Core
 			{
 				return ActionResult.GetEmpty(balance);
 			}
-#warning Take reflexes speed into account.
 		}
 
 		#region Log messages

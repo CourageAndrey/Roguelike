@@ -31,7 +31,7 @@ namespace Roguelike.Core.ActiveObjects
 			Camera = new HeroCamera(this);
 		}
 
-		public override ActionResult Do()
+		protected override ActionResult DoImplementation()
 		{
 			throw new NotSupportedException("Hero works outside this logic.");
 		}

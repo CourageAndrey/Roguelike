@@ -63,6 +63,23 @@ namespace Roguelike.Core.ActiveObjects
 		public double Toughness
 		{ get { return Properties.Endurance; } }
 
+		public double Speed
+		{
+			get
+			{
+				if (CurrentCell != null)
+				{
+					var balance = CurrentCell.Region.World.Game.Balance;
+					return 1 + Math.Pow(balance.Player.ReflexesRate, Properties.Reaction - balance.Player.ReflexesAverage);
+				}
+				else
+				{
+					return 1;
+				}
+			}
+
+		}
+
 		#endregion
 
 		#region Events
@@ -285,7 +302,7 @@ namespace Roguelike.Core.ActiveObjects
 			var language = game.Language;
 			var random = new Random(DateTime.Now.Millisecond);
 
-			int hitPossibility = balance.BaseHitPossibility;
+			int hitPossibility = balance.Player.BaseHitPossibility;
 			hitPossibility += ((int) Properties.Reaction - (int) target.Properties.Reaction) * 10;
 			if (random.Next(0, 100) < hitPossibility)
 			{
@@ -296,5 +313,13 @@ namespace Roguelike.Core.ActiveObjects
 				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Attack)),
 				string.Format(CultureInfo.InvariantCulture, language.LogActionFormatAttack, this, target, WeaponToFight));
 		}
+
+		public sealed override ActionResult Do()
+		{
+			var result = DoImplementation();
+			return new ActionResult(result.Longevity.Scale(Speed), result.LogMessages);
+		}
+
+		protected abstract ActionResult DoImplementation();
 	}
 }

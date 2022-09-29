@@ -17,7 +17,7 @@ namespace Roguelike.Core.ActiveObjects
 			: base(sexIsMale, birthDate, properties, inventory)
 		{ }
 
-		public override ActionResult Do()
+		protected override ActionResult DoImplementation()
 		{
 #warning Implement animal AI.
 			if (Owner == null)

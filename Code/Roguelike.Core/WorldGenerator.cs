@@ -140,13 +140,13 @@ namespace Roguelike.Core
 
 			for (int i = 0; i < totalHouses; i++)
 			{
-				var husband = new Npc(true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 10, 10, 10, 10), Enumerable.Empty<Item>(), "John Smith " + i);
+				var husband = new Npc(true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "John Smith " + i);
 				husband.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var wife = new Npc(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 10, 10, 10, 10), Enumerable.Empty<Item>(), "Mary Poppins " + i);
+				var wife = new Npc(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "Mary Poppins " + i);
 				wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var pet = new Animal(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), new Properties(5, 5, 5, 5, 5, 5), Enumerable.Empty<Item>()) { Owner = husband };
+				var pet = new Animal(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>()) { Owner = husband };
 				pet.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 			}
 		}

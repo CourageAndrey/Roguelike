@@ -47,6 +47,7 @@
     <Compile Include="ActiveObjects\Manequin.cs" />
     <Compile Include="ActiveObjects\Properties.cs" />
     <Compile Include="ActiveObjects\Humanoid.cs" />
+    <Compile Include="ActiveObjects\State.cs" />
     <Compile Include="Ai.cs" />
     <Compile Include="Configuration\ActionLongevityBalance.cs" />
     <Compile Include="Configuration\DistanceBalance.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="EventCollection.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Interfaces\IState.cs" />
     <Compile Include="Interfaces\IHumanoid.cs" />
     <Compile Include="Interfaces\IHero.cs" />
     <Compile Include="Interfaces\IAlive.cs" />

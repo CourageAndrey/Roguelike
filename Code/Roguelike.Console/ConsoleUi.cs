@@ -305,6 +305,12 @@ namespace Roguelike.Console
 				System.Console.WriteLine();
 
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
+				System.Console.WriteLine($"=== STATE ===");
+				System.Console.ForegroundColor = ConsoleColor.White;
+				System.Console.WriteLine($"{humanoid.State}");
+				System.Console.WriteLine();
+
+				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
 				System.Console.WriteLine($"=== BODY ===");
 				System.Console.ForegroundColor = ConsoleColor.White;
 				System.Console.WriteLine($"... under construction ...");

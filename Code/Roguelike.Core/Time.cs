@@ -326,6 +326,11 @@ namespace Roguelike.Core
 				(uint) thisLevelValue).AddDays((int) nextLevelDelta);
 		}
 
+		public Time Scale(double rate)
+		{
+			return FromTicks(_balance, (long) Math.Min(Math.Max(Math.Floor(TotalTicks * rate), long.MinValue), long.MaxValue));
+		}
+
 		public Time Date()
 		{
 			return new Time(
@@ -366,6 +371,16 @@ namespace Roguelike.Core
 				.AddWeeks(-b.Week)
 				.AddDays(-b.Day)
 				.AddTicks(-b.Ticks);
+		}
+
+		public static Time operator *(Time time, double rate)
+		{
+			return time.Scale(rate);
+		}
+
+		public static Time operator /(Time time, double rate)
+		{
+			return time.Scale(1 / rate);
 		}
 
 		#endregion

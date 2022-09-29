@@ -42,6 +42,9 @@ namespace Roguelike.Core.ActiveObjects
 		public IBody Body
 		{ get; }
 
+		public IState State
+		{ get; }
+
 		public ICollection<Item> Inventory
 		{ get; }
 
@@ -162,6 +165,7 @@ namespace Roguelike.Core.ActiveObjects
 			SexIsMale = sexIsMale;
 			BirthDate = birthDate;
 			Properties = properties;
+			State = new State();
 			WeaponToFight = new Unarmed(this);
 
 			double getTotalWeigth()

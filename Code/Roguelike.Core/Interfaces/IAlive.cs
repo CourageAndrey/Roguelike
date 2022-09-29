@@ -17,6 +17,9 @@ namespace Roguelike.Core.Interfaces
 		IBody Body
 		{ get; }
 
+		IState State
+		{ get; }
+
 		ICollection<Item> Inventory
 		{ get; }
 

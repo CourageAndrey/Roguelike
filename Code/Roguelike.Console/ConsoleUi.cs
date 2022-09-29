@@ -294,7 +294,40 @@ namespace Roguelike.Console
 
 		public void ShowCharacter(Game game, Humanoid humanoid)
 		{
-			throw new NotImplementedException();
+			startDialog(() =>
+			{
+#warning Localize
+				System.Console.ForegroundColor = ConsoleColor.Cyan;
+				System.Console.WriteLine($"=== {humanoid.Name} ===");
+				System.Console.ForegroundColor = ConsoleColor.White;
+				string sex = humanoid.SexIsMale ? "Male" : "Female";
+				System.Console.WriteLine($"{sex}, {humanoid.Age} years old");
+				System.Console.WriteLine();
+
+				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
+				System.Console.WriteLine($"=== BODY ===");
+				System.Console.ForegroundColor = ConsoleColor.White;
+				System.Console.WriteLine($"... under construction ...");
+				System.Console.WriteLine();
+
+				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
+				System.Console.WriteLine($"=== PROPERTIES ===");
+				System.Console.ForegroundColor = ConsoleColor.White;
+				System.Console.WriteLine($"    Strength : {humanoid.Properties.Strength}");
+				System.Console.WriteLine($"   Endurance : {humanoid.Properties.Endurance}");
+				System.Console.WriteLine($"    Reaction : {humanoid.Properties.Reaction}");
+				System.Console.WriteLine($"  Perception : {humanoid.Properties.Perception}");
+				System.Console.WriteLine($"Intelligence : {humanoid.Properties.Intelligence}");
+				System.Console.WriteLine($"   Willpower : {humanoid.Properties.Willpower}");
+				System.Console.WriteLine();
+
+				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
+				System.Console.WriteLine($"=== SKILLS ===");
+				System.Console.ForegroundColor = ConsoleColor.White;
+				System.Console.WriteLine($"... under construction ...");
+
+				System.Console.ReadKey();
+			});
 		}
 
 		public ActionResult BeginChat(Game game, Humanoid humanoid)

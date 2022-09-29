@@ -50,6 +50,7 @@
     <Compile Include="Ai.cs" />
     <Compile Include="Configuration\ActionLongevityBalance.cs" />
     <Compile Include="Configuration\DistanceBalance.cs" />
+    <Compile Include="Configuration\PlayerBalance.cs" />
     <Compile Include="Configuration\TimeBalance.cs" />
     <Compile Include="Configuration\WorldSizeBalance.cs" />
     <Compile Include="CellBackground.cs" />

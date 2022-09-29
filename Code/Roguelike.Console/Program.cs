@@ -166,7 +166,7 @@ namespace Roguelike.Console
 
 				if (performedAction != null)
 				{
-					world.ApplyAction(hero, performedAction);
+					world.ApplyAction(hero, new ActionResult(performedAction.Longevity.Scale(hero.Speed), performedAction.LogMessages));
 					world.DoOneStep();
 				}
 			} while (true);

@@ -16,10 +16,10 @@
 		public DistanceBalance Distance
 		{ get; set; }
 
-		public int MaxLogSize
+		public PlayerBalance Player
 		{ get; set; }
 
-		public int BaseHitPossibility
+		public int MaxLogSize
 		{ get; set; }
 
 		#endregion
@@ -32,10 +32,9 @@
 				Time = TimeBalance.CreateDefault(),
 				WorldSize = WorldSizeBalance.CreateDefault(),
 				Distance = DistanceBalance.CreateDefault(),
+				Player = PlayerBalance.CreateDefault(),
 
 				MaxLogSize = 512,
-
-				BaseHitPossibility = 50,
 			};
 		}
 	}

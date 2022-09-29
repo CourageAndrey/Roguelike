@@ -15,7 +15,7 @@ namespace Roguelike.Core.ActiveObjects
 			: base(sexIsMale, birthDate, properties, inventory, name)
 		{ }
 
-		public override ActionResult Do()
+		protected override ActionResult DoImplementation()
 		{
 #warning Implement NPC AI.
 			var random = new Random(DateTime.Now.Millisecond);

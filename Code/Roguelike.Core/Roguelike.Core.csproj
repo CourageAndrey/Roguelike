@@ -43,6 +43,13 @@
     <Compile Include="ActiveObjects\Animal.cs" />
     <Compile Include="ActiveObjects\Body.cs" />
     <Compile Include="ActiveObjects\BodyPart.cs" />
+    <Compile Include="ActiveObjects\Disease.cs" />
+    <Compile Include="ActiveObjects\Diseases\Fever.cs" />
+    <Compile Include="ActiveObjects\Diseases\Leprosy.cs" />
+    <Compile Include="ActiveObjects\Diseases\Lues.cs" />
+    <Compile Include="ActiveObjects\Diseases\Plague.cs" />
+    <Compile Include="ActiveObjects\Diseases\Ulcer.cs" />
+    <Compile Include="ActiveObjects\Diseases\Worms.cs" />
     <Compile Include="ActiveObjects\HeroCamera.cs" />
     <Compile Include="ActiveObjects\Manequin.cs" />
     <Compile Include="ActiveObjects\Properties.cs" />
@@ -63,6 +70,7 @@
     <Compile Include="EventCollection.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Interfaces\IDisease.cs" />
     <Compile Include="Interfaces\IState.cs" />
     <Compile Include="Interfaces\IHumanoid.cs" />
     <Compile Include="Interfaces\IHero.cs" />

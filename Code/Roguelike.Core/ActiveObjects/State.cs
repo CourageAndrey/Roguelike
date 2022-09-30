@@ -1,6 +1,7 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using System.Threading;
-
+using Roguelike.Core.ActiveObjects.Diseases;
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.ActiveObjects
@@ -9,7 +10,7 @@ namespace Roguelike.Core.ActiveObjects
 	{
 		#region Properties
 
-		private readonly bool _isSick;
+		private readonly ICollection<IDisease> _diseases;
 		private readonly bool _isDirty;
 		private readonly bool _isPoisoned;
 		private readonly bool _hasHangover;
@@ -114,9 +115,7 @@ namespace Roguelike.Core.ActiveObjects
 		}
 
 		public bool IsSick
-		{
-			get { return _isSick; }
-		}
+		{ get { return _diseases.Count > 0; } }
 
 		public event EventHandler<IState> Changed;
 
@@ -132,7 +131,7 @@ namespace Roguelike.Core.ActiveObjects
 		#endregion
 
 		public State(
-			bool isSick = false,
+			IEnumerable<IDisease> diseases = null,
 			bool isDirty = false,
 			bool isPoisoned = false,
 			bool hasHangover = false,
@@ -151,7 +150,7 @@ namespace Roguelike.Core.ActiveObjects
 			bool isBloated = false,
 			bool isHungry = false)
 		{
-			_isSick = isSick;
+			_diseases = new List<IDisease>(diseases ?? new IDisease[0]);
 			_isDirty = isDirty;
 			_isPoisoned = isPoisoned;
 			_hasHangover = hasHangover;
@@ -176,13 +175,13 @@ namespace Roguelike.Core.ActiveObjects
 #warning localize
 			var result = new StringBuilder();
 
-			if (_isSick)
+			if (IsSick)
 			{
 				//if (result.Length > 0)
 				//{
 				//	result.Append(", ");
 				//}
-				result.Append("Sick");
+				result.Append($"Sick ({string.Join(", ", _diseases)})");
 			}
 
 			if (_isDirty)

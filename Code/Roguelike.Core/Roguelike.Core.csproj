@@ -100,6 +100,7 @@
     <Compile Include="StaticObjects\Bed.cs" />
     <Compile Include="StaticObjects\Corpse.cs" />
     <Compile Include="StaticObjects\Fire.cs" />
+    <Compile Include="StaticObjects\ItemsPile.cs" />
     <Compile Include="StaticObjects\Stump.cs" />
     <Compile Include="StaticObjects\Tree.cs" />
     <Compile Include="WorldGenerator.cs" />

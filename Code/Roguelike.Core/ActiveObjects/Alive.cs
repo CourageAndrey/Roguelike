@@ -45,7 +45,7 @@ namespace Roguelike.Core.ActiveObjects
 		public IState State
 		{ get; }
 
-		public ICollection<Item> Inventory
+		public ICollection<IItem> Inventory
 		{ get; }
 
 		public bool IsDead
@@ -188,7 +188,7 @@ namespace Roguelike.Core.ActiveObjects
 				updateWeight();
 			}
 
-			var _inventory = new EventCollection<Item>(inventory);
+			var _inventory = new EventCollection<IItem>(inventory);
 			_inventory.ItemAdded += (sender, args) =>
 			{
 				updateWeight();
@@ -316,6 +316,32 @@ namespace Roguelike.Core.ActiveObjects
 			return new ActionResult(
 				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Attack)),
 				string.Format(CultureInfo.InvariantCulture, language.LogActionFormatAttack, this, target, WeaponToFight));
+		}
+
+		public virtual ActionResult DropItem(IItem item)
+		{
+			var world = CurrentCell.Region.World;
+			var game = world.Game;
+			var balance = game.Balance;
+			var language = game.Language;
+
+			var itemsPile = CurrentCell.Objects.OfType<ItemsPile>().SingleOrDefault();
+			if (itemsPile != null)
+			{
+				itemsPile.Items.Add(item);
+			}
+			else
+			{
+				new ItemsPile(item).MoveTo(CurrentCell);
+			}
+
+			Inventory.Remove(item);
+
+#warning Now we need to decide if selected weapon and manequin items must store within Inventory or not.
+
+			return new ActionResult(
+				Time.FromTicks(balance.Time, balance.ActionLongevity.DropItem),
+				string.Format(CultureInfo.InvariantCulture, language.LogActionFormatDropItem, this, item));
 		}
 
 		public sealed override ActionResult Do()

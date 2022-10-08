@@ -20,7 +20,7 @@ namespace Roguelike.Core.Interfaces
 		IState State
 		{ get; }
 
-		ICollection<Item> Inventory
+		ICollection<IItem> Inventory
 		{ get; }
 
 		IWeapon WeaponToFight

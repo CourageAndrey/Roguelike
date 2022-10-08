@@ -29,7 +29,7 @@ namespace Roguelike.Core
 			}
 		}
 
-		protected internal void RaisePicked(IAlive who)
+		public void RaisePicked(IAlive who)
 		{
 			var handler = Volatile.Read(ref Picked);
 			if (handler != null)
@@ -38,7 +38,7 @@ namespace Roguelike.Core
 			}
 		}
 
-		protected internal void RaiseDropped(IAlive who)
+		public void RaiseDropped(IAlive who)
 		{
 			var handler = Volatile.Read(ref Dropped);
 			if (handler != null)

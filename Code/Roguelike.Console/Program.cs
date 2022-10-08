@@ -122,10 +122,10 @@ namespace Roguelike.Console
 								}
 							}
 
-							ListItem selectedItem;
-							if (ui.TrySelectItem(game, language.SelectInteractionPromt, items, out selectedItem))
+							ListItem selectedInteractionItem;
+							if (ui.TrySelectItem(game, language.SelectInteractionPromt, items, out selectedInteractionItem))
 							{
-								performedAction = ((Interaction)selectedItem.ValueObject).Perform(hero);
+								performedAction = ((Interaction) selectedInteractionItem.ValueObject).Perform(hero);
 							}
 						}
 						break;
@@ -138,6 +138,16 @@ namespace Roguelike.Console
 						performedAction = hero.ChangeAggressive(!hero.IsAgressive);
 						break;
 
+					case ConsoleKey.D:
+						var itemsToDrop = hero.Inventory.Select(i => new ListItem<IItem>(i, i.ToString()));
+
+						ListItem selectedItemToDrop;
+						if (ui.TrySelectItem(game, language.SelectItemToDropPromt, itemsToDrop, out selectedItemToDrop))
+						{
+							performedAction = hero.DropItem((IItem) selectedItemToDrop.ValueObject);
+						}
+						break;
+
 					case ConsoleKey.W:
 						var weapons = new List<IWeapon>(hero.Inventory.OfType<IWeapon>()).ToList();
 						if (hero.WeaponToFight.GetType() != typeof(Unarmed))
@@ -145,7 +155,6 @@ namespace Roguelike.Console
 							weapons.Remove(hero.WeaponToFight);
 							weapons.Add(new Unarmed(hero));
 						}
-						//var currentWeapon = 
 
 						IWeapon selectedWeapon;
 						ListItem selectedWeaponItem;

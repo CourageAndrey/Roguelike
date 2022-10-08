@@ -18,6 +18,13 @@ namespace Roguelike.Core.Localization
 		public string SelectWeaponPromt
 		{ get; set; }
 		[XmlElement]
+		public string SelectItemToDropPromt
+		{ get; set; }
+		[XmlElement]
+		public string SelectItemToPickPromt
+		{ get; set; }
+
+		[XmlElement]
 		public string InteractionFormat
 		{ get; set; }
 
@@ -41,6 +48,9 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 		[XmlElement]
 		public string InteractionPickpocket
+		{ get; set; }
+		[XmlElement]
+		public string InteractionPickItem
 		{ get; set; }
 
 		[XmlElement]
@@ -81,6 +91,15 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 		[XmlElement]
 		public string LogActionFormatDeath
+		{ get; set; }
+		[XmlElement]
+		public string LogActionFormatDropItem
+		{ get; set; }
+		[XmlElement]
+		public string LogActionFormatPickItem
+		{ get; set; }
+		[XmlElement]
+		public string LogActionFormatPickItemDisabled
 		{ get; set; }
 
 		[XmlElement]
@@ -134,7 +153,6 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string UiCharacterInventory
 		{ get; set; }
-
 
 		[XmlElement]
 		public string HelpTitle
@@ -335,6 +353,9 @@ namespace Roguelike.Core.Localization
 
 				SelectInteractionPromt = "Please, select what to do.",
 				SelectWeaponPromt = "Please, select weapon to equip.",
+				SelectItemToDropPromt = "Please, select item to drop.",
+				SelectItemToPickPromt = "Please, select item to pick.",
+
 				InteractionFormat = "{0} ({1})",
 
 				InteractionOpenDoor = "Open the door.",
@@ -344,6 +365,7 @@ namespace Roguelike.Core.Localization
 				InteractionChat = "Chat",
 				InteractionTrade = "Trade",
 				InteractionPickpocket = "Pickpocket",
+				InteractionPickItem = "Pick item",
 
 				LogActionFormatOpenDoor = "{0} opens the door at {1}.",
 				LogActionFormatCloseDoor = "{0} closes the door at {1}.",
@@ -358,6 +380,9 @@ namespace Roguelike.Core.Localization
 				LogActionFormatChangeWeaponDisabled = "{0} didn't manage to change weapon",
 				LogActionFormatAttack = "{0} attacks {1} with {2}",
 				LogActionFormatDeath = "{0} die: {1}",
+				LogActionFormatDropItem = "{0} picks {1}",
+				LogActionFormatPickItem = "{0} drops {1}",
+				LogActionFormatPickItemDisabled = "{0} didn't manage to pick item",
 
 				ReathReasonKilled = "killed by {0}",
 

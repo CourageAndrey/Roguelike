@@ -52,6 +52,7 @@ namespace Roguelike.Console
 			{ typeof(Bed), o => new BedViewModel((Bed) o) },
 			{ typeof(Corpse), o => new CorpseViewModel((Corpse) o) },
 			{ typeof(Stump), o => new StumpViewModel((Stump) o) },
+			{ typeof(ItemsPile), o => new ItemsPileViewModel((ItemsPile) o) },
 		};
 
 		#endregion

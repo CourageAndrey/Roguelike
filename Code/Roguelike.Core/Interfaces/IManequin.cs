@@ -30,7 +30,7 @@ namespace Roguelike.Core.Interfaces
 
 	public static class ManequinExtensions
 	{
-		public static IEnumerable<IWear> GetAllIItems(this IManequin manequin)
+		public static IEnumerable<IWear> GetAllItems(this IManequin manequin)
 		{
 			if (manequin.HeadWear != null)
 			{

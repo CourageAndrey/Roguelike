@@ -8,6 +8,10 @@
 		event EventHandler<IItem, IAlive> Picked;
 
 		event EventHandler<IItem, IAlive> Dropped;
+
+		void RaisePicked(IAlive who);
+
+		void RaiseDropped(IAlive who);
 	}
 
 	public interface IWear : IItem

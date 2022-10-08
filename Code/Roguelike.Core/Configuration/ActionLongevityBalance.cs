@@ -34,6 +34,12 @@
 		public int Attack
 		{ get; set; }
 
+		public int DropItem
+		{ get; set; }
+
+		public int PickItem
+		{ get; set; }
+
 		#endregion
 
 		public static ActionLongevityBalance CreateDefault()
@@ -50,6 +56,8 @@
 				ChangeWeapon = 2500,
 				Wait = 500,
 				Attack = 1000,
+				DropItem = 1500,
+				PickItem = 1500,
 			};
 		}
 	}

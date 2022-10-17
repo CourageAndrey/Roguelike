@@ -12,7 +12,7 @@ namespace Roguelike.Console
 	{
 		#region Models
 
-		public static ObjectViewModel GetModel(Cell cell)
+		public static ObjectViewModel GetModel(this Cell cell)
 		{
 			var objectToDisplay = cell.GetTopVisibleObject();
 			if (objectToDisplay == null) return BackgroundViewModel.All[cell.Background];

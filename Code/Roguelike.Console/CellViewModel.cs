@@ -68,7 +68,7 @@ namespace Roguelike.Console
 		{
 			if (CurrentObjectView == null)
 			{
-				CurrentObjectView = _cell != null ? ConsoleUiHelper.GetModel(_cell) : ObjectViewModel.Empty;
+				CurrentObjectView = _cell != null ? _cell.GetModel() : ObjectViewModel.Empty;
 			}
 
 			System.Console.CursorLeft = X;

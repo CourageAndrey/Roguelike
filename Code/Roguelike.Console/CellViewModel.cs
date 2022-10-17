@@ -19,7 +19,7 @@ namespace Roguelike.Console
 					_cell.ViewChanged -= cellViewChanged;
 				}
 				_cell = value;
-				CurrentObjectView = null;
+				Invalidate();
 				if (_cell != null)
 				{
 					_cell.ViewChanged += cellViewChanged;
@@ -40,6 +40,9 @@ namespace Roguelike.Console
 		{ get; internal set; }
 
 		private Cell _cell;
+		private ConsoleColor? _lastForeColor;
+		private ConsoleColor? _lastBackColor;
+		private string _lastText;
 
 		#endregion
 
@@ -49,9 +52,16 @@ namespace Roguelike.Console
 			Y = y;
 		}
 
-		private void cellViewChanged(Cell sender)
+		private void Invalidate()
 		{
 			CurrentObjectView = null;
+			_lastForeColor = _lastBackColor = null;
+			_lastText = null;
+		}
+
+		private void cellViewChanged(Cell sender)
+		{
+			Invalidate();
 			var camera = sender?.Region.World.Hero.Camera;
 			if (camera != null)
 			{
@@ -71,11 +81,27 @@ namespace Roguelike.Console
 				CurrentObjectView = _cell != null ? _cell.GetModel() : ObjectViewModel.Empty;
 			}
 
-			System.Console.CursorLeft = X;
-			System.Console.CursorTop = Y;
-			System.Console.ForegroundColor = IsVisible ? CurrentObjectView.Foreground : CurrentObjectView.Foreground.ToGrayScale();
-			System.Console.BackgroundColor = IsVisible ? CurrentObjectView.Background : CurrentObjectView.Background.ToGrayScale();
-			System.Console.Write(CurrentObjectView.Text);
+			ConsoleColor newForeColor;
+			ConsoleColor newBackColor;
+			if (IsVisible)
+			{
+				newForeColor = CurrentObjectView.Foreground;
+				newBackColor = CurrentObjectView.Background;
+			}
+			else
+			{
+				newForeColor = CurrentObjectView.Foreground.ToGrayScale();
+				newBackColor = CurrentObjectView.Background.ToGrayScale();
+			}
+
+			if (newForeColor != _lastForeColor || newBackColor != _lastBackColor || CurrentObjectView.Text != _lastText)
+			{
+				System.Console.CursorLeft = X;
+				System.Console.CursorTop = Y;
+				_lastForeColor = System.Console.ForegroundColor = newForeColor;
+				_lastBackColor = System.Console.BackgroundColor = newBackColor;
+				System.Console.Write(_lastText = CurrentObjectView.Text);
+			}
 		}
 	}
 }

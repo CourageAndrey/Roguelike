@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 
 namespace Roguelike.Core
@@ -20,6 +21,9 @@ namespace Roguelike.Core
 
 		public IReadOnlyCollection<Object> Objects
 		{ get { return objectsView ?? (objectsView = new ReadOnlyCollection<Object>(objects)); } }
+
+		public bool IsTransparent
+		{ get { return Objects.All(o => !o.IsSolid); } }
 
 		public event Action<Cell> ViewChanged;
 

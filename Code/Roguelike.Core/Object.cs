@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 
 using Roguelike.Core.Interfaces;
 
@@ -59,7 +58,7 @@ namespace Roguelike.Core
 
 		public bool TryMoveTo(Cell cell)
 		{
-			if (!IsSolid || cell.Objects.All(o => !o.IsSolid))
+			if (!IsSolid || cell.IsTransparent)
 			{
 				MoveTo(cell);
 				return true;

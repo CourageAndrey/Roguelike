@@ -149,7 +149,7 @@ namespace Roguelike.Core.Interfaces
 				}
 			}
 			bool previousIsVisible;
-			return previousCells.Any(cell => knownCells.TryGetValue(cell, out previousIsVisible) && previousIsVisible && cell.Objects.All(o => !o.IsSolid));
+			return previousCells.Any(cell => knownCells.TryGetValue(cell, out previousIsVisible) && previousIsVisible && cell.IsTransparent);
 		}
 	}
 }

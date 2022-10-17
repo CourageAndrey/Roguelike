@@ -92,7 +92,7 @@ namespace Roguelike.Console
 					Cell currentCell;
 					_cellViewModels[c, r].Cell = currentCell = cells[r][c];
 
-					var cellObjectModel = currentCell != null && _camera.MapMemory.Contains(currentCell) ? ConsoleUiHelper.GetModel(currentCell) : ObjectViewModel.Empty;
+					var cellObjectModel = currentCell != null && _camera.MapMemory.Contains(currentCell) ? currentCell.GetModel() : ObjectViewModel.Empty;
 
 					var currentForeground = cellObjectModel.Foreground;
 					var currentBackground = cellObjectModel.Background;

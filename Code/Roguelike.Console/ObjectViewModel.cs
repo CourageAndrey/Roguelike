@@ -17,6 +17,7 @@ namespace Roguelike.Console
 
 		public static readonly System.ConsoleColor DefaultBackground = System.ConsoleColor.Black;
 		public static readonly System.ConsoleColor DefaultForeground = System.ConsoleColor.Black;
+		public const string EmptyString = " ";
 
 		public static readonly ObjectViewModel Empty = new EmptyObjectViewModel();
 
@@ -42,7 +43,7 @@ namespace Roguelike.Console
 	internal sealed class EmptyObjectViewModel : ObjectViewModel
 	{
 		public override string Text
-		{ get { return " "; } }
+		{ get { return EmptyString; } }
 
 		public override System.ConsoleColor Foreground
 		{ get { return DefaultForeground; } }

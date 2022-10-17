@@ -73,37 +73,9 @@ namespace Roguelike.Console
 
 			System.Console.CursorLeft = X;
 			System.Console.CursorTop = Y;
-			System.Console.ForegroundColor = IsVisible ? CurrentObjectView.Foreground : ToGrayScale(CurrentObjectView.Foreground);
-			System.Console.BackgroundColor = IsVisible ? CurrentObjectView.Background : ToGrayScale(CurrentObjectView.Background);
+			System.Console.ForegroundColor = IsVisible ? CurrentObjectView.Foreground : CurrentObjectView.Foreground.ToGrayScale();
+			System.Console.BackgroundColor = IsVisible ? CurrentObjectView.Background : CurrentObjectView.Background.ToGrayScale();
 			System.Console.Write(CurrentObjectView.Text);
-		}
-
-		public static ConsoleColor ToGrayScale(ConsoleColor color)
-		{
-			switch (color)
-			{
-				case ConsoleColor.DarkBlue:
-				case ConsoleColor.DarkGreen:
-				case ConsoleColor.DarkCyan:
-				case ConsoleColor.DarkRed:
-				case ConsoleColor.DarkMagenta:
-				case ConsoleColor.DarkYellow:
-					return ConsoleColor.DarkGray;
-				case ConsoleColor.Blue:
-				case ConsoleColor.Green:
-				case ConsoleColor.Cyan:
-				case ConsoleColor.Red:
-				case ConsoleColor.Magenta:
-					return ConsoleColor.Gray;
-				case ConsoleColor.Yellow:
-					return ConsoleColor.White;
-				case ConsoleColor.Black:
-				case ConsoleColor.White:
-				case ConsoleColor.Gray:
-				case ConsoleColor.DarkGray:
-				default:
-					return color;
-			}
 		}
 	}
 }

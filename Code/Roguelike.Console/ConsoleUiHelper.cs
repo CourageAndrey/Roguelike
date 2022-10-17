@@ -56,5 +56,33 @@ namespace Roguelike.Console
 		};
 
 		#endregion
+
+		public static ConsoleColor ToGrayScale(this ConsoleColor color)
+		{
+			switch (color)
+			{
+				case ConsoleColor.DarkBlue:
+				case ConsoleColor.DarkGreen:
+				case ConsoleColor.DarkCyan:
+				case ConsoleColor.DarkRed:
+				case ConsoleColor.DarkMagenta:
+				case ConsoleColor.DarkYellow:
+					return ConsoleColor.DarkGray;
+				case ConsoleColor.Blue:
+				case ConsoleColor.Green:
+				case ConsoleColor.Cyan:
+				case ConsoleColor.Red:
+				case ConsoleColor.Magenta:
+					return ConsoleColor.Gray;
+				case ConsoleColor.Yellow:
+					return ConsoleColor.White;
+				// case ConsoleColor.Black:
+				// case ConsoleColor.White:
+				// case ConsoleColor.Gray:
+				// case ConsoleColor.DarkGray:
+				default:
+					return color;
+			}
+		}
 	}
 }

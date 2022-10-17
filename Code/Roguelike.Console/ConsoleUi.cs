@@ -98,8 +98,8 @@ namespace Roguelike.Console
 					var currentBackground = cellObjectModel.Background;
 					if (!_visibleCellsCache.Contains(currentCell))
 					{
-						currentForeground = CellViewModel.ToGrayScale(currentForeground);
-						currentBackground = CellViewModel.ToGrayScale(currentBackground);
+						currentForeground = currentForeground.ToGrayScale();
+						currentBackground = currentBackground.ToGrayScale();
 					}
 
 					if (System.Console.ForegroundColor != currentForeground || System.Console.BackgroundColor != currentBackground)

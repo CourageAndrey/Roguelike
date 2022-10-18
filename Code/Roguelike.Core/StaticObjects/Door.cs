@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -11,33 +12,35 @@ namespace Roguelike.Core.StaticObjects
 		#region Properties
 
 		public bool IsOpened
-		{
-			get { return !isClosed; }
-			set
-			{
-				isClosed = !value;
-				CurrentCell.RefreshView();
-			}
-		}
+		{ get { return !_isClosed; } }
 
 		public bool IsClosed
-		{
-			get { return isClosed; }
-			set
-			{
-				isClosed = value;
-				CurrentCell.RefreshView();
-			}
-		}
+		{ get { return _isClosed; } }
 
 		public override bool IsSolid
-		{ get { return isClosed; } }
+		{ get { return _isClosed; } }
 
-		private bool isClosed;
+		private bool _isClosed;
 
 		#endregion
 
 		#region Implementation of IInteractive
+
+		public void Open()
+		{
+			if (!_isClosed) throw new InvalidOperationException("Impossible to open already opened door.");
+
+			_isClosed = false;
+			CurrentCell.RefreshView();
+		}
+
+		public void Close()
+		{
+			if (_isClosed) throw new InvalidOperationException("Impossible to close already closed door.");
+
+			_isClosed = true;
+			CurrentCell.RefreshView();
+		}
 
 		public List<Interaction> GetAvailableInteractions(Object actor)
 		{
@@ -48,14 +51,14 @@ namespace Roguelike.Core.StaticObjects
 			{
 				new Interaction(language.InteractionOpenDoor, IsClosed, a =>
 				{
-					IsOpened = true;
+					Open();
 					return new ActionResult(
 						Time.FromTicks(balance.Time, balance.ActionLongevity.OpenCloseDoor),
 						string.Format(CultureInfo.InvariantCulture, language.LogActionFormatOpenDoor, a, CurrentCell.Position));
 				}),
 				new Interaction(language.InteractionCloseDoor, IsOpened && CurrentCell.Objects.FirstOrDefault(o => o.IsSolid) == null, a =>
 				{
-					IsClosed = true;
+					Close();
 					return new ActionResult(
 						Time.FromTicks(balance.Time, balance.ActionLongevity.OpenCloseDoor),
 						string.Format(CultureInfo.InvariantCulture, language.LogActionFormatCloseDoor, a, CurrentCell.Position));

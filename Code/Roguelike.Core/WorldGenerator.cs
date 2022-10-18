@@ -166,11 +166,14 @@ namespace Roguelike.Core
 		public static void MakeMapKnown(this Hero hero, int viewDistance)
 		{
 			var region = hero.CurrentCell.Region;
-			for (int x = -viewDistance; x < viewDistance; x++)
+			var position = hero.CurrentCell.Position;
+
+			for (int x = position.X - viewDistance; x <= position.X + viewDistance; x++)
 			{
-				for (int y = -viewDistance; y < viewDistance; y++)
+				for (int y = position.Y - viewDistance; y <= position.Y + viewDistance; y++)
 				{
-					var cell = region.GetCell(hero.CurrentCell.Position.X + x, hero.CurrentCell.Position.Y + y, 0);
+					var vector = new Vector(x, y, position.Z);
+					var cell = region.GetCell(vector);
 					if (cell != null)
 					{
 						hero.Camera.MapMemory.Add(cell);

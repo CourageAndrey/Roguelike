@@ -28,15 +28,18 @@ namespace Roguelike.Core.Interfaces
 	{
 		public static Cell[][] SelectRegionCells(this ICamera camera, int screenWidth, int screenHeight)
 		{
+			var position = camera.Cell.Position;
+
 			var result = new Cell[screenHeight][];
 			int centerX = screenWidth / 2,
 				centerY = screenHeight / 2,
-				cameraZ = camera.Cell.Position.Z,
-				cameraY = camera.Cell.Position.Y + centerY;
+				cameraZ = position.Z,
+				cameraY = position.Y + centerY;
+
 			for (int r = 0; r < screenHeight; r++)
 			{
 				result[r] = new Cell[screenWidth];
-				int cameraX = camera.Cell.Position.X - centerX;
+				int cameraX = position.X - centerX;
 				for (int c = 0; c < screenWidth; c++)
 				{
 					result[r][c] = camera.Cell.Region.GetCell(cameraX, cameraY, cameraZ);
@@ -44,6 +47,7 @@ namespace Roguelike.Core.Interfaces
 				}
 				cameraY--;
 			}
+
 			return result;
 		}
 

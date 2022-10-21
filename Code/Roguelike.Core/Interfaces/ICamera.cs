@@ -6,8 +6,6 @@ namespace Roguelike.Core.Interfaces
 {
 	public interface ICamera
 	{
-		#region Properties
-
 		Cell Cell
 		{ get; }
 
@@ -20,8 +18,6 @@ namespace Roguelike.Core.Interfaces
 		event EventHandler<ICamera> Changed;
 
 		void Refresh();
-
-		#endregion
 	}
 
 	public static class CameraHelper

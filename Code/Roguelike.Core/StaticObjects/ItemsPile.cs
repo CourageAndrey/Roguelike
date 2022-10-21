@@ -63,7 +63,7 @@ namespace Roguelike.Core.StaticObjects
 						}
 						else
 						{
-							CurrentCell.RefreshView();
+							CurrentCell.RefreshView(false);
 						}
 
 						return new ActionResult(

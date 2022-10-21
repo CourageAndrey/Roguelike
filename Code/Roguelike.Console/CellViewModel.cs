@@ -59,7 +59,7 @@ namespace Roguelike.Console
 			_lastText = null;
 		}
 
-		private void cellViewChanged(Cell sender)
+		private void cellViewChanged(Cell sender, bool transparencyChanged)
 		{
 			Invalidate();
 			var camera = sender?.Region.World.Hero.Camera;

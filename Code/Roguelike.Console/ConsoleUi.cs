@@ -92,16 +92,32 @@ namespace Roguelike.Console
 				for (int c = minColumn; c < maxColumn; c++)
 				{
 					Cell currentCell;
+					ObjectViewModel cellObjectModel;
+					ConsoleColor currentForeground;
+					ConsoleColor currentBackground;
+
 					_cellViewModels[c, r].Cell = currentCell = cells[r][c];
 
-					var cellObjectModel = currentCell != null && _camera.MapMemory.Contains(currentCell) ? currentCell.GetModel() : ObjectViewModel.Empty;
-
-					var currentForeground = cellObjectModel.Foreground;
-					var currentBackground = cellObjectModel.Background;
-					if (!_visibleCellsCache.Contains(currentCell))
+					if (currentCell != null && _camera.MapMemory.Contains(currentCell))
 					{
-						currentForeground = currentForeground.ToGrayScale();
-						currentBackground = currentBackground.ToGrayScale();
+						cellObjectModel = currentCell.GetModel();
+
+						if (_visibleCellsCache.Contains(currentCell))
+						{
+							currentForeground = cellObjectModel.Foreground;
+							currentBackground = cellObjectModel.Background;
+						}
+						else
+						{
+							currentForeground = cellObjectModel.Foreground.ToGrayScale();
+							currentBackground = cellObjectModel.Background.ToGrayScale();
+						}
+					}
+					else
+					{
+						cellObjectModel = ObjectViewModel.Empty;
+						currentForeground = cellObjectModel.Foreground;
+						currentBackground = cellObjectModel.Background;
 					}
 
 					if (System.Console.ForegroundColor != currentForeground || System.Console.BackgroundColor != currentBackground)

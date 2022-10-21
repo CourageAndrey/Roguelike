@@ -31,7 +31,7 @@ namespace Roguelike.Core.StaticObjects
 			if (!_isClosed) throw new InvalidOperationException("Impossible to open already opened door.");
 
 			_isClosed = false;
-			CurrentCell.RefreshView(true);
+			RaiseIsSolidChanged(false, true);
 		}
 
 		public void Close()
@@ -39,7 +39,7 @@ namespace Roguelike.Core.StaticObjects
 			if (_isClosed) throw new InvalidOperationException("Impossible to close already closed door.");
 
 			_isClosed = true;
-			CurrentCell.RefreshView(true);
+			RaiseIsSolidChanged(false, true);
 		}
 
 		public List<Interaction> GetAvailableInteractions(Object actor)

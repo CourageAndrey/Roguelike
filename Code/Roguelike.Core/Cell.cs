@@ -38,18 +38,18 @@ namespace Roguelike.Core
 			Background = background;
 		}
 
-		internal void RemoveObject(Object o)
+		internal void RemoveObject(Object o, bool refreshTransparency = true)
 		{
 			bool isTransparent = IsTransparent;
 			objects.Remove(o);
-			RefreshView(isTransparent != IsTransparent);
+			RefreshView(refreshTransparency && isTransparent != IsTransparent);
 		}
 
-		internal void AddObject(Object o)
+		internal void AddObject(Object o, bool refreshTransparency = true)
 		{
 			bool isTransparent = IsTransparent;
 			objects.Add(o);
-			RefreshView(isTransparent != IsTransparent);
+			RefreshView(refreshTransparency && isTransparent != IsTransparent);
 		}
 
 		internal void RefreshView(bool transparencyChanged)

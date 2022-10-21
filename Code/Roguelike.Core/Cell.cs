@@ -24,7 +24,7 @@ namespace Roguelike.Core
 		public bool IsTransparent
 		{ get { return Objects.All(o => !o.IsSolid); } }
 
-		public event EventHandler<Cell> ViewChanged;
+		public event EventHandler<Cell, bool> ViewChanged;
 
 		private readonly List<Object> objects = new List<Object>();
 		private IReadOnlyCollection<Object> objectsView;
@@ -40,23 +40,25 @@ namespace Roguelike.Core
 
 		internal void RemoveObject(Object o)
 		{
+			bool isTransparent = IsTransparent;
 			objects.Remove(o);
-			RefreshView();
+			RefreshView(isTransparent != IsTransparent);
 		}
 
 		internal void AddObject(Object o)
 		{
+			bool isTransparent = IsTransparent;
 			objects.Add(o);
-			RefreshView();
+			RefreshView(isTransparent != IsTransparent);
 		}
 
-		internal void RefreshView()
+		internal void RefreshView(bool transparencyChanged)
 		{
 			objectsView = null;
 			var handler = Volatile.Read(ref ViewChanged);
 			if (handler != null)
 			{
-				handler(this);
+				handler(this, transparencyChanged);
 			}
 		}
 
@@ -82,7 +84,7 @@ namespace Roguelike.Core
 			if (Background != background)
 			{
 				Background = background;
-				RefreshView();
+				RefreshView(false);
 			}
 		}
 	}

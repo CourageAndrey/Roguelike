@@ -30,6 +30,8 @@ namespace Roguelike.Core
 			{
 				handler(this, oldSolid, newSolid);
 			}
+
+			CurrentCell.RefreshView(true);
 		}
 
 		#endregion

@@ -62,7 +62,7 @@ namespace Roguelike.Console
 		private void cellViewChanged(Cell sender, bool transparencyChanged)
 		{
 			Invalidate();
-			var camera = sender?.Region.World.Hero.Camera;
+			var camera = sender?.Region.World.Hero.Camera as Core.ActiveObjects.HeroCamera;
 			if (camera != null)
 			{
 				camera.SelectVisibleCells();

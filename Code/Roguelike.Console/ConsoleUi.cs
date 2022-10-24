@@ -78,7 +78,7 @@ namespace Roguelike.Console
 			}
 
 			var cells = _camera.SelectRegionCells(_screenWidth, _screenHeight);
-			_visibleCellsCache = _camera.SelectVisibleCells();
+			_visibleCellsCache = ((HeroCamera) _camera).SelectVisibleCells();
 			Redraw(cells, 0, _screenHeight, 0, _screenWidth);
 		}
 
@@ -148,7 +148,7 @@ namespace Roguelike.Console
 			}
 			else
 			{
-				var newVisibleCells = senderCamera.SelectVisibleCells();
+				var newVisibleCells = ((HeroCamera) senderCamera).SelectVisibleCells();
 
 				for (int x = _screenXOfCameraLeft; x <= _screenXOfCameraRight; x++)
 				{

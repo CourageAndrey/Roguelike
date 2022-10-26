@@ -6,6 +6,9 @@ namespace Roguelike.Core.Items
 {
 	public abstract class Weapon : Item, IWeapon
 	{
+		public abstract bool IsRange
+		{ get; }
+
 		public event EventHandler<IWeapon, IAlive> PreparedForBattle;
 
 		public event EventHandler<IWeapon, IAlive> StoppedBattle;

@@ -66,5 +66,7 @@ namespace Roguelike.Console
 			Foreground = foreground;
 			Background = background;
 		}
+
+		public static readonly OverlayViewModel Aim = new OverlayViewModel(ConsoleUiHelper.Aim, System.ConsoleColor.Yellow, System.ConsoleColor.DarkMagenta);
 	}
 }

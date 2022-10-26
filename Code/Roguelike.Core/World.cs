@@ -53,6 +53,11 @@ namespace Roguelike.Core
 				0);
 			Hero.MoveTo(heroCell);
 			Hero.Inventory.Add(new Hatchet());
+			Hero.Inventory.Add(new Bow());
+			for (int i = 0; i < 20; i++)
+			{
+				Hero.Inventory.Add(new Arrow());
+			}
 			Hero.Inventory.Add(new Book(language => language.HelloWorld, language => language.HelloWorld));
 			Hero.MakeMapKnown(balance.Distance.HeroInitialView);
 

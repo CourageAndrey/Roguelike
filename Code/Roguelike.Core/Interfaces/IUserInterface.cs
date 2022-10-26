@@ -12,5 +12,7 @@ namespace Roguelike.Core.Interfaces
 		ActionResult BeginChat(Game game, IHumanoid humanoid);
 		ActionResult BeginTrade(Game game, IHumanoid humanoid);
 		ActionResult BeginPickpocket(Game game, IHumanoid humanoid);
+		Cell SelectShootingTarget(Game game);
+		void AnimateShoot(Direction direction, ICollection<Cell> path, IMissile missile);
 	}
 }

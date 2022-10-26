@@ -5,6 +5,7 @@ using Roguelike.Core;
 using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.StaticObjects;
 using Roguelike.Console.ViewModels;
+using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Console
 {
@@ -56,6 +57,8 @@ namespace Roguelike.Console
 			{ typeof(ItemsPile), o => new ItemsPileViewModel((ItemsPile) o) },
 		};
 
+		public const string Aim = "+";
+
 		#endregion
 
 		public static ConsoleColor ToGrayScale(this ConsoleColor color)
@@ -83,6 +86,27 @@ namespace Roguelike.Console
 				// case ConsoleColor.DarkGray:
 				default:
 					return color;
+			}
+		}
+
+		public static string GetMissile(this Direction direction)
+		{
+			switch (direction)
+			{
+				case Direction.Left:
+				case Direction.Right:
+					return "-";
+				case Direction.Up:
+				case Direction.Down:
+					return "|";
+				case Direction.UpLeft:
+				case Direction.DownRight:
+					return "\\";
+				case Direction.UpRight:
+				case Direction.DownLeft:
+					return "/";
+				default:
+					return null;
 			}
 		}
 	}

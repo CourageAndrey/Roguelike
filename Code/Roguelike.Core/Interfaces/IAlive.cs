@@ -35,6 +35,8 @@ namespace Roguelike.Core.Interfaces
 
 		ActionResult Attack(IAlive target);
 
+		ActionResult Shoot(Cell target);
+
 		event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
 
 		event ValueChangedEventHandler<IAlive, IWeapon> WeaponChanged;

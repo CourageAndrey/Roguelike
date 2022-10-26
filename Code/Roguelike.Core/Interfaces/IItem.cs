@@ -27,6 +27,9 @@
 
 	public interface IWeapon : IItem
 	{
+		bool IsRange
+		{ get; }
+
 		event EventHandler<IWeapon, IAlive> PreparedForBattle;
 
 		event EventHandler<IWeapon, IAlive> StoppedBattle;

@@ -44,6 +44,9 @@ namespace Roguelike.Core.Localization
 		public string Attack
 		{ get; set; }
 		[XmlElement]
+		public string Shoot
+		{ get; set; }
+		[XmlElement]
 		public string Death
 		{ get; set; }
 		[XmlElement]
@@ -80,6 +83,7 @@ namespace Roguelike.Core.Localization
 				ChangeWeapon = "{0} changed weapon from {1} to {2}",
 				ChangeWeaponDisabled = "{0} didn't manage to change weapon",
 				Attack = "{0} attacks {1} with {2}",
+				Shoot = "{0} shoots {1} with {2}",
 				Death = "{0} die: {1}",
 				DropItem = "{0} picks {1}",
 				PickItem = "{0} drops {1}",

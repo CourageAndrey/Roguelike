@@ -16,7 +16,7 @@ namespace Roguelike.Core
 
 		#endregion
 
-		#region Конструкторы
+		#region Constructors
 
 		public ActionResult(Time longevity, string message)
 			: this(longevity, new[] { message })

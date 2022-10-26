@@ -78,7 +78,10 @@ namespace Roguelike.Core
 			{
 				var camera = CurrentCell.Region.World?.Hero?.Camera;
 				bool visibleDestination; // we need to track this in order not to refresh screen twice on object move
-				bool refreshOnRemove = !IsSolid || camera?.VisibleCells.TryGetValue(cell, out visibleDestination) != true || !visibleDestination;
+				bool refreshOnRemove =	!IsSolid ||
+										cell != null && (
+										camera?.VisibleCells.TryGetValue(cell, out visibleDestination) != true ||
+										!visibleDestination);
 				CurrentCell.RemoveObject(this, refreshOnRemove);
 			}
 			if (cell != null)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
@@ -85,6 +86,55 @@ namespace Roguelike.Core
 			{
 				Background = background;
 				RefreshView(false);
+			}
+		}
+	}
+
+	public static class CellExtensions
+	{
+		public static IEnumerable<Cell> EnumerateCellsAround(this Cell center, int radius)
+		{
+			if (center == null) throw new ArgumentNullException(nameof(center));
+			if (radius == 0) throw new ArgumentOutOfRangeException(nameof(radius));
+
+			var position = center.Position;
+			var region = center.Region;
+
+			Vector vector;
+			Cell cell;
+
+			for (int x = position.X - radius; x <= position.X + radius; x++)
+			{
+				vector = new Vector(x, position.Y - radius, position.Z);
+				cell = region.GetCell(vector);
+				if (cell != null)
+				{
+					yield return cell;
+				}
+
+				vector = new Vector(x, position.Y + radius, position.Z);
+				cell = region.GetCell(vector);
+				if (cell != null)
+				{
+					yield return cell;
+				}
+			}
+
+			for (int y = position.Y - radius; y <= position.Y + radius; y++)
+			{
+				vector = new Vector(position.X - radius, y, position.Z);
+				cell = region.GetCell(vector);
+				if (cell != null)
+				{
+					yield return cell;
+				}
+
+				vector = new Vector(position.X + radius, y, position.Z);
+				cell = region.GetCell(vector);
+				if (cell != null)
+				{
+					yield return cell;
+				}
 			}
 		}
 	}

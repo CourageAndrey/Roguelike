@@ -48,14 +48,14 @@ namespace Roguelike.Core.ActiveObjects
 
 			ProcessCellVisibility(Cell, true, previouslyVisibleCells, delta);
 
-			foreach (var cell in EnumerateCellsAround(1))
+			foreach (var cell in Cell.EnumerateCellsAround(1))
 			{
 				ProcessCellVisibility(cell, true, previouslyVisibleCells, delta);
 			}
 
 			for (int radius = 2; radius <= viewRadius; radius++)
 			{
-				foreach (var cell in EnumerateCellsAround(radius))
+				foreach (var cell in Cell.EnumerateCellsAround(radius))
 				{
 					if (position.GetDistanceSquare(cell.Position) <= distanceSquare)
 					{
@@ -117,51 +117,6 @@ namespace Roguelike.Core.ActiveObjects
 					{
 						VisibleCells[cell] = false;
 					}
-				}
-			}
-		}
-
-		private IEnumerable<Cell> EnumerateCellsAround(int radius)
-		{
-			if (radius == 0) throw new ArgumentOutOfRangeException(nameof(radius));
-
-			var position = Cell.Position;
-			var region = Cell.Region;
-
-			Vector vector;
-			Cell cell;
-
-			for (int x = position.X - radius; x <= position.X + radius; x++)
-			{
-				vector = new Vector(x, position.Y - radius, position.Z);
-				cell = region.GetCell(vector);
-				if (cell != null)
-				{
-					yield return cell;
-				}
-
-				vector = new Vector(x, position.Y + radius, position.Z);
-				cell = region.GetCell(vector);
-				if (cell != null)
-				{
-					yield return cell;
-				}
-			}
-
-			for (int y = position.Y - radius; y <= position.Y + radius; y++)
-			{
-				vector = new Vector(position.X - radius, y, position.Z);
-				cell = region.GetCell(vector);
-				if (cell != null)
-				{
-					yield return cell;
-				}
-
-				vector = new Vector(position.X + radius, y, position.Z);
-				cell = region.GetCell(vector);
-				if (cell != null)
-				{
-					yield return cell;
 				}
 			}
 		}

@@ -19,6 +19,9 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string SelectItemToPick
 		{ get; set; }
+		[XmlElement]
+		public string SelectItemToRead
+		{ get; set; }
 
 		#endregion
 
@@ -30,6 +33,7 @@ namespace Roguelike.Core.Localization
 				SelectWeapon = "Please, select weapon to equip.",
 				SelectItemToDrop = "Please, select item to drop.",
 				SelectItemToPick = "Please, select item to pick.",
+				SelectItemToRead = "Please, select what to read.",
 			};
 		}
 	}

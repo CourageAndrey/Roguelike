@@ -28,6 +28,7 @@ namespace Roguelike.Console.ViewModels
 			{ ItemType.Wear, "[" },
 			{ ItemType.Food, "%" },
 			{ ItemType.Tool, "]" },
+			{ ItemType.Paper, "\"" },
 		};
 	}
 }

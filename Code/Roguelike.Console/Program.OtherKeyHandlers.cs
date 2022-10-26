@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 
 using Roguelike.Core;
 using Roguelike.Core.ActiveObjects;
@@ -278,5 +279,40 @@ namespace Roguelike.Console
 				return null;
 			}
 		}
+
+		private static ActionResult HandleReadBook(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			IPaper selectedBook = null;
+
+			var booksToRead = hero.Inventory.OfType<IPaper>().Select(i => new ListItem<IPaper>(i, i.GetTitle(language.Books))).ToList();
+			if (booksToRead.Count > 0)
+			{
+				ListItem selectedBookToRead;
+				if (ui.TrySelectItem(game, language.Promts.SelectItemToRead, booksToRead, out selectedBookToRead))
+				{
+					selectedBook = ((ListItem<IPaper>) selectedBookToRead).Value;
+				}
+			}
+
+			if (selectedBook != null)
+			{
+				ui.ShowMessage(selectedBook.GetTitle(language.Books), new StringBuilder(selectedBook.GetText(language.Books)));
+
+				return new ActionResult(
+					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.ReadBook),
+					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ReadBook, hero));
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+
 	}
 }

@@ -43,6 +43,9 @@
 		public int ReadBook
 		{ get; set; }
 
+		public int RideHorse
+		{ get; set; }
+
 		#endregion
 
 		public static ActionLongevityBalance CreateDefault()
@@ -62,6 +65,7 @@
 				DropItem = 1500,
 				PickItem = 1500,
 				ReadBook = 60 * 60 * 1000,
+				RideHorse = 5 * 60 * 1000,
 			};
 		}
 	}

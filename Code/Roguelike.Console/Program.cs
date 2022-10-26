@@ -92,6 +92,7 @@ namespace Roguelike.Console
 			{ ConsoleKey.R, HandleReadBook },
 			{ ConsoleKey.OemComma, HandlePick },
 			{ ConsoleKey.O, HandleOpenClose },
+			{ ConsoleKey.S, HandleRide },
 		};
 
 		#endregion

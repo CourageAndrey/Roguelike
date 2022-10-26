@@ -24,12 +24,23 @@ namespace Roguelike.Core.ActiveObjects
 		public IDictionary<Skill, double> SkillExperience
 		{ get; }
 
+		public ITransport Transport
+		{
+			get { return _transport; }
+			set
+			{
+				_transport = value;
+				CurrentCell.RefreshView(false);
+			}
+		}
+
 		#endregion
 
 		#region Implementation of IInterlocutor
 
 		private readonly ICollection<Humanoid> _knownPersons = new HashSet<Humanoid>();
 		private readonly IDictionary<Humanoid, Attitude> _attitudes = new Dictionary<Humanoid, Attitude>();
+		private ITransport _transport;
 
 		public SocialGroup SocialGroup
 		{ get { return SocialGroup.No; } }

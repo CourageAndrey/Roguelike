@@ -44,6 +44,7 @@ namespace Roguelike.Console
 		{
 			{ typeof(Humanoid), o => new HumanoidViewModel((Humanoid) o) },
 			{ typeof(Dog), o => new DogViewModel((Dog) o) },
+			{ typeof(Horse), o => new HorseViewModel((Horse) o) },
 			{ typeof(Wall), o => new WallViewModel((Wall) o) },
 			{ typeof(Door), o => new DoorViewModel((Door) o) },
 			{ typeof(Pool), o => new PoolViewModel((Pool) o) },

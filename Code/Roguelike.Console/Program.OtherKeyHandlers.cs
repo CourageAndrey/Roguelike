@@ -320,6 +320,43 @@ namespace Roguelike.Console
 			}
 		}
 
+		private static ActionResult HandleRide(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			if (hero.Transport == null)
+			{
+				var transport = SelectTarget<ITransport>(ui, game, hero, language.SelectDirectionsPromt, h => h.Rider == null);
+				if (transport != null)
+				{
+					transport.Rider = hero;
+					return new ActionResult(
+						Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.RideHorse),
+						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.RideHorse, hero));
+				}
+				else
+				{
+					return null;
+				}
+			}
+			else
+			{
+				var heroCell = hero.CurrentCell;
+				var cells = heroCell.Region.GetCellsAroundPoint(heroCell.Position);
+				cells.Remove(Direction.None);
+				if (cells.Any(cell => cell.Value.IsTransparent))
+				{
+					hero.Transport.Rider = null;
+					return new ActionResult(
+						Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.RideHorse),
+						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.RideHorse, hero));
+				}
+			}
 
+			return null;
+		}
 	}
 }

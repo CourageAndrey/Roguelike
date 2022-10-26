@@ -2,16 +2,16 @@
 
 namespace Roguelike.Console.ViewModels
 {
-	internal class AnimalViewModel : ObjectViewModel<Animal>
+	internal class DogViewModel : ObjectViewModel<Dog>
 	{
-		public AnimalViewModel(Animal o)
+		public DogViewModel(Dog o)
 			: base(o)
 		{ }
 
 		#region Overrides
 
 		public override string Text
-		{ get { return "a"; } }
+		{ get { return "d"; } }
 
 		public override System.ConsoleColor Foreground
 		{ get { return System.ConsoleColor.Magenta; } }

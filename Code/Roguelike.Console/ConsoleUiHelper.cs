@@ -43,7 +43,7 @@ namespace Roguelike.Console
 		private static readonly IDictionary<Type, Func<Core.Object, ObjectViewModel>> modelCreators = new Dictionary<Type, Func<Core.Object, ObjectViewModel>>
 		{
 			{ typeof(Humanoid), o => new HumanoidViewModel((Humanoid) o) },
-			{ typeof(Animal), o => new AnimalViewModel((Animal) o) },
+			{ typeof(Dog), o => new DogViewModel((Dog) o) },
 			{ typeof(Wall), o => new WallViewModel((Wall) o) },
 			{ typeof(Door), o => new DoorViewModel((Door) o) },
 			{ typeof(Pool), o => new PoolViewModel((Pool) o) },

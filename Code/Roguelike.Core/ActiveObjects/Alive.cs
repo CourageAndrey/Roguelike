@@ -217,6 +217,7 @@ namespace Roguelike.Core.ActiveObjects
 			var game = CurrentCell.Region.World.Game;
 			var language = game.Language.LogActionFormats;
 			var balance = game.Balance;
+			Activity newActivity = null;
 
 			if (IsAgressive != agressive)
 			{
@@ -227,10 +228,12 @@ namespace Roguelike.Core.ActiveObjects
 				if (agressive)
 				{
 					WeaponToFight.RaisePreparedForBattle(this);
+					newActivity = Activity.Guards;
 				}
 				else
 				{
 					WeaponToFight.RaiseStoppedBattle(this);
+					newActivity = Activity.Stands;
 				}
 
 				time = balance.ActionLongevity.ChangeAgressive;
@@ -245,7 +248,7 @@ namespace Roguelike.Core.ActiveObjects
 				time = balance.ActionLongevity.Disabled;
 				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeFightModeDisabled, this);
 			}
-			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage);
+			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage, newActivity);
 		}
 
 		public ActionResult ChangeWeapon(IWeapon weapon)
@@ -315,7 +318,8 @@ namespace Roguelike.Core.ActiveObjects
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Attack)),
-				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Attack, this, target, WeaponToFight));
+				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Attack, this, target, WeaponToFight),
+				Activity.Fights);
 		}
 
 		public virtual ActionResult DropItem(IItem item)

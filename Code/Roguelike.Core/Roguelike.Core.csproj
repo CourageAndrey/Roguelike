@@ -55,6 +55,7 @@
     <Compile Include="ActiveObjects\Properties.cs" />
     <Compile Include="ActiveObjects\Humanoid.cs" />
     <Compile Include="ActiveObjects\State.cs" />
+    <Compile Include="Activity.cs" />
     <Compile Include="Ai.cs" />
     <Compile Include="Configuration\ActionLongevityBalance.cs" />
     <Compile Include="Configuration\DistanceBalance.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Items\Weapon.cs" />
     <Compile Include="Items\Wear.cs" />
     <Compile Include="ItemType.cs" />
+    <Compile Include="Localization\LanguageActivities.cs" />
     <Compile Include="Localization\LanguageAnswerFormats.cs" />
     <Compile Include="Localization\LanguageBodyParts.cs" />
     <Compile Include="Localization\LanguageDirections.cs" />

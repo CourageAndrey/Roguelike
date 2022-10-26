@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 
 namespace Roguelike.Core
@@ -90,6 +91,13 @@ namespace Roguelike.Core
 			{
 				Game.WriteLog(line);
 			}
+
+			var alive = actor as IAlive;
+			if (alive != null && actionResult.NewActivity != null)
+			{
+				alive.State.SetActivity(actionResult.NewActivity);
+			}
+
 			actor.NextActionTime += actionResult.Longevity;
 			if ((actor.NextActionTime != null) && (actor.NextActionTime > _time))
 			{

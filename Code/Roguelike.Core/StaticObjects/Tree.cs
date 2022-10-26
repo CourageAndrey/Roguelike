@@ -33,7 +33,8 @@ namespace Roguelike.Core.StaticObjects
 					CurrentCell.RemoveObject(this);
 					return new ActionResult(
 						Time.FromTicks(balance.Time, balance.ActionLongevity.ChopTree),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ChopTree, a, CurrentCell.Position));
+						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ChopTree, a, CurrentCell.Position),
+						Activity.ChopsTree);
 				}),
 			};
 		}

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 
 using Roguelike.Core;
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Console
@@ -39,9 +38,10 @@ namespace Roguelike.Console
 			{
 				var key = System.Console.ReadKey(true);
 
-				KeyHandlerDelegate keyHandler;
-				var performedAction = _keyHandlers.TryGetValue(key.Key, out keyHandler)
-					? keyHandler(language, ui, game, world, hero)
+				KeyHandlerDelegate keyHandlerDelegate;
+				KeyHandler keyHandler;
+				var performedAction = _keyHandlers.TryGetValue(key.Key, out keyHandler) && (keyHandlerDelegate = keyHandler.GetHandler(key)) != null
+					? keyHandlerDelegate(language, ui, game, world, hero)
 					: null;
 
 				if (performedAction != null)
@@ -52,49 +52,38 @@ namespace Roguelike.Console
 			} while (true);
 		}
 
-		#region Keyboard handlers
-
-		private delegate ActionResult KeyHandlerDelegate(
-			Language language,
-			ConsoleUi ui,
-			Game game,
-			World world,
-			Hero hero);
-
-		private static readonly IDictionary<ConsoleKey, KeyHandlerDelegate> _keyHandlers = new Dictionary<ConsoleKey, KeyHandlerDelegate>
+		private static readonly IDictionary<ConsoleKey, KeyHandler> _keyHandlers = new Dictionary<ConsoleKey, KeyHandler>
 		{
-			{ ConsoleKey.F1, HandleShowHelp },
-			{ ConsoleKey.F2, HandleShowCharacter },
+			{ ConsoleKey.F1, new KeyHandler(HandleShowHelp) },
+			{ ConsoleKey.F2, new KeyHandler(HandleShowCharacter) },
 
-			{ ConsoleKey.LeftArrow, HandleMoveLeft },
-			{ ConsoleKey.NumPad4, HandleMoveLeft },
-			{ ConsoleKey.RightArrow, HandleMoveRight },
-			{ ConsoleKey.NumPad6, HandleMoveRight },
-			{ ConsoleKey.UpArrow, HandleMoveUp },
-			{ ConsoleKey.NumPad8, HandleMoveUp },
-			{ ConsoleKey.DownArrow, HandleMoveDown },
-			{ ConsoleKey.NumPad2, HandleMoveDown },
-			{ ConsoleKey.NumPad1, HandleMoveDownLeft },
-			{ ConsoleKey.NumPad3, HandleMoveDownRight },
-			{ ConsoleKey.NumPad7, HandleMoveUpLeft },
-			{ ConsoleKey.NumPad9, HandleMoveUpRight },
-			{ ConsoleKey.NumPad5, HandleMoveNone },
-			{ ConsoleKey.Spacebar, HandleMoveNone },
+			{ ConsoleKey.LeftArrow, new KeyHandler(HandleMoveLeft) },
+			{ ConsoleKey.NumPad4, new KeyHandler(HandleMoveLeft) },
+			{ ConsoleKey.RightArrow, new KeyHandler(HandleMoveRight) },
+			{ ConsoleKey.NumPad6, new KeyHandler(HandleMoveRight) },
+			{ ConsoleKey.UpArrow, new KeyHandler(HandleMoveUp) },
+			{ ConsoleKey.NumPad8, new KeyHandler(HandleMoveUp) },
+			{ ConsoleKey.DownArrow, new KeyHandler(HandleMoveDown) },
+			{ ConsoleKey.NumPad2, new KeyHandler(HandleMoveDown) },
+			{ ConsoleKey.NumPad1, new KeyHandler(HandleMoveDownLeft) },
+			{ ConsoleKey.NumPad3, new KeyHandler(HandleMoveDownRight) },
+			{ ConsoleKey.NumPad7, new KeyHandler(HandleMoveUpLeft) },
+			{ ConsoleKey.NumPad9, new KeyHandler(HandleMoveUpRight) },
+			{ ConsoleKey.NumPad5, new KeyHandler(HandleMoveNone) },
+			{ ConsoleKey.Spacebar, new KeyHandler(HandleMoveNone) },
 
-			{ ConsoleKey.H, HandleInteract },
-			{ ConsoleKey.F, HandleChangeAggressive },
-			{ ConsoleKey.D, HandleDropItem },
-			{ ConsoleKey.W, HandleSelectWeapon },
-			{ ConsoleKey.C, HandleChat },
-			{ ConsoleKey.T, HandleTrade },
-			{ ConsoleKey.P, HandlePickpocket },
-			{ ConsoleKey.B, HandleBackstab },
-			{ ConsoleKey.R, HandleReadBook },
-			{ ConsoleKey.OemComma, HandlePick },
-			{ ConsoleKey.O, HandleOpenClose },
-			{ ConsoleKey.S, HandleRide },
+			{ ConsoleKey.H, new KeyHandler(HandleInteract) },
+			{ ConsoleKey.F, new KeyHandler(HandleChangeAggressive) },
+			{ ConsoleKey.D, new KeyHandler(HandleDropItem) },
+			{ ConsoleKey.W, new KeyHandler(HandleSelectWeapon) },
+			{ ConsoleKey.C, new KeyHandler(HandleChat) },
+			{ ConsoleKey.T, new KeyHandler(HandleTrade) },
+			{ ConsoleKey.P, new KeyHandler(HandlePickpocket) },
+			{ ConsoleKey.B, new KeyHandler(HandleBackstab) },
+			{ ConsoleKey.R, new KeyHandler(HandleReadBook) },
+			{ ConsoleKey.OemComma, new KeyHandler(HandlePick) },
+			{ ConsoleKey.O, new KeyHandler(HandleOpenClose) },
+			{ ConsoleKey.S, new KeyHandler(HandleRide) },
 		};
-
-		#endregion
 	}
 }

@@ -103,7 +103,7 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public string ReathReasonKilled
+		public string DeathReasonKilled
 		{ get; set; }
 
 		[XmlElement]
@@ -384,7 +384,7 @@ namespace Roguelike.Core.Localization
 				LogActionFormatPickItem = "{0} drops {1}",
 				LogActionFormatPickItemDisabled = "{0} didn't manage to pick item",
 
-				ReathReasonKilled = "killed by {0}",
+				DeathReasonKilled = "killed by {0}",
 
 				UiCommonOk = "OK",
 				UiCommonCancel = "Cancel",

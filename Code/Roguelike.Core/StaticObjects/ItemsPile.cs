@@ -14,8 +14,10 @@ namespace Roguelike.Core.StaticObjects
 		public override bool IsSolid
 		{ get { return false; } }
 
-		public List<IItem> Items
-		{ get; }
+		public IReadOnlyCollection<IItem> Items
+		{ get { return _items; } }
+
+		private readonly List<IItem> _items;
 
 		#endregion
 
@@ -23,10 +25,15 @@ namespace Roguelike.Core.StaticObjects
 		{
 			if (firstItem == null) throw new ArgumentNullException(nameof(firstItem));
 
-			Items = new List<IItem> { firstItem };
+			_items = new List<IItem> { firstItem };
 		}
 
 		#region Implementation of IInteractive
+
+		public void AddItem(IItem item)
+		{
+			_items.Add(item);
+		}
 
 		public List<Interaction> GetAvailableInteractions(Object actor)
 		{
@@ -38,13 +45,13 @@ namespace Roguelike.Core.StaticObjects
 				new Interaction(language.Interactions.PickItem, actor is IAlive, a =>
 				{
 					IItem added = null;
-					if (Items.Count == 1)
+					if (_items.Count == 1)
 					{
-						added = Items[0];
+						added = _items[0];
 					}
-					else // if (Items.Count > 1)
+					else // if (_items.Count > 1)
 					{
-						var items = Items.Select(i => new ListItem<IItem>(i, i.ToString()));
+						var items = _items.Select(i => new ListItem<IItem>(i, i.ToString()));
 
 						ListItem selectedItem;
 						if (game.UserInterface.TrySelectItem(game, language.Promts.SelectItemToPick, items, out selectedItem))
@@ -56,8 +63,8 @@ namespace Roguelike.Core.StaticObjects
 					if (added != null)
 					{
 						(a as IAlive).Inventory.Add(added);
-						Items.Remove(added);
-						if (Items.Count == 0)
+						_items.Remove(added);
+						if (_items.Count == 0)
 						{
 							CurrentCell.RemoveObject(this);
 						}

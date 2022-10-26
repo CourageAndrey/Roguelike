@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using System.Linq;
 using Roguelike.Core;
 using Roguelike.Core.StaticObjects;
 
@@ -14,7 +14,7 @@ namespace Roguelike.Console.ViewModels
 		#region Overrides
 
 		public override string Text
-		{ get { return _typeMapping[Object.Items[0].Type]; } }
+		{ get { return _typeMapping[Object.Items.First().Type]; } }
 
 		public override System.ConsoleColor Foreground
 		{ get { return System.ConsoleColor.White; } }

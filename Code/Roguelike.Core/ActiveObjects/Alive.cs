@@ -332,7 +332,7 @@ namespace Roguelike.Core.ActiveObjects
 			var itemsPile = CurrentCell.Objects.OfType<ItemsPile>().SingleOrDefault();
 			if (itemsPile != null)
 			{
-				itemsPile.Items.Add(item);
+				itemsPile.AddItem(item);
 			}
 			else
 			{

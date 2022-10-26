@@ -16,11 +16,11 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public string InteractionFormat
+		public LanguageInteractions Interactions
 		{ get; set; }
 
 		[XmlElement]
-		public LanguageInteractions Interactions
+		public string SelectDirectionsPromt
 		{ get; set; }
 
 		[XmlElement]
@@ -42,6 +42,7 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string HelpTitle
 		{ get; set; }
+
 		[XmlElement]
 		public string HelpText
 		{ get; set; }
@@ -57,6 +58,7 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string GameWin
 		{ get; set; }
+
 		[XmlElement]
 		public string GameDefeat
 		{ get; set; }
@@ -79,7 +81,7 @@ namespace Roguelike.Core.Localization
 
 				Promts = LanguagePromts.CreateDefault(),
 
-				InteractionFormat = "{0} ({1})",
+				SelectDirectionsPromt = "In which direction?",
 
 				Interactions = LanguageInteractions.CreateDefault(),
 
@@ -92,7 +94,23 @@ namespace Roguelike.Core.Localization
 				Ui = LanguageUi.CreateDefault(),
 
 				HelpTitle = "Help",
-				HelpText = "Under construction...",
+				HelpText = @"Key bindings:
+
+F1 - show help
+F2 - show Character's menu
+
+arrow keys & NumPad keys - move (or attack if agressive)
+
+H - interact with object (sleep on bed, cook on fire, etc.)
+F - change aggressive state
+D - drop item
+W - select weapon
+C - chat
+T - trade
+P - pickpocket
+B - backstab
+O - open/close (door)
+, - pick item",
 
 				Directions = LanguageDirections.CreateDefault(),
 

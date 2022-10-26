@@ -19,38 +19,55 @@ namespace Roguelike.Console
 			World world,
 			Hero hero)
 		{
-			var heroPosition = hero.CurrentCell.Position;
-			var cells = hero.CurrentCell.Region.GetCellsAroundPoint(heroPosition.X, heroPosition.Y, heroPosition.Z);
-			var interactives = cells
-				.Select(c => new KeyValuePair<Direction, List<IInteractive>>(c.Key, c.Value.Objects.OfType<IInteractive>().ToList()))
-				.Where(c => c.Value.Count > 0)
-				.ToDictionary(c => c.Key, c => c.Value);
-			if (interactives.Count > 0)
+			var interactive = hero.CurrentCell.Objects.OfType<IInteractive>().FirstOrDefault();
+			if (interactive != null)
 			{
-				var items = new List<ListItem<Interaction>>();
-				foreach (var cell in interactives)
-				{
-					foreach (var interactive in cell.Value)
-					{
-						foreach (var interaction in interactive.GetAvailableInteractions(hero))
-						{
-							items.Add(new ListItem<Interaction>(
-								interaction,
-								string.Format(
-									CultureInfo.InvariantCulture,
-									language.InteractionFormat,
-									interaction.Name,
-									cell.Key.GetName(game.Language.Directions)),
-								interaction.IsAvailable));
-						}
-					}
-				}
+				var items = interactive
+					.GetAvailableInteractions(hero)
+					.Select(i => new ListItem<Interaction>(i, i.Name, i.IsAvailable))
+					.ToList();
 
 				ListItem selectedInteractionItem;
 				if (ui.TrySelectItem(game, language.Promts.SelectInteraction, items, out selectedInteractionItem))
 				{
 					return ((Interaction) selectedInteractionItem.ValueObject).Perform(hero);
 				}
+			}
+
+			return null;
+		}
+
+		internal static TargetT SelectTarget<TargetT>(
+			ConsoleUi ui,
+			Game game,
+			Hero hero,
+			string promt)
+			where TargetT : class
+		{
+			var heroPosition = hero.CurrentCell.Position;
+			var cells = hero.CurrentCell.Region.GetCellsAroundPoint(heroPosition);
+			cells.Remove(Direction.None);
+			var items = new List<ListItem>();
+			foreach (var cell in cells)
+			{
+				var cellTarget = cell.Value.Objects.OfType<TargetT>().FirstOrDefault();
+				if (cellTarget != null)
+				{
+					items.Add(new ListItem<TargetT>(cellTarget, cell.Key.GetName(game.Language.Directions)));
+				}
+			}
+
+			if (items.Count > 1)
+			{
+				ListItem selectedItem;
+				if (ui.TrySelectItem(game, promt, items, out selectedItem))
+				{
+					return ((ListItem<TargetT>) selectedItem).Value;
+				}
+			}
+			else if (items.Count == 1)
+			{
+				return ((ListItem<TargetT>) items[0]).Value;
 			}
 
 			return null;
@@ -78,7 +95,7 @@ namespace Roguelike.Console
 			ListItem selectedItemToDrop;
 			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrop, itemsToDrop, out selectedItemToDrop))
 			{
-				return hero.DropItem((IItem)selectedItemToDrop.ValueObject);
+				return hero.DropItem((IItem) selectedItemToDrop.ValueObject);
 			}
 			else
 			{
@@ -112,6 +129,154 @@ namespace Roguelike.Console
 			}
 
 			return hero.ChangeWeapon(selectedWeapon);
+		}
+
+		private static ActionResult HandleChat(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			var humanoid = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
+			if (humanoid != null)
+			{
+				return game.UserInterface.BeginChat(game, humanoid);
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		private static ActionResult HandleTrade(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			var humanoid = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
+			if (humanoid != null)
+			{
+				return game.UserInterface.BeginTrade(game, humanoid);
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		private static ActionResult HandlePickpocket(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			var humanoid = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
+			if (humanoid != null)
+			{
+				return game.UserInterface.BeginPickpocket(game, humanoid);
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		private static ActionResult HandleBackstab(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			var alive = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
+			if (alive != null)
+			{
+				alive.Backstab(hero);
+#warning Empty action result!
+				return null;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		private static ActionResult HandlePick(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			IItem itemToPick = null;
+
+			var itemsContainer = hero.CurrentCell.Objects.OfType<IItemsContainer>().FirstOrDefault();
+			if (itemsContainer != null)
+			{
+				if (itemsContainer.Items.Count > 1)
+				{
+					var items = new List<ListItem>();
+					foreach (var item in itemsContainer.Items)
+					{
+						items.Add(new ListItem<IItem>(item, item.ToString()));
+					}
+
+					ListItem selectedItem;
+					if (ui.TrySelectItem(game, language.Promts.SelectItemToPick, items, out selectedItem))
+					{
+						itemToPick = ((ListItem<IItem>) selectedItem).Value;
+					}
+				}
+				else //if (itemsContainer.Items.Count == 1)
+				{
+					itemToPick = itemsContainer.Items.First();
+				}
+			}
+
+			if (itemToPick != null)
+			{
+				itemsContainer.PickItem(itemToPick, hero.Inventory);
+				return new ActionResult(
+					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.PickItem),
+					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.PickItem, hero, itemToPick));
+
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		private static ActionResult HandleOpenClose(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			var door = SelectTarget<IDoor>(ui, game, hero, language.SelectDirectionsPromt);
+			if (door != null)
+			{
+				if (door.IsOpened)
+				{
+					door.Close();
+				}
+				else
+				{
+					door.Open();
+				}
+				return new ActionResult(
+					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.OpenCloseDoor),
+					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.OpenDoor, hero, door.CurrentCell.Position));
+			}
+			else
+			{
+				return null;
+			}
 		}
 	}
 }

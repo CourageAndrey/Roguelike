@@ -284,21 +284,10 @@ namespace Roguelike.Core.ActiveObjects
 
 		public abstract Body CreateBody();
 
-		public virtual List<Interaction> GetAvailableInteractions(Object actor)
+		public void Backstab(IAlive actor)
 		{
-			var game = CurrentCell.Region.World.Game;
-			var balance = game.Balance;
-			var language = game.Language.Interactions;
-
-			return new List<Interaction>
-			{
-				new Interaction(language.Backstab, true, target =>
-				{
-					Die("backstabbed");
+			Die("backstabbed");
 #warning Finish implementation, translate it and make not so easy.
-					return ActionResult.GetEmpty(balance);
-				})
-			};
 		}
 
 		public virtual ActionResult Attack(IAlive target)
@@ -332,7 +321,7 @@ namespace Roguelike.Core.ActiveObjects
 			var itemsPile = CurrentCell.Objects.OfType<ItemsPile>().SingleOrDefault();
 			if (itemsPile != null)
 			{
-				itemsPile.AddItem(item);
+				itemsPile.PutItem(item);
 			}
 			else
 			{

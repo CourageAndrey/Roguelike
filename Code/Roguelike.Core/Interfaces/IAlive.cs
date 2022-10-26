@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IAlive : IActive, IRequireGravitation, IInteractive
+	public interface IAlive : IActive, IRequireGravitation
 	{
 		bool SexIsMale
 		{ get; }
@@ -48,5 +48,7 @@ namespace Roguelike.Core.Interfaces
 		Corpse Die(string reason);
 
 		event EventHandler<IAlive, string> OnDeath;
+
+		void Backstab(IAlive actor);
 	}
 }

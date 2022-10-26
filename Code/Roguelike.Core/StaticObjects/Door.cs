@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.StaticObjects
 {
-	public class Door : Object, IInteractive
+	public class Door : Object, IDoor
 	{
 		#region Properties
 
@@ -24,8 +21,6 @@ namespace Roguelike.Core.StaticObjects
 
 		#endregion
 
-		#region Implementation of IInteractive
-
 		public void Open()
 		{
 			if (!_isClosed) throw new InvalidOperationException("Impossible to open already opened door.");
@@ -41,31 +36,5 @@ namespace Roguelike.Core.StaticObjects
 			_isClosed = true;
 			RaiseIsSolidChanged(false, true);
 		}
-
-		public List<Interaction> GetAvailableInteractions(Object actor)
-		{
-			var game = CurrentCell.Region.World.Game;
-			var balance = game.Balance;
-			var language = game.Language;
-			return new List<Interaction>
-			{
-				new Interaction(language.Interactions.OpenDoor, IsClosed, a =>
-				{
-					Open();
-					return new ActionResult(
-						Time.FromTicks(balance.Time, balance.ActionLongevity.OpenCloseDoor),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.OpenDoor, a, CurrentCell.Position));
-				}),
-				new Interaction(language.Interactions.CloseDoor, IsOpened && CurrentCell.Objects.FirstOrDefault(o => o.IsSolid) == null, a =>
-				{
-					Close();
-					return new ActionResult(
-						Time.FromTicks(balance.Time, balance.ActionLongevity.OpenCloseDoor),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.CloseDoor, a, CurrentCell.Position));
-				}),
-			};
-		}
-
-		#endregion
 	}
 }

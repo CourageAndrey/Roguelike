@@ -35,7 +35,7 @@ namespace Roguelike.Core.StaticObjects
 			var language = game.Language;
 			return new List<Interaction>
 			{
-				new Interaction(language.InteractionPickItem, actor is IAlive, a =>
+				new Interaction(language.Interactions.PickItem, actor is IAlive, a =>
 				{
 					IItem added = null;
 					if (Items.Count == 1)
@@ -47,7 +47,7 @@ namespace Roguelike.Core.StaticObjects
 						var items = Items.Select(i => new ListItem<IItem>(i, i.ToString()));
 
 						ListItem selectedItem;
-						if (game.UserInterface.TrySelectItem(game, language.SelectItemToPickPromt, items, out selectedItem))
+						if (game.UserInterface.TrySelectItem(game, language.Promts.SelectItemToPick, items, out selectedItem))
 						{
 							added = (IItem) selectedItem.ValueObject;
 						}
@@ -68,13 +68,13 @@ namespace Roguelike.Core.StaticObjects
 
 						return new ActionResult(
 							Time.FromTicks(balance.Time, balance.ActionLongevity.PickItem),
-							string.Format(CultureInfo.InvariantCulture, language.LogActionFormatPickItem, a, added));
+							string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.PickItem, a, added));
 					}
 					else
 					{
 						return new ActionResult(
 							Time.FromTicks(balance.Time, balance.ActionLongevity.Disabled),
-							string.Format(CultureInfo.InvariantCulture, language.LogActionFormatPickItemDisabled, a));
+							string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.PickItemDisabled, a));
 					}
 				}),
 			};

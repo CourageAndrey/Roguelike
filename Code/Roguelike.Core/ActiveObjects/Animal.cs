@@ -40,7 +40,7 @@ namespace Roguelike.Core.ActiveObjects
 						Time.FromTicks(balance.Time, balance.ActionLongevity.Wait),
 						string.Format(
 							CultureInfo.InvariantCulture,
-							game.Language.LogActionFormatWait,
+							game.Language.LogActionFormats.Wait,
 							this));
 				}
 			}

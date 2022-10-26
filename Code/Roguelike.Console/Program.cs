@@ -239,14 +239,14 @@ namespace Roguelike.Console
 									CultureInfo.InvariantCulture,
 									language.InteractionFormat,
 									interaction.Name,
-									cell.Key.GetName(game.Language)),
+									cell.Key.GetName(game.Language.Directions)),
 								interaction.IsAvailable));
 						}
 					}
 				}
 
 				ListItem selectedInteractionItem;
-				if (ui.TrySelectItem(game, language.SelectInteractionPromt, items, out selectedInteractionItem))
+				if (ui.TrySelectItem(game, language.Promts.SelectInteraction, items, out selectedInteractionItem))
 				{
 					return ((Interaction) selectedInteractionItem.ValueObject).Perform(hero);
 				}
@@ -279,7 +279,7 @@ namespace Roguelike.Console
 			var itemsToDrop = hero.Inventory.Select(i => new ListItem<IItem>(i, i.ToString()));
 
 			ListItem selectedItemToDrop;
-			if (ui.TrySelectItem(game, language.SelectItemToDropPromt, itemsToDrop, out selectedItemToDrop))
+			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrop, itemsToDrop, out selectedItemToDrop))
 			{
 				return hero.DropItem((IItem)selectedItemToDrop.ValueObject);
 			}
@@ -305,7 +305,7 @@ namespace Roguelike.Console
 
 			IWeapon selectedWeapon;
 			ListItem selectedWeaponItem;
-			if (ui.TrySelectItem(game, language.SelectWeaponPromt, weapons.Select(w => new ListItem<IWeapon>(w, w.ToString())), out selectedWeaponItem))
+			if (ui.TrySelectItem(game, language.Promts.SelectWeapon, weapons.Select(w => new ListItem<IWeapon>(w, w.ToString())), out selectedWeaponItem))
 			{
 				selectedWeapon = ((ListItem<IWeapon>) selectedWeaponItem).Value;
 			}

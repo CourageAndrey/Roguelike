@@ -23,28 +23,28 @@ namespace Roguelike.Core
 
 	public static class DirectionHelper
 	{
-		public static string GetName(this Direction direction, Language language)
+		public static string GetName(this Direction direction, LanguageDirections language)
 		{
 			switch (direction)
 			{
 				case Direction.None:
-					return language.DirectionNone;
+					return language.None;
 				case Direction.Left:
-					return language.DirectionLeft;
+					return language.Left;
 				case Direction.Right:
-					return language.DirectionRight;
+					return language.Right;
 				case Direction.Up:
-					return language.DirectionUp;
+					return language.Up;
 				case Direction.Down:
-					return language.DirectionDown;
+					return language.Down;
 				case Direction.UpLeft:
-					return language.DirectionUpLeft;
+					return language.UpLeft;
 				case Direction.UpRight:
-					return language.DirectionUpRight;
+					return language.UpRight;
 				case Direction.DownLeft:
-					return language.DirectionDownLeft;
+					return language.DownLeft;
 				case Direction.DownRight:
-					return language.DirectionDownRight;
+					return language.DownRight;
 				default:
 					throw new ArgumentOutOfRangeException("direction");
 			}

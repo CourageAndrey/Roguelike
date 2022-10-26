@@ -8,29 +8,29 @@ namespace Roguelike.Core
 	{
 		#region Properties
 
-		private readonly Func<Language, string> getName;
+		private readonly Func<LanguageItemTypes, string> getName;
 
 		#endregion
 
-		private ItemType(Func<Language, string> getName)
+		private ItemType(Func<LanguageItemTypes, string> getName)
 		{
 			this.getName = getName;
 		}
 
-		public string GetName(Language language)
+		public string GetName(LanguageItemTypes language)
 		{
 			return getName(language);
 		}
 
 		#region List
 
-		public static readonly ItemType Weapon = new ItemType(language => language.ItemTypeWeapon);
+		public static readonly ItemType Weapon = new ItemType(language => language.Weapon);
 
-		public static readonly ItemType Wear = new ItemType(language => language.ItemTypeWear);
+		public static readonly ItemType Wear = new ItemType(language => language.Wear);
 
-		public static readonly ItemType Food = new ItemType(language => language.ItemTypeFood);
+		public static readonly ItemType Food = new ItemType(language => language.Food);
 
-		public static readonly ItemType Tool = new ItemType(language => language.ItemTypeTool);
+		public static readonly ItemType Tool = new ItemType(language => language.Tool);
 
 		#endregion
 	}

@@ -73,7 +73,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					return new Text(string.Format(
 						CultureInfo.InvariantCulture,
-						language.AnswerFormatNameAgain,
+						language.Talk.AnswerFormats.NameAgain,
 						Name));
 				}
 				else
@@ -81,7 +81,7 @@ namespace Roguelike.Core.ActiveObjects
 					GetAcquainted(interlocutor);
 					return new Text(string.Format(
 						CultureInfo.InvariantCulture,
-						language.AnswerFormatNameFirst,
+						language.Talk.AnswerFormats.NameFirst,
 						Name,
 						interlocutor.Name));
 				}
@@ -90,7 +90,7 @@ namespace Roguelike.Core.ActiveObjects
 			{
 				return new Text(string.Format(
 					CultureInfo.InvariantCulture,
-					language.AnswerFormatAge,
+					language.Talk.AnswerFormats.Age,
 					Age));
 			}
 			else
@@ -127,9 +127,9 @@ namespace Roguelike.Core.ActiveObjects
 			var balance = game.Balance;
 			var language = game.Language;
 
-			result.Add(new Interaction(language.InteractionChat, true, target => game.UserInterface.BeginChat(game, this)));
-			result.Add(new Interaction(language.InteractionTrade, true, target => game.UserInterface.BeginTrade(game, this)));
-			result.Add(new Interaction(language.InteractionPickpocket, true, target => game.UserInterface.BeginPickpocket(game, this)));
+			result.Add(new Interaction(language.Interactions.Chat, true, target => game.UserInterface.BeginChat(game, this)));
+			result.Add(new Interaction(language.Interactions.Trade, true, target => game.UserInterface.BeginTrade(game, this)));
+			result.Add(new Interaction(language.Interactions.Pickpocket, true, target => game.UserInterface.BeginPickpocket(game, this)));
 
 			return result;
 		}

@@ -33,9 +33,6 @@ namespace Roguelike.Console
 		public int Y
 		{ get; }
 
-		public bool IsVisible
-		{ get; internal set; }
-
 		public ObjectViewModel CurrentObjectView
 		{ get; internal set; }
 
@@ -52,7 +49,7 @@ namespace Roguelike.Console
 			Y = y;
 		}
 
-		private void Invalidate()
+		public void Invalidate()
 		{
 			CurrentObjectView = null;
 			_lastForeColor = _lastBackColor = null;
@@ -61,29 +58,34 @@ namespace Roguelike.Console
 
 		private void cellViewChanged(Cell sender, bool transparencyChanged)
 		{
-			Invalidate();
-			var camera = sender?.Region.World.Hero.Camera as Core.ActiveObjects.HeroCamera;
-			if (camera != null)
+			var camera = _cell.Region.World.Hero.Camera;
+			bool isVisible;
+			if (camera != null && camera.VisibleCells.TryGetValue(_cell, out isVisible) && isVisible)
 			{
-				camera.SelectVisibleCells();
-				camera.Refresh();
-				if (camera.MapMemory.Contains(_cell) && IsVisible)
+				Invalidate();
+
+				if (transparencyChanged)
 				{
-					Update();
+					camera.RefreshVisibleCells();
 				}
+
+				Update(camera);
 			}
 		}
 
-		public void Update()
+		public void Update(ICamera camera)
 		{
+			if (_cell == null || !camera.MapMemory.Contains(_cell)) return;
+
 			if (CurrentObjectView == null)
 			{
-				CurrentObjectView = _cell != null ? _cell.GetModel() : ObjectViewModel.Empty;
+				CurrentObjectView = _cell.GetModel();
 			}
 
 			ConsoleColor newForeColor;
 			ConsoleColor newBackColor;
-			if (IsVisible)
+			bool isVisible;
+			if (camera.VisibleCells.TryGetValue(_cell, out isVisible) && isVisible)
 			{
 				newForeColor = CurrentObjectView.Foreground;
 				newBackColor = CurrentObjectView.Background;

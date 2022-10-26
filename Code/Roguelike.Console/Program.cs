@@ -82,6 +82,7 @@ namespace Roguelike.Console
 			{ ConsoleKey.NumPad7, HandleMoveUpLeft },
 			{ ConsoleKey.NumPad9, HandleMoveUpRight },
 			{ ConsoleKey.NumPad5, HandleMoveNone },
+			{ ConsoleKey.Spacebar, HandleMoveNone },
 			{ ConsoleKey.H, HandleInteract },
 			{ ConsoleKey.F, HandleChangeAggressive },
 			{ ConsoleKey.D, HandleDropItem },

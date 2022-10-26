@@ -15,16 +15,6 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected override void HandleCellChanged(Cell oldCell, Cell newCell)
-		{
-			base.HandleCellChanged(oldCell, newCell);
-
-			if (oldCell != null && newCell != null) // check of insert and remove Hero object
-			{
-				Camera.Refresh();
-			}
-		}
-
 		public Hero(bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
 			: base(sexIsMale, birthDate, properties, inventory, name)
 		{

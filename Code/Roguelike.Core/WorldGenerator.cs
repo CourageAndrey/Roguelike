@@ -180,6 +180,8 @@ namespace Roguelike.Core
 					}
 				}
 			}
+
+			hero.Camera.RefreshVisibleCells();
 		}
 	}
 }

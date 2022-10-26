@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using Roguelike.Core.ActiveObjects.Diseases;
+
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.ActiveObjects
 {
@@ -117,6 +118,9 @@ namespace Roguelike.Core.ActiveObjects
 		public bool IsSick
 		{ get { return _diseases.Count > 0; } }
 
+		public Activity Activity
+		{ get; private set; }
+
 		public event EventHandler<IState> Changed;
 
 		protected void RaiseChanged()
@@ -151,6 +155,7 @@ namespace Roguelike.Core.ActiveObjects
 			bool isHungry = false)
 		{
 			_diseases = new List<IDisease>(diseases ?? new IDisease[0]);
+
 			_isDirty = isDirty;
 			_isPoisoned = isPoisoned;
 			_hasHangover = hasHangover;
@@ -168,6 +173,19 @@ namespace Roguelike.Core.ActiveObjects
 			_isThirsty = isThirsty;
 			_isBloated = isBloated;
 			_isHungry = isHungry;
+
+			Activity = Activity.Stands;
+		}
+
+		public string GetDescription(Language language, IAlive forWhom)
+		{
+#warning Implement! + Activity.GetDescription(language) ??
+			throw new System.NotImplementedException();
+		}
+
+		public void SetActivity(Activity activity)
+		{
+			Activity = activity;
 		}
 
 		public override string ToString()

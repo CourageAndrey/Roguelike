@@ -1,4 +1,6 @@
-﻿namespace Roguelike.Core.Interfaces
+﻿using Roguelike.Core.Localization;
+
+namespace Roguelike.Core.Interfaces
 {
 	public interface IState
 	{
@@ -56,7 +58,14 @@
 		bool IsSick
 		{ get; }
 
+		Activity Activity
+		{ get; }
+
 		event EventHandler<IState> Changed;
 #warning Need to subscribe this event in order to track hero's state
+
+		string GetDescription(Language language, IAlive forWhom);
+
+		void SetActivity(Activity activity);
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using Roguelike.Core.StaticObjects;
+
 using System.Collections.Generic;
 
 namespace Roguelike.Core.Interfaces

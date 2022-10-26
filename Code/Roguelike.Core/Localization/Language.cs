@@ -28,6 +28,10 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public LanguageActivities Activities
+		{ get; set; }
+
+		[XmlElement]
 		public string DeathReasonKilled
 		{ get; set; }
 
@@ -80,6 +84,8 @@ namespace Roguelike.Core.Localization
 				Interactions = LanguageInteractions.CreateDefault(),
 
 				LogActionFormats = LanguageLogActionFormats.CreateDefault(),
+
+				Activities = LanguageActivities.CreateDefault(),
 
 				DeathReasonKilled = "killed by {0}",
 

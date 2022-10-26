@@ -40,7 +40,7 @@
     <Compile Include="ActionResult.cs" />
     <Compile Include="Active.cs" />
     <Compile Include="ActiveObjects\Alive.cs" />
-    <Compile Include="ActiveObjects\Animal.cs" />
+    <Compile Include="ActiveObjects\Dog.cs" />
     <Compile Include="ActiveObjects\Body.cs" />
     <Compile Include="ActiveObjects\BodyPart.cs" />
     <Compile Include="ActiveObjects\Disease.cs" />

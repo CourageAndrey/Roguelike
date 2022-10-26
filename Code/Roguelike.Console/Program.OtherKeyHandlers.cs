@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -42,16 +43,22 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			Hero hero,
-			string promt)
+			string promt,
+			Func<TargetT, bool> filter = null)
 			where TargetT : class
 		{
+			if (filter == null)
+			{
+				filter = i => true;
+			}
+
 			var heroPosition = hero.CurrentCell.Position;
 			var cells = hero.CurrentCell.Region.GetCellsAroundPoint(heroPosition);
 			cells.Remove(Direction.None);
 			var items = new List<ListItem>();
 			foreach (var cell in cells)
 			{
-				var cellTarget = cell.Value.Objects.OfType<TargetT>().FirstOrDefault();
+				var cellTarget = cell.Value.Objects.OfType<TargetT>().FirstOrDefault(filter);
 				if (cellTarget != null)
 				{
 					items.Add(new ListItem<TargetT>(cellTarget, cell.Key.GetName(game.Language.Directions)));

@@ -37,6 +37,7 @@ namespace Roguelike.Console
 		private int _worldXOfScreenLeft, _worldXOfScreenRight, _worldYOfScreenTop, _worldYOfScreenDown;
 		private int _screenXOfCameraLeft, _screenXOfCameraRight, _screenYOfCameraTop, _screenYOfCameraDown;
 		private readonly CellViewModel[,] _cellViewModels;
+		private readonly IDictionary<Cell, CellViewModel> _cellsViewsCache = new Dictionary<Cell, CellViewModel>();
 		private ICamera _camera;
 
 		public ICamera Camera
@@ -77,6 +78,7 @@ namespace Roguelike.Console
 			}
 
 			var cells = _camera.SelectRegionCells(_screenWidth, _screenHeight);
+			_cellsViewsCache.Clear();
 			Redraw(cells, 0, _screenHeight, 0, _screenWidth);
 		}
 
@@ -95,6 +97,10 @@ namespace Roguelike.Console
 					ConsoleColor currentBackground;
 
 					_cellViewModels[c, r].Cell = currentCell = cells[r][c];
+					if (currentCell != null)
+					{
+						_cellsViewsCache[currentCell] = _cellViewModels[c, r];
+					}
 
 					if (currentCell != null && _camera.MapMemory.Contains(currentCell))
 					{
@@ -147,16 +153,17 @@ namespace Roguelike.Console
 			}
 			else
 			{
-				for (int x = _screenXOfCameraLeft; x <= _screenXOfCameraRight; x++)
+				foreach (var cellModel in _cellsViewsCache.Values)
 				{
-					for (int y = _screenYOfCameraTop; y <= _screenYOfCameraDown; y++)
+					if (cellModel.X >= _screenXOfCameraLeft &&
+						cellModel.X <= _screenXOfCameraRight &&
+						cellModel.Y >= _screenYOfCameraTop &&
+						cellModel.Y <= _screenYOfCameraDown &&
+						cellModel.Cell != null &&
+						delta.ContainsKey(cellModel.Cell))
 					{
-						var cellModel = _cellViewModels[x, y];
-						if (cellModel.Cell != null && delta.ContainsKey(cellModel.Cell))
-						{
-							cellModel.Invalidate();
-							cellModel.Update(senderCamera);
-						}
+						cellModel.Invalidate();
+						cellModel.Update(senderCamera);
 					}
 				}
 			}

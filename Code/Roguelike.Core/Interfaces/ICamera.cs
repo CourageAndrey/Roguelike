@@ -13,9 +13,12 @@ namespace Roguelike.Core.Interfaces
 		ICollection<Cell> MapMemory
 		{ get; }
 
-		event EventHandler<ICamera> Changed;
+		IDictionary<Cell, bool> VisibleCells
+		{ get; }
 
-		void Refresh();
+		event EventHandler<ICamera, IDictionary<Cell, bool>> CellsVisibilityChanged;
+
+		void RefreshVisibleCells();
 	}
 
 	public static class CameraHelper

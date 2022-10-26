@@ -38,7 +38,6 @@ namespace Roguelike.Console
 		private int _worldXOfScreenLeft, _worldXOfScreenRight, _worldYOfScreenTop, _worldYOfScreenDown;
 		private int _screenXOfCameraLeft, _screenXOfCameraRight, _screenYOfCameraTop, _screenYOfCameraDown;
 		private readonly CellViewModel[,] _cellViewModels;
-		private ICollection<Cell> _visibleCellsCache = new HashSet<Cell>();
 		private ICamera _camera;
 
 		public ICamera Camera
@@ -48,15 +47,16 @@ namespace Roguelike.Console
 			{
 				if (_camera != null)
 				{
-					_camera.Changed -= cameraChanged;
+					_camera.CellsVisibilityChanged -= cameraCellsVisibilityChanged;
 				}
 
 				_camera = value;
+				_camera.RefreshVisibleCells();
 				RedrawAll();
 
 				if (_camera != null)
 				{
-					_camera.Changed += cameraChanged;
+					_camera.CellsVisibilityChanged += cameraCellsVisibilityChanged;
 				}
 			}
 		}
@@ -78,7 +78,6 @@ namespace Roguelike.Console
 			}
 
 			var cells = _camera.SelectRegionCells(_screenWidth, _screenHeight);
-			_visibleCellsCache = ((HeroCamera) _camera).SelectVisibleCells();
 			Redraw(cells, 0, _screenHeight, 0, _screenWidth);
 		}
 
@@ -102,7 +101,8 @@ namespace Roguelike.Console
 					{
 						cellObjectModel = currentCell.GetModel();
 
-						if (_visibleCellsCache.Contains(currentCell))
+						bool isVisible;
+						if (_camera.VisibleCells.TryGetValue(currentCell, out isVisible) && isVisible)
 						{
 							currentForeground = cellObjectModel.Foreground;
 							currentBackground = cellObjectModel.Background;
@@ -140,7 +140,7 @@ namespace Roguelike.Console
 			}
 		}
 
-		private void cameraChanged(ICamera senderCamera)
+		private void cameraCellsVisibilityChanged(ICamera senderCamera, IDictionary<Cell, bool> delta)
 		{
 			if (isCameraNearScreenBounds(senderCamera))
 			{
@@ -148,27 +148,18 @@ namespace Roguelike.Console
 			}
 			else
 			{
-				var newVisibleCells = ((HeroCamera) senderCamera).SelectVisibleCells();
-
 				for (int x = _screenXOfCameraLeft; x <= _screenXOfCameraRight; x++)
 				{
 					for (int y = _screenYOfCameraTop; y <= _screenYOfCameraDown; y++)
 					{
-						var cellViewModel = _cellViewModels[x, y];
-						if (!cellViewModel.IsVisible && newVisibleCells.Contains(cellViewModel.Cell))
+						var cellModel = _cellViewModels[x, y];
+						if (cellModel.Cell != null && delta.ContainsKey(cellModel.Cell))
 						{
-							cellViewModel.IsVisible = true;
-							cellViewModel.Update();
-						}
-						else if (cellViewModel.IsVisible && !newVisibleCells.Contains(cellViewModel.Cell))
-						{
-							cellViewModel.IsVisible = false;
-							cellViewModel.Update();
+							cellModel.Invalidate();
+							cellModel.Update(senderCamera);
 						}
 					}
 				}
-
-				_visibleCellsCache = newVisibleCells;
 			}
 		}
 
@@ -197,10 +188,10 @@ namespace Roguelike.Console
 			int cameraDistance = (int) Math.Ceiling(_camera.Distance);
 			var cameraPosition = camera.Cell.Position;
 
-			_screenXOfCameraLeft = Math.Max(0, cameraPosition.X - _worldXOfScreenLeft - cameraDistance);
-			_screenXOfCameraRight = Math.Min(_screenWidth - 1, cameraPosition.X - _worldXOfScreenLeft + cameraDistance);
-			_screenYOfCameraTop = Math.Max(0, _worldYOfScreenTop - cameraPosition.Y - cameraDistance);
-			_screenYOfCameraDown = Math.Min(_screenHeight - 1, _worldYOfScreenTop - cameraPosition.Y + cameraDistance);
+			_screenXOfCameraLeft = Math.Max(0, cameraPosition.X - _worldXOfScreenLeft - cameraDistance - 1);
+			_screenXOfCameraRight = Math.Min(_screenWidth - 1, cameraPosition.X - _worldXOfScreenLeft + cameraDistance + 1);
+			_screenYOfCameraTop = Math.Max(0, _worldYOfScreenTop - cameraPosition.Y - cameraDistance - 1);
+			_screenYOfCameraDown = Math.Min(_screenHeight - 1, _worldYOfScreenTop - cameraPosition.Y + cameraDistance + 1);
 		}
 
 		#endregion

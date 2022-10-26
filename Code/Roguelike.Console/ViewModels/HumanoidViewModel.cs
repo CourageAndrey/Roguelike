@@ -16,6 +16,9 @@ namespace Roguelike.Console.ViewModels
 		public override System.ConsoleColor Foreground
 		{ get { return (Object is Hero) ? System.ConsoleColor.White : System.ConsoleColor.Cyan; } }
 
+		public override System.ConsoleColor Background
+		{ get { return Object.Transport == null ? base.Background : System.ConsoleColor.Red; } }
+
 		#endregion
 	}
 }

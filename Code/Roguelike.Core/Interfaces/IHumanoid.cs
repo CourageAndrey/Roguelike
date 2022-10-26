@@ -15,5 +15,8 @@ namespace Roguelike.Core.Interfaces
 
 		IDictionary<Skill, double> SkillExperience
 		{ get; }
+
+		ITransport Transport
+		{ get; set; }
 	}
 }

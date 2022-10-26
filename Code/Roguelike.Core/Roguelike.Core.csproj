@@ -40,6 +40,7 @@
     <Compile Include="ActionResult.cs" />
     <Compile Include="Active.cs" />
     <Compile Include="ActiveObjects\Alive.cs" />
+    <Compile Include="ActiveObjects\Horse.cs" />
     <Compile Include="ActiveObjects\Dog.cs" />
     <Compile Include="ActiveObjects\Body.cs" />
     <Compile Include="ActiveObjects\BodyPart.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="EventCollection.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Interfaces\ITransport.cs" />
     <Compile Include="Interfaces\IPaper.cs" />
     <Compile Include="Interfaces\IItemsContainer.cs" />
     <Compile Include="Interfaces\ITree.cs" />

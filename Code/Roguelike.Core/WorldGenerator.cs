@@ -148,6 +148,9 @@ namespace Roguelike.Core
 
 				var pet = new Dog(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>()) { Owner = husband };
 				pet.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
+
+				var transport = new Horse(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-10), new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>()) { Owner = husband };
+				transport.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 			}
 		}
 

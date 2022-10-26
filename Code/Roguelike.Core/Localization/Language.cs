@@ -115,6 +115,7 @@ P - pickpocket
 B - backstab
 R - read book
 O - open/close (door)
+S - ride (horse)
 , - pick item",
 
 				Directions = LanguageDirections.CreateDefault(),

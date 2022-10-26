@@ -225,7 +225,7 @@ namespace Roguelike.Console
 				}
 
 				System.Console.Write(text);
-				System.Console.ReadKey();
+				System.Console.ReadKey(true);
 			});
 		}
 
@@ -340,7 +340,7 @@ namespace Roguelike.Console
 				System.Console.ForegroundColor = ConsoleColor.White;
 				System.Console.WriteLine($"... under construction ...");
 
-				System.Console.ReadKey();
+				System.Console.ReadKey(true);
 			});
 		}
 

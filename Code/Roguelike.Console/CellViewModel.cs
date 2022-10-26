@@ -82,28 +82,65 @@ namespace Roguelike.Console
 				CurrentObjectView = _cell.GetModel();
 			}
 
+			bool isVisible;
+			if (Draw(CurrentObjectView, camera.VisibleCells.TryGetValue(_cell, out isVisible) && isVisible))
+			{
+				_lastForeColor = System.Console.ForegroundColor;
+				_lastBackColor = System.Console.BackgroundColor;
+				_lastText = CurrentObjectView.Text;
+			}
+		}
+
+		private bool Draw(ObjectViewModel objectViewModel, bool isVisible)
+		{
 			ConsoleColor newForeColor;
 			ConsoleColor newBackColor;
-			bool isVisible;
-			if (camera.VisibleCells.TryGetValue(_cell, out isVisible) && isVisible)
-			{
-				newForeColor = CurrentObjectView.Foreground;
-				newBackColor = CurrentObjectView.Background;
+			if (isVisible)
+			{ 
+				newForeColor = objectViewModel.Foreground;
+				newBackColor = objectViewModel.Background;
 			}
 			else
 			{
-				newForeColor = CurrentObjectView.Foreground.ToGrayScale();
-				newBackColor = CurrentObjectView.Background.ToGrayScale();
+				newForeColor = objectViewModel.Foreground.ToGrayScale();
+				newBackColor = objectViewModel.Background.ToGrayScale();
 			}
 
-			if (newForeColor != _lastForeColor || newBackColor != _lastBackColor || CurrentObjectView.Text != _lastText)
+			if (newForeColor != _lastForeColor || newBackColor != _lastBackColor || objectViewModel.Text != _lastText)
 			{
 				System.Console.CursorLeft = X;
 				System.Console.CursorTop = Y;
-				_lastForeColor = System.Console.ForegroundColor = newForeColor;
-				_lastBackColor = System.Console.BackgroundColor = newBackColor;
-				System.Console.Write(_lastText = CurrentObjectView.Text);
+				System.Console.ForegroundColor = newForeColor;
+				System.Console.BackgroundColor = newBackColor;
+				System.Console.Write(objectViewModel.Text);
+				return true;
 			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public void SetOverlay(OverlayViewModel overlay)
+		{
+			Draw(overlay, true);
+		}
+
+		public void ResetOverlay(ICamera camera)
+		{
+			Invalidate();
+			Update(camera);
+		}
+	}
+
+	internal static class CellViewModelExtensions
+	{
+		public static void SetOverlay(this CellViewModel cellViewModel, ConsoleColor color, string text)
+		{
+			cellViewModel.SetOverlay(new OverlayViewModel(
+				text,
+				color,
+				cellViewModel.CurrentObjectView != null ? cellViewModel.CurrentObjectView.Background : ObjectViewModel.DefaultBackground));
 		}
 	}
 }

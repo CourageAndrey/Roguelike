@@ -48,4 +48,23 @@ namespace Roguelike.Console
 		public override System.ConsoleColor Foreground
 		{ get { return DefaultForeground; } }
 	}
+
+	internal sealed class OverlayViewModel : ObjectViewModel
+	{
+		public override string Text
+		{ get; }
+
+		public override System.ConsoleColor Foreground
+		{ get; }
+
+		public override System.ConsoleColor Background
+		{ get; }
+
+		public OverlayViewModel(string text, System.ConsoleColor foreground, System.ConsoleColor background)
+		{
+			Text = text;
+			Foreground = foreground;
+			Background = background;
+		}
+	}
 }

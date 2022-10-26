@@ -137,7 +137,7 @@ namespace Roguelike.Core.ActiveObjects
 			if (CurrentCell != null)
 			{
 				var language = CurrentCell.Region.World.Game.Language;
-				deathMessage = string.Format(CultureInfo.InvariantCulture, language.LogActionFormatDeath, this, reason);
+				deathMessage = string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Death, this, reason);
 			}
 			else
 			{
@@ -215,7 +215,7 @@ namespace Roguelike.Core.ActiveObjects
 			int time;
 			string logMessage;
 			var game = CurrentCell.Region.World.Game;
-			var language = game.Language;
+			var language = game.Language.LogActionFormats;
 			var balance = game.Balance;
 
 			if (IsAgressive != agressive)
@@ -236,14 +236,14 @@ namespace Roguelike.Core.ActiveObjects
 				time = balance.ActionLongevity.ChangeAgressive;
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,
-					IsAgressive ? language.LogActionFormatStartFight : language.LogActionFormatStopFight,
+					IsAgressive ? language.StartFight : language.StopFight,
 					this,
 					WeaponToFight);
 			}
 			else
 			{
 				time = balance.ActionLongevity.Disabled;
-				logMessage = string.Format(CultureInfo.InvariantCulture, language.LogActionFormatChangeFightModeDisabled, this);
+				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeFightModeDisabled, this);
 			}
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage);
 		}
@@ -253,7 +253,7 @@ namespace Roguelike.Core.ActiveObjects
 			int time;
 			string logMessage;
 			var game = CurrentCell.Region.World.Game;
-			var language = game.Language;
+			var language = game.Language.LogActionFormats;
 			var balance = game.Balance;
 
 			var oldWeapon = WeaponToFight;
@@ -266,7 +266,7 @@ namespace Roguelike.Core.ActiveObjects
 				time = balance.ActionLongevity.ChangeWeapon;
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,
-					language.LogActionFormatChangeWeapon,
+					language.ChangeWeapon,
 					this,
 					oldWeapon,
 					weapon);
@@ -274,7 +274,7 @@ namespace Roguelike.Core.ActiveObjects
 			else
 			{
 				time = balance.ActionLongevity.Disabled;
-				logMessage = string.Format(CultureInfo.InvariantCulture, language.LogActionFormatChangeWeaponDisabled, this);
+				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeWeaponDisabled, this);
 			}
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage);
 		}
@@ -285,11 +285,11 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			var game = CurrentCell.Region.World.Game;
 			var balance = game.Balance;
-			var language = game.Language;
+			var language = game.Language.Interactions;
 
 			return new List<Interaction>
 			{
-				new Interaction(language.InteractionBackstab, true, target =>
+				new Interaction(language.Backstab, true, target =>
 				{
 					Die("backstabbed");
 #warning Finish implementation, translate it and make not so easy.
@@ -315,7 +315,7 @@ namespace Roguelike.Core.ActiveObjects
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Attack)),
-				string.Format(CultureInfo.InvariantCulture, language.LogActionFormatAttack, this, target, WeaponToFight));
+				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Attack, this, target, WeaponToFight));
 		}
 
 		public virtual ActionResult DropItem(IItem item)
@@ -323,7 +323,7 @@ namespace Roguelike.Core.ActiveObjects
 			var world = CurrentCell.Region.World;
 			var game = world.Game;
 			var balance = game.Balance;
-			var language = game.Language;
+			var language = game.Language.LogActionFormats;
 
 			var itemsPile = CurrentCell.Objects.OfType<ItemsPile>().SingleOrDefault();
 			if (itemsPile != null)
@@ -341,7 +341,7 @@ namespace Roguelike.Core.ActiveObjects
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, balance.ActionLongevity.DropItem),
-				string.Format(CultureInfo.InvariantCulture, language.LogActionFormatDropItem, this, item));
+				string.Format(CultureInfo.InvariantCulture, language.DropItem, this, item));
 		}
 
 		public sealed override ActionResult Do()

@@ -100,55 +100,55 @@ namespace Roguelike.Core.ActiveObjects
 			var result = new List<IBodyPart>();
 			for (int i = 0; i < count; i++)
 			{
-				result.Add(new BodyPart(body, 0.01, language => language.BodyPartFinger));
+				result.Add(new BodyPart(body, 0.01, language => language.Finger));
 			}
 			return result;
 		}
 
 		private static BodyPart createWrist(Body body, int fingersCount)
 		{
-			return new BodyPart(body, 0.25, language => language.BodyPartWrist, createFingers(body, fingersCount));
+			return new BodyPart(body, 0.25, language => language.Wrist, createFingers(body, fingersCount));
 		}
 
 		private static BodyPart createFoot(Body body, int fingersCount)
 		{
-			return new BodyPart(body, 0.5, language => language.BodyPartFoot, createFingers(body, fingersCount));
+			return new BodyPart(body, 0.5, language => language.Foot, createFingers(body, fingersCount));
 		}
 
 		private static BodyPart createArm(Body body, int fingersCount)
 		{
-			return new BodyPart(body, 5, language => language.BodyPartArm, new[]
+			return new BodyPart(body, 5, language => language.Arm, new[]
 			{
-				new BodyPart(body, 2, language => language.BodyPartShoulder),
-				new BodyPart(body, 0.5, language => language.BodyPartElbow),
-				new BodyPart(body, 1.5, language => language.BodyPartForearm),
+				new BodyPart(body, 2, language => language.Shoulder),
+				new BodyPart(body, 0.5, language => language.Elbow),
+				new BodyPart(body, 1.5, language => language.Forearm),
 				createWrist(body, fingersCount),
 			});
 		}
 
 		private static BodyPart createLeg(Body body, int fingersCount)
 		{
-			return new BodyPart(body, 10, language => language.BodyPartLeg, new[]
+			return new BodyPart(body, 10, language => language.Leg, new[]
 			{
-				new BodyPart(body, 5, language => language.BodyPartHaunch),
-				new BodyPart(body, 0.75, language => language.BodyPartKnee),
-				new BodyPart(body, 3, language => language.BodyPartShin),
+				new BodyPart(body, 5, language => language.Haunch),
+				new BodyPart(body, 0.75, language => language.Knee),
+				new BodyPart(body, 3, language => language.Shin),
 				createFoot(body, fingersCount),
 			});
 		}
 
 		private static BodyPart createUsualBody(Body body)
 		{
-			return new BodyPart(body, 40, language => language.BodyPartBody, new[]
+			return new BodyPart(body, 40, language => language.Body, new[]
 			{
-				new BodyPart(body, 2, language => language.BodyPartRibs),
-				new BodyPart(body, 1, language => language.BodyPartHeart, true),
-				new BodyPart(body, 1, language => language.BodyPartLung),
-				new BodyPart(body, 1, language => language.BodyPartLung),
-				new BodyPart(body, 2, language => language.BodyPartLiver, true),
-				new BodyPart(body, 1, language => language.BodyPartStomach),
-				new BodyPart(body, 0.3, language => language.BodyPartKidney),
-				new BodyPart(body, 0.3, language => language.BodyPartKidney),
+				new BodyPart(body, 2, language => language.Ribs),
+				new BodyPart(body, 1, language => language.Heart, true),
+				new BodyPart(body, 1, language => language.Lung),
+				new BodyPart(body, 1, language => language.Lung),
+				new BodyPart(body, 2, language => language.Liver, true),
+				new BodyPart(body, 1, language => language.Stomach),
+				new BodyPart(body, 0.3, language => language.Kidney),
+				new BodyPart(body, 0.3, language => language.Kidney),
 			}, true);
 		}
 
@@ -156,32 +156,32 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			var parts = new List<IBodyPart>
 			{
-				new BodyPart(body, 1, language => language.BodyPartSkull),
-				new BodyPart(body, 1.5, language => language.BodyPartBrain, true),
-				new BodyPart(body, 0.25, language => language.BodyPartHairs),
-				new BodyPart(body, 0.05, language => language.BodyPartEar),
-				new BodyPart(body, 0.05, language => language.BodyPartEar),
-				new BodyPart(body, 0.015, language => language.BodyPartEye),
-				new BodyPart(body, 0.015, language => language.BodyPartEye),
-				new BodyPart(body, 0.02, language => language.BodyPartMouth),
-				new BodyPart(body, 0.05, language => language.BodyPartTongue),
-				new BodyPart(body, 0.1, language => language.BodyPartThroat),
+				new BodyPart(body, 1, language => language.Skull),
+				new BodyPart(body, 1.5, language => language.Brain, true),
+				new BodyPart(body, 0.25, language => language.Hairs),
+				new BodyPart(body, 0.05, language => language.Ear),
+				new BodyPart(body, 0.05, language => language.Ear),
+				new BodyPart(body, 0.015, language => language.Eye),
+				new BodyPart(body, 0.015, language => language.Eye),
+				new BodyPart(body, 0.02, language => language.Mouth),
+				new BodyPart(body, 0.05, language => language.Tongue),
+				new BodyPart(body, 0.1, language => language.Throat),
 			};
 			for (int i = 0; i < teeth; i++)
 			{
-				parts.Add(new BodyPart(body, 0.005, language => language.BodyPartTooth));
+				parts.Add(new BodyPart(body, 0.005, language => language.Tooth));
 			}
-			return new BodyPart(body, 5, language => language.BodyPartHead, parts, true);
+			return new BodyPart(body, 5, language => language.Head, parts, true);
 		}
 
 		private static BodyPart createSkin(Body body)
 		{
-			return new BodyPart(body, 5, language => language.BodyPartSkin);
+			return new BodyPart(body, 5, language => language.Skin);
 		}
 
 		private static BodyPart createTail(Body body)
 		{
-			return new BodyPart(body, 5, language => language.BodyPartTail);
+			return new BodyPart(body, 5, language => language.Tail);
 		}
 
 		#endregion

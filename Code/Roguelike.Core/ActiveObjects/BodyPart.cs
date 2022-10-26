@@ -20,7 +20,7 @@ namespace Roguelike.Core.ActiveObjects
 		public bool IsVital
 		{ get; }
 
-		private readonly Func<Language, string> getName;
+		private readonly Func<LanguageBodyParts, string> getName;
 
 		public double Weight
 		{ get; }
@@ -31,11 +31,11 @@ namespace Roguelike.Core.ActiveObjects
 
 		#region Constructors
 
-		internal BodyPart(IBody body, double weight, Func<Language, string> getName, bool isVital = false)
+		internal BodyPart(IBody body, double weight, Func<LanguageBodyParts, string> getName, bool isVital = false)
 			: this(body, weight, getName, new IBodyPart[0], isVital)
 		{ }
 
-		internal BodyPart(IBody body, double weight, Func<Language, string> getName, IList<IBodyPart> parts, bool isVital = false)
+		internal BodyPart(IBody body, double weight, Func<LanguageBodyParts, string> getName, IList<IBodyPart> parts, bool isVital = false)
 		{
 			Body = body;
 			Weight = weight;
@@ -67,7 +67,7 @@ namespace Roguelike.Core.ActiveObjects
 			RaiseWeightChanged(oldWeigth, newWeight);
 		}
 
-		public string GetName(Language language)
+		public string GetName(LanguageBodyParts language)
 		{
 			return getName(language);
 		}

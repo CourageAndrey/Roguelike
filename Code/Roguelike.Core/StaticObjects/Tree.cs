@@ -26,14 +26,14 @@ namespace Roguelike.Core.StaticObjects
 			var language = game.Language;
 			return new List<Interaction>
 			{
-				new Interaction(language.InteractionChopTree, (actor as Humanoid)?.Inventory.OfType<Hatchet>().Any() == true, a =>
+				new Interaction(language.Interactions.ChopTree, (actor as Humanoid)?.Inventory.OfType<Hatchet>().Any() == true, a =>
 				{
 					(a as Humanoid).Inventory.Add(new Log());
 					CurrentCell.AddObject(new Stump());
 					CurrentCell.RemoveObject(this);
 					return new ActionResult(
 						Time.FromTicks(balance.Time, balance.ActionLongevity.ChopTree),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormatChopTree, a, CurrentCell.Position));
+						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ChopTree, a, CurrentCell.Position));
 				}),
 			};
 		}

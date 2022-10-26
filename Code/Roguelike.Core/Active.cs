@@ -31,7 +31,7 @@ namespace Roguelike.Core
 				double distance = CurrentCell.Position != null
 					? newCell.Position.GetDistance(CurrentCell.Position)
 					: 0;
-				var language = game.Language;
+				var language = game.Language.LogActionFormats;
 
 				var alive = this as IAlive;
 				IAlive target = null;
@@ -44,10 +44,10 @@ namespace Roguelike.Core
 					return TryMoveTo(newCell)
 						? new ActionResult(
 							Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Step * distance)),
-							string.Format(CultureInfo.InvariantCulture, language.LogActionFormatMove, this, oldPosition, newCell.Position))
+							string.Format(CultureInfo.InvariantCulture, language.Move, this, oldPosition, newCell.Position))
 						: new ActionResult(
 							Time.FromTicks(balance.Time, balance.ActionLongevity.Disabled),
-							string.Format(CultureInfo.InvariantCulture, language.LogActionFormatMoveDisabled, this, oldPosition, newCell.Position));
+							string.Format(CultureInfo.InvariantCulture, language.MoveDisabled, this, oldPosition, newCell.Position));
 				}
 			}
 			else

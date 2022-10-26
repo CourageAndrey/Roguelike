@@ -358,5 +358,21 @@ namespace Roguelike.Console
 
 			return null;
 		}
+
+		private static ActionResult HandleShoot(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			Cell target;
+			return	hero.IsAgressive &&
+					hero.WeaponToFight.IsRange &&
+					hero.Inventory.OfType<Arrow>().Any() &&
+					(target = ui.SelectShootingTarget(game)) != null
+				? hero.Shoot(target)
+				: null;
+		}
 	}
 }

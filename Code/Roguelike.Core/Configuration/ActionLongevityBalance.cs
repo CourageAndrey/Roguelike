@@ -34,6 +34,9 @@
 		public int Attack
 		{ get; set; }
 
+		public int Shoot
+		{ get; set; }
+
 		public int DropItem
 		{ get; set; }
 
@@ -62,6 +65,7 @@
 				ChangeWeapon = 2500,
 				Wait = 500,
 				Attack = 1000,
+				Shoot = 3000,
 				DropItem = 1500,
 				PickItem = 1500,
 				ReadBook = 60 * 60 * 1000,

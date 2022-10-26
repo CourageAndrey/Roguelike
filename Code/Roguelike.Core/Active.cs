@@ -35,7 +35,7 @@ namespace Roguelike.Core
 
 				var alive = this as IAlive;
 				IAlive target = null;
-				if (alive?.IsAgressive == true && (target = newCell.Objects.OfType<IAlive>().FirstOrDefault()) != null)
+				if (alive?.IsAgressive == true && alive?.WeaponToFight?.IsRange == false && (target = newCell.Objects.OfType<IAlive>().FirstOrDefault()) != null)
 				{
 					return alive.Attack(target);
 				}

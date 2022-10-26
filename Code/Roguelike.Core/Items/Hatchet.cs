@@ -4,6 +4,9 @@
 	{
 		#region Properties
 
+		public override bool IsRange
+		{ get { return false; } }
+
 		public override double Weight
 		{ get { return 2; } }
 

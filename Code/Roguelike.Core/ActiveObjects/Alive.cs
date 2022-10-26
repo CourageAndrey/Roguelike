@@ -311,6 +311,76 @@ namespace Roguelike.Core.ActiveObjects
 				Activity.Fights);
 		}
 
+		public virtual ActionResult Shoot(Cell target)
+		{
+			var world = CurrentCell.Region.World;
+			var game = world.Game;
+			var balance = game.Balance;
+			var language = game.Language;
+			var random = new Random(DateTime.Now.Millisecond);
+
+			var missile = Inventory.OfType<Arrow>().First();
+
+			if (!CurrentCell.Position.Equals(target.Position))
+			{
+				var direction = CurrentCell.Position.GetDirection(target.Position);
+				var region = CurrentCell.Region;
+				int z = CurrentCell.Position.Z;
+
+				// take all obstacles into account
+				var track = new List<Cell>();
+				var step = CurrentCell;
+				int dx = target.Position.X - CurrentCell.Position.X,
+					dy = target.Position.Y - CurrentCell.Position.Y;
+				double	distance = Math.Sqrt(dx * dx + dy * dy),
+						sx = dx / distance,
+						sy = dy / distance,
+						x = CurrentCell.Position.X,
+						y = CurrentCell.Position.Y;
+				while (distance > 1)
+				{
+					x += sx;
+					y += sy;
+					var cell = region.GetCell(
+						(int) Math.Round(x, MidpointRounding.AwayFromZero),
+						(int) Math.Round(y, MidpointRounding.AwayFromZero),
+						z);
+					if (!track.Contains(cell))
+					{
+						track.Add(cell);
+					}
+					distance--;
+				}
+				track.Remove(target);
+
+				if (track.Count > 0)
+				{
+					// animate arrow fly
+					game.UserInterface.AnimateShoot(direction, track, missile);
+				}
+			}
+
+			// calculate damage
+			var aim = target.Objects.OfType<IAlive>().FirstOrDefault();
+			if (aim != null)
+			{
+				int hitPossibility = balance.Player.BaseHitPossibility;
+				hitPossibility += ((int) Properties.Perception - (int) aim.Properties.Reaction) * 10;
+				if (random.Next(0, 100) < hitPossibility)
+				{
+					aim.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasonKilled, this));
+				}
+			}
+
+			// remove missile
+			Inventory.Remove(missile);
+
+			return new ActionResult(
+				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Shoot)),
+				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Shoot, this, target, WeaponToFight),
+				Activity.Fights);
+		}
+
 		public virtual ActionResult DropItem(IItem item)
 		{
 			var world = CurrentCell.Region.World;

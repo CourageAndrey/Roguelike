@@ -110,7 +110,8 @@ f - change aggressive state
 d - drop item
 w - select weapon
 c - chat
-t - trade
+t - shoot
+T - trade
 p - pickpocket
 b - backstab
 r - read book

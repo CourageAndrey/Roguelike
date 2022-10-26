@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading;
 
 using Roguelike.Core;
 using Roguelike.Core.Interfaces;
@@ -364,6 +366,121 @@ namespace Roguelike.Console
 		public ActionResult BeginPickpocket(Game game, IHumanoid humanoid)
 		{
 			throw new NotImplementedException();
+		}
+
+		public Cell SelectShootingTarget(Game game)
+		{
+			var shooter = game.Hero;
+			var possibleTargets = shooter.Camera.VisibleCells
+				.Where(cell => cell.Value && cell.Key.Objects.OfType<IAlive>().Any())
+				.Select(cell => cell.Key)
+				.ToList();
+			possibleTargets.Remove(shooter.CurrentCell);
+
+			var aim = possibleTargets.FirstOrDefault() ?? shooter.CurrentCell;
+			var region = shooter.CurrentCell.Region;
+			bool aimSelected = false;
+
+			_cellsViewsCache[aim].SetOverlay(OverlayViewModel.Aim);
+			while (!aimSelected)
+			{
+				var decision = System.Console.ReadKey(true);
+				switch (decision.Key)
+				{
+					case ConsoleKey.LeftArrow:
+					case ConsoleKey.NumPad4:
+						aim = ShiftAim(aim, region.GetCell(aim.Position.X - 1, aim.Position.Y, aim.Position.Z));
+						break;
+					case ConsoleKey.RightArrow:
+					case ConsoleKey.NumPad6:
+						aim = ShiftAim(aim, region.GetCell(aim.Position.X + 1, aim.Position.Y, aim.Position.Z));
+						break;
+					case ConsoleKey.UpArrow:
+					case ConsoleKey.NumPad8:
+						aim = ShiftAim(aim, region.GetCell(aim.Position.X, aim.Position.Y + 1, aim.Position.Z));
+						break;
+					case ConsoleKey.DownArrow:
+					case ConsoleKey.NumPad2:
+						aim = ShiftAim(aim, region.GetCell(aim.Position.X, aim.Position.Y - 1, aim.Position.Z));
+						break;
+					case ConsoleKey.NumPad1:
+						aim = ShiftAim(aim, region.GetCell(aim.Position.X - 1, aim.Position.Y - 1, aim.Position.Z));
+						break;
+					case ConsoleKey.NumPad3:
+						aim = ShiftAim(aim, region.GetCell(aim.Position.X + 1, aim.Position.Y - 1, aim.Position.Z));
+						break;
+					case ConsoleKey.NumPad7:
+						aim = ShiftAim(aim, region.GetCell(aim.Position.X - 1, aim.Position.Y + 1, aim.Position.Z));
+						break;
+					case ConsoleKey.NumPad9:
+						aim = ShiftAim(aim, region.GetCell(aim.Position.X + 1, aim.Position.Y + 1, aim.Position.Z));
+						break;
+					case ConsoleKey.PageUp:
+						int previousIndex = possibleTargets.IndexOf(aim);
+						previousIndex = previousIndex >= 0
+							? (possibleTargets.IndexOf(aim) - 1 + possibleTargets.Count) % possibleTargets.Count
+							: 0;
+						aim = ShiftAim(aim, possibleTargets[previousIndex]);
+						break;
+					case ConsoleKey.PageDown:
+						int nextIndex = possibleTargets.IndexOf(aim);
+						nextIndex = nextIndex >= 0
+							? (possibleTargets.IndexOf(aim) + 1) % possibleTargets.Count
+							: 0;
+						aim = ShiftAim(aim, possibleTargets[nextIndex]);
+						break;
+					case ConsoleKey.Enter:
+						_cellsViewsCache[aim].ResetOverlay(_camera);
+						aimSelected = true;
+						break;
+					case ConsoleKey.Escape:
+						_cellsViewsCache[aim].ResetOverlay(_camera);
+						aim = null;
+						aimSelected = true;
+						break;
+				}
+			}
+
+			return aim;
+		}
+
+		private Cell ShiftAim(Cell current, Cell next)
+		{
+			_cellsViewsCache[current].ResetOverlay(_camera);
+			_cellsViewsCache[next].SetOverlay(OverlayViewModel.Aim);
+			return next;
+		}
+
+		public void AnimateShoot(Direction direction, ICollection<Cell> path, IMissile missile)
+		{
+			string missileChar = direction.GetMissile();
+			if (missileChar != null)
+			{
+				var overlay = new OverlayViewModel(missileChar, ConsoleColor.White, ConsoleColor.Black);
+
+				CellViewModel previous = null;
+				foreach (var cell in path)
+				{
+					if (previous != null)
+					{
+						previous.ResetOverlay(_camera);
+					}
+
+					CellViewModel cellViewModel;
+					if (_cellsViewsCache.TryGetValue(cell, out cellViewModel))
+					{
+						cellViewModel.SetOverlay(overlay);
+						Thread.Sleep(50);
+					}
+
+					previous = cellViewModel;
+				}
+
+				if (previous != null)
+				{
+					previous.ResetOverlay(_camera);
+				}
+			}
 		}
 
 		#endregion

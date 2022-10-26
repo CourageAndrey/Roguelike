@@ -105,17 +105,17 @@ F2 - show Character's menu
 
 arrow keys & NumPad keys - move (or attack if agressive)
 
-H - interact with object (sleep on bed, cook on fire, etc.)
-F - change aggressive state
-D - drop item
-W - select weapon
-C - chat
-T - trade
-P - pickpocket
-B - backstab
-R - read book
-O - open/close (door)
-S - ride (horse)
+h - interact with object (sleep on bed, cook on fire, etc.)
+f - change aggressive state
+d - drop item
+w - select weapon
+c - chat
+t - trade
+p - pickpocket
+b - backstab
+r - read book
+o - open/close (door)
+s - ride (horse)
 , - pick item",
 
 				Directions = LanguageDirections.CreateDefault(),

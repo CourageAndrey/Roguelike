@@ -310,7 +310,7 @@ namespace Roguelike.Core.ActiveObjects
 			hitPossibility += ((int) Properties.Reaction - (int) target.Properties.Reaction) * 10;
 			if (random.Next(0, 100) < hitPossibility)
 			{
-				target.Die(string.Format(CultureInfo.InvariantCulture, language.ReathReasonKilled, this));
+				target.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasonKilled, this));
 			}
 
 			return new ActionResult(

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 
 using Roguelike.Core;
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Console
@@ -301,7 +300,7 @@ namespace Roguelike.Console
 			return selectedItems.Count > 0;
 		}
 
-		public void ShowCharacter(Game game, Humanoid humanoid)
+		public void ShowCharacter(Game game, IHumanoid humanoid)
 		{
 			startDialog(() =>
 			{
@@ -345,17 +344,17 @@ namespace Roguelike.Console
 			});
 		}
 
-		public ActionResult BeginChat(Game game, Humanoid humanoid)
+		public ActionResult BeginChat(Game game, IHumanoid humanoid)
 		{
 			throw new NotImplementedException();
 		}
 
-		public ActionResult BeginTrade(Game game, Humanoid humanoid)
+		public ActionResult BeginTrade(Game game, IHumanoid humanoid)
 		{
 			throw new NotImplementedException();
 		}
 
-		public ActionResult BeginPickpocket(Game game, Humanoid humanoid)
+		public ActionResult BeginPickpocket(Game game, IHumanoid humanoid)
 		{
 			throw new NotImplementedException();
 		}

@@ -19,6 +19,9 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Food
 		{ get; set; }
+		[XmlElement]
+		public string Paper
+		{ get; set; }
 
 		#endregion
 
@@ -30,6 +33,7 @@ namespace Roguelike.Core.Localization
 				Wear = "Wear",
 				Food = "Food",
 				Tool = "Tool",
+				Paper = "Paper",
 			};
 		}
 	}

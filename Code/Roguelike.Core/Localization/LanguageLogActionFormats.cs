@@ -15,45 +15,48 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 		[XmlElement]
 		public string Move
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string MoveDisabled
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string ChopTree
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string StartFight
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string StopFight
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string ChangeFightModeDisabled
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string ChangeWeapon
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string ChangeWeaponDisabled
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string Wait
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string Attack
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string Death
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string DropItem
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement]
 		public string PickItem
-		{ get; set; } 
-		[XmlElement]  
+		{ get; set; }
+		[XmlElement] 
 		public string PickItemDisabled
+		{ get; set; }
+		[XmlElement]
+		public string ReadBook
 		{ get; set; }
 
 		#endregion
@@ -78,6 +81,7 @@ namespace Roguelike.Core.Localization
 				DropItem = "{0} picks {1}",
 				PickItem = "{0} drops {1}",
 				PickItemDisabled = "{0} didn't manage to pick item",
+				ReadBook = "{0} reads book",
 			};
 		}
 	}

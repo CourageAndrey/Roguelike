@@ -71,6 +71,10 @@ namespace Roguelike.Core.Localization
 		public LanguageTalk Talk
 		{ get; set; }
 
+		[XmlElement]
+		public LanguageBooks Books
+		{ get; set; }
+
 		#endregion
 
 		public static Language CreateDefault()
@@ -109,6 +113,7 @@ C - chat
 T - trade
 P - pickpocket
 B - backstab
+R - read book
 O - open/close (door)
 , - pick item",
 
@@ -122,6 +127,8 @@ O - open/close (door)
 				ItemTypes = LanguageItemTypes.CreateDefault(),
 
 				Talk = LanguageTalk.CreateDefault(),
+
+				Books = LanguageBooks.CreateDefault(),
 			};
 		}
 

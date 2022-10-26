@@ -40,6 +40,9 @@
 		public int PickItem
 		{ get; set; }
 
+		public int ReadBook
+		{ get; set; }
+
 		#endregion
 
 		public static ActionLongevityBalance CreateDefault()
@@ -58,6 +61,7 @@
 				Attack = 1000,
 				DropItem = 1500,
 				PickItem = 1500,
+				ReadBook = 60 * 60 * 1000,
 			};
 		}
 	}

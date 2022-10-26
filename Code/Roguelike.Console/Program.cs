@@ -89,6 +89,7 @@ namespace Roguelike.Console
 			{ ConsoleKey.T, HandleTrade },
 			{ ConsoleKey.P, HandlePickpocket },
 			{ ConsoleKey.B, HandleBackstab },
+			{ ConsoleKey.R, HandleReadBook },
 			{ ConsoleKey.OemComma, HandlePick },
 			{ ConsoleKey.O, HandleOpenClose },
 		};

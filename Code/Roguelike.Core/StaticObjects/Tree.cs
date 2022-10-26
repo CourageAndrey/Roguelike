@@ -8,7 +8,7 @@ using Roguelike.Core.Items;
 
 namespace Roguelike.Core.StaticObjects
 {
-	public class Tree : Object, IInteractive
+	public class Tree : Object, ITree
 	{
 		#region Properties
 
@@ -26,11 +26,13 @@ namespace Roguelike.Core.StaticObjects
 			var language = game.Language;
 			return new List<Interaction>
 			{
-				new Interaction(language.Interactions.ChopTree, (actor as Humanoid)?.Inventory.OfType<Hatchet>().Any() == true, a =>
+				new Interaction(language.Interactions.ChopTree, (actor as IAlive)?.Inventory.OfType<Hatchet>().Any() == true, a =>
 				{
-					(a as Humanoid).Inventory.Add(new Log());
-					CurrentCell.AddObject(new Stump());
-					CurrentCell.RemoveObject(this);
+					var inventory = ((IAlive) a).Inventory;
+					foreach (var log in Chop())
+					{
+						inventory.Add(log);
+					}
 					return new ActionResult(
 						Time.FromTicks(balance.Time, balance.ActionLongevity.ChopTree),
 						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ChopTree, a, CurrentCell.Position),
@@ -40,5 +42,12 @@ namespace Roguelike.Core.StaticObjects
 		}
 
 		#endregion
+
+		public ICollection<IItem> Chop()
+		{
+			CurrentCell.AddObject(new Stump());
+			CurrentCell.RemoveObject(this);
+			return new IItem[] { new Log() };
+		}
 	}
 }

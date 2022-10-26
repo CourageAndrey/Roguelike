@@ -85,6 +85,12 @@ namespace Roguelike.Console
 			{ ConsoleKey.F, HandleChangeAggressive },
 			{ ConsoleKey.D, HandleDropItem },
 			{ ConsoleKey.W, HandleSelectWeapon },
+			{ ConsoleKey.C, HandleChat },
+			{ ConsoleKey.T, HandleTrade },
+			{ ConsoleKey.P, HandlePickpocket },
+			{ ConsoleKey.B, HandleBackstab },
+			{ ConsoleKey.OemComma, HandlePick },
+			{ ConsoleKey.O, HandleOpenClose },
 		};
 
 		#endregion

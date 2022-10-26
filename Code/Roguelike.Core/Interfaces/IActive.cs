@@ -2,7 +2,7 @@
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IActive
+	public interface IActive : IObject
 	{
 		Time? NextActionTime
 		{ get; }

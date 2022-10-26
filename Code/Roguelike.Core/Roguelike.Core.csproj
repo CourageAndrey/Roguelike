@@ -71,6 +71,9 @@
     <Compile Include="EventCollection.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Interfaces\IItemsContainer.cs" />
+    <Compile Include="Interfaces\ITree.cs" />
+    <Compile Include="Interfaces\IDoor.cs" />
     <Compile Include="Interfaces\IDisease.cs" />
     <Compile Include="Interfaces\IState.cs" />
     <Compile Include="Interfaces\IHumanoid.cs" />

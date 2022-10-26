@@ -118,20 +118,5 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			return ActiveObjects.Body.CreateHumanoid();
 		}
-
-		public override List<Interaction> GetAvailableInteractions(Object actor)
-		{
-			var result = base.GetAvailableInteractions(actor);
-
-			var game = CurrentCell.Region.World.Game;
-			var balance = game.Balance;
-			var language = game.Language;
-
-			result.Add(new Interaction(language.Interactions.Chat, true, target => game.UserInterface.BeginChat(game, this)));
-			result.Add(new Interaction(language.Interactions.Trade, true, target => game.UserInterface.BeginTrade(game, this)));
-			result.Add(new Interaction(language.Interactions.Pickpocket, true, target => game.UserInterface.BeginPickpocket(game, this)));
-
-			return result;
-		}
 	}
 }

@@ -16,37 +16,37 @@ namespace Roguelike.Core.ActiveObjects
 		public IHeadWear HeadWear
 		{
 			get { return _headWear; }
-			private set { ChangeEquipmentPosition(value, ref _headWear); }
+			set { ChangeEquipmentPosition(value, ref _headWear); }
 		}
 
 		public IUpperBodyWear UpperBodyWear
 		{
 			get { return _upperBodyWear; }
-			private set { ChangeEquipmentPosition(value, ref _upperBodyWear); }
+			set { ChangeEquipmentPosition(value, ref _upperBodyWear); }
 		}
 
 		public ILowerBodyWear LowerBodyWear
 		{
 			get { return _lowerBodyWear; }
-			private set { ChangeEquipmentPosition(value, ref _lowerBodyWear); }
+			set { ChangeEquipmentPosition(value, ref _lowerBodyWear); }
 		}
 
 		public ICoverWear CoverWear
 		{
 			get { return _coverWear; }
-			private set { ChangeEquipmentPosition(value, ref _coverWear); }
+			set { ChangeEquipmentPosition(value, ref _coverWear); }
 		}
 
 		public IHandWear HandsWear
 		{
 			get { return _handsWear; }
-			private set { ChangeEquipmentPosition(value, ref _handsWear); }
+			set { ChangeEquipmentPosition(value, ref _handsWear); }
 		}
 
 		public IFootWear FootsWear
 		{
 			get { return _footsWear; }
-			private set { ChangeEquipmentPosition(value, ref _footsWear); }
+			set { ChangeEquipmentPosition(value, ref _footsWear); }
 		}
 
 		public ICollection<IJewelry> Jewelry

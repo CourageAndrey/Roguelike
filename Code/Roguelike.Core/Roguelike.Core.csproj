@@ -105,6 +105,9 @@
     <Compile Include="Items\Naked.cs" />
     <Compile Include="Items\Unarmed.cs" />
     <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Items\Shirt.cs" />
+    <Compile Include="Items\Trousers.cs" />
+    <Compile Include="Items\Skirt.cs" />
     <Compile Include="Items\Wear.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Localization\LanguageDiseases.cs" />

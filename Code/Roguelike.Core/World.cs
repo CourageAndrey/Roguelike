@@ -54,6 +54,8 @@ namespace Roguelike.Core
 			Hero.MoveTo(heroCell);
 			Hero.Inventory.Add(new Hatchet());
 			Hero.Inventory.Add(new Bow());
+			Hero.Manequin.LowerBodyWear = new Trousers();
+			Hero.Manequin.UpperBodyWear = new Shirt();
 			for (int i = 0; i < 20; i++)
 			{
 				Hero.Inventory.Add(new Arrow());

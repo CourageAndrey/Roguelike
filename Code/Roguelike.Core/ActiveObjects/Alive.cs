@@ -284,9 +284,10 @@ namespace Roguelike.Core.ActiveObjects
 
 		public abstract Body CreateBody();
 
-		public void Backstab(IAlive actor)
+		public ActionResult Backstab(IAlive actor)
 		{
 			Die("backstabbed");
+			return null;
 #warning Finish implementation, translate it and make not so easy.
 		}
 

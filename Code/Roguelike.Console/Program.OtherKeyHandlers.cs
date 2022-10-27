@@ -203,9 +203,7 @@ namespace Roguelike.Console
 			var alive = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
 			if (alive != null)
 			{
-				alive.Backstab(hero);
-#warning Empty action result!
-				return null;
+				return alive.Backstab(hero);
 			}
 			else
 			{

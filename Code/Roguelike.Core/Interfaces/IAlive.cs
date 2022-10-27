@@ -51,6 +51,6 @@ namespace Roguelike.Core.Interfaces
 
 		event EventHandler<IAlive, string> OnDeath;
 
-		void Backstab(IAlive actor);
+		ActionResult Backstab(IAlive actor);
 	}
 }

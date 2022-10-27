@@ -12,6 +12,7 @@ namespace Roguelike.Core.ActiveObjects
 		#region Properties
 
 		private readonly IHumanoid _owner;
+		private readonly Naked _naked;
 
 		public IHeadWear HeadWear
 		{
@@ -85,13 +86,14 @@ namespace Roguelike.Core.ActiveObjects
 			if (owner == null) throw new ArgumentNullException(nameof(owner));
 
 			_owner = owner;
+			_naked = new Naked(_owner);
 
-			HeadWear = headWear ?? new Naked(owner);
-			UpperBodyWear = upperBodyWear ?? new Naked(owner);
-			LowerBodyWear = lowerBodyWear ?? new Naked(owner);
-			CoverWear = coverWear ?? new Naked(owner);
-			HandsWear = handsWear ?? new Naked(owner);
-			FootsWear = footsWear ?? new Naked(owner);
+			HeadWear = headWear ?? _naked;
+			UpperBodyWear = upperBodyWear ?? _naked;
+			LowerBodyWear = lowerBodyWear ?? _naked;
+			CoverWear = coverWear ?? _naked;
+			HandsWear = handsWear ?? _naked;
+			FootsWear = footsWear ?? _naked;
 
 			var jewelryCollection = new EventCollection<IJewelry>(jewelry ?? new IJewelry[0]);
 			jewelryCollection.ItemAdded += (sender, eventArgs) =>

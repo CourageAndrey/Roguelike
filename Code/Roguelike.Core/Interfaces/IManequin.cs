@@ -5,22 +5,22 @@ namespace Roguelike.Core.Interfaces
 	public interface IManequin
 	{
 		IHeadWear HeadWear
-		{ get; }
+		{ get; set; }
 
 		IUpperBodyWear UpperBodyWear
-		{ get; }
+		{ get; set; }
 
 		ILowerBodyWear LowerBodyWear
-		{ get; }
+		{ get; set; }
 
 		ICoverWear CoverWear
-		{ get; }
+		{ get; set; }
 
 		IHandWear HandsWear
-		{ get; }
+		{ get; set; }
 
 		IFootWear FootsWear
-		{ get; }
+		{ get; set; }
 
 		ICollection<IJewelry> Jewelry
 		{ get; }

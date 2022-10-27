@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using Roguelike.Core.Items;
+
 namespace Roguelike.Core.Interfaces
 {
 	public interface IManequin
@@ -32,32 +34,32 @@ namespace Roguelike.Core.Interfaces
 	{
 		public static IEnumerable<IWear> GetAllItems(this IManequin manequin)
 		{
-			if (manequin.HeadWear != null)
+			if (!(manequin.HeadWear is Naked))
 			{
 				yield return manequin.HeadWear;
 			}
 
-			if (manequin.UpperBodyWear != null)
+			if (!(manequin.UpperBodyWear is Naked))
 			{
 				yield return manequin.UpperBodyWear;
 			}
 
-			if (manequin.LowerBodyWear != null)
+			if (!(manequin.LowerBodyWear is Naked))
 			{
 				yield return manequin.LowerBodyWear;
 			}
 
-			if (manequin.CoverWear != null)
+			if (!(manequin.CoverWear is Naked))
 			{
 				yield return manequin.CoverWear;
 			}
 
-			if (manequin.HandsWear != null)
+			if (!(manequin.HandsWear is Naked))
 			{
 				yield return manequin.HandsWear;
 			}
 
-			if (manequin.FootsWear != null)
+			if (!(manequin.FootsWear is Naked))
 			{
 				yield return manequin.FootsWear;
 			}

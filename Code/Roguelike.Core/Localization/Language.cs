@@ -28,10 +28,6 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public LanguageActivities Activities
-		{ get; set; }
-
-		[XmlElement]
 		public string DeathReasonKilled
 		{ get; set; }
 
@@ -52,7 +48,7 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public LanguageBodyParts BodyParts
+		public LanguageCharacter Character
 		{ get; set; }
 
 		[XmlElement]
@@ -91,8 +87,6 @@ namespace Roguelike.Core.Localization
 
 				LogActionFormats = LanguageLogActionFormats.CreateDefault(),
 
-				Activities = LanguageActivities.CreateDefault(),
-
 				DeathReasonKilled = "killed by {0}",
 
 				Ui = LanguageUi.CreateDefault(),
@@ -121,7 +115,7 @@ s - ride (horse)
 
 				Directions = LanguageDirections.CreateDefault(),
 
-				BodyParts = LanguageBodyParts.CreateDefault(),
+				Character = LanguageCharacter.CreateDefault(),
 
 				GameWin = "Congratulations! You win the game.",
 				GameDefeat = "Sorry, but game is over.",

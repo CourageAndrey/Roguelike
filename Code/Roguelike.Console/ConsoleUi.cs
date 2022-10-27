@@ -311,41 +311,43 @@ namespace Roguelike.Console
 
 		public void ShowCharacter(Game game, IHumanoid humanoid)
 		{
+			var language = game.Language;
+			var languageUi = language.Ui.CharacterScreen;
+			int propetyLength = language.Character.Properties.GetAll().Max(p => p.Length);
 			startDialog(() =>
 			{
-#warning Localize
 				System.Console.ForegroundColor = ConsoleColor.Cyan;
 				System.Console.WriteLine($"=== {humanoid.Name} ===");
 				System.Console.ForegroundColor = ConsoleColor.White;
-				string sex = humanoid.SexIsMale ? "Male" : "Female";
-				System.Console.WriteLine($"{sex}, {humanoid.Age} years old");
+				string sex = humanoid.SexIsMale ? language.Character.SexIsMale : language.Character.SexIsFemale;
+				System.Console.WriteLine($"{sex}, {humanoid.Age} {language.Character.AgeYears}");
 				System.Console.WriteLine();
 
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
-				System.Console.WriteLine($"=== STATE ===");
+				System.Console.WriteLine($"=== {languageUi.State.ToUpperInvariant()} ===");
 				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.WriteLine($"{humanoid.State}");
+				System.Console.WriteLine($"{humanoid.State.GetDescription(language.Character.State, game.Hero)}");
 				System.Console.WriteLine();
 
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
-				System.Console.WriteLine($"=== BODY ===");
+				System.Console.WriteLine($"=== {languageUi.Body.ToUpperInvariant()} ===");
 				System.Console.ForegroundColor = ConsoleColor.White;
 				System.Console.WriteLine($"... under construction ...");
 				System.Console.WriteLine();
 
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
-				System.Console.WriteLine($"=== PROPERTIES ===");
+				System.Console.WriteLine($"=== {languageUi.Stats.ToUpperInvariant()} ===");
 				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.WriteLine($"    Strength : {humanoid.Properties.Strength}");
-				System.Console.WriteLine($"   Endurance : {humanoid.Properties.Endurance}");
-				System.Console.WriteLine($"    Reaction : {humanoid.Properties.Reaction}");
-				System.Console.WriteLine($"  Perception : {humanoid.Properties.Perception}");
-				System.Console.WriteLine($"Intelligence : {humanoid.Properties.Intelligence}");
-				System.Console.WriteLine($"   Willpower : {humanoid.Properties.Willpower}");
+				System.Console.WriteLine($"{language.Character.Properties.Strength.PadLeft(propetyLength)} : {humanoid.Properties.Strength}");
+				System.Console.WriteLine($"{language.Character.Properties.Endurance.PadLeft(propetyLength)} : {humanoid.Properties.Endurance}");
+				System.Console.WriteLine($"{language.Character.Properties.Reaction.PadLeft(propetyLength)} : {humanoid.Properties.Reaction}");
+				System.Console.WriteLine($"{language.Character.Properties.Perception.PadLeft(propetyLength)} : {humanoid.Properties.Perception}");
+				System.Console.WriteLine($"{language.Character.Properties.Intelligence.PadLeft(propetyLength)} : {humanoid.Properties.Intelligence}");
+				System.Console.WriteLine($"{language.Character.Properties.Willpower.PadLeft(propetyLength)} : {humanoid.Properties.Willpower}");
 				System.Console.WriteLine();
 
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
-				System.Console.WriteLine($"=== SKILLS ===");
+				System.Console.WriteLine($"=== {languageUi.Skills.ToUpperInvariant()} ===");
 				System.Console.ForegroundColor = ConsoleColor.White;
 				System.Console.WriteLine($"... under construction ...");
 

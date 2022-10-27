@@ -64,7 +64,7 @@ namespace Roguelike.Core.Interfaces
 		event EventHandler<IState> Changed;
 #warning Need to subscribe this event in order to track hero's state
 
-		string GetDescription(Language language, IAlive forWhom);
+		string GetDescription(LanguageState language, IAlive forWhom);
 
 		void SetActivity(Activity activity);
 	}

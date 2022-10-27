@@ -177,10 +177,184 @@ namespace Roguelike.Core.ActiveObjects
 			Activity = Activity.Stands;
 		}
 
-		public string GetDescription(Language language, IAlive forWhom)
+		public string GetDescription(LanguageState language, IAlive forWhom)
 		{
-#warning Implement! + Activity.GetDescription(language) ??
-			throw new System.NotImplementedException();
+			var result = new StringBuilder();
+
+			string activity = Activity.GetDescription(language.Activities);
+			if (!string.IsNullOrEmpty(activity))
+			{
+				result.Append($"{language.Activity} : activity");
+			}
+
+			if (IsSick)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsSick} ({string.Join(", ", _diseases)})");
+			}
+
+			if (_isDirty)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsDirty}");
+			}
+
+			if (_isPoisoned)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsPoisoned}");
+			}
+
+			if (_hasHangover)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.HasHangover}");
+			}
+
+			if (_isDrunk)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsDrunk}");
+			}
+
+			if (_isScared)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsScared}");
+			}
+
+			if (_isLightningBurned)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsLightningBurned}");
+			}
+
+			if (_isAcidBurned)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsAcidBurned}");
+			}
+
+			if (_isFireBurned)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsFireBurned}");
+			}
+
+			if (_isSunburned)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsSunburned}");
+			}
+
+			if (_isFrozen)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsFrozen}");
+			}
+
+			if (_isConfused)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsConfused}");
+			}
+
+			if (_isLosingBlood)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsLosingBlood}");
+			}
+
+			if (_isFallingAsleep)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsFallingAsleep}");
+			}
+
+			if (_isTired)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsTired}");
+			}
+
+			if (_isThirsty)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsThirsty}");
+			}
+
+			if (_isBloated)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsBloated}");
+			}
+
+			if (_isHungry)
+			{
+				if (result.Length > 0)
+				{
+					result.Append(", ");
+				}
+				result.Append($"{language.IsHungry}");
+			}
+
+			if (result.Length == 0)
+			{
+				result.Append("-");
+			}
+
+			return result.ToString();
 		}
 
 		public void SetActivity(Activity activity)
@@ -190,7 +364,6 @@ namespace Roguelike.Core.ActiveObjects
 
 		public override string ToString()
 		{
-#warning localize
 			var result = new StringBuilder();
 
 			if (IsSick)

@@ -107,6 +107,10 @@
     <Compile Include="Items\Weapon.cs" />
     <Compile Include="Items\Wear.cs" />
     <Compile Include="ItemType.cs" />
+    <Compile Include="Localization\LanguageDiseases.cs" />
+    <Compile Include="Localization\LanguageState.cs" />
+    <Compile Include="Localization\LanguageCharacter.cs" />
+    <Compile Include="Localization\LanguageProperties.cs" />
     <Compile Include="Localization\LanguageActivities.cs" />
     <Compile Include="Localization\LanguageAnswerFormats.cs" />
     <Compile Include="Localization\LanguageBodyParts.cs" />

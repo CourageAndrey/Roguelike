@@ -14,7 +14,7 @@ namespace Roguelike.Core.Localization
 		public string Body
 		{ get; set; }
 		[XmlElement]
-		public string Effects
+		public string State
 		{ get; set; }
 		[XmlElement]
 		public string Stats
@@ -37,7 +37,7 @@ namespace Roguelike.Core.Localization
 			{
 				General = "Character",
 				Body = "Body",
-				Effects = "Effects",
+				State = "State",
 				Stats = "Stats",
 				Skills = "Skills",
 				WearedItems = "Weared Items",

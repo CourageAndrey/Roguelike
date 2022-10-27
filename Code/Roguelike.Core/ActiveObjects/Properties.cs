@@ -41,5 +41,10 @@ namespace Roguelike.Core.ActiveObjects
 			Intelligence = intelligence;
 			Willpower = willpower;
 		}
+
+		public override string ToString()
+		{
+			return $"STR={Strength} END={Endurance} REA={Reaction} PER={Perception} INT={Intelligence} WIL={Willpower}";
+		}
 	}
 }

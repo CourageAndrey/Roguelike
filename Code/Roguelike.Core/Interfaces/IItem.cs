@@ -1,8 +1,13 @@
-﻿namespace Roguelike.Core.Interfaces
+﻿using System.Drawing;
+
+namespace Roguelike.Core.Interfaces
 {
 	public interface IItem : IRequireGravitation
 	{
 		ItemType Type
+		{ get; }
+
+		Color Color
 		{ get; }
 
 		event EventHandler<IItem, IAlive> Picked;
@@ -28,6 +33,9 @@
 	public interface IWeapon : IItem
 	{
 		bool IsRange
+		{ get; }
+
+		Material Material
 		{ get; }
 
 		event EventHandler<IWeapon, IAlive> PreparedForBattle;

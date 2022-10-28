@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
@@ -14,10 +15,13 @@ namespace Roguelike.Core.Items
 		public override ItemType Type
 		{ get { return ItemType.Paper; } }
 
+		public override Color Color
+		{ get; }
+
 		private readonly Func<LanguageBooks, string> _getTitle;
 		private readonly Func<LanguageBooks, string> _getText;
 
-		public Book(Func<LanguageBooks, string> getTitle, Func<LanguageBooks, string> getText)
+		public Book(Color coverColor, Func<LanguageBooks, string> getTitle, Func<LanguageBooks, string> getText)
 		{
 			_getTitle = getTitle;
 			_getText = getText;

@@ -71,6 +71,10 @@ namespace Roguelike.Core.Localization
 		public LanguageBooks Books
 		{ get; set; }
 
+		[XmlElement]
+		public LanguageMaterials Materials
+		{ get; set; }
+
 		#endregion
 
 		public static Language CreateDefault()
@@ -125,6 +129,8 @@ s - ride (horse)
 				Talk = LanguageTalk.CreateDefault(),
 
 				Books = LanguageBooks.CreateDefault(),
+
+				Materials = LanguageMaterials.CreateDefault(),
 			};
 		}
 

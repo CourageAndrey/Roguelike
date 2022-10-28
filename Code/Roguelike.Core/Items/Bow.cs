@@ -10,9 +10,10 @@
 		public override double Weight
 		{ get { return 1; } }
 
-		public override ItemType Type
-		{ get { return ItemType.Weapon; } }
-
 		#endregion
+
+		public Bow()
+			: base(Material.Wood)
+		{ }
 	}
 }

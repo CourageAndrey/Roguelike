@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
@@ -46,7 +47,7 @@ namespace Roguelike.Core
 			Regions = this.GenerateRegions(balance.WorldSize.RegionsCount);
 			var region = Regions.First();
 
-			Hero = new Hero(true, _time.AddYears(-25), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "Andor Drakon");
+			Hero = new Hero(Race.SinglePossible, true, _time.AddYears(-25), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "Andor Drakon");
 			var heroCell = region.GetCell(
 				seed.Next(10, balance.WorldSize.RegionXdimension - 50),
 				seed.Next(10, balance.WorldSize.RegionYdimension - 50),
@@ -54,13 +55,13 @@ namespace Roguelike.Core
 			Hero.MoveTo(heroCell);
 			Hero.Inventory.Add(new Hatchet());
 			Hero.Inventory.Add(new Bow());
-			Hero.Manequin.LowerBodyWear = new Trousers();
-			Hero.Manequin.UpperBodyWear = new Shirt();
+			Hero.Manequin.LowerBodyWear = new Trousers(Color.Brown);
+			Hero.Manequin.UpperBodyWear = new Shirt(Color.LightGray);
 			for (int i = 0; i < 20; i++)
 			{
 				Hero.Inventory.Add(new Arrow());
 			}
-			Hero.Inventory.Add(new Book(language => language.HelloWorld, language => language.HelloWorld));
+			Hero.Inventory.Add(new Book(Color.Coral, language => language.HelloWorld, language => language.HelloWorld));
 			Hero.MakeMapKnown(balance.Distance.HeroInitialView);
 
 			region.CreateVillage(

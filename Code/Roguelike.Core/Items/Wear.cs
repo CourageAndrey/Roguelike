@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Drawing;
+using System.Threading;
 
 using Roguelike.Core.Interfaces;
 
@@ -6,9 +7,24 @@ namespace Roguelike.Core.Items
 {
 	public abstract class Wear : Item, IWear
 	{
+		#region Properties
+
+		public override ItemType Type
+		{ get { return ItemType.Wear; } }
+
+		public override Color Color
+		{ get; }
+
 		public event EventHandler<IWear, IAlive> Equipped;
 
 		public event EventHandler<IWear, IAlive> Unequipped;
+
+		#endregion
+
+		protected Wear(Color clothColor)
+		{
+			Color = clothColor;
+		}
 
 		public void RaiseEquipped(IAlive who)
 		{

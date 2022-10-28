@@ -1,10 +1,15 @@
-﻿using Roguelike.Core.Interfaces;
+﻿using System.Drawing;
+
+using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Items
 {
 	public class Arrow : Item, IMissile
 	{
 		#region Properties
+
+		public override Color Color
+		{ get { return Color.White; } }
 
 		public override ItemType Type
 		{ get { return ItemType.Weapon; } }

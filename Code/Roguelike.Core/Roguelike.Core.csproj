@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ActionResult.cs" />
     <Compile Include="Active.cs" />
     <Compile Include="ActiveObjects\Alive.cs" />
@@ -110,6 +107,8 @@
     <Compile Include="Items\Skirt.cs" />
     <Compile Include="Items\Wear.cs" />
     <Compile Include="ItemType.cs" />
+    <Compile Include="Localization\LanguageMaterials.cs" />
+    <Compile Include="Localization\LanguageRaces.cs" />
     <Compile Include="Localization\LanguageDiseases.cs" />
     <Compile Include="Localization\LanguageState.cs" />
     <Compile Include="Localization\LanguageCharacter.cs" />
@@ -129,6 +128,8 @@
     <Compile Include="Localization\LanguageUiCharacter.cs" />
     <Compile Include="Localization\LanguageUiCommon.cs" />
     <Compile Include="Localization\LanguageUiMainScreen.cs" />
+    <Compile Include="Material.cs" />
+    <Compile Include="Race.cs" />
     <Compile Include="Skill.cs" />
     <Compile Include="StaticObjects\Bed.cs" />
     <Compile Include="StaticObjects\Corpse.cs" />
@@ -159,6 +160,11 @@
     <Compile Include="Vector.cs" />
     <Compile Include="Weather.cs" />
     <Compile Include="World.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Drawing.Primitives">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.30\System.Drawing.Primitives.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,13 +1,20 @@
-﻿using Roguelike.Core.Interfaces;
+﻿using System.Drawing;
+
+using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Items
 {
 	public class Trousers : Wear, ILowerBodyWear
 	{
+		#region Properties
+
 		public override double Weight
 		{ get { return 1; } }
 
-		public override ItemType Type
-		{ get { return ItemType.Wear; } }
+		#endregion
+
+		public Trousers(Color clothColor)
+			: base(clothColor)
+		{ }
 	}
 }

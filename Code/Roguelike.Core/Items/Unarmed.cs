@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Drawing;
 
-using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Items
 {
 	public class Unarmed : Weapon
 	{
 		#region Properties
+
+		public override Color Color
+		{ get { throw new NotSupportedException(); } }
 
 		public override bool IsRange
 		{ get { return false; } }
@@ -17,12 +21,13 @@ namespace Roguelike.Core.Items
 		public override ItemType Type
 		{ get { throw new NotSupportedException(); } }
 
-		public Alive Fighter
+		public IAlive Fighter
 		{ get; }
 
 		#endregion
 
-		public Unarmed(Alive fighter)
+		public Unarmed(IAlive fighter)
+			: base(null)
 		{
 			Fighter = fighter;
 		}

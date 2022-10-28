@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 using Roguelike.Core;
 using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.StaticObjects;
 using Roguelike.Console.ViewModels;
-using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Console
 {
@@ -87,6 +87,15 @@ namespace Roguelike.Console
 				default:
 					return color;
 			}
+		}
+
+		public static ConsoleColor ToConsole(this Color color)
+		{
+			int index = (color.R > 128 | color.G > 128 | color.B > 128) ? 8 : 0; // Bright bit
+			index |= (color.R > 64) ? 4 : 0; // Red bit
+			index |= (color.G > 64) ? 2 : 0; // Green bit
+			index |= (color.B > 64) ? 1 : 0; // Blue bit
+			return (ConsoleColor) index;
 		}
 
 		public static string GetMissile(this Direction direction)

@@ -7,6 +7,9 @@ namespace Roguelike.Core.Interfaces
 		string Name
 		{ get; }
 
+		Race Race
+		{ get; }
+
 		IManequin Manequin
 		{ get; }
 

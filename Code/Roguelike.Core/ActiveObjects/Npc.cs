@@ -11,8 +11,8 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public Npc(bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string name)
-			: base(sexIsMale, birthDate, properties, inventory, name)
+		public Npc(Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string name)
+			: base(race, sexIsMale, birthDate, properties, inventory, name)
 		{ }
 
 		protected override ActionResult DoImplementation()

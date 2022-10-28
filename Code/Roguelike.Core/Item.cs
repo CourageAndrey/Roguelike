@@ -1,6 +1,7 @@
-﻿using Roguelike.Core.Interfaces;
-
+﻿using System.Drawing;
 using System.Threading;
+
+using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core
 {
@@ -12,6 +13,9 @@ namespace Roguelike.Core
 		{ get; }
 
 		public abstract ItemType Type
+		{ get; }
+
+		public abstract Color Color
 		{ get; }
 
 		public event ValueChangedEventHandler<IRequireGravitation, double> WeightChanged;

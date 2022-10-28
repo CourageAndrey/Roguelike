@@ -20,6 +20,7 @@ namespace Roguelike.Core.Items
 		#endregion
 
 		public Naked(IHumanoid owner)
+			: base(owner.Race.SkinColor)
 		{
 			Owner = owner;
 		}

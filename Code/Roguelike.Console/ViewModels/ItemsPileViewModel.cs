@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Roguelike.Core;
+using Roguelike.Core.Interfaces;
 using Roguelike.Core.StaticObjects;
 
 namespace Roguelike.Console.ViewModels
@@ -15,12 +16,17 @@ namespace Roguelike.Console.ViewModels
 		#region Overrides
 
 		public override string Text
-		{ get { return _typeMapping[Object.Items.First().Type]; } }
+		{ get { return _typeMapping[getTopObject().Type]; } }
 
 		public override System.ConsoleColor Foreground
-		{ get { return System.ConsoleColor.White; } }
+		{ get { return getTopObject().Color.ToConsole(); } }
 
 		#endregion
+
+		private IItem getTopObject()
+		{
+			return Object.Items.First();
+		}
 
 		private static readonly IDictionary<ItemType, string> _typeMapping = new Dictionary<ItemType, string>
 		{

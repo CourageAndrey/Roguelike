@@ -376,7 +376,7 @@ namespace Roguelike.Console
 					System.Console.WriteLine();
 				}
 
-				System.Console.ReadKey(false);
+				System.Console.ReadKey(true);
 			});
 		}
 
@@ -436,7 +436,7 @@ namespace Roguelike.Console
 					System.Console.WriteLine(empty);
 				}
 
-				System.Console.ReadKey(false);
+				System.Console.ReadKey(true);
 			});
 
 			return null;

@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Items
 {
@@ -23,6 +24,11 @@ namespace Roguelike.Core.Items
 			: base(owner.Race.SkinColor)
 		{
 			Owner = owner;
+		}
+
+		public override string GetDescription(LanguageItems language, IAlive forWhom)
+		{
+			throw new NotSupportedException();
 		}
 	}
 }

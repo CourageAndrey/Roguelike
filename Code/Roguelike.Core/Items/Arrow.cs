@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Items
 {
@@ -18,5 +19,10 @@ namespace Roguelike.Core.Items
 		{ get { return 0.1; } }
 
 		#endregion
+
+		public override string GetDescription(LanguageItems language, IAlive forWhom)
+		{
+			return language.Arrow;
+		}
 	}
 }

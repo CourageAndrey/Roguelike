@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
 
+using Roguelike.Core.Localization;
+
 namespace Roguelike.Core.Interfaces
 {
 	public interface IItem : IRequireGravitation
@@ -9,6 +11,8 @@ namespace Roguelike.Core.Interfaces
 
 		Color Color
 		{ get; }
+
+		string GetDescription(LanguageItems language, IAlive forWhom);
 
 		event EventHandler<IItem, IAlive> Picked;
 

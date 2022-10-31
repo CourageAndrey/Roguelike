@@ -2,6 +2,7 @@
 using System.Threading;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core
 {
@@ -23,6 +24,8 @@ namespace Roguelike.Core
 		public event EventHandler<IItem, IAlive> Picked;
 
 		public event EventHandler<IItem, IAlive> Dropped;
+
+		#endregion
 
 		protected void RaiseWeightChanged(double oldWeight, double newWeight)
 		{
@@ -51,6 +54,6 @@ namespace Roguelike.Core
 			}
 		}
 
-		#endregion
+		public abstract string GetDescription(LanguageItems language, IAlive forWhom);
 	}
 }

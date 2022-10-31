@@ -15,6 +15,9 @@ namespace Roguelike.Core.Items
 		public override ItemType Type
 		{ get { throw new NotSupportedException(); } }
 
+		public override Material Material
+		{ get { throw new NotSupportedException(); } }
+
 		public IHumanoid Owner
 		{ get; }
 

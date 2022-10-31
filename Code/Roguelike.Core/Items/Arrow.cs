@@ -18,6 +18,9 @@ namespace Roguelike.Core.Items
 		public override decimal Weight
 		{ get { return 0.1m; } }
 
+		public override Material Material
+		{ get { return Material.Wood; } }
+
 		#endregion
 
 		public override string GetDescription(LanguageItems language, IAlive forWhom)

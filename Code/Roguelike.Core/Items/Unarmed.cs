@@ -22,13 +22,15 @@ namespace Roguelike.Core.Items
 		public override ItemType Type
 		{ get { throw new NotSupportedException(); } }
 
+		public override Material Material
+		{ get { throw new NotSupportedException(); } }
+
 		public IAlive Fighter
 		{ get; }
 
 		#endregion
 
 		public Unarmed(IAlive fighter)
-			: base(null)
 		{
 			Fighter = fighter;
 		}

@@ -19,6 +19,9 @@ namespace Roguelike.Core
 		public abstract Color Color
 		{ get; }
 
+		public abstract Material Material
+		{ get; }
+
 		public event ValueChangedEventHandler<IRequireGravitation, decimal> WeightChanged;
 
 		public event EventHandler<IItem, IAlive> Picked;

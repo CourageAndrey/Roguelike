@@ -12,9 +12,6 @@ namespace Roguelike.Core.Items
 		public override ItemType Type
 		{ get { return ItemType.Weapon; } }
 
-		public Material Material
-		{ get; }
-
 		public override Color Color
 		{ get { return Material.Color; } }
 
@@ -26,11 +23,6 @@ namespace Roguelike.Core.Items
 		public event EventHandler<IWeapon, IAlive> StoppedBattle;
 
 		#endregion
-
-		protected Weapon(Material material)
-		{
-			Material = material;
-		}
 
 		public void RaisePreparedForBattle(IAlive who)
 		{

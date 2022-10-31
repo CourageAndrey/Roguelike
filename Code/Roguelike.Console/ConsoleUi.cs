@@ -369,6 +369,7 @@ namespace Roguelike.Console
 
 					foreach (var item in itemTypeGroup)
 					{
+						System.Console.ForegroundColor = item.Material.Color.ToConsole();
 						System.Console.WriteLine(item.GetDescription(itemsLanguage, humanoid));
 					}
 
@@ -401,7 +402,7 @@ namespace Roguelike.Console
 					}
 					else
 					{
-						System.Console.ForegroundColor = ConsoleColor.Cyan;
+						System.Console.ForegroundColor = wear.Material.Color.ToConsole();
 						System.Console.WriteLine($" {wear.GetDescription(itemsLanguage, game.Hero)}");
 						System.Console.ForegroundColor = ConsoleColor.White;
 					}

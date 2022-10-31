@@ -15,8 +15,8 @@ namespace Roguelike.Core.Items
 		public override ItemType Type
 		{ get { return ItemType.Weapon; } }
 
-		public override double Weight
-		{ get { return 0.1; } }
+		public override decimal Weight
+		{ get { return 0.1m; } }
 
 		#endregion
 

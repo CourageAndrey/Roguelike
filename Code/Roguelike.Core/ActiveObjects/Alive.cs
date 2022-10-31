@@ -54,7 +54,7 @@ namespace Roguelike.Core.ActiveObjects
 		public string DeadReason
 		{ get; private set; }
 
-		public double Weight
+		public decimal Weight
 		{ get; private set; }
 
 		public IWeapon WeaponToFight
@@ -87,7 +87,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#region Events
 
-		public event ValueChangedEventHandler<IRequireGravitation, double> WeightChanged;
+		public event ValueChangedEventHandler<IRequireGravitation, decimal> WeightChanged;
 
 		public event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
 
@@ -95,7 +95,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		public event EventHandler<IAlive, string> OnDeath;
 
-		protected void RaiseWeightChanged(double oldWeight, double newWeight)
+		protected void RaiseWeightChanged(decimal oldWeight, decimal newWeight)
 		{
 			var handler = Volatile.Read(ref WeightChanged);
 			if (handler != null)
@@ -168,9 +168,9 @@ namespace Roguelike.Core.ActiveObjects
 			State = new State();
 			WeaponToFight = new Unarmed(this);
 
-			double getTotalWeigth()
+			decimal getTotalWeigth()
 			{
-				return Toughness * Body.Weight + Inventory.Sum(item => item.Weight);
+				return (decimal) Toughness * Body.Weight + Inventory.Sum(item => item.Weight);
 			};
 
 			void updateWeight()
@@ -183,7 +183,7 @@ namespace Roguelike.Core.ActiveObjects
 			Body = CreateBody();
 			Body.WeightChanged += (sender, value, newValue) => updateWeight();
 
-			void updateOnItemChange(IRequireGravitation item, double oldWeight, double newWeight)
+			void updateOnItemChange(IRequireGravitation item, decimal oldWeight, decimal newWeight)
 			{
 				updateWeight();
 			}

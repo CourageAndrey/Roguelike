@@ -9,7 +9,7 @@ namespace Roguelike.Core.Items
 	{
 		#region Properties
 
-		public override double Weight
+		public override decimal Weight
 		{ get { return 0; } }
 
 		public override ItemType Type

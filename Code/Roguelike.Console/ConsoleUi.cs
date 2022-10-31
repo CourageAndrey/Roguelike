@@ -359,9 +359,20 @@ namespace Roguelike.Console
 		{
 			startDialog(() =>
 			{
-				foreach (var item in humanoid.Inventory)
+				var itemsLanguage = game.Language.Items;
+
+				foreach (var itemTypeGroup in humanoid.Inventory.GroupBy(item => item.Type))
 				{
-					System.Console.WriteLine(item.GetDescription(game.Language.Items, humanoid));
+					System.Console.ForegroundColor = ConsoleColor.Yellow;
+					System.Console.WriteLine($"=== {itemTypeGroup.Key.GetName(itemsLanguage.ItemTypes)}: ===");
+					System.Console.ForegroundColor = ConsoleColor.White;
+
+					foreach (var item in itemTypeGroup)
+					{
+						System.Console.WriteLine(item.GetDescription(itemsLanguage, humanoid));
+					}
+
+					System.Console.WriteLine();
 				}
 
 				System.Console.ReadKey(false);

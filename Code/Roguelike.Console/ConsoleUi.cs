@@ -355,6 +355,81 @@ namespace Roguelike.Console
 			});
 		}
 
+		public void ShowInventory(Game game, IHumanoid humanoid)
+		{
+			startDialog(() =>
+			{
+				foreach (var item in humanoid.Inventory)
+				{
+					System.Console.WriteLine(item.GetDescription(game.Language.Items, humanoid));
+				}
+
+				System.Console.ReadKey(false);
+			});
+		}
+
+		public ActionResult ShowEquipment(Game game, IManequin manequin)
+		{
+			startDialog(() =>
+			{
+				var itemsLanguage = game.Language.Items;
+				var menuLanguage = game.Language.Character.Manequin;
+				const string empty = "-";
+
+				void displayItemLine(char letter, string slotName, IWear wear)
+				{
+					System.Console.ForegroundColor = ConsoleColor.Yellow;
+					System.Console.Write($"[{letter}]");
+
+					System.Console.ForegroundColor = ConsoleColor.White;
+					System.Console.Write($" {slotName} : ");
+
+					if (wear is Core.Items.Naked)
+					{
+						System.Console.WriteLine(empty);
+					}
+					else
+					{
+						System.Console.ForegroundColor = ConsoleColor.Cyan;
+						System.Console.WriteLine($" {wear.GetDescription(itemsLanguage, game.Hero)}");
+						System.Console.ForegroundColor = ConsoleColor.White;
+					}
+				}
+
+				displayItemLine('A', menuLanguage.HeadWear, manequin.HeadWear);
+				displayItemLine('B', menuLanguage.UpperBodyWear, manequin.UpperBodyWear);
+				displayItemLine('C', menuLanguage.LowerBodyWear, manequin.LowerBodyWear);
+				displayItemLine('D', menuLanguage.CoverWear, manequin.CoverWear);
+				displayItemLine('E', menuLanguage.HandsWear, manequin.HandsWear);
+				displayItemLine('F', menuLanguage.FootsWear, manequin.FootsWear);
+
+				System.Console.ForegroundColor = ConsoleColor.Yellow;
+				System.Console.Write($"[G]");
+				System.Console.ForegroundColor = ConsoleColor.White;
+				System.Console.Write($" {menuLanguage.Jewelry} : ");
+				if (manequin.Jewelry.Count > 0)
+				{
+					System.Console.WriteLine(":");
+					foreach (var jewelry in manequin.Jewelry)
+					{
+						System.Console.Write(" * ");
+						System.Console.ForegroundColor = ConsoleColor.Cyan;
+						System.Console.WriteLine(jewelry.GetDescription(itemsLanguage, game.Hero));
+						System.Console.ForegroundColor = ConsoleColor.White;
+					}
+					System.Console.ForegroundColor = ConsoleColor.White;
+				}
+				else
+				{
+					System.Console.WriteLine(empty);
+				}
+
+				System.Console.ReadKey(false);
+			});
+
+			return null;
+		}
+
 		public ActionResult BeginChat(Game game, IHumanoid humanoid)
 		{
 			throw new NotImplementedException();

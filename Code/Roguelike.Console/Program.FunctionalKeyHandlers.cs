@@ -29,5 +29,26 @@ namespace Roguelike.Console
 			ui.ShowCharacter(game, hero);
 			return null;
 		}
+
+		private static ActionResult HandleShowEquipment(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			return ui.ShowEquipment(game, hero.Manequin);
+		}
+
+		private static ActionResult HandleShowInventory(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			ui.ShowInventory(game, hero);
+			return null;
+		}
 	}
 }

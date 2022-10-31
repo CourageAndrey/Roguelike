@@ -35,6 +35,10 @@ namespace Roguelike.Core.Localization
 		public LanguageRaces Races
 		{ get; set; }
 
+		[XmlElement]
+		public LanguageManequin Manequin
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageCharacter CreateDefault()
@@ -54,6 +58,8 @@ namespace Roguelike.Core.Localization
 				State = LanguageState.CreateDefault(),
 
 				Races = LanguageRaces.CreateDefault(),
+
+				Manequin = LanguageManequin.CreateDefault(),
 			};
 		}
 	}

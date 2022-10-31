@@ -56,6 +56,8 @@ namespace Roguelike.Console
 		{
 			{ ConsoleKey.F1, new KeyHandler(HandleShowHelp) },
 			{ ConsoleKey.F2, new KeyHandler(HandleShowCharacter) },
+			{ ConsoleKey.F3, new KeyHandler(HandleShowEquipment) },
+			{ ConsoleKey.F4, new KeyHandler(HandleShowInventory) },
 
 			{ ConsoleKey.LeftArrow, new KeyHandler(HandleMoveLeft) },
 			{ ConsoleKey.NumPad4, new KeyHandler(HandleMoveLeft) },

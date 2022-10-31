@@ -109,6 +109,7 @@
     <Compile Include="ItemType.cs" />
     <Compile Include="Localization\LanguageItems.cs" />
     <Compile Include="Localization\LanguageMaterials.cs" />
+    <Compile Include="Localization\LanguageManequin.cs" />
     <Compile Include="Localization\LanguageRaces.cs" />
     <Compile Include="Localization\LanguageDiseases.cs" />
     <Compile Include="Localization\LanguageState.cs" />

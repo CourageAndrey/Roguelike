@@ -16,6 +16,18 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Stone
 		{ get; set; }
+		[XmlElement]
+		public string Skin
+		{ get; set; }
+		[XmlElement]
+		public string Fabric
+		{ get; set; }
+		[XmlElement]
+		public string Paper
+		{ get; set; }
+		[XmlElement]
+		public string Bone
+		{ get; set; }
 
 		#endregion
 
@@ -26,6 +38,10 @@ namespace Roguelike.Core.Localization
 				Wood = "Wood",
 				Metal = "Metal",
 				Stone = "Stone",
+				Skin = "Skin",
+				Fabric = "Fabric",
+				Paper = "Paper",
+				Bone = "Bone",
 			};
 		}
 	}

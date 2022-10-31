@@ -33,12 +33,20 @@ namespace Roguelike.Core
 		public static readonly Material Wood = new Material(language => language.Wood, Color.Brown);
 		public static readonly Material Metal = new Material(language => language.Metal, Color.Blue);
 		public static readonly Material Stone = new Material(language => language.Stone, Color.Gray);
+		public static readonly Material Skin = new Material(language => language.Skin, Color.Transparent);
+		public static readonly Material Fabric = new Material(language => language.Fabric, Color.Transparent);
+		public static readonly Material Paper = new Material(language => language.Paper, Color.White);
+		public static readonly Material Bone = new Material(language => language.Bone, Color.LightGray);
 
 		public static readonly ICollection<Material> All = new List<Material>
 		{
 			Wood,
 			Metal,
 			Stone,
+			Skin,
+			Fabric,
+			Paper,
+			Bone,
 		};
 
 		#endregion

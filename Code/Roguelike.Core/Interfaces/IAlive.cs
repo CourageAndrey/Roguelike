@@ -1,6 +1,7 @@
-﻿using Roguelike.Core.StaticObjects;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
-using System.Collections.Generic;
+using Roguelike.Core.StaticObjects;
 
 namespace Roguelike.Core.Interfaces
 {
@@ -52,5 +53,8 @@ namespace Roguelike.Core.Interfaces
 		event EventHandler<IAlive, string> OnDeath;
 
 		ActionResult Backstab(IAlive actor);
+
+		Color SkinColor
+		{ get; }
 	}
 }

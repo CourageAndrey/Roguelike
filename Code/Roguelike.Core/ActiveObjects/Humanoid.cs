@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 
 using Roguelike.Core.Chat;
@@ -36,6 +37,9 @@ namespace Roguelike.Core.ActiveObjects
 				CurrentCell.RefreshView(false);
 			}
 		}
+
+		public override Color SkinColor
+		{ get { return Race.SkinColor; } }
 
 		#endregion
 

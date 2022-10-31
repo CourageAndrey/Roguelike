@@ -152,10 +152,10 @@ namespace Roguelike.Core
 				wife.Manequin.UpperBodyWear = new Shirt(Color.LightGray);
 				wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var pet = new Dog(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>()) { Owner = husband };
+				var pet = new Dog(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), Color.Gray) { Owner = husband };
 				pet.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var transport = new Horse(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-10), new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>()) { Owner = husband };
+				var transport = new Horse(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-10), Color.LightSalmon) { Owner = husband };
 				transport.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 			}
 		}

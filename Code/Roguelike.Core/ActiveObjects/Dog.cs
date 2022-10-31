@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 
@@ -9,13 +9,16 @@ namespace Roguelike.Core.ActiveObjects
 	{
 		#region Properties
 
-
+		public override Color SkinColor
+		{ get; }
 
 		#endregion
 
-		public Dog(bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory)
-			: base(sexIsMale, birthDate, properties, inventory)
-		{ }
+		public Dog(bool sexIsMale, Time birthDate, Color skinColor)
+			: base(sexIsMale, birthDate, new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>())
+		{
+			SkinColor = skinColor;
+		}
 
 		protected override ActionResult DoImplementation()
 		{

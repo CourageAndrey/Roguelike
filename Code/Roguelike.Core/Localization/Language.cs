@@ -60,7 +60,7 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public LanguageItemTypes ItemTypes
+		public LanguageItems Items
 		{ get; set; }
 
 		[XmlElement]
@@ -100,6 +100,8 @@ namespace Roguelike.Core.Localization
 
 F1 - show help
 F2 - show Character's menu
+F3 - show Character's equipment
+F4 - show Character's inventory
 
 arrow keys & NumPad keys - move (or attack if agressive)
 
@@ -124,7 +126,7 @@ s - ride (horse)
 				GameWin = "Congratulations! You win the game.",
 				GameDefeat = "Sorry, but game is over.",
 
-				ItemTypes = LanguageItemTypes.CreateDefault(),
+				Items = LanguageItems.CreateDefault(),
 
 				Talk = LanguageTalk.CreateDefault(),
 

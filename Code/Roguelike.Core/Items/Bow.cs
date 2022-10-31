@@ -1,4 +1,7 @@
-﻿namespace Roguelike.Core.Items
+﻿using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
+
+namespace Roguelike.Core.Items
 {
 	public class Bow : Weapon
 	{
@@ -15,5 +18,10 @@
 		public Bow()
 			: base(Material.Wood)
 		{ }
+
+		public override string GetDescription(LanguageItems language, IAlive forWhom)
+		{
+			return language.Bow;
+		}
 	}
 }

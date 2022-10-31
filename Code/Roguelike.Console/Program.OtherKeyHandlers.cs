@@ -98,7 +98,7 @@ namespace Roguelike.Console
 			World world,
 			Hero hero)
 		{
-			var itemsToDrop = hero.Inventory.Select(i => new ListItem<IItem>(i, i.ToString()));
+			var itemsToDrop = hero.Inventory.Select(i => new ListItem<IItem>(i, i.GetDescription(language.Items, hero)));
 
 			ListItem selectedItemToDrop;
 			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrop, itemsToDrop, out selectedItemToDrop))
@@ -127,7 +127,7 @@ namespace Roguelike.Console
 
 			IWeapon selectedWeapon;
 			ListItem selectedWeaponItem;
-			if (ui.TrySelectItem(game, language.Promts.SelectWeapon, weapons.Select(w => new ListItem<IWeapon>(w, w.ToString())), out selectedWeaponItem))
+			if (ui.TrySelectItem(game, language.Promts.SelectWeapon, weapons.Select(w => new ListItem<IWeapon>(w, w.GetDescription(language.Items, hero))), out selectedWeaponItem))
 			{
 				selectedWeapon = ((ListItem<IWeapon>) selectedWeaponItem).Value;
 			}

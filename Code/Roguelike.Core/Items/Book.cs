@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
@@ -28,6 +29,11 @@ namespace Roguelike.Core.Items
 		}
 
 		#endregion
+
+		public override string GetDescription(LanguageItems language, IAlive forWhom)
+		{
+			return language.Book;
+		}
 
 		public string GetTitle(LanguageBooks language)
 		{

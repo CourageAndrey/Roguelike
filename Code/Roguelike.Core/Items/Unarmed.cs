@@ -2,6 +2,7 @@
 using System.Drawing;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Items
 {
@@ -30,6 +31,11 @@ namespace Roguelike.Core.Items
 			: base(null)
 		{
 			Fighter = fighter;
+		}
+
+		public override string GetDescription(LanguageItems language, IAlive forWhom)
+		{
+			return language.Unarmed;
 		}
 	}
 }

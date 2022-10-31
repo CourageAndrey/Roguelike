@@ -16,7 +16,7 @@ namespace Roguelike.Core.Items
 		public override bool IsRange
 		{ get { return false; } }
 
-		public override double Weight
+		public override decimal Weight
 		{ get { return 0; } }
 
 		public override ItemType Type

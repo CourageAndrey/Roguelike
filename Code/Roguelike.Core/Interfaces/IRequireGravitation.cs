@@ -2,9 +2,9 @@
 {
 	public interface IRequireGravitation
 	{
-		double Weight
+		decimal Weight
 		{ get; }
 
-		event ValueChangedEventHandler<IRequireGravitation, double> WeightChanged;
+		event ValueChangedEventHandler<IRequireGravitation, decimal> WeightChanged;
 	}
 }

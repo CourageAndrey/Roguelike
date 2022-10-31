@@ -10,7 +10,7 @@ namespace Roguelike.Core
 	{
 		#region Properties
 
-		public abstract double Weight
+		public abstract decimal Weight
 		{ get; }
 
 		public abstract ItemType Type
@@ -19,7 +19,7 @@ namespace Roguelike.Core
 		public abstract Color Color
 		{ get; }
 
-		public event ValueChangedEventHandler<IRequireGravitation, double> WeightChanged;
+		public event ValueChangedEventHandler<IRequireGravitation, decimal> WeightChanged;
 
 		public event EventHandler<IItem, IAlive> Picked;
 
@@ -27,7 +27,7 @@ namespace Roguelike.Core
 
 		#endregion
 
-		protected void RaiseWeightChanged(double oldWeight, double newWeight)
+		protected void RaiseWeightChanged(decimal oldWeight, decimal newWeight)
 		{
 			var handler = Volatile.Read(ref WeightChanged);
 			if (handler != null)

@@ -12,8 +12,8 @@ namespace Roguelike.Core.Items
 		public override Color Color
 		{ get { return Color.Brown; } }
 
-		public override double Weight
-		{ get { return 0.5; } }
+		public override decimal Weight
+		{ get { return 0.5m; } }
 
 		public override ItemType Type
 		{ get { return ItemType.Tool; } }

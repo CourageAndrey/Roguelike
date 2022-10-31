@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
+
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
@@ -22,20 +23,20 @@ namespace Roguelike.Core.ActiveObjects
 
 		private readonly Func<LanguageBodyParts, string> getName;
 
-		public double Weight
+		public decimal Weight
 		{ get; }
 
-		public event ValueChangedEventHandler<IRequireGravitation, double> WeightChanged;
+		public event ValueChangedEventHandler<IRequireGravitation, decimal> WeightChanged;
 
 		#endregion
 
 		#region Constructors
 
-		internal BodyPart(IBody body, double weight, Func<LanguageBodyParts, string> getName, bool isVital = false)
+		internal BodyPart(IBody body, decimal weight, Func<LanguageBodyParts, string> getName, bool isVital = false)
 			: this(body, weight, getName, new IBodyPart[0], isVital)
 		{ }
 
-		internal BodyPart(IBody body, double weight, Func<LanguageBodyParts, string> getName, IList<IBodyPart> parts, bool isVital = false)
+		internal BodyPart(IBody body, decimal weight, Func<LanguageBodyParts, string> getName, IList<IBodyPart> parts, bool isVital = false)
 		{
 			Body = body;
 			Weight = weight;
@@ -51,7 +52,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected void RaiseWeightChanged(double oldWeight, double newWeight)
+		protected void RaiseWeightChanged(decimal oldWeight, decimal newWeight)
 		{
 			var handler = Volatile.Read(ref WeightChanged);
 			if (handler != null)
@@ -60,10 +61,10 @@ namespace Roguelike.Core.ActiveObjects
 			}
 		}
 
-		private void onPartWeightChanged(IRequireGravitation part, double oldPartWeight, double newPartWeight)
+		private void onPartWeightChanged(IRequireGravitation part, decimal oldPartWeight, decimal newPartWeight)
 		{
-			double newWeight = Weight;
-			double oldWeigth = newWeight - newPartWeight + oldPartWeight;
+			decimal newWeight = Weight;
+			decimal oldWeigth = newWeight - newPartWeight + oldPartWeight;
 			RaiseWeightChanged(oldWeigth, newWeight);
 		}
 

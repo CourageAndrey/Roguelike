@@ -12,6 +12,9 @@ namespace Roguelike.Core.Interfaces
 		Color Color
 		{ get; }
 
+		Material Material
+		{ get; }
+
 		string GetDescription(LanguageItems language, IAlive forWhom);
 
 		event EventHandler<IItem, IAlive> Picked;

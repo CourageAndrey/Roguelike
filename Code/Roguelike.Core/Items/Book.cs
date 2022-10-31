@@ -19,6 +19,9 @@ namespace Roguelike.Core.Items
 		public override Color Color
 		{ get; }
 
+		public override Material Material
+		{ get { return Material.Paper; } }
+
 		private readonly Func<LanguageBooks, string> _getTitle;
 		private readonly Func<LanguageBooks, string> _getText;
 

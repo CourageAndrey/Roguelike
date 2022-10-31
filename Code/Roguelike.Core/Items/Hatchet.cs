@@ -13,11 +13,10 @@ namespace Roguelike.Core.Items
 		public override decimal Weight
 		{ get { return 2; } }
 
-		#endregion
+		public override Material Material
+		{ get { return Material.Metal; } }
 
-		public Hatchet()
-			: base(Material.Wood)
-		{ }
+		#endregion
 
 		public override string GetDescription(LanguageItems language, IAlive forWhom)
 		{

@@ -12,6 +12,9 @@ namespace Roguelike.Core.Items
 		public override decimal Weight
 		{ get { return 1; } }
 
+		public override Material Material
+		{ get { return Material.Fabric; } }
+
 		#endregion
 
 		public Shirt(Color clothColor)

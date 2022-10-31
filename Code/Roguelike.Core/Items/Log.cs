@@ -18,6 +18,9 @@ namespace Roguelike.Core.Items
 		public override ItemType Type
 		{ get { return ItemType.Tool; } }
 
+		public override Material Material
+		{ get { return Material.Wood; } }
+
 		#endregion
 
 		public override string GetDescription(LanguageItems language, IAlive forWhom)

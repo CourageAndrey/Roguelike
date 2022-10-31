@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -80,8 +81,10 @@ namespace Roguelike.Core.ActiveObjects
 					return 1;
 				}
 			}
-
 		}
+
+		public abstract Color SkinColor
+		{ get; }
 
 		#endregion
 

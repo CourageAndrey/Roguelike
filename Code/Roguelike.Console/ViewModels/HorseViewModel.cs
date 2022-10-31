@@ -14,7 +14,7 @@ namespace Roguelike.Console.ViewModels
 		{ get { return "H"; } }
 
 		public override System.ConsoleColor Foreground
-		{ get { return System.ConsoleColor.Red; } }
+		{ get { return Object.SkinColor.ToConsole(); } }
 
 		#endregion
 	}

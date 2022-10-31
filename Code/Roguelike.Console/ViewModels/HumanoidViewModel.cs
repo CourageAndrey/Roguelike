@@ -18,21 +18,45 @@ namespace Roguelike.Console.ViewModels
 		{ get { return "@"; } }
 
 		public override System.ConsoleColor Foreground
+		{ get { return getColor(Object).ToConsole(); } }
+
+		public override System.ConsoleColor Background
 		{
 			get
 			{
-				var topWear = getTopWear(Object.Manequin);
-				var color = topWear != null
-					? topWear.Color
-					: Object.Race.SkinColor;
-				return color.ToConsole();
+				
+				if (Object.Transport != null)
+				{
+					var aliveTransport = Object.Transport as IAlive;
+					return (aliveTransport != null
+						? aliveTransport.SkinColor
+						: invert(getColor(Object))).ToConsole();
+				}
+				else
+				{
+					return base.Background;
+				}
 			}
 		}
 
-		public override System.ConsoleColor Background
-		{ get { return Object.Transport == null ? base.Background : System.ConsoleColor.Red; } }
-
 		#endregion
+
+		private static Color invert(Color color)
+		{
+			const int rgbmax = 255;
+			return Color.FromArgb(
+				rgbmax - color.R,
+				rgbmax - color.G,
+				rgbmax - color.B);
+		}
+
+		private static Color getColor(IHumanoid humanoid)
+		{
+			var topWear = getTopWear(humanoid.Manequin);
+			return topWear != null
+				? topWear.Color
+				: humanoid.SkinColor;
+		}
 
 		private static IWear getTopWear(IManequin manequin)
 		{

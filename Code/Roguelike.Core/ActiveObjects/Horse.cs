@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 using Roguelike.Core.Interfaces;
@@ -42,11 +42,16 @@ namespace Roguelike.Core.ActiveObjects
 
 		private IHumanoid _rider;
 
+		public override Color SkinColor
+		{ get; }
+
 		#endregion
 
-		public Horse(bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory)
-			: base(sexIsMale, birthDate, properties, inventory)
-		{ }
+		public Horse(bool sexIsMale, Time birthDate, Color skinColor)
+			: base(sexIsMale, birthDate, new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>())
+		{
+			SkinColor = skinColor;
+		}
 
 		protected override ActionResult DoImplementation()
 		{

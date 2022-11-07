@@ -93,7 +93,15 @@ namespace Roguelike.Core
 			var nextActor = actors.Dequeue();
 			while (nextActor != Hero)
 			{
-				ApplyAction(nextActor, nextActor.Do());
+				var beforeActionTime = nextActor.NextActionTime;
+				var performedAction = nextActor.Do();
+				ApplyAction(nextActor, performedAction);
+				var alive = nextActor as IAlive;
+				if (alive != null && beforeActionTime != null)
+				{
+					alive.State.PassTime(nextActor.NextActionTime.Value - beforeActionTime.Value);
+				}
+
 				nextActor = actors.Dequeue();
 			}
 			currentRegion.ResetActiveCache();

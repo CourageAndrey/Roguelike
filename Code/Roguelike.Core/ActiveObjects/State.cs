@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-
+using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
@@ -364,6 +364,14 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			_foodLevel += food.Nutricity;
 			_waterLevel += food.Water;
+			RaiseChanged();
+		}
+
+		public void PassTime(Time span)
+		{
+#warning Magic numbers, too # need to use balance
+			_foodLevel -= (int)(span.TotalTicks / 1000);
+			_waterLevel -= (int)(span.TotalTicks / 1000);
 			RaiseChanged();
 		}
 

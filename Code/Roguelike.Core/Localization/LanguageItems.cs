@@ -24,6 +24,12 @@ namespace Roguelike.Core.Localization
 		public string Log
 		{ get; set; }
 		[XmlElement]
+		public string LoafOfBread
+		{ get; set; }
+		[XmlElement]
+		public string BottleOFWater
+		{ get; set; }
+		[XmlElement]
 		public string Hatchet
 		{ get; set; }
 		[XmlElement]
@@ -50,6 +56,8 @@ namespace Roguelike.Core.Localization
 				Skirt = "Skirt",
 				Shirt = "Shirt",
 				Log = "Wooden log",
+				LoafOfBread = "Loaf of bread",
+				BottleOFWater = "Bottle of plain water",
 				Hatchet = "Hatchet",
 				Bow = "Bow",
 				Book = "Book",

@@ -30,6 +30,8 @@ namespace Roguelike.Core
 
 		public static readonly ItemType Food = new ItemType(language => language.Food);
 
+		public static readonly ItemType Potion = new ItemType(language => language.Potion);
+
 		public static readonly ItemType Tool = new ItemType(language => language.Tool);
 
 		public static readonly ItemType Paper = new ItemType(language => language.Paper);

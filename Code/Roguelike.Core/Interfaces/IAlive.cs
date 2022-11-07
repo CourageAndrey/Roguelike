@@ -56,5 +56,9 @@ namespace Roguelike.Core.Interfaces
 
 		Color SkinColor
 		{ get; }
+
+		ActionResult Eat(IFood food);
+
+		ActionResult Drink(IDrink drink);
 	}
 }

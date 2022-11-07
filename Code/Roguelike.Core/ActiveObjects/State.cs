@@ -26,23 +26,23 @@ namespace Roguelike.Core.ActiveObjects
 		private readonly bool _isLosingBlood;
 		private readonly bool _isFallingAsleep;
 		private readonly bool _isTired;
-		private readonly bool _isThirsty;
-		private readonly bool _isBloated;
-		private readonly bool _isHungry;
+		private int _waterLevel;
+		private int _foodLevel;
 
 		public bool IsHungry
 		{
-			get { return _isHungry; }
+			get { return _foodLevel < 0; }
 		}
 
 		public bool IsBloated
 		{
-			get { return _isBloated; }
+			get { return _foodLevel > 2000; }
+#warning Maybe, need to refer Balance in order to get rid of magic numbers.
 		}
 
 		public bool IsThirsty
 		{
-			get { return _isThirsty; }
+			get { return _waterLevel < 0; }
 		}
 
 		public bool IsTired
@@ -150,9 +150,8 @@ namespace Roguelike.Core.ActiveObjects
 			bool isLosingBlood = false,
 			bool isFallingAsleep = false,
 			bool isTired = false,
-			bool isThirsty = false,
-			bool isBloated = false,
-			bool isHungry = false)
+			int waterLevel = 0,
+			int foodLevel = 0)
 		{
 			_diseases = new List<IDisease>(diseases ?? new IDisease[0]);
 
@@ -170,9 +169,8 @@ namespace Roguelike.Core.ActiveObjects
 			_isLosingBlood = isLosingBlood;
 			_isFallingAsleep = isFallingAsleep;
 			_isTired = isTired;
-			_isThirsty = isThirsty;
-			_isBloated = isBloated;
-			_isHungry = isHungry;
+			_waterLevel = waterLevel;
+			_foodLevel = foodLevel;
 
 			Activity = Activity.Stands;
 		}
@@ -322,7 +320,7 @@ namespace Roguelike.Core.ActiveObjects
 				result.Append($"{language.IsTired}");
 			}
 
-			if (_isThirsty)
+			if (IsThirsty)
 			{
 				if (result.Length > 0)
 				{
@@ -331,7 +329,7 @@ namespace Roguelike.Core.ActiveObjects
 				result.Append($"{language.IsThirsty}");
 			}
 
-			if (_isBloated)
+			if (IsBloated)
 			{
 				if (result.Length > 0)
 				{
@@ -340,7 +338,7 @@ namespace Roguelike.Core.ActiveObjects
 				result.Append($"{language.IsBloated}");
 			}
 
-			if (_isHungry)
+			if (IsHungry)
 			{
 				if (result.Length > 0)
 				{
@@ -360,6 +358,13 @@ namespace Roguelike.Core.ActiveObjects
 		public void SetActivity(Activity activity)
 		{
 			Activity = activity;
+		}
+
+		public void EatDrink(IFood food)
+		{
+			_foodLevel += food.Nutricity;
+			_waterLevel += food.Water;
+			RaiseChanged();
 		}
 
 		public override string ToString()
@@ -501,7 +506,7 @@ namespace Roguelike.Core.ActiveObjects
 				result.Append("Tired");
 			}
 
-			if (_isThirsty)
+			if (IsThirsty)
 			{
 				if (result.Length > 0)
 				{
@@ -510,7 +515,7 @@ namespace Roguelike.Core.ActiveObjects
 				result.Append("Thirsty");
 			}
 
-			if (_isBloated)
+			if (IsBloated)
 			{
 				if (result.Length > 0)
 				{
@@ -519,7 +524,7 @@ namespace Roguelike.Core.ActiveObjects
 				result.Append("Bloated");
 			}
 
-			if (_isHungry)
+			if (IsHungry)
 			{
 				if (result.Length > 0)
 				{

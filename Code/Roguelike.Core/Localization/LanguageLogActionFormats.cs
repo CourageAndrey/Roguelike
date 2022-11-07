@@ -64,6 +64,12 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string RideHorse
 		{ get; set; }
+		[XmlElement]
+		public string Eat
+		{ get; set; }
+		[XmlElement]
+		public string Drink
+		{ get; set; }
 
 		#endregion
 
@@ -90,6 +96,8 @@ namespace Roguelike.Core.Localization
 				PickItemDisabled = "{0} didn't manage to pick item",
 				ReadBook = "{0} reads book",
 				RideHorse = "{0} (un)rides horse",
+				Eat = "{0} eats {1}",
+				Drink = "{0} drinks {1}",
 			};
 		}
 	}

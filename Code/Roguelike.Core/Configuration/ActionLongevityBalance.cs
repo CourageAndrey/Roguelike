@@ -49,6 +49,12 @@
 		public int RideHorse
 		{ get; set; }
 
+		public int Eat
+		{ get; set; }
+
+		public int Drink
+		{ get; set; }
+
 		#endregion
 
 		public static ActionLongevityBalance CreateDefault()
@@ -70,6 +76,8 @@
 				PickItem = 1500,
 				ReadBook = 60 * 60 * 1000,
 				RideHorse = 5 * 60 * 1000,
+				Eat = 10 * 60 * 1000,
+				Drink = 30 * 1000,
 			};
 		}
 	}

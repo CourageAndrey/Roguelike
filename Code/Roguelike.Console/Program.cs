@@ -75,8 +75,9 @@ namespace Roguelike.Console
 			{ ConsoleKey.Spacebar, new KeyHandler(HandleMoveNone) },
 
 			{ ConsoleKey.H, new KeyHandler(HandleInteract) },
+			{ ConsoleKey.E, new KeyHandler(HandleEat) },
 			{ ConsoleKey.F, new KeyHandler(HandleChangeAggressive) },
-			{ ConsoleKey.D, new KeyHandler(HandleDropItem) },
+			{ ConsoleKey.D, KeyHandler.Shift(HandleDropItem, HandleDrink) },
 			{ ConsoleKey.W, new KeyHandler(HandleSelectWeapon) },
 			{ ConsoleKey.C, new KeyHandler(HandleChat) },
 			{ ConsoleKey.T, KeyHandler.Shift(HandleShoot, HandleTrade) },

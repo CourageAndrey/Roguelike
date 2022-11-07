@@ -69,6 +69,8 @@
     <Compile Include="EventCollection.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Interfaces\IFood.cs" />
+    <Compile Include="Interfaces\IDrink.cs" />
     <Compile Include="Interfaces\IMissile.cs" />
     <Compile Include="Interfaces\ITransport.cs" />
     <Compile Include="Interfaces\IPaper.cs" />
@@ -97,6 +99,8 @@
     <Compile Include="Items\Book.cs" />
     <Compile Include="Items\Arrow.cs" />
     <Compile Include="Items\Bow.cs" />
+    <Compile Include="Items\BottleOFWater.cs" />
+    <Compile Include="Items\LoafOfBread.cs" />
     <Compile Include="Items\Hatchet.cs" />
     <Compile Include="Items\Log.cs" />
     <Compile Include="Items\Naked.cs" />

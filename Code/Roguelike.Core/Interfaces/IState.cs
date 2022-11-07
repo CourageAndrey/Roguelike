@@ -67,5 +67,7 @@ namespace Roguelike.Core.Interfaces
 		string GetDescription(LanguageState language, IAlive forWhom);
 
 		void SetActivity(Activity activity);
+
+		void EatDrink(IFood food);
 	}
 }

@@ -37,6 +37,8 @@ namespace Roguelike.Core
 		public static readonly Material Fabric = new Material(language => language.Fabric, Color.Transparent);
 		public static readonly Material Paper = new Material(language => language.Paper, Color.White);
 		public static readonly Material Bone = new Material(language => language.Bone, Color.LightGray);
+		public static readonly Material Food = new Material(language => language.Food, Color.LimeGreen);
+		public static readonly Material Liquid = new Material(language => language.Liquid, Color.Blue);
 
 		public static readonly ICollection<Material> All = new List<Material>
 		{
@@ -47,6 +49,8 @@ namespace Roguelike.Core
 			Fabric,
 			Paper,
 			Bone,
+			Food,
+			Liquid,
 		};
 
 		#endregion

@@ -5,8 +5,10 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 
+using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
+using Roguelike.Core.Localization;
 using Roguelike.Core.StaticObjects;
 
 namespace Roguelike.Core.ActiveObjects
@@ -418,5 +420,32 @@ namespace Roguelike.Core.ActiveObjects
 		}
 
 		protected abstract ActionResult DoImplementation();
+
+		private ActionResult EatDrink(
+			IFood food,
+			Func<ActionLongevityBalance, long> getLongevity,
+			Func<LanguageLogActionFormats, string> getLogFormat)
+		{
+			var world = CurrentCell.Region.World;
+			var game = world.Game;
+			Balance balance = game.Balance;
+			var language = game.Language;
+
+			State.EatDrink(food);
+
+			return new ActionResult(
+				Time.FromTicks(balance.Time, getLongevity(balance.ActionLongevity)),
+				string.Format(CultureInfo.InvariantCulture, getLogFormat(language.LogActionFormats), this, food.GetDescription(language.Items, this)));
+		}
+
+		public ActionResult Eat(IFood food)
+		{
+			return EatDrink(food, b => b.Eat, f => f.Eat);
+		}
+
+		public ActionResult Drink(IDrink drink)
+		{
+			return EatDrink(drink, b => b.Drink, f => f.Drink);
+		}
 	}
 }

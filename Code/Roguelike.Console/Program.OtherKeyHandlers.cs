@@ -372,5 +372,45 @@ namespace Roguelike.Console
 				? hero.Shoot(target)
 				: null;
 		}
+
+		private static ActionResult HandleEat(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			var itemsToEat = hero.Inventory.Where(i => i.Type == ItemType.Food).Select(i => new ListItem<IItem>(i, i.GetDescription(language.Items, hero)));
+
+			ListItem selectedItemToEat;
+			if (ui.TrySelectItem(game, language.Promts.SelectItemToEat, itemsToEat, out selectedItemToEat))
+			{
+				return hero.Eat((IFood) selectedItemToEat.ValueObject);
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		private static ActionResult HandleDrink(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			var itemsToDrink = hero.Inventory.Where(i => i.Type == ItemType.Potion).Select(i => new ListItem<IItem>(i, i.GetDescription(language.Items, hero)));
+
+			ListItem selectedItemToDrink;
+			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrink, itemsToDrink, out selectedItemToDrink))
+			{
+				return hero.Drink((IDrink) selectedItemToDrink.ValueObject);
+			}
+			else
+			{
+				return null;
+			}
+		}
 	}
 }

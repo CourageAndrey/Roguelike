@@ -20,6 +20,9 @@ namespace Roguelike.Core.Localization
 		public string Food
 		{ get; set; }
 		[XmlElement]
+		public string Potion
+		{ get; set; }
+		[XmlElement]
 		public string Paper
 		{ get; set; }
 
@@ -32,6 +35,7 @@ namespace Roguelike.Core.Localization
 				Weapon = "Weapon",
 				Wear = "Wear",
 				Food = "Food",
+				Potion = "Potion",
 				Tool = "Tool",
 				Paper = "Paper",
 			};

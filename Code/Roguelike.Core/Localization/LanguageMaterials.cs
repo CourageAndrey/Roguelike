@@ -28,6 +28,12 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Bone
 		{ get; set; }
+		[XmlElement]
+		public string Food
+		{ get; set; }
+		[XmlElement]
+		public string Liquid
+		{ get; set; }
 
 		#endregion
 
@@ -42,6 +48,8 @@ namespace Roguelike.Core.Localization
 				Fabric = "Fabric",
 				Paper = "Paper",
 				Bone = "Bone",
+				Food = "Food",
+				Liquid = "Liquid",
 			};
 		}
 	}

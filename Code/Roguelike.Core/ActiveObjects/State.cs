@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Threading;
 
@@ -367,14 +369,30 @@ namespace Roguelike.Core.ActiveObjects
 			Activity = activity;
 		}
 
-		public void EatDrink(IFood food, LanguageDeathReasons deathReasons)
+		public void EatDrink(IFood food, Language language)
 		{
 			_foodLevel += food.Nutricity;
 			_waterLevel += food.Water;
+
+			if (_foodLevel > _balance.Food.OvereatingDeathLevel)
+			{
+				var random = new Random(DateTime.Now.Millisecond);
+				if (random.Next(0, 100) < _balance.Food.OvereatingDeathLevel)
+				{
+					_owner.Die(language.DeathReasons.Overeating);
+				}
+				else
+				{
+					_foodLevel /= 20;
+					_waterLevel /= 5;
+					(_owner as Active)?.WriteToLog(string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Vomit, _owner));
+				}
+			}
+
 			RaiseChanged();
 		}
 
-		public void PassTime(Time span, LanguageDeathReasons deathReasons)
+		public void PassTime(Time span, Language language)
 		{
 			_foodLevel -= (int)(span.TotalTicks / _balance.Food.TicksToChangeLevel);
 			_waterLevel -= (int)(span.TotalTicks / _balance.Food.TicksToChangeLevel);
@@ -383,11 +401,11 @@ namespace Roguelike.Core.ActiveObjects
 
 			if (_foodLevel < _balance.Food.HungerDeathLevel)
 			{
-				_owner.Die(deathReasons.Hunger);
+				_owner.Die(language.DeathReasons.Hunger);
 			}
 			if (_waterLevel < _balance.Food.ThirstDeathLevel)
 			{
-				_owner.Die(deathReasons.Thirst);
+				_owner.Die(language.DeathReasons.Thirst);
 			}
 		}
 

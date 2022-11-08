@@ -19,6 +19,10 @@ namespace Roguelike.Core.Localization
 		public string Thirst
 		{ get; set; }
 
+		[XmlElement]
+		public string Overeating
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageDeathReasons CreateDefault()
@@ -28,6 +32,7 @@ namespace Roguelike.Core.Localization
 				Killed = "killed by {0}",
 				Hunger = "hunger",
 				Thirst = "thirst",
+				Overeating = "overeated",
 			};
 		}
 	}

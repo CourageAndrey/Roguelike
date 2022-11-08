@@ -68,8 +68,8 @@ namespace Roguelike.Core.Interfaces
 
 		void SetActivity(Activity activity);
 
-		void EatDrink(IFood food, LanguageDeathReasons deathReasons);
+		void EatDrink(IFood food, Language language);
 
-		void PassTime(Time span, LanguageDeathReasons deathReasons);
+		void PassTime(Time span, Language language);
 	}
 }

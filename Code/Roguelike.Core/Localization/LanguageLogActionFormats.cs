@@ -70,6 +70,9 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Drink
 		{ get; set; }
+		[XmlElement]
+		public string Vomit
+		{ get; set; }
 
 		#endregion
 
@@ -98,6 +101,7 @@ namespace Roguelike.Core.Localization
 				RideHorse = "{0} (un)rides horse",
 				Eat = "{0} eats {1}",
 				Drink = "{0} drinks {1}",
+				Vomit = "{0} vomits",
 			};
 		}
 	}

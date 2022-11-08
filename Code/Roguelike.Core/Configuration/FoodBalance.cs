@@ -19,7 +19,13 @@
 		public int HungerDeathLevel
 		{ get; set; }
 
+		public int OvereatingDeathLevel
+		{ get; set; }
+
 		public int ThirstDeathLevel
+		{ get; set; }
+
+		public int OverEatingDeathChancePercent
 		{ get; set; }
 
 		#endregion
@@ -32,8 +38,10 @@
 				ThirstLevel = 0,
 				BloatedLevel = 2000,
 				TicksToChangeLevel = 1000,
+				OvereatingDeathLevel = 15000,
 				HungerDeathLevel = -50000,
 				ThirstDeathLevel = -10000,
+				OverEatingDeathChancePercent = 10,
 			};
 		}
 	}

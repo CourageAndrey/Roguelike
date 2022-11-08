@@ -431,7 +431,7 @@ namespace Roguelike.Core.ActiveObjects
 			Balance balance = game.Balance;
 			var language = game.Language;
 
-			State.EatDrink(food, language.DeathReasons);
+			State.EatDrink(food, language);
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, getLongevity(balance.ActionLongevity)),

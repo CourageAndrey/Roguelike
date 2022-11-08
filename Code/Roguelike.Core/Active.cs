@@ -65,7 +65,7 @@ namespace Roguelike.Core
 
 		public event EventHandler<IActive, ICollection<string>> OnLogMessage;
 
-		protected void WriteToLog(ICollection<string> messages)
+		protected internal void WriteToLog(ICollection<string> messages)
 		{
 			var handler = Volatile.Read(ref OnLogMessage);
 			if (handler != null)
@@ -74,7 +74,7 @@ namespace Roguelike.Core
 			}
 		}
 
-		protected void WriteToLog(string message)
+		protected internal void WriteToLog(string message)
 		{
 			WriteToLog(new[] { message });
 		}

@@ -1,7 +1,7 @@
 ﻿using System;
 
-using Roguelike.Core;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Console
 {
@@ -9,25 +9,46 @@ namespace Roguelike.Console
 	{
 		private const string _emptySlot = "-";
 
-		private void DisplayItemLine(char letter, string slotName, IWear wear, Game game)
+		private class EquipmentSlot
 		{
-			var itemsLanguage = game.Language.Items;
+			public char Letter
+			{ get; }
 
-			System.Console.ForegroundColor = ConsoleColor.Yellow;
-			System.Console.Write($"[{letter}]");
+			public string SlotName
+			{ get; }
 
-			System.Console.ForegroundColor = ConsoleColor.White;
-			System.Console.Write($" {slotName} : ");
+			public IWear Wear
+			{ get; }
 
-			if (wear is Core.Items.Naked)
+			private readonly LanguageItems _languageItems;
+
+			public EquipmentSlot(char letter, Func<LanguageManequin, string> getSlotName, IWear wear, Language language)
 			{
-				System.Console.WriteLine(_emptySlot);
+				_languageItems = language.Items;
+
+				Letter = letter;
+				SlotName = getSlotName(language.Character.Manequin);
+				Wear = wear;
 			}
-			else
+
+			public void Display(IAlive forWhom)
 			{
-				System.Console.ForegroundColor = wear.Material.Color.ToConsole();
-				System.Console.WriteLine($" {wear.GetDescription(itemsLanguage, game.Hero)}");
+				System.Console.ForegroundColor = ConsoleColor.Yellow;
+				System.Console.Write($"[{Letter}]");
+
 				System.Console.ForegroundColor = ConsoleColor.White;
+				System.Console.Write($" {SlotName} : ");
+
+				if (Wear is Core.Items.Naked)
+				{
+					System.Console.WriteLine(_emptySlot);
+				}
+				else
+				{
+					System.Console.ForegroundColor = Wear.Material.Color.ToConsole();
+					System.Console.WriteLine($" {Wear.GetDescription(_languageItems, forWhom)}");
+					System.Console.ForegroundColor = ConsoleColor.White;
+				}
 			}
 		}
 	}

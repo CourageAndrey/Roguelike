@@ -384,15 +384,15 @@ namespace Roguelike.Console
 		{
 			startDialog(() =>
 			{
-				var itemsLanguage = game.Language.Items;
-				var menuLanguage = game.Language.Character.Manequin;
+				var language = game.Language;
+				var menuLanguage = language.Character.Manequin;
 
-				DisplayItemLine('A', menuLanguage.HeadWear, manequin.HeadWear, game);
-				DisplayItemLine('B', menuLanguage.UpperBodyWear, manequin.UpperBodyWear, game);
-				DisplayItemLine('C', menuLanguage.LowerBodyWear, manequin.LowerBodyWear, game);
-				DisplayItemLine('D', menuLanguage.CoverWear, manequin.CoverWear, game);
-				DisplayItemLine('E', menuLanguage.HandsWear, manequin.HandsWear, game);
-				DisplayItemLine('F', menuLanguage.FootsWear, manequin.FootsWear, game);
+				new EquipmentSlot('A', l => l.HeadWear, manequin.HeadWear, language).Display(game.Hero);
+				new EquipmentSlot('B', l => l.UpperBodyWear, manequin.UpperBodyWear, language).Display(game.Hero);
+				new EquipmentSlot('C', l => l.LowerBodyWear, manequin.LowerBodyWear, language).Display(game.Hero);
+				new EquipmentSlot('D', l => l.CoverWear, manequin.CoverWear, language).Display(game.Hero);
+				new EquipmentSlot('E', l => l.HandsWear, manequin.HandsWear, language).Display(game.Hero);
+				new EquipmentSlot('F', l => l.FootsWear, manequin.FootsWear, language).Display(game.Hero);
 
 				System.Console.ForegroundColor = ConsoleColor.Yellow;
 				System.Console.Write($"[G]");
@@ -405,7 +405,7 @@ namespace Roguelike.Console
 					{
 						System.Console.Write(" * ");
 						System.Console.ForegroundColor = ConsoleColor.Cyan;
-						System.Console.WriteLine(jewelry.GetDescription(itemsLanguage, game.Hero));
+						System.Console.WriteLine(jewelry.GetDescription(language.Items, game.Hero));
 						System.Console.ForegroundColor = ConsoleColor.White;
 					}
 					System.Console.ForegroundColor = ConsoleColor.White;

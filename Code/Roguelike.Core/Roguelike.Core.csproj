@@ -111,6 +111,7 @@
     <Compile Include="Items\Skirt.cs" />
     <Compile Include="Items\Wear.cs" />
     <Compile Include="ItemType.cs" />
+    <Compile Include="Localization\LanguageDeathReasons.cs" />
     <Compile Include="Localization\LanguageItems.cs" />
     <Compile Include="Localization\LanguageMaterials.cs" />
     <Compile Include="Localization\LanguageManequin.cs" />

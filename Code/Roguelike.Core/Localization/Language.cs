@@ -28,7 +28,7 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public string DeathReasonKilled
+		public LanguageDeathReasons DeathReasons
 		{ get; set; }
 
 		[XmlElement]
@@ -91,7 +91,7 @@ namespace Roguelike.Core.Localization
 
 				LogActionFormats = LanguageLogActionFormats.CreateDefault(),
 
-				DeathReasonKilled = "killed by {0}",
+				DeathReasons = LanguageDeathReasons.CreateDefault(),
 
 				Ui = LanguageUi.CreateDefault(),
 

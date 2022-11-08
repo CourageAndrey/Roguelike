@@ -105,6 +105,7 @@
     <Compile Include="Items\Hatchet.cs" />
     <Compile Include="Items\Log.cs" />
     <Compile Include="Items\Naked.cs" />
+    <Compile Include="Items\Ring.cs" />
     <Compile Include="Items\Unarmed.cs" />
     <Compile Include="Items\Weapon.cs" />
     <Compile Include="Items\Shirt.cs" />

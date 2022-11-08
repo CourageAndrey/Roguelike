@@ -62,6 +62,7 @@ namespace Roguelike.Core
 			}
 			Hero.Manequin.LowerBodyWear = new Trousers(Color.Brown);
 			Hero.Manequin.UpperBodyWear = new Shirt(Color.LightGray);
+			Hero.Manequin.Jewelry.Add(new Ring());
 			for (int i = 0; i < 20; i++)
 			{
 				Hero.Inventory.Add(new Arrow());

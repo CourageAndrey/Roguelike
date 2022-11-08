@@ -9,7 +9,7 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Console
 {
-	public class ConsoleUi : IUserInterface
+	public partial class ConsoleUi : IUserInterface
 	{
 		public ConsoleUi()
 		{
@@ -386,34 +386,13 @@ namespace Roguelike.Console
 			{
 				var itemsLanguage = game.Language.Items;
 				var menuLanguage = game.Language.Character.Manequin;
-				const string empty = "-";
 
-				void displayItemLine(char letter, string slotName, IWear wear)
-				{
-					System.Console.ForegroundColor = ConsoleColor.Yellow;
-					System.Console.Write($"[{letter}]");
-
-					System.Console.ForegroundColor = ConsoleColor.White;
-					System.Console.Write($" {slotName} : ");
-
-					if (wear is Core.Items.Naked)
-					{
-						System.Console.WriteLine(empty);
-					}
-					else
-					{
-						System.Console.ForegroundColor = wear.Material.Color.ToConsole();
-						System.Console.WriteLine($" {wear.GetDescription(itemsLanguage, game.Hero)}");
-						System.Console.ForegroundColor = ConsoleColor.White;
-					}
-				}
-
-				displayItemLine('A', menuLanguage.HeadWear, manequin.HeadWear);
-				displayItemLine('B', menuLanguage.UpperBodyWear, manequin.UpperBodyWear);
-				displayItemLine('C', menuLanguage.LowerBodyWear, manequin.LowerBodyWear);
-				displayItemLine('D', menuLanguage.CoverWear, manequin.CoverWear);
-				displayItemLine('E', menuLanguage.HandsWear, manequin.HandsWear);
-				displayItemLine('F', menuLanguage.FootsWear, manequin.FootsWear);
+				DisplayItemLine('A', menuLanguage.HeadWear, manequin.HeadWear, game);
+				DisplayItemLine('B', menuLanguage.UpperBodyWear, manequin.UpperBodyWear, game);
+				DisplayItemLine('C', menuLanguage.LowerBodyWear, manequin.LowerBodyWear, game);
+				DisplayItemLine('D', menuLanguage.CoverWear, manequin.CoverWear, game);
+				DisplayItemLine('E', menuLanguage.HandsWear, manequin.HandsWear, game);
+				DisplayItemLine('F', menuLanguage.FootsWear, manequin.FootsWear, game);
 
 				System.Console.ForegroundColor = ConsoleColor.Yellow;
 				System.Console.Write($"[G]");
@@ -433,7 +412,7 @@ namespace Roguelike.Console
 				}
 				else
 				{
-					System.Console.WriteLine(empty);
+					System.Console.WriteLine(_emptySlot);
 				}
 
 				System.Console.ReadKey(true);

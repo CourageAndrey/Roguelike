@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 
 using Roguelike.Core.Chat;
 using Roguelike.Core.Configuration;
@@ -132,6 +133,12 @@ namespace Roguelike.Core.ActiveObjects
 
 			Skills = new Dictionary<Skill, int>();
 			SkillExperience = new Dictionary<Skill, double>();
+		}
+
+		protected override decimal GetTotalWeigth()
+		{
+			return	base.GetTotalWeigth() +
+					(Manequin?.GetAllItems() ?? new IItem[0] as IEnumerable<IItem>).Sum(wear => wear.Weight);
 		}
 
 		public override Body CreateBody()

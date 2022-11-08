@@ -213,7 +213,8 @@ namespace Roguelike.Core.ActiveObjects
 		protected virtual decimal GetTotalWeigth()
 		{
 			return	(decimal) Toughness * Body.Weight +
-					Inventory.Sum(item => item.Weight);
+					Inventory.Sum(item => item.Weight) +
+					WeaponToFight.Weight;
 		}
 
 		public ActionResult ChangeAggressive(bool agressive)
@@ -269,6 +270,15 @@ namespace Roguelike.Core.ActiveObjects
 			if (oldWeapon != weapon)
 			{
 				WeaponToFight = weapon;
+
+				if (!(oldWeapon is Unarmed))
+				{
+					Inventory.Add(oldWeapon);
+				}
+				if (!(weapon is Unarmed))
+				{
+					Inventory.Remove(weapon);
+				}
 
 				RaiseWeaponChanged(oldWeapon, weapon);
 
@@ -406,8 +416,6 @@ namespace Roguelike.Core.ActiveObjects
 			}
 
 			Inventory.Remove(item);
-
-#warning Now we need to decide if selected weapon and manequin items must store within Inventory or not.
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, balance.ActionLongevity.DropItem),

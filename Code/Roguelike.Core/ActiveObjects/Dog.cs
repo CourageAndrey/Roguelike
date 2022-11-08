@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 
+using Roguelike.Core.Configuration;
+
 namespace Roguelike.Core.ActiveObjects
 {
 	public class Dog : Alive
@@ -14,8 +16,8 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public Dog(bool sexIsMale, Time birthDate, Color skinColor)
-			: base(sexIsMale, birthDate, new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>())
+		public Dog(Balance balance, bool sexIsMale, Time birthDate, Color skinColor)
+			: base(balance, sexIsMale, birthDate, new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>())
 		{
 			SkinColor = skinColor;
 		}

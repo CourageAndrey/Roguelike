@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 
+using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.ActiveObjects
@@ -47,8 +48,8 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public Horse(bool sexIsMale, Time birthDate, Color skinColor)
-			: base(sexIsMale, birthDate, new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>())
+		public Horse(Balance balance, bool sexIsMale, Time birthDate, Color skinColor)
+			: base(balance, sexIsMale, birthDate, new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>())
 		{
 			SkinColor = skinColor;
 		}

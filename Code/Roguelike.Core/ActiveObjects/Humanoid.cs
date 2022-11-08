@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 
 using Roguelike.Core.Chat;
+using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
@@ -119,8 +120,8 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected Humanoid(Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
-			: base(sexIsMale, birthDate, properties, inventory)
+		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
+			: base(balance, sexIsMale, birthDate, properties, inventory)
 		{
 			if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
@@ -11,6 +12,8 @@ namespace Roguelike.Core.ActiveObjects
 	{
 		#region Properties
 
+		private readonly Balance _balance;
+		private readonly IAlive _owner;
 		private readonly ICollection<IDisease> _diseases;
 		private readonly bool _isDirty;
 		private readonly bool _isPoisoned;
@@ -31,18 +34,17 @@ namespace Roguelike.Core.ActiveObjects
 
 		public bool IsHungry
 		{
-			get { return _foodLevel < 0; }
+			get { return _foodLevel < _balance.Food.HungerLevel; }
 		}
 
 		public bool IsBloated
 		{
-			get { return _foodLevel > 2000; }
-#warning Maybe, need to refer Balance in order to get rid of magic numbers.
+			get { return _foodLevel > _balance.Food.BloatedLevel; }
 		}
 
 		public bool IsThirsty
 		{
-			get { return _waterLevel < 0; }
+			get { return _waterLevel < _balance.Food.ThirstLevel; }
 		}
 
 		public bool IsTired
@@ -135,6 +137,8 @@ namespace Roguelike.Core.ActiveObjects
 		#endregion
 
 		public State(
+			Balance balance,
+			IAlive owner,
 			IEnumerable<IDisease> diseases = null,
 			bool isDirty = false,
 			bool isPoisoned = false,
@@ -153,6 +157,9 @@ namespace Roguelike.Core.ActiveObjects
 			int waterLevel = 0,
 			int foodLevel = 0)
 		{
+			_balance = balance;
+			_owner = owner;
+
 			_diseases = new List<IDisease>(diseases ?? new IDisease[0]);
 
 			_isDirty = isDirty;
@@ -360,19 +367,28 @@ namespace Roguelike.Core.ActiveObjects
 			Activity = activity;
 		}
 
-		public void EatDrink(IFood food)
+		public void EatDrink(IFood food, LanguageDeathReasons deathReasons)
 		{
 			_foodLevel += food.Nutricity;
 			_waterLevel += food.Water;
 			RaiseChanged();
 		}
 
-		public void PassTime(Time span)
+		public void PassTime(Time span, LanguageDeathReasons deathReasons)
 		{
-#warning Magic numbers, too # need to use balance
-			_foodLevel -= (int)(span.TotalTicks / 1000);
-			_waterLevel -= (int)(span.TotalTicks / 1000);
+			_foodLevel -= (int)(span.TotalTicks / _balance.Food.TicksToChangeLevel);
+			_waterLevel -= (int)(span.TotalTicks / _balance.Food.TicksToChangeLevel);
+
 			RaiseChanged();
+
+			if (_foodLevel < _balance.Food.HungerDeathLevel)
+			{
+				_owner.Die(deathReasons.Hunger);
+			}
+			if (_waterLevel < _balance.Food.ThirstDeathLevel)
+			{
+				_owner.Die(deathReasons.Thirst);
+			}
 		}
 
 		public override string ToString()

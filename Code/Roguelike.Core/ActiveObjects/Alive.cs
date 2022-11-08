@@ -308,7 +308,7 @@ namespace Roguelike.Core.ActiveObjects
 			hitPossibility += ((int) Properties.Reaction - (int) target.Properties.Reaction) * 10;
 			if (random.Next(0, 100) < hitPossibility)
 			{
-				target.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasonKilled, this));
+				target.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, this));
 			}
 
 			return new ActionResult(
@@ -374,7 +374,7 @@ namespace Roguelike.Core.ActiveObjects
 				hitPossibility += ((int) Properties.Perception - (int) aim.Properties.Reaction) * 10;
 				if (random.Next(0, 100) < hitPossibility)
 				{
-					aim.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasonKilled, this));
+					aim.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, this));
 				}
 			}
 

@@ -142,20 +142,20 @@ namespace Roguelike.Core
 
 			for (int i = 0; i < totalHouses; i++)
 			{
-				var husband = new Npc(Race.SinglePossible, true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "John Smith " + i);
+				var husband = new Npc(balance, Race.SinglePossible, true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "John Smith " + i);
 				husband.Manequin.LowerBodyWear = new Trousers(Color.Brown);
 				husband.Manequin.UpperBodyWear = new Shirt(Color.LightGray);
 				husband.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var wife = new Npc(Race.SinglePossible, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "Mary Poppins " + i);
+				var wife = new Npc(balance, Race.SinglePossible, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "Mary Poppins " + i);
 				wife.Manequin.LowerBodyWear = new Skirt(Color.Red);
 				wife.Manequin.UpperBodyWear = new Shirt(Color.LightGray);
 				wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var pet = new Dog(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), Color.Gray) { Owner = husband };
+				var pet = new Dog(balance, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), Color.Gray) { Owner = husband };
 				pet.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var transport = new Horse(false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-10), Color.LightSalmon) { Owner = husband };
+				var transport = new Horse(balance, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-10), Color.LightSalmon) { Owner = husband };
 				transport.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 			}
 		}

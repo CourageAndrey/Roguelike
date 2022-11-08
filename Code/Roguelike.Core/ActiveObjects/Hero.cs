@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.StaticObjects;
 
@@ -15,8 +16,8 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public Hero(Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
-			: base(race, sexIsMale, birthDate, properties, inventory, name)
+		public Hero(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
+			: base(balance, race, sexIsMale, birthDate, properties, inventory, name)
 		{
 			Camera = new HeroCamera(this);
 		}

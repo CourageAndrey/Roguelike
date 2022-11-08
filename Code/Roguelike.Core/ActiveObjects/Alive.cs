@@ -162,7 +162,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected Alive(bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory)
+		protected Alive(Balance balance, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory)
 		{
 			if (properties == null) throw new ArgumentNullException(nameof(properties));
 			if (inventory == null) throw new ArgumentNullException(nameof(inventory));
@@ -170,7 +170,7 @@ namespace Roguelike.Core.ActiveObjects
 			SexIsMale = sexIsMale;
 			BirthDate = birthDate;
 			Properties = properties;
-			State = new State();
+			State = new State(balance, this);
 			WeaponToFight = new Unarmed(this);
 
 			decimal getTotalWeigth()
@@ -431,7 +431,7 @@ namespace Roguelike.Core.ActiveObjects
 			Balance balance = game.Balance;
 			var language = game.Language;
 
-			State.EatDrink(food);
+			State.EatDrink(food, language.DeathReasons);
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, getLongevity(balance.ActionLongevity)),

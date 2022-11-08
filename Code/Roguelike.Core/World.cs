@@ -47,7 +47,7 @@ namespace Roguelike.Core
 			Regions = this.GenerateRegions(balance.WorldSize.RegionsCount);
 			var region = Regions.First();
 
-			Hero = new Hero(Race.SinglePossible, true, _time.AddYears(-25), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "Andor Drakon");
+			Hero = new Hero(balance, Race.SinglePossible, true, _time.AddYears(-25), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "Andor Drakon");
 			var heroCell = region.GetCell(
 				seed.Next(10, balance.WorldSize.RegionXdimension - 50),
 				seed.Next(10, balance.WorldSize.RegionYdimension - 50),
@@ -88,6 +88,7 @@ namespace Roguelike.Core
 
 		public void DoOneStep()
 		{
+			var language = Game.Language.DeathReasons;
 			var currentRegion = Hero.CurrentCell.Region;
 			var actors = currentRegion.GetActiveObjects();
 			var nextActor = actors.Dequeue();
@@ -99,7 +100,7 @@ namespace Roguelike.Core
 				var alive = nextActor as IAlive;
 				if (alive != null && beforeActionTime != null)
 				{
-					alive.State.PassTime(nextActor.NextActionTime.Value - beforeActionTime.Value);
+					alive.State.PassTime(nextActor.NextActionTime.Value - beforeActionTime.Value, language);
 				}
 
 				nextActor = actors.Dequeue();

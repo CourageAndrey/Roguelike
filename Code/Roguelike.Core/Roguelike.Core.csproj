@@ -56,6 +56,7 @@
     <Compile Include="Activity.cs" />
     <Compile Include="Ai.cs" />
     <Compile Include="Configuration\ActionLongevityBalance.cs" />
+    <Compile Include="Configuration\FoodBalance.cs" />
     <Compile Include="Configuration\DistanceBalance.cs" />
     <Compile Include="Configuration\PlayerBalance.cs" />
     <Compile Include="Configuration\TimeBalance.cs" />

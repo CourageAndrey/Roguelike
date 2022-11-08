@@ -19,6 +19,9 @@
 		public PlayerBalance Player
 		{ get; set; }
 
+		public FoodBalance Food
+		{ get; set; }
+
 		public int MaxLogSize
 		{ get; set; }
 
@@ -33,6 +36,7 @@
 				WorldSize = WorldSizeBalance.CreateDefault(),
 				Distance = DistanceBalance.CreateDefault(),
 				Player = PlayerBalance.CreateDefault(),
+				Food = FoodBalance.CreateDefault(),
 
 				MaxLogSize = 512,
 			};

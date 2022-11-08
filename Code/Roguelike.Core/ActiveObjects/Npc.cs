@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Roguelike.Core.Configuration;
+
 namespace Roguelike.Core.ActiveObjects
 {
 	public class Npc : Humanoid
@@ -11,8 +13,8 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public Npc(Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string name)
-			: base(race, sexIsMale, birthDate, properties, inventory, name)
+		public Npc(Balance balance, Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string name)
+			: base(balance, race, sexIsMale, birthDate, properties, inventory, name)
 		{ }
 
 		protected override ActionResult DoImplementation()

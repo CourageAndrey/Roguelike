@@ -50,7 +50,7 @@ namespace Roguelike.Console
 					var longevity = performedAction.Longevity.Scale(hero.Speed);
 					world.ApplyAction(hero, new ActionResult(longevity, performedAction.LogMessages));
 					world.DoOneStep();
-					hero.State.PassTime(longevity);
+					hero.State.PassTime(longevity, language.DeathReasons);
 				}
 			} while (true);
 		}

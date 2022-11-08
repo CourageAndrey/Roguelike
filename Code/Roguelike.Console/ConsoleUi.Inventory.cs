@@ -9,6 +9,7 @@ namespace Roguelike.Console
 	partial class ConsoleUi
 	{
 		private const string _emptySlot = "-";
+		private const char _firstJewelryLetter = 'G';
 
 		private abstract class EquipmentSlot
 		{
@@ -46,17 +47,17 @@ namespace Roguelike.Console
 					slot.Display(forWhom);
 				}
 
-				System.Console.ForegroundColor = ConsoleColor.Yellow;
-				System.Console.Write($"[G]");
+				System.Console.WriteLine();
 				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.Write($" {menuLanguage.Jewelry} : ");
+				System.Console.Write($" {menuLanguage.Jewelry} ");
 
 				if (manequin.Jewelry.Count > 0)
 				{
 					System.Console.WriteLine(":");
+					char letter = _firstJewelryLetter;
 					foreach (var jewelry in manequin.Jewelry)
 					{
-						var jewelrySlot = new JewelryEquipmentSlot('\0', jewelry, language);
+						var jewelrySlot = new JewelryEquipmentSlot(letter++, jewelry, language);
 						result.Add(jewelrySlot);
 						jewelrySlot.Display(forWhom);
 					}
@@ -112,6 +113,10 @@ namespace Roguelike.Console
 			public override void Display(IAlive forWhom)
 			{
 				System.Console.Write(" * ");
+
+				System.Console.ForegroundColor = ConsoleColor.Yellow;
+				System.Console.Write($"[{Letter}]");
+
 				System.Console.ForegroundColor = ConsoleColor.Cyan;
 				System.Console.WriteLine($" {Wear.GetDescription(LanguageItems, forWhom)}");
 				System.Console.ForegroundColor = ConsoleColor.White;

@@ -173,14 +173,9 @@ namespace Roguelike.Core.ActiveObjects
 			State = new State(balance, this);
 			WeaponToFight = new Unarmed(this);
 
-			decimal getTotalWeigth()
-			{
-				return (decimal) Toughness * Body.Weight + Inventory.Sum(item => item.Weight);
-			};
-
 			void updateWeight()
 			{
-				var weight = getTotalWeigth();
+				var weight = GetTotalWeigth();
 				RaiseWeightChanged(Weight, weight);
 				Weight = weight;
 			}
@@ -212,7 +207,13 @@ namespace Roguelike.Core.ActiveObjects
 			};
 			Inventory = _inventory;
 
-			Weight = getTotalWeigth();
+			Weight = GetTotalWeigth();
+		}
+
+		protected virtual decimal GetTotalWeigth()
+		{
+			return	(decimal) Toughness * Body.Weight +
+					Inventory.Sum(item => item.Weight);
 		}
 
 		public ActionResult ChangeAggressive(bool agressive)

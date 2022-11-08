@@ -384,36 +384,7 @@ namespace Roguelike.Console
 		{
 			startDialog(() =>
 			{
-				var language = game.Language;
-				var menuLanguage = language.Character.Manequin;
-
-				new EquipmentSlot('A', l => l.HeadWear, manequin.HeadWear, language).Display(game.Hero);
-				new EquipmentSlot('B', l => l.UpperBodyWear, manequin.UpperBodyWear, language).Display(game.Hero);
-				new EquipmentSlot('C', l => l.LowerBodyWear, manequin.LowerBodyWear, language).Display(game.Hero);
-				new EquipmentSlot('D', l => l.CoverWear, manequin.CoverWear, language).Display(game.Hero);
-				new EquipmentSlot('E', l => l.HandsWear, manequin.HandsWear, language).Display(game.Hero);
-				new EquipmentSlot('F', l => l.FootsWear, manequin.FootsWear, language).Display(game.Hero);
-
-				System.Console.ForegroundColor = ConsoleColor.Yellow;
-				System.Console.Write($"[G]");
-				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.Write($" {menuLanguage.Jewelry} : ");
-				if (manequin.Jewelry.Count > 0)
-				{
-					System.Console.WriteLine(":");
-					foreach (var jewelry in manequin.Jewelry)
-					{
-						System.Console.Write(" * ");
-						System.Console.ForegroundColor = ConsoleColor.Cyan;
-						System.Console.WriteLine(jewelry.GetDescription(language.Items, game.Hero));
-						System.Console.ForegroundColor = ConsoleColor.White;
-					}
-					System.Console.ForegroundColor = ConsoleColor.White;
-				}
-				else
-				{
-					System.Console.WriteLine(_emptySlot);
-				}
+				var itemSlots = EquipmentSlot.Display(game.Language, game.Hero, game.Hero.Manequin);
 
 				System.Console.ReadKey(true);
 			});

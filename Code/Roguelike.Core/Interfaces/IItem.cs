@@ -42,9 +42,6 @@ namespace Roguelike.Core.Interfaces
 		bool IsRange
 		{ get; }
 
-		Material Material
-		{ get; }
-
 		event EventHandler<IWeapon, IAlive> PreparedForBattle;
 
 		event EventHandler<IWeapon, IAlive> StoppedBattle;

@@ -55,6 +55,9 @@
 		public int Drink
 		{ get; set; }
 
+		public DressTimeBalance Dress
+		{ get; set; }
+
 		#endregion
 
 		public static ActionLongevityBalance CreateDefault()
@@ -78,6 +81,7 @@
 				RideHorse = 5 * 60 * 1000,
 				Eat = 10 * 60 * 1000,
 				Drink = 30 * 1000,
+				Dress = DressTimeBalance.CreateDefault(),
 			};
 		}
 	}

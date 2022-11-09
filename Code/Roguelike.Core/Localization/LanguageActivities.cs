@@ -22,6 +22,9 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string ChopsTree
 		{ get; set; }
+		[XmlElement]
+		public string Dresses
+		{ get; set; }
 
 		#endregion
 
@@ -34,6 +37,7 @@ namespace Roguelike.Core.Localization
 				Walks = "walks",
 				Fights = "fights",
 				ChopsTree = "chops tree",
+				Dresses = "dresses",
 			};
 		}
 	}

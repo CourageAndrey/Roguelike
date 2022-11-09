@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
 
 using Roguelike.Core;
+using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Items;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Console
 {
@@ -382,14 +386,78 @@ namespace Roguelike.Console
 
 		public ActionResult ShowEquipment(Game game, IManequin manequin)
 		{
+			var operations = new List<KeyValuePair<IWear, bool>>();
+
 			startDialog(() =>
 			{
-				var itemSlots = EquipmentSlot.Display(game.Language, game.Hero, game.Hero.Manequin);
+				var languageItems = game.Language.Items;
 
-				System.Console.ReadKey(true);
+				do
+				{
+					var itemSlots = EquipmentSlot.Display(game.Language, game.Hero, game.Hero.Manequin);
+					var key = System.Console.ReadKey(true);
+
+					if (char.IsLetter(key.KeyChar))
+					{
+						char pressedChar = key.KeyChar.ToString().ToUpperInvariant()[0];
+						EquipmentSlot itemSlot;
+						if (itemSlots.TryGetValue(pressedChar, out itemSlot))
+						{
+							if (itemSlot.Wear is Naked || itemSlot is AddJewelryEquipmentSlot)
+							{ // dress
+								var possibleItems = itemSlot
+									.FilterSuitableItems(game.Hero.Inventory)
+									.Select(i => new ListItem<IItem>(i, i.GetDescription(languageItems, game.Hero)))
+								.ToList();
+
+								ListItem selectedItemItem;
+								if (TrySelectItem(game, game.Language.Promts.SelectWear, possibleItems, out selectedItemItem))
+								{
+									var itemToDress = (IWear) selectedItemItem.ValueObject;
+									manequin.Dress(itemToDress);
+									operations.Add(new KeyValuePair<IWear, bool>(itemToDress, true));
+								}
+							}
+							else
+							{ // undress
+								manequin.Undress(itemSlot.Wear);
+								operations.Add(new KeyValuePair<IWear, bool>(itemSlot.Wear, false));
+							}
+						}
+
+						System.Console.Clear();
+						System.Console.CursorTop = 0;
+						System.Console.CursorLeft = 0;
+					}
+					else if (key.Key == ConsoleKey.Escape)
+					{
+						break;
+					}
+				} while (true);
 			});
 
-			return null;
+			if (operations.Count > 0)
+			{
+				var longevity = new Time(game.Balance.Time);
+				var messages = new List<string>();
+				var languageLog = game.Language.LogActionFormats;
+
+				foreach (var operation in operations)
+				{
+					longevity = longevity.AddTicks(operation.Key.GetDressTime(game.Balance.ActionLongevity.Dress));
+					messages.Add(string.Format(
+						CultureInfo.InvariantCulture,
+						operation.Value ? languageLog.Dress : languageLog.Undress,
+						game.Hero,
+						operation.Key));
+				}
+
+				return new ActionResult(longevity, messages, Activity.Dresses);
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		public ActionResult BeginChat(Game game, IHumanoid humanoid)

@@ -130,6 +130,7 @@ namespace Roguelike.Core.ActiveObjects
 			Race = race;
 
 			Manequin = new Manequin(this);
+			Manequin.EquipmentChanged += m => CurrentCell?.RefreshView(false);
 
 			Skills = new Dictionary<Skill, int>();
 			SkillExperience = new Dictionary<Skill, double>();

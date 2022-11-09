@@ -55,6 +55,7 @@
     <Compile Include="ActiveObjects\State.cs" />
     <Compile Include="Activity.cs" />
     <Compile Include="Ai.cs" />
+    <Compile Include="Configuration\DressTimeBalance.cs" />
     <Compile Include="Configuration\ActionLongevityBalance.cs" />
     <Compile Include="Configuration\FoodBalance.cs" />
     <Compile Include="Configuration\DistanceBalance.cs" />

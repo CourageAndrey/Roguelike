@@ -98,11 +98,13 @@ namespace Roguelike.Core.ActiveObjects
 			var jewelryCollection = new EventCollection<IJewelry>(jewelry ?? new IJewelry[0]);
 			jewelryCollection.ItemAdded += (sender, eventArgs) =>
 			{
+				_owner.Inventory.Remove(eventArgs.Item);
 				eventArgs.Item.RaiseEquipped(_owner);
 				RaiseEquipmentChanged();
 			};
 			jewelryCollection.ItemRemoved += (sender, eventArgs) =>
 			{
+				_owner.Inventory.Add(eventArgs.Item);
 				RaiseEquipmentChanged();
 				eventArgs.Item.RaiseUnequipped(_owner);
 			};
@@ -114,9 +116,17 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			if (newItem == null) throw new ArgumentNullException(nameof(newItem));
 
-			itemSlot?.RaiseUnequipped(_owner);
+			if (itemSlot != null && !(itemSlot is Naked))
+			{
+				itemSlot.RaiseUnequipped(_owner);
+				_owner.Inventory.Add(itemSlot);
+			}
 			itemSlot = newItem;
-			itemSlot.RaiseEquipped(_owner);
+			if (!(itemSlot is Naked))
+			{
+				itemSlot.RaiseEquipped(_owner);
+				_owner.Inventory.Remove(itemSlot);
+			}
 
 			RaiseEquipmentChanged();
 		}

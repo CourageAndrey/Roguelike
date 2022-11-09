@@ -73,6 +73,12 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Vomit
 		{ get; set; }
+		[XmlElement]
+		public string Dress
+		{ get; set; }
+		[XmlElement]
+		public string Undress
+		{ get; set; }
 
 		#endregion
 
@@ -102,6 +108,8 @@ namespace Roguelike.Core.Localization
 				Eat = "{0} eats {1}",
 				Drink = "{0} drinks {1}",
 				Vomit = "{0} vomits",
+				Dress = "{0} dresses {1}",
+				Undress = "{0} undresses {1}",
 			};
 		}
 	}

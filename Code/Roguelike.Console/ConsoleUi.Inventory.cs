@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Console
@@ -35,12 +36,12 @@ namespace Roguelike.Console
 
 				var result = new List<EquipmentSlot>
 				{
-					new RegularEquipmentSlot('A', l => l.HeadWear, manequin.HeadWear, language),
-					new RegularEquipmentSlot('B', l => l.UpperBodyWear, manequin.UpperBodyWear, language),
-					new RegularEquipmentSlot('C', l => l.LowerBodyWear, manequin.LowerBodyWear, language),
-					new RegularEquipmentSlot('D', l => l.CoverWear, manequin.CoverWear, language),
-					new RegularEquipmentSlot('E', l => l.HandsWear, manequin.HandsWear, language),
-					new RegularEquipmentSlot('F', l => l.FootsWear, manequin.FootsWear, language),
+					new RegularEquipmentSlot<IHeadWear>('A', l => l.HeadWear, manequin.HeadWear, language),
+					new RegularEquipmentSlot<IUpperBodyWear>('B', l => l.UpperBodyWear, manequin.UpperBodyWear, language),
+					new RegularEquipmentSlot<ILowerBodyWear>('C', l => l.LowerBodyWear, manequin.LowerBodyWear, language),
+					new RegularEquipmentSlot<ICoverWear>('D', l => l.CoverWear, manequin.CoverWear, language),
+					new RegularEquipmentSlot<IHandWear>('E', l => l.HandsWear, manequin.HandsWear, language),
+					new RegularEquipmentSlot<IFootWear>('F', l => l.FootsWear, manequin.FootsWear, language),
 				};
 				foreach (var slot in result)
 				{
@@ -72,12 +73,16 @@ namespace Roguelike.Console
 			}
 		}
 
-		private class RegularEquipmentSlot : EquipmentSlot
+		private class RegularEquipmentSlot<WearT> : EquipmentSlot
+			where WearT : class, IWear
 		{
 			public string SlotName
 			{ get; }
 
-			public RegularEquipmentSlot(char letter, Func<LanguageManequin, string> getSlotName, IWear wear, Language language)
+			public WearT ConcreteWear
+			{ get { return Wear as WearT; } }
+
+			public RegularEquipmentSlot(char letter, Func<LanguageManequin, string> getSlotName, WearT wear, Language language)
 				: base(letter, wear, language)
 			{
 				SlotName = getSlotName(language.Character.Manequin);

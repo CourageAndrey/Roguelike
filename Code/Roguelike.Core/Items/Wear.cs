@@ -9,6 +9,9 @@ namespace Roguelike.Core.Items
 	{
 		#region Properties
 
+		public abstract WearSlot SuitableSlot
+		{ get; }
+
 		public override ItemType Type
 		{ get { return ItemType.Wear; } }
 

@@ -5,9 +5,14 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Items
 {
-	public class Trousers : Wear, ILowerBodyWear
+	public class Trousers : Wear
 	{
 		#region Properties
+
+		public override WearSlot SuitableSlot
+		{
+			get { return WearSlot.LowerBody; }
+		}
 
 		public override decimal Weight
 		{ get { return 1; } }

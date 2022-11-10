@@ -6,10 +6,8 @@ using System.Text;
 using System.Threading;
 
 using Roguelike.Core;
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
-using Roguelike.Core.Localization;
 
 namespace Roguelike.Console
 {
@@ -403,7 +401,7 @@ namespace Roguelike.Console
 						EquipmentSlot itemSlot;
 						if (itemSlots.TryGetValue(pressedChar, out itemSlot))
 						{
-							if (itemSlot.Wear is Naked || itemSlot is AddJewelryEquipmentSlot)
+							if (itemSlot.Wear is Naked || itemSlot.Wear == null)
 							{ // dress
 								var possibleItems = itemSlot
 									.FilterSuitableItems(game.Hero.Inventory)

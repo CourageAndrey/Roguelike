@@ -12,23 +12,101 @@ namespace Roguelike.Console
 		private const string _emptySlot = "-";
 		private const char _firstJewelryLetter = 'G';
 
-		private abstract class EquipmentSlot
+		private class EquipmentSlot
 		{
-			public char Letter { get; }
+			#region Properties
 
-			public IWear Wear { get; }
+			public char Letter
+			{ get; }
 
-			protected readonly LanguageItems LanguageItems;
+			public WearSlot Slot
+			{ get; }
 
-			protected EquipmentSlot(char letter, IWear wear, Language language)
+			public string SlotName
+			{ get; }
+
+			public IWear Wear
+			{ get; }
+
+			private readonly LanguageItems _languageItems;
+
+			private static readonly IDictionary<WearSlot, Func<LanguageManequin, string>> _slotNames = new Dictionary<WearSlot, Func<LanguageManequin, string>>
 			{
-				LanguageItems = language.Items;
+				{ WearSlot.Head, l => l.HeadWear },
+				{ WearSlot.UpperBody, l => l.UpperBodyWear },
+				{ WearSlot.LowerBody, l => l.LowerBodyWear },
+				{ WearSlot.Cover, l => l.CoverWear },
+				{ WearSlot.Hands, l => l.HandsWear },
+				{ WearSlot.Foots, l => l.FootsWear },
+				{ WearSlot.Jewelry, l => l.Jewelry },
+			};
 
+			#endregion
+
+			private EquipmentSlot(char letter, WearSlot slot, IWear wear, Language language)
+			{
+				Slot = slot;
+				SlotName = _slotNames[slot](language.Character.Manequin);
 				Letter = letter;
 				Wear = wear;
+				_languageItems = language.Items;
 			}
 
-			public abstract void Display(IAlive forWhom);
+			public void Display(IAlive forWhom)
+			{
+				if (Wear == null)
+				{
+					DisplayAddJewelry();
+				}
+				else if (Slot == WearSlot.Jewelry)
+				{
+					DisplayJewelry(forWhom);
+				}
+				else
+				{
+					DisplayRegular(forWhom);
+				}
+			}
+
+			private void DisplayRegular(IAlive forWhom)
+			{
+				System.Console.ForegroundColor = ConsoleColor.Yellow;
+				System.Console.Write($"[{Letter}]");
+
+				System.Console.ForegroundColor = ConsoleColor.White;
+				System.Console.Write($" {SlotName} : ");
+
+				if (Wear is Core.Items.Naked)
+				{
+					System.Console.WriteLine(_emptySlot);
+				}
+				else
+				{
+					System.Console.ForegroundColor = Wear.Material.Color.ToConsole();
+					System.Console.WriteLine($" {Wear.GetDescription(_languageItems, forWhom)}");
+					System.Console.ForegroundColor = ConsoleColor.White;
+				}
+			}
+
+			private void DisplayJewelry(IAlive forWhom)
+			{
+				System.Console.Write(" * ");
+
+				System.Console.ForegroundColor = ConsoleColor.Yellow;
+				System.Console.Write($"[{Letter}]");
+
+				System.Console.ForegroundColor = ConsoleColor.Cyan;
+				System.Console.WriteLine($" {Wear.GetDescription(_languageItems, forWhom)}");
+				System.Console.ForegroundColor = ConsoleColor.White;
+			}
+
+			public void DisplayAddJewelry()
+			{
+				System.Console.Write(" + ");
+
+				System.Console.ForegroundColor = ConsoleColor.Yellow;
+				System.Console.Write($"[{Letter}]");
+			}
 
 			public static Dictionary<char, EquipmentSlot> Display(Language language, IAlive forWhom, IManequin manequin)
 			{
@@ -36,12 +114,12 @@ namespace Roguelike.Console
 
 				var result = new Dictionary<char, EquipmentSlot>
 				{
-					{ 'A', new RegularEquipmentSlot<IHeadWear>('A', l => l.HeadWear, manequin.HeadWear, language) },
-					{ 'B', new RegularEquipmentSlot<IUpperBodyWear>('B', l => l.UpperBodyWear, manequin.UpperBodyWear, language) },
-					{ 'C', new RegularEquipmentSlot<ILowerBodyWear>('C', l => l.LowerBodyWear, manequin.LowerBodyWear, language) },
-					{ 'D', new RegularEquipmentSlot<ICoverWear>('D', l => l.CoverWear, manequin.CoverWear, language) },
-					{ 'E', new RegularEquipmentSlot<IHandWear>('E', l => l.HandsWear, manequin.HandsWear, language) },
-					{ 'F', new RegularEquipmentSlot<IFootWear>('F', l => l.FootsWear, manequin.FootsWear, language) },
+					{ 'A', new EquipmentSlot('A', WearSlot.Head, manequin.HeadWear, language) },
+					{ 'B', new EquipmentSlot('B', WearSlot.UpperBody, manequin.UpperBodyWear, language) },
+					{ 'C', new EquipmentSlot('C', WearSlot.LowerBody, manequin.LowerBodyWear, language) },
+					{ 'D', new EquipmentSlot('D', WearSlot.Cover, manequin.CoverWear, language) },
+					{ 'E', new EquipmentSlot('E', WearSlot.Hands, manequin.HandsWear, language) },
+					{ 'F', new EquipmentSlot('F', WearSlot.Foots, manequin.FootsWear, language) },
 				};
 				foreach (var slot in result.Values)
 				{
@@ -57,105 +135,23 @@ namespace Roguelike.Console
 				{
 					foreach (var jewelry in manequin.Jewelry)
 					{
-						var jewelrySlot = new JewelryEquipmentSlot(letter++, jewelry, language);
+						var jewelrySlot = new EquipmentSlot(letter++, WearSlot.Jewelry, jewelry, language);
 						result[jewelrySlot.Letter] = jewelrySlot;
 						jewelrySlot.Display(forWhom);
 					}
 					System.Console.ForegroundColor = ConsoleColor.White;
 				}
 
-				var addJewelry = new AddJewelryEquipmentSlot(letter, language);
+				var addJewelry = new EquipmentSlot(letter, WearSlot.Jewelry, null, language);
 				result[addJewelry.Letter] = addJewelry;
 				addJewelry.Display(forWhom);
 
 				return result;
 			}
 
-			public abstract IEnumerable<IItem> FilterSuitableItems(IEnumerable<IItem> items);
-		}
-
-		private class RegularEquipmentSlot<WearT> : EquipmentSlot
-			where WearT : class, IWear
-		{
-			public string SlotName
-			{ get; }
-
-			public WearT ConcreteWear
-			{ get { return Wear as WearT; } }
-
-			public RegularEquipmentSlot(char letter, Func<LanguageManequin, string> getSlotName, WearT wear, Language language)
-				: base(letter, wear, language)
+			public IEnumerable<IItem> FilterSuitableItems(IEnumerable<IItem> items)
 			{
-				SlotName = getSlotName(language.Character.Manequin);
-			}
-
-			public override void Display(IAlive forWhom)
-			{
-				System.Console.ForegroundColor = ConsoleColor.Yellow;
-				System.Console.Write($"[{Letter}]");
-
-				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.Write($" {SlotName} : ");
-
-				if (Wear is Core.Items.Naked)
-				{
-					System.Console.WriteLine(_emptySlot);
-				}
-				else
-				{
-					System.Console.ForegroundColor = Wear.Material.Color.ToConsole();
-					System.Console.WriteLine($" {Wear.GetDescription(LanguageItems, forWhom)}");
-					System.Console.ForegroundColor = ConsoleColor.White;
-				}
-			}
-
-			public override IEnumerable<IItem> FilterSuitableItems(IEnumerable<IItem> items)
-			{
-				return items.OfType<WearT>();
-			}
-		}
-
-		private class JewelryEquipmentSlot : EquipmentSlot
-		{
-			public JewelryEquipmentSlot(char letter, IJewelry jewelry, Language language)
-				: base(letter, jewelry, language)
-			{ }
-
-			public override void Display(IAlive forWhom)
-			{
-				System.Console.Write(" * ");
-
-				System.Console.ForegroundColor = ConsoleColor.Yellow;
-				System.Console.Write($"[{Letter}]");
-
-				System.Console.ForegroundColor = ConsoleColor.Cyan;
-				System.Console.WriteLine($" {Wear.GetDescription(LanguageItems, forWhom)}");
-				System.Console.ForegroundColor = ConsoleColor.White;
-			}
-
-			public override IEnumerable<IItem> FilterSuitableItems(IEnumerable<IItem> items)
-			{
-				throw new NotSupportedException();
-			}
-		}
-
-		private class AddJewelryEquipmentSlot : EquipmentSlot
-		{
-			public AddJewelryEquipmentSlot(char letter, Language language)
-				: base(letter, null, language)
-			{ }
-
-			public override void Display(IAlive forWhom)
-			{
-				System.Console.Write(" + ");
-
-				System.Console.ForegroundColor = ConsoleColor.Yellow;
-				System.Console.Write($"[{Letter}]");
-			}
-
-			public override IEnumerable<IItem> FilterSuitableItems(IEnumerable<IItem> items)
-			{
-				return items.OfType<IJewelry>();
+				return items.OfType<IWear>().Where(i => i.SuitableSlot == Slot);
 			}
 		}
 	}

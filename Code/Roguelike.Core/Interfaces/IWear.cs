@@ -2,6 +2,9 @@
 {
 	public interface IWear : IItem
 	{
+		WearSlot SuitableSlot
+		{ get; }
+
 		event EventHandler<IWear, IAlive> Equipped;
 
 		event EventHandler<IWear, IAlive> Unequipped;
@@ -11,28 +14,14 @@
 		void RaiseUnequipped(IAlive who);
 	}
 
-	#region Wear interfaces
-
-	public interface IHeadWear : IWear
-	{ }
-
-	public interface IUpperBodyWear : IWear
-	{ }
-
-	public interface ILowerBodyWear : IWear
-	{ }
-
-	public interface ICoverWear : IWear
-	{ }
-
-	public interface IHandWear : IWear
-	{ }
-
-	public interface IFootWear : IWear
-	{ }
-
-	public interface IJewelry : IWear
-	{ }
-
-	#endregion
+	public enum WearSlot
+	{
+		Head,
+		UpperBody,
+		LowerBody,
+		Cover,
+		Hands,
+		Foots,
+		Jewelry,
+	}
 }

@@ -5,9 +5,14 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Items
 {
-	public class Ring : Wear, IJewelry
+	public class Ring : Wear
 	{
 		#region Properties
+
+		public override WearSlot SuitableSlot
+		{
+			get { return WearSlot.Jewelry; }
+		}
 
 		public override decimal Weight
 		{ get { return 0.02m; } }

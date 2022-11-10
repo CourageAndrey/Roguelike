@@ -8,25 +8,25 @@ namespace Roguelike.Core.Interfaces
 {
 	public interface IManequin
 	{
-		IHeadWear HeadWear
+		IWear HeadWear
 		{ get; set; }
 
-		IUpperBodyWear UpperBodyWear
+		IWear UpperBodyWear
 		{ get; set; }
 
-		ILowerBodyWear LowerBodyWear
+		IWear LowerBodyWear
 		{ get; set; }
 
-		ICoverWear CoverWear
+		IWear CoverWear
 		{ get; set; }
 
-		IHandWear HandsWear
+		IWear HandsWear
 		{ get; set; }
 
-		IFootWear FootsWear
+		IWear FootsWear
 		{ get; set; }
 
-		ICollection<IJewelry> Jewelry
+		ICollection<IWear> Jewelry
 		{ get; }
 
 		event EventHandler<IManequin> EquipmentChanged;
@@ -74,33 +74,33 @@ namespace Roguelike.Core.Interfaces
 
 		public static void Dress(this IManequin manequin, IWear wear)
 		{
-			if (wear is IHeadWear)
+			if (wear.SuitableSlot == WearSlot.Head)
 			{
-				manequin.HeadWear = wear as IHeadWear;
+				manequin.HeadWear = wear;
 			}
-			else if (wear is IUpperBodyWear)
+			else if (wear.SuitableSlot == WearSlot.UpperBody)
 			{
-				manequin.UpperBodyWear = wear as IUpperBodyWear;
+				manequin.UpperBodyWear = wear;
 			}
-			else if (wear is ILowerBodyWear)
+			else if (wear.SuitableSlot == WearSlot.LowerBody)
 			{
-				manequin.LowerBodyWear = wear as ILowerBodyWear;
+				manequin.LowerBodyWear = wear;
 			}
-			else if (wear is ICoverWear)
+			else if (wear.SuitableSlot == WearSlot.Cover)
 			{
-				manequin.CoverWear = wear as ICoverWear;
+				manequin.CoverWear = wear;
 			}
-			else if (wear is IHandWear)
+			else if (wear.SuitableSlot == WearSlot.Hands)
 			{
-				manequin.HandsWear = wear as IHandWear;
+				manequin.HandsWear = wear;
 			}
-			else if (wear is IFootWear)
+			else if (wear.SuitableSlot == WearSlot.Foots)
 			{
-				manequin.FootsWear = wear as IFootWear;
+				manequin.FootsWear = wear;
 			}
-			else if (wear is IJewelry)
+			else if (wear.SuitableSlot == WearSlot.Jewelry)
 			{
-				manequin.Jewelry.Add(wear as IJewelry);
+				manequin.Jewelry.Add(wear);
 			}
 			else
 			{
@@ -110,33 +110,33 @@ namespace Roguelike.Core.Interfaces
 
 		public static void Undress(this IManequin manequin, IWear wear)
 		{
-			if (wear is IHeadWear)
+			if (wear.SuitableSlot == WearSlot.Head)
 			{
 				manequin.HeadWear = null;
 			}
-			else if (wear is IUpperBodyWear)
+			else if (wear.SuitableSlot == WearSlot.UpperBody)
 			{
 				manequin.UpperBodyWear = null;
 			}
-			else if (wear is ILowerBodyWear)
+			else if (wear.SuitableSlot == WearSlot.LowerBody)
 			{
 				manequin.LowerBodyWear = null;
 			}
-			else if (wear is ICoverWear)
+			else if (wear.SuitableSlot == WearSlot.Cover)
 			{
 				manequin.CoverWear = null;
 			}
-			else if (wear is IHandWear)
+			else if (wear.SuitableSlot == WearSlot.Hands)
 			{
 				manequin.HandsWear = null;
 			}
-			else if (wear is IFootWear)
+			else if (wear.SuitableSlot == WearSlot.Foots)
 			{
 				manequin.FootsWear = null;
 			}
-			else if (wear is IJewelry)
+			else if (wear.SuitableSlot == WearSlot.Jewelry)
 			{
-				manequin.Jewelry.Remove(wear as IJewelry);
+				manequin.Jewelry.Remove(wear);
 			}
 			else
 			{
@@ -146,31 +146,31 @@ namespace Roguelike.Core.Interfaces
 
 		public static int GetDressTime(this IWear wear, DressTimeBalance balance)
 		{
-			if (wear is IHeadWear)
+			if (wear.SuitableSlot == WearSlot.Head)
 			{
 				return balance.HeadWear;
 			}
-			else if (wear is IUpperBodyWear)
+			else if (wear.SuitableSlot == WearSlot.UpperBody)
 			{
 				return balance.UpperBodyWear;
 			}
-			else if (wear is ILowerBodyWear)
+			else if (wear.SuitableSlot == WearSlot.LowerBody)
 			{
 				return balance.LowerBodyWear;
 			}
-			else if (wear is ICoverWear)
+			else if (wear.SuitableSlot == WearSlot.Cover)
 			{
 				return balance.CoverWear;
 			}
-			else if (wear is IHandWear)
+			else if (wear.SuitableSlot == WearSlot.Hands)
 			{
 				return balance.HandsWear;
 			}
-			else if (wear is IFootWear)
+			else if (wear.SuitableSlot == WearSlot.Foots)
 			{
 				return balance.FootsWear;
 			}
-			else if (wear is IJewelry)
+			else if (wear.SuitableSlot == WearSlot.Jewelry)
 			{
 				return balance.Jewelry;
 			}

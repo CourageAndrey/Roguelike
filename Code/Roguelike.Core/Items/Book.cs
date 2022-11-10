@@ -27,6 +27,7 @@ namespace Roguelike.Core.Items
 
 		public Book(Color coverColor, Func<LanguageBooks, string> getTitle, Func<LanguageBooks, string> getText)
 		{
+			Color = coverColor;
 			_getTitle = getTitle;
 			_getText = getText;
 		}

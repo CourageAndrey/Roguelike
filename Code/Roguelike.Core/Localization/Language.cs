@@ -102,6 +102,7 @@ F1 - show help
 F2 - show Character's menu
 F3 - show Character's equipment
 F4 - show Character's inventory
+F5 - show events log
 
 arrow keys & NumPad keys - move (or attack if agressive)
 

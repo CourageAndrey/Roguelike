@@ -50,5 +50,16 @@ namespace Roguelike.Console
 			ui.ShowInventory(game, hero);
 			return null;
 		}
+
+		private static ActionResult HandleShowLog(
+			Language language,
+			ConsoleUi ui,
+			Game game,
+			World world,
+			Hero hero)
+		{
+			ui.ShowMessage(string.Empty, new StringBuilder(game.Log));
+			return null;
+		}
 	}
 }

@@ -374,22 +374,38 @@ namespace Roguelike.Core.ActiveObjects
 			_foodLevel += food.Nutricity;
 			_waterLevel += food.Water;
 
+			var random = new Random(DateTime.Now.Millisecond);
 			if (_foodLevel > _balance.Food.OvereatingDeathLevel)
 			{
-				var random = new Random(DateTime.Now.Millisecond);
-				if (random.Next(0, 100) < _balance.Food.OvereatingDeathLevel)
+				if (random.Next(0, 100) < _balance.Food.OverEatingDeathChancePercent)
 				{
 					_owner.Die(language.DeathReasons.Overeating);
 				}
 				else
 				{
-					_foodLevel /= 20;
-					_waterLevel /= 5;
-					(_owner as Active)?.WriteToLog(string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Vomit, _owner));
+					Vomit(language);
+				}
+			}
+			else if (_waterLevel > _balance.Food.OverwaterDeathLevel)
+			{
+				if (random.Next(0, 100) < _balance.Food.OverWaterDeathChancePercent)
+				{
+					_owner.Die(language.DeathReasons.Overwater);
+				}
+				else
+				{
+					Vomit(language);
 				}
 			}
 
 			RaiseChanged();
+		}
+
+		public void Vomit(Language language)
+		{
+			_foodLevel /= 20;
+			_waterLevel /= 5;
+			(_owner as Active)?.WriteToLog(string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Vomit, _owner));
 		}
 
 		public void PassTime(Time span, Language language)

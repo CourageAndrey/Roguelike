@@ -400,17 +400,20 @@ namespace Roguelike.Console
 			World world,
 			Hero hero)
 		{
-			var itemsToDrink = hero.Inventory.Where(i => i.Type == ItemType.Potion).Select(i => new ListItem<IItem>(i, i.GetDescription(language.Items, hero)));
+			var source = hero.CurrentCell.Objects.OfType<IWaterSource>().FirstOrDefault();
+			if (source != null && ui.AskForYesNoCancel(language.Promts.DrinkFromSource, game) == true)
+			{
+				return source.Drink(hero);
+			}
 
+			var itemsToDrink = hero.Inventory.Where(i => i.Type == ItemType.Potion).Select(i => new ListItem<IItem>(i, i.GetDescription(language.Items, hero)));
 			ListItem selectedItemToDrink;
 			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrink, itemsToDrink, out selectedItemToDrink))
 			{
 				return hero.Drink((IDrink) selectedItemToDrink.ValueObject);
 			}
-			else
-			{
-				return null;
-			}
+
+			return null;
 		}
 	}
 }

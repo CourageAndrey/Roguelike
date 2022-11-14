@@ -34,6 +34,9 @@ namespace Roguelike.Core.ActiveObjects
 		private int _waterLevel;
 		private int _foodLevel;
 
+		internal int WaterToFull
+		{ get { return _balance.Food.BloatedWaterLevel - _waterLevel; } }
+
 		public bool IsHungry
 		{
 			get { return _foodLevel < _balance.Food.HungerLevel; }

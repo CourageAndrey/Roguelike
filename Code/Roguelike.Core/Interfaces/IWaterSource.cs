@@ -2,5 +2,6 @@
 {
 	public interface IWaterSource
 	{
+		ActionResult Drink(IAlive who);
 	}
 }

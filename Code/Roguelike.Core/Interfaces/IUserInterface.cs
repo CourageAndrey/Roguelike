@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
+using Roguelike.Core.Localization;
+
 namespace Roguelike.Core.Interfaces
 {
 	public interface IUserInterface
@@ -16,5 +18,28 @@ namespace Roguelike.Core.Interfaces
 		ActionResult BeginPickpocket(Game game, IHumanoid humanoid);
 		Cell SelectShootingTarget(Game game);
 		void AnimateShoot(Direction direction, ICollection<Cell> path, IMissile missile);
+	}
+
+	public static class UiExtensions
+	{
+		public static bool? AskForYesNoCancel(this IUserInterface ui, string question, Game game)
+		{
+			var language = game.Language.Ui.Common;
+			var cases = new List<ListItem>
+			{
+				new ListItem<bool>(true, language.Yes),
+				new ListItem<bool>(false, language.No),
+			};
+
+			ListItem selected;
+			if (ui.TrySelectItem(game, question, cases, out selected))
+			{
+				return ((ListItem<bool>) selected).Value;
+			}
+			else
+			{
+				return null;
+			}
+		}
 	}
 }

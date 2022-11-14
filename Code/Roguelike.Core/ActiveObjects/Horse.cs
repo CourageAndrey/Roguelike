@@ -4,6 +4,7 @@ using System.Linq;
 
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.ActiveObjects
 {
@@ -65,6 +66,11 @@ namespace Roguelike.Core.ActiveObjects
 		public override Body CreateBody()
 		{
 			return ActiveObjects.Body.CreateAnimal();
+		}
+
+		public override string GetDescription(Language language, IAlive forWhom)
+		{
+			return language.Objects.Horse;
 		}
 	}
 }

@@ -248,7 +248,7 @@ namespace Roguelike.Console
 				itemsContainer.PickItem(itemToPick, hero.Inventory);
 				return new ActionResult(
 					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.PickItem),
-					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.PickItem, hero, itemToPick));
+					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.PickItem, hero.GetDescription(language, hero), itemToPick));
 
 			}
 			else
@@ -277,7 +277,7 @@ namespace Roguelike.Console
 				}
 				return new ActionResult(
 					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.OpenCloseDoor),
-					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.OpenDoor, hero, door.CurrentCell.Position));
+					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.OpenDoor, hero.GetDescription(language, hero), door.CurrentCell.Position));
 			}
 			else
 			{
@@ -310,7 +310,7 @@ namespace Roguelike.Console
 
 				return new ActionResult(
 					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.ReadBook),
-					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ReadBook, hero));
+					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ReadBook, hero.GetDescription(language, hero)));
 			}
 			else
 			{
@@ -333,7 +333,7 @@ namespace Roguelike.Console
 					transport.Rider = hero;
 					return new ActionResult(
 						Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.RideHorse),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.RideHorse, hero));
+						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.RideHorse, hero.GetDescription(language, hero)));
 				}
 				else
 				{
@@ -350,7 +350,7 @@ namespace Roguelike.Console
 					hero.Transport.Rider = null;
 					return new ActionResult(
 						Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.RideHorse),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.RideHorse, hero));
+						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.RideHorse, hero.GetDescription(language, hero)));
 				}
 			}
 

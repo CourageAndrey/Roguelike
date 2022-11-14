@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.StaticObjects
 {
@@ -41,6 +42,11 @@ namespace Roguelike.Core.StaticObjects
 		{
 			_items.Add(item);
 			// Do not update cell, because inventory owner hides current (items pile's) cell!
+		}
+
+		public override string GetDescription(Language language, IAlive forWhom)
+		{
+			return language.Objects.ItemsPile;
 		}
 	}
 }

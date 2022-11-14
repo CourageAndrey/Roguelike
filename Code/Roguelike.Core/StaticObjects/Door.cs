@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.StaticObjects
 {
@@ -35,6 +36,11 @@ namespace Roguelike.Core.StaticObjects
 
 			_isClosed = true;
 			RaiseIsSolidChanged(false, true);
+		}
+
+		public override string GetDescription(Language language, IAlive forWhom)
+		{
+			return language.Objects.Door;
 		}
 	}
 }

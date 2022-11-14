@@ -1,4 +1,5 @@
 ﻿using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.StaticObjects
 {
@@ -10,5 +11,10 @@ namespace Roguelike.Core.StaticObjects
 		{ get { return false; } }
 
 		#endregion
+
+		public override string GetDescription(Language language, IAlive forWhom)
+		{
+			return language.Objects.Bed;
+		}
 	}
 }

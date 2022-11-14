@@ -31,6 +31,11 @@ namespace Roguelike.Core.StaticObjects
 #warning Take vermins into account.
 		}
 
+		public override string GetDescription(Language language, IAlive forWhom)
+		{
+			return language.Objects.Pool;
+		}
+
 		private class PoolDrink : IDrink
 		{
 			public decimal Weight
@@ -47,8 +52,7 @@ namespace Roguelike.Core.StaticObjects
 
 			public string GetDescription(Language language, IAlive forWhom)
 			{
-#warning Objects also need localization.
-				return ToString();
+				return language.Objects.Pool;
 			}
 
 			public event ValueChangedEventHandler<IRequireGravitation, decimal> WeightChanged;

@@ -47,11 +47,11 @@ namespace Roguelike.Core
 					return TryMoveTo(newCell)
 						? new ActionResult(
 							Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Step * distance)),
-							string.Format(CultureInfo.InvariantCulture, language.Move, this, oldPosition, newCell.Position),
+							string.Format(CultureInfo.InvariantCulture, language.Move, GetDescription(game.Language, game.Hero), oldPosition, newCell.Position),
 							newActivity)
 						: new ActionResult(
 							Time.FromTicks(balance.Time, balance.ActionLongevity.Disabled),
-							string.Format(CultureInfo.InvariantCulture, language.MoveDisabled, this, oldPosition, newCell.Position),
+							string.Format(CultureInfo.InvariantCulture, language.MoveDisabled, GetDescription(game.Language, game.Hero), oldPosition, newCell.Position),
 							newActivity);
 				}
 			}

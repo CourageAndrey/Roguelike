@@ -1,6 +1,6 @@
 ﻿namespace Roguelike.Core.Interfaces
 {
-	public interface IObject
+	public interface IObject : IDescriptive
 	{
 		Cell CurrentCell
 		{ get; }

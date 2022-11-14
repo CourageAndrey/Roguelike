@@ -139,14 +139,14 @@ namespace Roguelike.Core.ActiveObjects
 			}
 
 			string deathMessage;
+			var game = CurrentCell.Region.World.Game;
 			if (CurrentCell != null)
 			{
-				var language = CurrentCell.Region.World.Game.Language;
-				deathMessage = string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Death, this, reason);
+				deathMessage = string.Format(CultureInfo.InvariantCulture, game.Language.LogActionFormats.Death, GetDescription(game.Language, game.Hero), reason);
 			}
 			else
 			{
-				deathMessage = $"{this} die: {reason}";
+				deathMessage = $"{this.GetDescription(game.Language, game.Hero)} die: {reason}";
 			}
 			WriteToLog(deathMessage);
 
@@ -247,13 +247,13 @@ namespace Roguelike.Core.ActiveObjects
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,
 					IsAgressive ? language.StartFight : language.StopFight,
-					this,
+					GetDescription(game.Language, game.Hero),
 					WeaponToFight);
 			}
 			else
 			{
 				time = balance.ActionLongevity.Disabled;
-				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeFightModeDisabled, this);
+				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeFightModeDisabled, GetDescription(game.Language, game.Hero));
 			}
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage, newActivity);
 		}
@@ -286,14 +286,14 @@ namespace Roguelike.Core.ActiveObjects
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,
 					language.ChangeWeapon,
-					this,
+					GetDescription(game.Language, game.Hero),
 					oldWeapon,
 					weapon);
 			}
 			else
 			{
 				time = balance.ActionLongevity.Disabled;
-				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeWeaponDisabled, this);
+				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeWeaponDisabled, GetDescription(game.Language, game.Hero));
 			}
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage);
 		}
@@ -319,12 +319,12 @@ namespace Roguelike.Core.ActiveObjects
 			hitPossibility += ((int) Properties.Reaction - (int) target.Properties.Reaction) * 10;
 			if (random.Next(0, 100) < hitPossibility)
 			{
-				target.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, this));
+				target.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, GetDescription(game.Language, game.Hero)));
 			}
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Attack)),
-				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Attack, this, target, WeaponToFight),
+				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Attack, GetDescription(game.Language, game.Hero), target, WeaponToFight),
 				Activity.Fights);
 		}
 
@@ -385,7 +385,7 @@ namespace Roguelike.Core.ActiveObjects
 				hitPossibility += ((int) Properties.Perception - (int) aim.Properties.Reaction) * 10;
 				if (random.Next(0, 100) < hitPossibility)
 				{
-					aim.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, this));
+					aim.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, GetDescription(game.Language, game.Hero)));
 				}
 			}
 
@@ -394,7 +394,7 @@ namespace Roguelike.Core.ActiveObjects
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Shoot)),
-				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Shoot, this, target, WeaponToFight),
+				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Shoot, GetDescription(game.Language, game.Hero), target, WeaponToFight),
 				Activity.Fights);
 		}
 
@@ -419,7 +419,7 @@ namespace Roguelike.Core.ActiveObjects
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, balance.ActionLongevity.DropItem),
-				string.Format(CultureInfo.InvariantCulture, language.DropItem, this, item));
+				string.Format(CultureInfo.InvariantCulture, language.DropItem, GetDescription(game.Language, game.Hero), item));
 		}
 
 		public sealed override ActionResult Do()
@@ -444,7 +444,7 @@ namespace Roguelike.Core.ActiveObjects
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, getLongevity(balance.ActionLongevity)),
-				string.Format(CultureInfo.InvariantCulture, getLogFormat(language.LogActionFormats), this, food.GetDescription(language, this)));
+				string.Format(CultureInfo.InvariantCulture, getLogFormat(language.LogActionFormats), GetDescription(game.Language, game.Hero), food.GetDescription(language, this)));
 		}
 
 		public ActionResult Eat(IFood food)

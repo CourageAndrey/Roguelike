@@ -26,21 +26,21 @@ namespace Roguelike.Core
 
 		public bool Equals(Vector other)
 		{
-			return X == other.X &&
-				   Y == other.Y &&
-				   Z == other.Z;
+			return	X == other.X &&
+					Y == other.Y &&
+					Z == other.Z;
 		}
 
 		public override string ToString()
 		{
-			return string.Format("({0}, {1}, {2})", X, Y, Z);
+			return $"({X}, {Y}, {Z})";
 		}
 
 		#region Mathematics
 
 		public double GetDistanceSquare(Vector other)
 		{
-			int dx = X - other.X,
+			int	dx = X - other.X,
 				dy = Y - other.Y,
 				dz = Z - other.Z;
 			return dx * dx + dy * dy + dz * dz;
@@ -53,9 +53,9 @@ namespace Roguelike.Core
 
 		public bool IsNeighboor(Vector other)
 		{
-			return Math.Abs(X - other.X) <= 1 &&
-				   Math.Abs(Y - other.Y) <= 1 &&
-				   Math.Abs(Z - other.Z) <= 1;
+			return	Math.Abs(X - other.X) <= 1 &&
+					Math.Abs(Y - other.Y) <= 1 &&
+					Math.Abs(Z - other.Z) <= 1;
 		}
 
 		public Direction GetDirection(Vector other)

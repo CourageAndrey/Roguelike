@@ -71,6 +71,7 @@
     <Compile Include="EventCollection.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Interfaces\IDescriptive.cs" />
     <Compile Include="Interfaces\IFood.cs" />
     <Compile Include="Interfaces\IDrink.cs" />
     <Compile Include="Interfaces\IMissile.cs" />

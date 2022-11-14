@@ -1,10 +1,11 @@
 ﻿using System;
 
+using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Core
 {
-	public class Activity
+	public class Activity : IDescriptive
 	{
 		private readonly Func<LanguageActivities, string> _getDescription;
 
@@ -20,9 +21,9 @@ namespace Roguelike.Core
 			}
 		}
 
-		public string GetDescription(LanguageActivities language)
+		public string GetDescription(Language language, IAlive forWhom)
 		{
-			return _getDescription(language);
+			return _getDescription(language.Character.State.Activities);
 		}
 
 		#region List

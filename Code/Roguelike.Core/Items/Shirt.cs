@@ -26,9 +26,9 @@ namespace Roguelike.Core.Items
 			: base(clothColor)
 		{ }
 
-		public override string GetDescription(LanguageItems language, IAlive forWhom)
+		public override string GetDescription(Language language, IAlive forWhom)
 		{
-			return language.Shirt;
+			return language.Items.Shirt;
 		}
 	}
 }

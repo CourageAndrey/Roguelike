@@ -444,7 +444,7 @@ namespace Roguelike.Core.ActiveObjects
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, getLongevity(balance.ActionLongevity)),
-				string.Format(CultureInfo.InvariantCulture, getLogFormat(language.LogActionFormats), this, food.GetDescription(language.Items, this)));
+				string.Format(CultureInfo.InvariantCulture, getLogFormat(language.LogActionFormats), this, food.GetDescription(language, this)));
 		}
 
 		public ActionResult Eat(IFood food)

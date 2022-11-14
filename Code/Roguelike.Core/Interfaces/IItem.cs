@@ -1,10 +1,8 @@
 ﻿using System.Drawing;
 
-using Roguelike.Core.Localization;
-
 namespace Roguelike.Core.Interfaces
 {
-	public interface IItem : IRequireGravitation
+	public interface IItem : IRequireGravitation, IDescriptive
 	{
 		ItemType Type
 		{ get; }
@@ -14,8 +12,6 @@ namespace Roguelike.Core.Interfaces
 
 		Material Material
 		{ get; }
-
-		string GetDescription(LanguageItems language, IAlive forWhom);
 
 		event EventHandler<IItem, IAlive> Picked;
 

@@ -32,7 +32,7 @@ namespace Roguelike.Core.Items
 			Owner = owner;
 		}
 
-		public override string GetDescription(LanguageItems language, IAlive forWhom)
+		public override string GetDescription(Language language, IAlive forWhom)
 		{
 			throw new NotSupportedException();
 		}

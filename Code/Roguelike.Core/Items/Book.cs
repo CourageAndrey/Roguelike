@@ -34,9 +34,9 @@ namespace Roguelike.Core.Items
 
 		#endregion
 
-		public override string GetDescription(LanguageItems language, IAlive forWhom)
+		public override string GetDescription(Language language, IAlive forWhom)
 		{
-			return language.Book;
+			return language.Items.Book;
 		}
 
 		public string GetTitle(LanguageBooks language)

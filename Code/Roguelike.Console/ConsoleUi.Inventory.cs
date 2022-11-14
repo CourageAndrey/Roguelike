@@ -28,7 +28,7 @@ namespace Roguelike.Console
 			public IWear Wear
 			{ get; }
 
-			private readonly LanguageItems _languageItems;
+			private readonly Language _language;
 
 			private static readonly IDictionary<WearSlot, Func<LanguageManequin, string>> _slotNames = new Dictionary<WearSlot, Func<LanguageManequin, string>>
 			{
@@ -49,7 +49,7 @@ namespace Roguelike.Console
 				SlotName = _slotNames[slot](language.Character.Manequin);
 				Letter = letter;
 				Wear = wear;
-				_languageItems = language.Items;
+				_language = language;
 			}
 
 			public void Display(IAlive forWhom)
@@ -83,7 +83,7 @@ namespace Roguelike.Console
 				else
 				{
 					System.Console.ForegroundColor = Wear.Material.Color.ToConsole();
-					System.Console.WriteLine($" {Wear.GetDescription(_languageItems, forWhom)}");
+					System.Console.WriteLine($" {Wear.GetDescription(_language, forWhom)}");
 					System.Console.ForegroundColor = ConsoleColor.White;
 				}
 			}
@@ -96,7 +96,7 @@ namespace Roguelike.Console
 				System.Console.Write($"[{Letter}]");
 
 				System.Console.ForegroundColor = ConsoleColor.Cyan;
-				System.Console.WriteLine($" {Wear.GetDescription(_languageItems, forWhom)}");
+				System.Console.WriteLine($" {Wear.GetDescription(_language, forWhom)}");
 				System.Console.ForegroundColor = ConsoleColor.White;
 			}
 

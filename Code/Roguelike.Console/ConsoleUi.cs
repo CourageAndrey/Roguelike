@@ -328,7 +328,7 @@ namespace Roguelike.Console
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
 				System.Console.WriteLine($"=== {languageUi.State.ToUpperInvariant()} ===");
 				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.WriteLine($"{humanoid.State.GetDescription(language.Character.State, game.Hero)}");
+				System.Console.WriteLine($"{humanoid.State.GetDescription(language, game.Hero)}");
 				System.Console.WriteLine();
 
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -361,18 +361,18 @@ namespace Roguelike.Console
 		{
 			startDialog(() =>
 			{
-				var itemsLanguage = game.Language.Items;
+				var language = game.Language;
 
 				foreach (var itemTypeGroup in humanoid.Inventory.GroupBy(item => item.Type))
 				{
 					System.Console.ForegroundColor = ConsoleColor.Yellow;
-					System.Console.WriteLine($"=== {itemTypeGroup.Key.GetName(itemsLanguage.ItemTypes)}: ===");
+					System.Console.WriteLine($"=== {itemTypeGroup.Key.GetName(language.Items.ItemTypes)}: ===");
 					System.Console.ForegroundColor = ConsoleColor.White;
 
 					foreach (var item in itemTypeGroup)
 					{
 						System.Console.ForegroundColor = item.Material.Color.ToConsole();
-						System.Console.WriteLine(item.GetDescription(itemsLanguage, humanoid));
+						System.Console.WriteLine(item.GetDescription(language, humanoid));
 					}
 
 					System.Console.WriteLine();
@@ -388,11 +388,11 @@ namespace Roguelike.Console
 
 			startDialog(() =>
 			{
-				var languageItems = game.Language.Items;
+				var language = game.Language;
 
 				do
 				{
-					var itemSlots = EquipmentSlot.Display(game.Language, game.Hero, game.Hero.Manequin);
+					var itemSlots = EquipmentSlot.Display(language, game.Hero, game.Hero.Manequin);
 					var key = System.Console.ReadKey(true);
 
 					if (char.IsLetter(key.KeyChar))
@@ -405,11 +405,11 @@ namespace Roguelike.Console
 							{ // dress
 								var possibleItems = itemSlot
 									.FilterSuitableItems(game.Hero.Inventory)
-									.Select(i => new ListItem<IItem>(i, i.GetDescription(languageItems, game.Hero)))
+									.Select(i => new ListItem<IItem>(i, i.GetDescription(language, game.Hero)))
 								.ToList();
 
 								ListItem selectedItemItem;
-								if (TrySelectItem(game, game.Language.Promts.SelectWear, possibleItems, out selectedItemItem))
+								if (TrySelectItem(game, language.Promts.SelectWear, possibleItems, out selectedItemItem))
 								{
 									var itemToDress = (IWear) selectedItemItem.ValueObject;
 									manequin.Dress(itemToDress);

@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 
 using Roguelike.Core.Configuration;
+using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.ActiveObjects
 {
@@ -46,7 +48,7 @@ namespace Roguelike.Core.ActiveObjects
 						string.Format(
 							CultureInfo.InvariantCulture,
 							game.Language.LogActionFormats.Wait,
-							this));
+							GetDescription(game.Language, game.Hero)));
 				}
 			}
 		}
@@ -54,6 +56,11 @@ namespace Roguelike.Core.ActiveObjects
 		public override Body CreateBody()
 		{
 			return ActiveObjects.Body.CreateAnimal();
+		}
+
+		public override string GetDescription(Language language, IAlive forWhom)
+		{
+			return language.Objects.Dog;
 		}
 	}
 }

@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.Linq;
 
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.StaticObjects
 {
@@ -35,7 +35,7 @@ namespace Roguelike.Core.StaticObjects
 					}
 					return new ActionResult(
 						Time.FromTicks(balance.Time, balance.ActionLongevity.ChopTree),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ChopTree, a, CurrentCell.Position),
+						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ChopTree, a.GetDescription(game.Language, game.Hero), CurrentCell.Position),
 						Activity.ChopsTree);
 				}),
 			};
@@ -48,6 +48,11 @@ namespace Roguelike.Core.StaticObjects
 			CurrentCell.AddObject(new Stump());
 			CurrentCell.RemoveObject(this);
 			return new IItem[] { new Log() };
+		}
+
+		public override string GetDescription(Language language, IAlive forWhom)
+		{
+			return language.Objects.Tree;
 		}
 	}
 }

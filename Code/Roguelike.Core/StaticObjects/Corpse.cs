@@ -1,4 +1,8 @@
-﻿using Roguelike.Core.ActiveObjects;
+﻿using System.Globalization;
+
+using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.StaticObjects
 {
@@ -17,6 +21,11 @@ namespace Roguelike.Core.StaticObjects
 		public Corpse(Alive alive)
 		{
 			Alive = alive;
+		}
+
+		public override string GetDescription(Language language, IAlive forWhom)
+		{
+			return string.Format(CultureInfo.InvariantCulture, language.Objects.CorpseFormat, Alive.GetDescription(language, forWhom));
 		}
 	}
 }

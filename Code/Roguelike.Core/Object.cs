@@ -1,10 +1,11 @@
 ﻿using System.Threading;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core
 {
-	public class Object : IObject, IHasOwner
+	public abstract class Object : IObject, IHasOwner
 	{
 		#region Properties
 
@@ -55,6 +56,8 @@ namespace Roguelike.Core
 		#endregion
 
 		#endregion
+
+		public abstract string GetDescription(Language language, IAlive forWhom);
 
 		#region Movement
 

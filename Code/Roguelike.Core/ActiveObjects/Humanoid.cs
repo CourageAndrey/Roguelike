@@ -146,5 +146,14 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			return ActiveObjects.Body.CreateHumanoid();
 		}
+
+		public override string GetDescription(Language language, IAlive forWhom)
+		{
+			return forWhom == this || (forWhom as Humanoid)?._knownPersons.Contains(this) == true
+				? Name
+				: (SexIsMale
+					? language.Objects.HumanMale
+					: language.Objects.HumanFemale);
+		}
 	}
 }

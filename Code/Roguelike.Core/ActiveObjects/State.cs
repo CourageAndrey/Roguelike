@@ -409,7 +409,8 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			_foodLevel /= 20;
 			_waterLevel /= 5;
-			(_owner as Active)?.WriteToLog(string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Vomit, _owner));
+			var hero = _owner.CurrentCell.Region.World.Game.Hero;
+			(_owner as Active)?.WriteToLog(string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Vomit, _owner.GetDescription(language, hero)));
 		}
 
 		public void PassTime(Time span, Language language)

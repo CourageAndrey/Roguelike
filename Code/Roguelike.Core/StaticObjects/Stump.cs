@@ -1,4 +1,7 @@
-﻿namespace Roguelike.Core.StaticObjects
+﻿using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
+
+namespace Roguelike.Core.StaticObjects
 {
 	public class Stump : Object
 	{
@@ -8,5 +11,10 @@
 		{ get { return false; } }
 
 		#endregion
+
+		public override string GetDescription(Language language, IAlive forWhom)
+		{
+			return language.Objects.Stump;
+		}
 	}
 }

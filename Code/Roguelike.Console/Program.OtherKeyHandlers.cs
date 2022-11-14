@@ -98,7 +98,7 @@ namespace Roguelike.Console
 			World world,
 			Hero hero)
 		{
-			var itemsToDrop = hero.Inventory.Select(i => new ListItem<IItem>(i, i.GetDescription(language.Items, hero)));
+			var itemsToDrop = hero.Inventory.Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
 
 			ListItem selectedItemToDrop;
 			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrop, itemsToDrop, out selectedItemToDrop))
@@ -127,7 +127,7 @@ namespace Roguelike.Console
 
 			IWeapon selectedWeapon;
 			ListItem selectedWeaponItem;
-			if (ui.TrySelectItem(game, language.Promts.SelectWeapon, weapons.Select(w => new ListItem<IWeapon>(w, w.GetDescription(language.Items, hero))), out selectedWeaponItem))
+			if (ui.TrySelectItem(game, language.Promts.SelectWeapon, weapons.Select(w => new ListItem<IWeapon>(w, w.GetDescription(language, hero))), out selectedWeaponItem))
 			{
 				selectedWeapon = ((ListItem<IWeapon>) selectedWeaponItem).Value;
 			}
@@ -380,7 +380,7 @@ namespace Roguelike.Console
 			World world,
 			Hero hero)
 		{
-			var itemsToEat = hero.Inventory.Where(i => i.Type == ItemType.Food).Select(i => new ListItem<IItem>(i, i.GetDescription(language.Items, hero)));
+			var itemsToEat = hero.Inventory.Where(i => i.Type == ItemType.Food).Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
 
 			ListItem selectedItemToEat;
 			if (ui.TrySelectItem(game, language.Promts.SelectItemToEat, itemsToEat, out selectedItemToEat))
@@ -406,7 +406,7 @@ namespace Roguelike.Console
 				return source.Drink(hero);
 			}
 
-			var itemsToDrink = hero.Inventory.Where(i => i.Type == ItemType.Potion).Select(i => new ListItem<IItem>(i, i.GetDescription(language.Items, hero)));
+			var itemsToDrink = hero.Inventory.Where(i => i.Type == ItemType.Potion).Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
 			ListItem selectedItemToDrink;
 			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrink, itemsToDrink, out selectedItemToDrink))
 			{

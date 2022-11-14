@@ -35,9 +35,9 @@ namespace Roguelike.Core.Items
 			Fighter = fighter;
 		}
 
-		public override string GetDescription(LanguageItems language, IAlive forWhom)
+		public override string GetDescription(Language language, IAlive forWhom)
 		{
-			return language.Unarmed;
+			return language.Items.Unarmed;
 		}
 	}
 }

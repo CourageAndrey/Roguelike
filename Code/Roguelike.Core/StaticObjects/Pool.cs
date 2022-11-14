@@ -45,7 +45,7 @@ namespace Roguelike.Core.StaticObjects
 			public Material Material
 			{ get { throw new System.NotSupportedException(); } }
 
-			public string GetDescription(LanguageItems language, IAlive forWhom)
+			public string GetDescription(Language language, IAlive forWhom)
 			{
 #warning Objects also need localization.
 				return ToString();

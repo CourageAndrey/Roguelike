@@ -187,14 +187,15 @@ namespace Roguelike.Core.ActiveObjects
 			Activity = Activity.Stands;
 		}
 
-		public string GetDescription(LanguageState language, IAlive forWhom)
+		public string GetDescription(Language language, IAlive forWhom)
 		{
 			var result = new StringBuilder();
+			var languageState = language.Character.State;
 
-			string activity = Activity.GetDescription(language.Activities);
+			string activity = Activity.GetDescription(language, forWhom);
 			if (!string.IsNullOrEmpty(activity))
 			{
-				result.Append($"{language.Activity} : activity");
+				result.Append($"{languageState.Activity} : activity");
 			}
 
 			if (IsSick)
@@ -203,7 +204,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsSick} ({string.Join(", ", _diseases)})");
+				result.Append($"{languageState.IsSick} ({string.Join(", ", _diseases)})");
 			}
 
 			if (_isDirty)
@@ -212,7 +213,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsDirty}");
+				result.Append($"{languageState.IsDirty}");
 			}
 
 			if (_isPoisoned)
@@ -221,7 +222,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsPoisoned}");
+				result.Append($"{languageState.IsPoisoned}");
 			}
 
 			if (_hasHangover)
@@ -230,7 +231,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.HasHangover}");
+				result.Append($"{languageState.HasHangover}");
 			}
 
 			if (_isDrunk)
@@ -239,7 +240,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsDrunk}");
+				result.Append($"{languageState.IsDrunk}");
 			}
 
 			if (_isScared)
@@ -248,7 +249,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsScared}");
+				result.Append($"{languageState.IsScared}");
 			}
 
 			if (_isLightningBurned)
@@ -257,7 +258,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsLightningBurned}");
+				result.Append($"{languageState.IsLightningBurned}");
 			}
 
 			if (_isAcidBurned)
@@ -266,7 +267,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsAcidBurned}");
+				result.Append($"{languageState.IsAcidBurned}");
 			}
 
 			if (_isFireBurned)
@@ -275,7 +276,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsFireBurned}");
+				result.Append($"{languageState.IsFireBurned}");
 			}
 
 			if (_isSunburned)
@@ -284,7 +285,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsSunburned}");
+				result.Append($"{languageState.IsSunburned}");
 			}
 
 			if (_isFrozen)
@@ -293,7 +294,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsFrozen}");
+				result.Append($"{languageState.IsFrozen}");
 			}
 
 			if (_isConfused)
@@ -302,7 +303,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsConfused}");
+				result.Append($"{languageState.IsConfused}");
 			}
 
 			if (_isLosingBlood)
@@ -311,7 +312,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsLosingBlood}");
+				result.Append($"{languageState.IsLosingBlood}");
 			}
 
 			if (_isFallingAsleep)
@@ -320,7 +321,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsFallingAsleep}");
+				result.Append($"{languageState.IsFallingAsleep}");
 			}
 
 			if (_isTired)
@@ -329,7 +330,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsTired}");
+				result.Append($"{languageState.IsTired}");
 			}
 
 			if (IsThirsty)
@@ -338,7 +339,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsThirsty}");
+				result.Append($"{languageState.IsThirsty}");
 			}
 
 			if (IsBloated)
@@ -347,7 +348,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsBloated}");
+				result.Append($"{languageState.IsBloated}");
 			}
 
 			if (IsHungry)
@@ -356,7 +357,7 @@ namespace Roguelike.Core.ActiveObjects
 				{
 					result.Append(", ");
 				}
-				result.Append($"{language.IsHungry}");
+				result.Append($"{languageState.IsHungry}");
 			}
 
 			if (result.Length == 0)

@@ -57,6 +57,6 @@ namespace Roguelike.Core
 			}
 		}
 
-		public abstract string GetDescription(LanguageItems language, IAlive forWhom);
+		public abstract string GetDescription(Language language, IAlive forWhom);
 	}
 }

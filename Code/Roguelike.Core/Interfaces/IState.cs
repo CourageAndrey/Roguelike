@@ -2,7 +2,7 @@
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IState
+	public interface IState : IDescriptive
 	{
 		bool IsHungry
 		{ get; }
@@ -63,8 +63,6 @@ namespace Roguelike.Core.Interfaces
 
 		event EventHandler<IState> Changed;
 #warning Need to subscribe this event in order to track hero's state
-
-		string GetDescription(LanguageState language, IAlive forWhom);
 
 		void SetActivity(Activity activity);
 

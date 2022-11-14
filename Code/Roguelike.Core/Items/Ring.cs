@@ -29,9 +29,9 @@ namespace Roguelike.Core.Items
 			: base(Color.Aquamarine)
 		{ }
 
-		public override string GetDescription(LanguageItems language, IAlive forWhom)
+		public override string GetDescription(Language language, IAlive forWhom)
 		{
-			return language.Ring;
+			return language.Items.Ring;
 		}
 	}
 }

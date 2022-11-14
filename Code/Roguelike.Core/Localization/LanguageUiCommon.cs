@@ -13,6 +13,12 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Cancel
 		{ get; set; }
+		[XmlElement]
+		public string Yes
+		{ get; set; }
+		[XmlElement]
+		public string No
+		{ get; set; }
 
 		#endregion
 
@@ -22,6 +28,8 @@ namespace Roguelike.Core.Localization
 			{
 				Ok = "OK",
 				Cancel = "Cancel",
+				Yes = "Yes",
+				No = "No",
 			};
 		}
 	}

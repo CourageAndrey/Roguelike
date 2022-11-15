@@ -53,21 +53,21 @@ namespace Roguelike.Core
 				seed.Next(10, balance.WorldSize.RegionYdimension - 50),
 				0);
 			Hero.MoveTo(heroCell);
-			Hero.Inventory.Add(new Hatchet());
-			Hero.Inventory.Add(new Bow());
+			Hero.Inventory.Add(ItemFactory.CreateHatchet());
+			Hero.Inventory.Add(ItemFactory.CreateBow());
 			for (int i = 0; i < 3; i++)
 			{
-				Hero.Inventory.Add(new LoafOfBread());
-				Hero.Inventory.Add(new BottleOFWater());
+				Hero.Inventory.Add(ItemFactory.CreateLoafOfBread());
+				Hero.Inventory.Add(ItemFactory.CreateBottleOFWater());
 			}
-			Hero.Manequin.LowerBodyWear = new Trousers(Color.Brown);
-			Hero.Manequin.UpperBodyWear = new Shirt(Color.LightGray);
-			Hero.Manequin.Jewelry.Add(new Ring());
+			Hero.Manequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
+			Hero.Manequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
+			Hero.Manequin.Jewelry.Add(ItemFactory.CreateRing());
 			for (int i = 0; i < 20; i++)
 			{
-				Hero.Inventory.Add(new Arrow());
+				Hero.Inventory.Add(ItemFactory.CreateArrow());
 			}
-			Hero.Inventory.Add(new Book(Color.Coral, language => language.HelloWorld, language => language.HelloWorld));
+			Hero.Inventory.Add(ItemFactory.CreateBook(Color.Coral, language => language.HelloWorld, language => language.HelloWorld));
 			Hero.MakeMapKnown(balance.Distance.HeroInitialView);
 
 			region.CreateVillage(

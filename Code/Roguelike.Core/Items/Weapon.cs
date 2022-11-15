@@ -1,28 +1,22 @@
-﻿using System.Drawing;
-using System.Threading;
+﻿using System.Threading;
 
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Items
 {
-	public abstract class Weapon : Item, IWeapon
+	public class Weapon : IItemAspect
 	{
-		#region Properties
-
-		public override ItemType Type
-		{ get { return ItemType.Weapon; } }
-
-		public override Color Color
-		{ get { return Material.Color; } }
-
-		public abstract bool IsRange
+		public bool IsRange
 		{ get; }
 
-		public event EventHandler<IWeapon, IAlive> PreparedForBattle;
+		public event EventHandler<Weapon, IAlive> PreparedForBattle;
 
-		public event EventHandler<IWeapon, IAlive> StoppedBattle;
+		public event EventHandler<Weapon, IAlive> StoppedBattle;
 
-		#endregion
+		public Weapon(bool isRange)
+		{
+			IsRange = isRange;
+		}
 
 		public void RaisePreparedForBattle(IAlive who)
 		{

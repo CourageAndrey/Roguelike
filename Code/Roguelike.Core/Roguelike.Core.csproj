@@ -72,11 +72,13 @@
     <Compile Include="EventHandler.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Interfaces\IDescriptive.cs" />
-    <Compile Include="Interfaces\IFood.cs" />
-    <Compile Include="Interfaces\IDrink.cs" />
-    <Compile Include="Interfaces\IMissile.cs" />
+    <Compile Include="Items\Food.cs" />
+    <Compile Include="Items\Drink.cs" />
+    <Compile Include="Items\Naked.cs" />
+    <Compile Include="Items\TreeChopper.cs" />
+    <Compile Include="Items\Missile.cs" />
     <Compile Include="Interfaces\ITransport.cs" />
-    <Compile Include="Interfaces\IPaper.cs" />
+    <Compile Include="Items\Paper.cs" />
     <Compile Include="Interfaces\IItemsContainer.cs" />
     <Compile Include="Interfaces\ITree.cs" />
     <Compile Include="Interfaces\IDoor.cs" />
@@ -98,24 +100,11 @@
     <Compile Include="Interfaces\IRequireGravitation.cs" />
     <Compile Include="Interfaces\ISleepingArea.cs" />
     <Compile Include="Interfaces\IWaterSource.cs" />
-    <Compile Include="Interfaces\IWeapon.cs" />
-    <Compile Include="Interfaces\IWear.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="Items\Book.cs" />
-    <Compile Include="Items\Arrow.cs" />
-    <Compile Include="Items\Bow.cs" />
-    <Compile Include="Items\BottleOFWater.cs" />
-    <Compile Include="Items\LoafOfBread.cs" />
-    <Compile Include="Items\Hatchet.cs" />
-    <Compile Include="Items\Log.cs" />
-    <Compile Include="Items\Naked.cs" />
-    <Compile Include="Items\Ring.cs" />
     <Compile Include="Items\Unarmed.cs" />
     <Compile Include="Items\Weapon.cs" />
-    <Compile Include="Items\Shirt.cs" />
-    <Compile Include="Items\Trousers.cs" />
-    <Compile Include="Items\Skirt.cs" />
     <Compile Include="Items\Wear.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Items\ItemFactory.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Localization\LanguageObjects.cs" />
     <Compile Include="Localization\LanguageDeathReasons.cs" />
@@ -180,6 +169,7 @@
       <HintPath>..\..\..\..\..\..\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.30\System.Drawing.Primitives.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

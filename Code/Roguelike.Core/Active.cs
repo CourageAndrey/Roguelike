@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Items;
 
 namespace Roguelike.Core
 {
@@ -35,7 +36,7 @@ namespace Roguelike.Core
 
 				var alive = this as IAlive;
 				IAlive target = null;
-				if (alive?.IsAgressive == true && alive?.WeaponToFight?.IsRange == false && (target = newCell.Objects.OfType<IAlive>().FirstOrDefault()) != null)
+				if (alive?.IsAgressive == true && alive?.WeaponToFight?.GetAspect<Weapon>()?.IsRange == false && (target = newCell.Objects.OfType<IAlive>().FirstOrDefault()) != null)
 				{
 					return alive.Attack(target);
 				}

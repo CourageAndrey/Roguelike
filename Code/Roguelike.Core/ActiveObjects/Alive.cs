@@ -60,7 +60,7 @@ namespace Roguelike.Core.ActiveObjects
 		public decimal Weight
 		{ get; private set; }
 
-		public IWeapon WeaponToFight
+		public IItem WeaponToFight
 		{ get; private set; }
 
 		public bool IsAgressive
@@ -96,7 +96,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		public event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
 
-		public event ValueChangedEventHandler<IAlive, IWeapon> WeaponChanged;
+		public event ValueChangedEventHandler<IAlive, IItem> WeaponChanged;
 
 		public event EventHandler<IAlive, string> OnDeath;
 
@@ -118,7 +118,7 @@ namespace Roguelike.Core.ActiveObjects
 			}
 		}
 
-		protected void RaiseWeaponChanged(IWeapon oldWeapon, IWeapon newWeapon)
+		protected void RaiseWeaponChanged(IItem oldWeapon, IItem newWeapon)
 		{
 			var handler = Volatile.Read(ref WeaponChanged);
 			if (handler != null)
@@ -234,12 +234,12 @@ namespace Roguelike.Core.ActiveObjects
 
 				if (agressive)
 				{
-					WeaponToFight.RaisePreparedForBattle(this);
+					WeaponToFight.GetAspect<Weapon>().RaisePreparedForBattle(this);
 					newActivity = Activity.Guards;
 				}
 				else
 				{
-					WeaponToFight.RaiseStoppedBattle(this);
+					WeaponToFight.GetAspect<Weapon>().RaiseStoppedBattle(this);
 					newActivity = Activity.Stands;
 				}
 
@@ -258,7 +258,7 @@ namespace Roguelike.Core.ActiveObjects
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage, newActivity);
 		}
 
-		public ActionResult ChangeWeapon(IWeapon weapon)
+		public ActionResult ChangeWeapon(IItem weapon)
 		{
 			int time;
 			string logMessage;
@@ -336,7 +336,7 @@ namespace Roguelike.Core.ActiveObjects
 			var language = game.Language;
 			var random = new Random(DateTime.Now.Millisecond);
 
-			var missile = Inventory.OfType<Arrow>().First();
+			var missile = Inventory.Select<Missile>().First();
 
 			if (!CurrentCell.Position.Equals(target.Position))
 			{
@@ -431,7 +431,7 @@ namespace Roguelike.Core.ActiveObjects
 		protected abstract ActionResult DoImplementation();
 
 		private ActionResult EatDrink(
-			IFood food,
+			IItem food,
 			Func<ActionLongevityBalance, long> getLongevity,
 			Func<LanguageLogActionFormats, string> getLogFormat)
 		{
@@ -440,19 +440,19 @@ namespace Roguelike.Core.ActiveObjects
 			Balance balance = game.Balance;
 			var language = game.Language;
 
-			State.EatDrink(food, language);
+			State.EatDrink(food.GetAspect<Food>(), language);
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, getLongevity(balance.ActionLongevity)),
 				string.Format(CultureInfo.InvariantCulture, getLogFormat(language.LogActionFormats), GetDescription(game.Language, game.Hero), food.GetDescription(language, this)));
 		}
 
-		public ActionResult Eat(IFood food)
+		public ActionResult Eat(IItem food)
 		{
 			return EatDrink(food, b => b.Eat, f => f.Eat);
 		}
 
-		public ActionResult Drink(IDrink drink)
+		public ActionResult Drink(IItem drink)
 		{
 			return EatDrink(drink, b => b.Drink, f => f.Drink);
 		}

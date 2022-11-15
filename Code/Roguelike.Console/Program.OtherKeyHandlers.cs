@@ -118,18 +118,18 @@ namespace Roguelike.Console
 			World world,
 			Hero hero)
 		{
-			var weapons = new List<IWeapon>(hero.Inventory.OfType<IWeapon>()).ToList();
+			var weapons = new List<IItem>(hero.Inventory.Where(i => i.Is<Weapon>())).ToList();
 			if (hero.WeaponToFight.GetType() != typeof(Unarmed))
 			{
 				weapons.Remove(hero.WeaponToFight);
 				weapons.Add(new Unarmed(hero));
 			}
 
-			IWeapon selectedWeapon;
+			IItem selectedWeapon;
 			ListItem selectedWeaponItem;
-			if (ui.TrySelectItem(game, language.Promts.SelectWeapon, weapons.Select(w => new ListItem<IWeapon>(w, w.GetDescription(language, hero))), out selectedWeaponItem))
+			if (ui.TrySelectItem(game, language.Promts.SelectWeapon, weapons.Select(w => new ListItem<IItem>(w, w.GetDescription(language, hero))), out selectedWeaponItem))
 			{
-				selectedWeapon = ((ListItem<IWeapon>) selectedWeaponItem).Value;
+				selectedWeapon = ((ListItem<IItem>) selectedWeaponItem).Value;
 			}
 			else
 			{
@@ -292,15 +292,15 @@ namespace Roguelike.Console
 			World world,
 			Hero hero)
 		{
-			IPaper selectedBook = null;
+			Paper selectedBook = null;
 
-			var booksToRead = hero.Inventory.OfType<IPaper>().Select(i => new ListItem<IPaper>(i, i.GetTitle(language.Books))).ToList();
+			var booksToRead = hero.Inventory.OfType<Paper>().Select(i => new ListItem<Paper>(i, i.GetTitle(language.Books))).ToList();
 			if (booksToRead.Count > 0)
 			{
 				ListItem selectedBookToRead;
 				if (ui.TrySelectItem(game, language.Promts.SelectItemToRead, booksToRead, out selectedBookToRead))
 				{
-					selectedBook = ((ListItem<IPaper>) selectedBookToRead).Value;
+					selectedBook = ((ListItem<Paper>) selectedBookToRead).Value;
 				}
 			}
 
@@ -366,8 +366,8 @@ namespace Roguelike.Console
 		{
 			Cell target;
 			return	hero.IsAgressive &&
-					hero.WeaponToFight.IsRange &&
-					hero.Inventory.OfType<Arrow>().Any() &&
+					hero.WeaponToFight.GetAspect<Weapon>().IsRange &&
+					hero.Inventory.Select<Missile>().Any() &&
 					(target = ui.SelectShootingTarget(game)) != null
 				? hero.Shoot(target)
 				: null;
@@ -385,7 +385,7 @@ namespace Roguelike.Console
 			ListItem selectedItemToEat;
 			if (ui.TrySelectItem(game, language.Promts.SelectItemToEat, itemsToEat, out selectedItemToEat))
 			{
-				return hero.Eat((IFood) selectedItemToEat.ValueObject);
+				return hero.Eat(((ListItem<IItem>) selectedItemToEat).Value);
 			}
 			else
 			{
@@ -410,7 +410,7 @@ namespace Roguelike.Console
 			ListItem selectedItemToDrink;
 			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrink, itemsToDrink, out selectedItemToDrink))
 			{
-				return hero.Drink((IDrink) selectedItemToDrink.ValueObject);
+				return hero.Drink(((ListItem<IItem>) selectedItemToDrink).Value);
 			}
 
 			return null;

@@ -26,7 +26,7 @@ namespace Roguelike.Core.StaticObjects
 			var language = game.Language;
 			return new List<Interaction>
 			{
-				new Interaction(language.Interactions.ChopTree, (actor as IAlive)?.Inventory.OfType<Hatchet>().Any() == true, a =>
+				new Interaction(language.Interactions.ChopTree, (actor as IAlive)?.Inventory.Any(item => item.Is<TreeChopper>()) == true, a =>
 				{
 					var inventory = ((IAlive) a).Inventory;
 					foreach (var log in Chop())
@@ -47,7 +47,7 @@ namespace Roguelike.Core.StaticObjects
 		{
 			CurrentCell.AddObject(new Stump());
 			CurrentCell.RemoveObject(this);
-			return new IItem[] { new Log() };
+			return new IItem[] { ItemFactory.CreateLog() };
 		}
 
 		public override string GetDescription(Language language, IAlive forWhom)

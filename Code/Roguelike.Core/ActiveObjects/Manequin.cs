@@ -14,51 +14,51 @@ namespace Roguelike.Core.ActiveObjects
 		private readonly IHumanoid _owner;
 		private readonly Naked _naked;
 
-		public IWear HeadWear
+		public IItem HeadWear
 		{
 			get { return _headWear; }
-			set { ChangeEquipmentPosition(value ?? new Naked(_owner), WearSlot.Head, ref _headWear); }
+			set { ChangeEquipmentPosition(value ?? _naked, WearSlot.Head, ref _headWear); }
 		}
 
-		public IWear UpperBodyWear
+		public IItem UpperBodyWear
 		{
 			get { return _upperBodyWear; }
-			set { ChangeEquipmentPosition(value ?? new Naked(_owner), WearSlot.UpperBody, ref _upperBodyWear); }
+			set { ChangeEquipmentPosition(value ?? _naked, WearSlot.UpperBody, ref _upperBodyWear); }
 		}
 
-		public IWear LowerBodyWear
+		public IItem LowerBodyWear
 		{
 			get { return _lowerBodyWear; }
-			set { ChangeEquipmentPosition(value ?? new Naked(_owner), WearSlot.LowerBody, ref _lowerBodyWear); }
+			set { ChangeEquipmentPosition(value ?? _naked, WearSlot.LowerBody, ref _lowerBodyWear); }
 		}
 
-		public IWear CoverWear
+		public IItem CoverWear
 		{
 			get { return _coverWear; }
-			set { ChangeEquipmentPosition(value ?? new Naked(_owner), WearSlot.Cover, ref _coverWear); }
+			set { ChangeEquipmentPosition(value ?? _naked, WearSlot.Cover, ref _coverWear); }
 		}
 
-		public IWear HandsWear
+		public IItem HandsWear
 		{
 			get { return _handsWear; }
-			set { ChangeEquipmentPosition(value ?? new Naked(_owner), WearSlot.Hands, ref _handsWear); }
+			set { ChangeEquipmentPosition(value ?? _naked, WearSlot.Hands, ref _handsWear); }
 		}
 
-		public IWear FootsWear
+		public IItem FootsWear
 		{
 			get { return _footsWear; }
-			set { ChangeEquipmentPosition(value ?? new Naked(_owner), WearSlot.Foots, ref _footsWear); }
+			set { ChangeEquipmentPosition(value ?? _naked, WearSlot.Foots, ref _footsWear); }
 		}
 
-		public ICollection<IWear> Jewelry
+		public ICollection<IItem> Jewelry
 		{ get; }
 
-		private IWear _headWear;
-		private IWear _upperBodyWear;
-		private IWear _lowerBodyWear;
-		private IWear _coverWear;
-		private IWear _handsWear;
-		private IWear _footsWear;
+		private IItem _headWear;
+		private IItem _upperBodyWear;
+		private IItem _lowerBodyWear;
+		private IItem _coverWear;
+		private IItem _handsWear;
+		private IItem _footsWear;
 
 		public event EventHandler<IManequin> EquipmentChanged;
 
@@ -75,13 +75,13 @@ namespace Roguelike.Core.ActiveObjects
 
 		public Manequin(
 			IHumanoid owner,
-			IWear headWear = null,
-			IWear upperBodyWear = null,
-			IWear lowerBodyWear = null,
-			IWear coverWear = null,
-			IWear handsWear = null,
-			IWear footsWear = null,
-			IEnumerable<IWear> jewelry = null)
+			IItem headWear = null,
+			IItem upperBodyWear = null,
+			IItem lowerBodyWear = null,
+			IItem coverWear = null,
+			IItem handsWear = null,
+			IItem footsWear = null,
+			IEnumerable<IItem> jewelry = null)
 		{
 			if (owner == null) throw new ArgumentNullException(nameof(owner));
 
@@ -95,42 +95,40 @@ namespace Roguelike.Core.ActiveObjects
 			HandsWear = handsWear ?? _naked;
 			FootsWear = footsWear ?? _naked;
 
-			var jewelryCollection = new EventCollection<IWear>(jewelry ?? new IWear[0]);
+			var jewelryCollection = new EventCollection<IItem>(jewelry ?? new IItem[0]);
 			jewelryCollection.ItemAdded += (sender, eventArgs) =>
 			{
-				_owner.Inventory.Remove(eventArgs.Item);
-				eventArgs.Item.RaiseEquipped(_owner);
+				eventArgs.Item.GetAspect<Wear>().RaiseEquipped(_owner);
 				RaiseEquipmentChanged();
 			};
 			jewelryCollection.ItemRemoved += (sender, eventArgs) =>
 			{
-				_owner.Inventory.Add(eventArgs.Item);
 				RaiseEquipmentChanged();
-				eventArgs.Item.RaiseUnequipped(_owner);
+				eventArgs.Item.GetAspect<Wear>().RaiseUnequipped(_owner);
 			};
 			Jewelry = jewelryCollection;
 		}
 
-		private void ChangeEquipmentPosition(IWear newItem, WearSlot slot, ref IWear itemSlot)
+		private void ChangeEquipmentPosition(IItem newItem, WearSlot slot, ref IItem itemSlot)
 		{
 			if (newItem == null) throw new ArgumentNullException(nameof(newItem));
 
 			if (itemSlot != null && !(itemSlot is Naked))
 			{
-				itemSlot.RaiseUnequipped(_owner);
+				itemSlot.GetAspect<Wear>().RaiseUnequipped(_owner);
 				_owner.Inventory.Add(itemSlot);
 			}
 			itemSlot = newItem;
 			if (!(itemSlot is Naked))
 			{
-				if (newItem.SuitableSlot == slot)
+				if (newItem.GetAspect<Wear>().SuitableSlot == slot)
 				{
-					itemSlot.RaiseEquipped(_owner);
+					itemSlot.GetAspect<Wear>().RaiseEquipped(_owner);
 					_owner.Inventory.Remove(itemSlot);
 				}
 				else
 				{
-					throw new InvalidOperationException("Item doe not suit slot type.");
+					throw new InvalidOperationException("Item does not suit slot type.");
 				}
 			}
 

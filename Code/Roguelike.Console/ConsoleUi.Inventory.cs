@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Console
@@ -25,7 +26,7 @@ namespace Roguelike.Console
 			public string SlotName
 			{ get; }
 
-			public IWear Wear
+			public IItem Wear
 			{ get; }
 
 			private readonly Language _language;
@@ -43,7 +44,7 @@ namespace Roguelike.Console
 
 			#endregion
 
-			private EquipmentSlot(char letter, WearSlot slot, IWear wear, Language language)
+			private EquipmentSlot(char letter, WearSlot slot, IItem wear, Language language)
 			{
 				Slot = slot;
 				SlotName = _slotNames[slot](language.Character.Manequin);
@@ -76,7 +77,7 @@ namespace Roguelike.Console
 				System.Console.ForegroundColor = ConsoleColor.White;
 				System.Console.Write($" {SlotName} : ");
 
-				if (Wear is Core.Items.Naked)
+				if (Wear is Naked)
 				{
 					System.Console.WriteLine(_emptySlot);
 				}
@@ -151,7 +152,7 @@ namespace Roguelike.Console
 
 			public IEnumerable<IItem> FilterSuitableItems(IEnumerable<IItem> items)
 			{
-				return items.OfType<IWear>().Where(i => i.SuitableSlot == Slot);
+				return items.Select<Wear>().Where(i => i.GetAspect<Wear>().SuitableSlot == Slot);
 			}
 		}
 	}

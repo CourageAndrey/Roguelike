@@ -58,7 +58,7 @@ namespace Roguelike.Console.ViewModels
 				: humanoid.SkinColor;
 		}
 
-		private static IWear getTopWear(IManequin manequin)
+		private static IItem getTopWear(IManequin manequin)
 		{
 			if (!(manequin.CoverWear is Naked)) return manequin.CoverWear;
 			if (!(manequin.UpperBodyWear is Naked)) return manequin.UpperBodyWear;

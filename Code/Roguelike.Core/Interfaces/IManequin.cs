@@ -8,25 +8,25 @@ namespace Roguelike.Core.Interfaces
 {
 	public interface IManequin
 	{
-		IWear HeadWear
+		IItem HeadWear
 		{ get; set; }
 
-		IWear UpperBodyWear
+		IItem UpperBodyWear
 		{ get; set; }
 
-		IWear LowerBodyWear
+		IItem LowerBodyWear
 		{ get; set; }
 
-		IWear CoverWear
+		IItem CoverWear
 		{ get; set; }
 
-		IWear HandsWear
+		IItem HandsWear
 		{ get; set; }
 
-		IWear FootsWear
+		IItem FootsWear
 		{ get; set; }
 
-		ICollection<IWear> Jewelry
+		ICollection<IItem> Jewelry
 		{ get; }
 
 		event EventHandler<IManequin> EquipmentChanged;
@@ -34,34 +34,34 @@ namespace Roguelike.Core.Interfaces
 
 	public static class ManequinExtensions
 	{
-		public static IEnumerable<IWear> GetAllItems(this IManequin manequin)
+		public static IEnumerable<IItem> GetAllItems(this IManequin manequin)
 		{
-			if (!(manequin.HeadWear is Naked))
+			if (manequin.HeadWear != null)
 			{
 				yield return manequin.HeadWear;
 			}
 
-			if (!(manequin.UpperBodyWear is Naked))
+			if (manequin.UpperBodyWear != null)
 			{
 				yield return manequin.UpperBodyWear;
 			}
 
-			if (!(manequin.LowerBodyWear is Naked))
+			if (manequin.LowerBodyWear != null)
 			{
 				yield return manequin.LowerBodyWear;
 			}
 
-			if (!(manequin.CoverWear is Naked))
+			if (manequin.CoverWear != null)
 			{
 				yield return manequin.CoverWear;
 			}
 
-			if (!(manequin.HandsWear is Naked))
+			if (manequin.HandsWear != null)
 			{
 				yield return manequin.HandsWear;
 			}
 
-			if (!(manequin.FootsWear is Naked))
+			if (manequin.FootsWear != null)
 			{
 				yield return manequin.FootsWear;
 			}
@@ -72,35 +72,37 @@ namespace Roguelike.Core.Interfaces
 			}
 		}
 
-		public static void Dress(this IManequin manequin, IWear wear)
+		public static void Dress(this IManequin manequin, IItem item)
 		{
+			var wear = item.GetAspect<Wear>();
+
 			if (wear.SuitableSlot == WearSlot.Head)
 			{
-				manequin.HeadWear = wear;
+				manequin.HeadWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.UpperBody)
 			{
-				manequin.UpperBodyWear = wear;
+				manequin.UpperBodyWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.LowerBody)
 			{
-				manequin.LowerBodyWear = wear;
+				manequin.LowerBodyWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.Cover)
 			{
-				manequin.CoverWear = wear;
+				manequin.CoverWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.Hands)
 			{
-				manequin.HandsWear = wear;
+				manequin.HandsWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.Foots)
 			{
-				manequin.FootsWear = wear;
+				manequin.FootsWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.Jewelry)
 			{
-				manequin.Jewelry.Add(wear);
+				manequin.Jewelry.Add(item);
 			}
 			else
 			{
@@ -108,8 +110,10 @@ namespace Roguelike.Core.Interfaces
 			}
 		}
 
-		public static void Undress(this IManequin manequin, IWear wear)
+		public static void Undress(this IManequin manequin, IItem item)
 		{
+			var wear = item.GetAspect<Wear>();
+
 			if (wear.SuitableSlot == WearSlot.Head)
 			{
 				manequin.HeadWear = null;
@@ -136,7 +140,7 @@ namespace Roguelike.Core.Interfaces
 			}
 			else if (wear.SuitableSlot == WearSlot.Jewelry)
 			{
-				manequin.Jewelry.Remove(wear);
+				manequin.Jewelry.Remove(item);
 			}
 			else
 			{
@@ -144,8 +148,10 @@ namespace Roguelike.Core.Interfaces
 			}
 		}
 
-		public static int GetDressTime(this IWear wear, DressTimeBalance balance)
+		public static int GetDressTime(this IItem item, DressTimeBalance balance)
 		{
+			var wear = item.GetAspect<Wear>();
+
 			if (wear.SuitableSlot == WearSlot.Head)
 			{
 				return balance.HeadWear;

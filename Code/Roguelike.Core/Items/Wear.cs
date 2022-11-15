@@ -1,32 +1,21 @@
-﻿using System.Drawing;
-using System.Threading;
+﻿using System.Threading;
 
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Items
 {
-	public abstract class Wear : Item, IWear
+	public class Wear : IItemAspect
 	{
-		#region Properties
-
-		public abstract WearSlot SuitableSlot
+		public WearSlot SuitableSlot
 		{ get; }
 
-		public override ItemType Type
-		{ get { return ItemType.Wear; } }
+		public event EventHandler<Wear, IAlive> Equipped;
 
-		public override Color Color
-		{ get; }
+		public event EventHandler<Wear, IAlive> Unequipped;
 
-		public event EventHandler<IWear, IAlive> Equipped;
-
-		public event EventHandler<IWear, IAlive> Unequipped;
-
-		#endregion
-
-		protected Wear(Color clothColor)
+		public Wear(WearSlot suitableSlot)
 		{
-			Color = clothColor;
+			SuitableSlot = suitableSlot;
 		}
 
 		public void RaiseEquipped(IAlive who)
@@ -46,5 +35,16 @@ namespace Roguelike.Core.Items
 				handler(this, who);
 			}
 		}
+	}
+
+	public enum WearSlot
+	{
+		Head,
+		UpperBody,
+		LowerBody,
+		Cover,
+		Hands,
+		Foots,
+		Jewelry,
 	}
 }

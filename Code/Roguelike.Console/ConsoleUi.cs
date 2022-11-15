@@ -384,7 +384,7 @@ namespace Roguelike.Console
 
 		public ActionResult ShowEquipment(Game game, IManequin manequin)
 		{
-			var operations = new List<KeyValuePair<IWear, bool>>();
+			var operations = new List<KeyValuePair<IItem, bool>>();
 
 			startDialog(() =>
 			{
@@ -411,15 +411,15 @@ namespace Roguelike.Console
 								ListItem selectedItemItem;
 								if (TrySelectItem(game, language.Promts.SelectWear, possibleItems, out selectedItemItem))
 								{
-									var itemToDress = (IWear) selectedItemItem.ValueObject;
+									var itemToDress = (IItem) selectedItemItem.ValueObject;
 									manequin.Dress(itemToDress);
-									operations.Add(new KeyValuePair<IWear, bool>(itemToDress, true));
+									operations.Add(new KeyValuePair<IItem, bool>(itemToDress, true));
 								}
 							}
 							else
 							{ // undress
 								manequin.Undress(itemSlot.Wear);
-								operations.Add(new KeyValuePair<IWear, bool>(itemSlot.Wear, false));
+								operations.Add(new KeyValuePair<IItem, bool>(itemSlot.Wear, false));
 							}
 						}
 
@@ -556,7 +556,7 @@ namespace Roguelike.Console
 			return next;
 		}
 
-		public void AnimateShoot(Direction direction, ICollection<Cell> path, IMissile missile)
+		public void AnimateShoot(Direction direction, ICollection<Cell> path, IItem missile)
 		{
 			string missileChar = direction.GetMissile();
 			if (missileChar != null)

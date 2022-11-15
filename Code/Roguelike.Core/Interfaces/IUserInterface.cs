@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-using Roguelike.Core.Localization;
-
 namespace Roguelike.Core.Interfaces
 {
 	public interface IUserInterface
@@ -17,7 +15,7 @@ namespace Roguelike.Core.Interfaces
 		ActionResult BeginTrade(Game game, IHumanoid humanoid);
 		ActionResult BeginPickpocket(Game game, IHumanoid humanoid);
 		Cell SelectShootingTarget(Game game);
-		void AnimateShoot(Direction direction, ICollection<Cell> path, IMissile missile);
+		void AnimateShoot(Direction direction, ICollection<Cell> path, IItem missile);
 	}
 
 	public static class UiExtensions

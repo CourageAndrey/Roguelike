@@ -1,4 +1,5 @@
-﻿using Roguelike.Core.Localization;
+﻿using Roguelike.Core.Items;
+using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Interfaces
 {
@@ -66,7 +67,7 @@ namespace Roguelike.Core.Interfaces
 
 		void SetActivity(Activity activity);
 
-		void EatDrink(IFood food, Language language);
+		void EatDrink(Food food, Language language);
 
 		void PassTime(Time span, Language language);
 	}

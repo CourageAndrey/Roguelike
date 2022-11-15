@@ -6,6 +6,7 @@ using System.Threading;
 
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.ActiveObjects
@@ -373,7 +374,7 @@ namespace Roguelike.Core.ActiveObjects
 			Activity = activity;
 		}
 
-		public void EatDrink(IFood food, Language language)
+		public void EatDrink(Food food, Language language)
 		{
 			_foodLevel += food.Nutricity;
 			_waterLevel += food.Water;

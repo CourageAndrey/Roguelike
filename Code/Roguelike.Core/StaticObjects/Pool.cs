@@ -1,7 +1,6 @@
-﻿using System.Drawing;
-
-using Roguelike.Core.ActiveObjects;
+﻿using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.StaticObjects
@@ -21,7 +20,7 @@ namespace Roguelike.Core.StaticObjects
 			int water = ((State) who.State).WaterToFull;
 			if (water > 0)
 			{
-				return who.Drink(new PoolDrink(water));
+				return who.Drink(CreateDrink(water));
 			}
 			else
 			{
@@ -31,54 +30,20 @@ namespace Roguelike.Core.StaticObjects
 #warning Take vermins into account.
 		}
 
+		private static IItem CreateDrink(int water)
+		{
+			return new Item(
+				(language, alive) => language.Objects.Pool,
+				() => 0,
+				ItemType.Potion,
+				Material.Liquid.Color,
+				Material.Liquid,
+				new Drink(0, water));
+		}
+
 		public override string GetDescription(Language language, IAlive forWhom)
 		{
 			return language.Objects.Pool;
-		}
-
-		private class PoolDrink : IDrink
-		{
-			public decimal Weight
-			{ get { throw new System.NotSupportedException(); } }
-
-			public ItemType Type
-			{ get { throw new System.NotSupportedException(); } }
-
-			public Color Color
-			{ get { throw new System.NotSupportedException(); } }
-
-			public Material Material
-			{ get { throw new System.NotSupportedException(); } }
-
-			public string GetDescription(Language language, IAlive forWhom)
-			{
-				return language.Objects.Pool;
-			}
-
-			public event ValueChangedEventHandler<IRequireGravitation, decimal> WeightChanged;
-			public event EventHandler<IItem, IAlive> Picked;
-			public event EventHandler<IItem, IAlive> Dropped;
-
-			public void RaisePicked(IAlive who)
-			{
-				throw new System.NotSupportedException();
-			}
-
-			public void RaiseDropped(IAlive who)
-			{
-				throw new System.NotSupportedException();
-			}
-
-			public int Nutricity
-			{ get { return 0; } }
-
-			public int Water
-			{ get; }
-
-			public PoolDrink(int value)
-			{
-				Water = value;
-			}
 		}
 	}
 }

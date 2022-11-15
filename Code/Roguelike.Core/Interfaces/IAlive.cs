@@ -25,7 +25,7 @@ namespace Roguelike.Core.Interfaces
 		ICollection<IItem> Inventory
 		{ get; }
 
-		IWeapon WeaponToFight
+		IItem WeaponToFight
 		{ get; }
 
 		bool IsAgressive
@@ -40,7 +40,7 @@ namespace Roguelike.Core.Interfaces
 
 		event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
 
-		event ValueChangedEventHandler<IAlive, IWeapon> WeaponChanged;
+		event ValueChangedEventHandler<IAlive, IItem> WeaponChanged;
 
 		bool IsDead
 		{ get; }
@@ -57,8 +57,8 @@ namespace Roguelike.Core.Interfaces
 		Color SkinColor
 		{ get; }
 
-		ActionResult Eat(IFood food);
+		ActionResult Eat(IItem food);
 
-		ActionResult Drink(IDrink drink);
+		ActionResult Drink(IItem drink);
 	}
 }

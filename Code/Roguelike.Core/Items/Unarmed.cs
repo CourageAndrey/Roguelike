@@ -1,29 +1,12 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 using Roguelike.Core.Interfaces;
-using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Items
 {
-	public class Unarmed : Weapon
+	public class Unarmed : Item
 	{
 		#region Properties
-
-		public override Color Color
-		{ get { throw new NotSupportedException(); } }
-
-		public override bool IsRange
-		{ get { return false; } }
-
-		public override decimal Weight
-		{ get { return 0; } }
-
-		public override ItemType Type
-		{ get { throw new NotSupportedException(); } }
-
-		public override Material Material
-		{ get { throw new NotSupportedException(); } }
 
 		public IAlive Fighter
 		{ get; }
@@ -31,13 +14,15 @@ namespace Roguelike.Core.Items
 		#endregion
 
 		public Unarmed(IAlive fighter)
+			: base(
+				(language, alive) => language.Items.Unarmed,
+				() => 0,
+				ItemType.Weapon,
+				default(Color),
+				Material.Skin,
+				new Weapon(false))
 		{
 			Fighter = fighter;
-		}
-
-		public override string GetDescription(Language language, IAlive forWhom)
-		{
-			return language.Items.Unarmed;
 		}
 	}
 }

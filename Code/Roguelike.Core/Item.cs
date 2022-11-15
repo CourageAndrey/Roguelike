@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
 
 using Roguelike.Core.Interfaces;
@@ -6,21 +8,21 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core
 {
-	public abstract class Item : IItem
+	public class Item : IItem
 	{
 		#region Properties
 
-		public abstract decimal Weight
-		{ get; }
+		public decimal Weight
+		{ get { return _getWeight(); } }
 
-		public abstract ItemType Type
-		{ get; }
+		public ItemType Type
+		{ get { return _type; } }
 
-		public abstract Color Color
-		{ get; }
+		public Color Color
+		{ get { return _color; } }
 
-		public abstract Material Material
-		{ get; }
+		public Material Material
+		{ get { return _material; } }
 
 		public event ValueChangedEventHandler<IRequireGravitation, decimal> WeightChanged;
 
@@ -28,7 +30,32 @@ namespace Roguelike.Core
 
 		public event EventHandler<IItem, IAlive> Dropped;
 
+		public IReadOnlyCollection<IItemAspect> Aspects
+		{ get; }
+
+		private readonly Func<Language, IAlive, string> _getDescription;
+		private readonly Func<decimal> _getWeight;
+		private readonly ItemType _type;
+		private readonly Color _color;
+		private readonly Material _material;
+
 		#endregion
+
+		internal Item(
+			Func<Language, IAlive, string> getDescription,
+			Func<decimal> getWeight,
+			ItemType type,
+			Color color,
+			Material material,
+			params IItemAspect[] aspects)
+		{
+			_getDescription = getDescription;
+			_getWeight = getWeight;
+			_type = type;
+			_color = color;
+			_material = material;
+			Aspects = aspects;
+		}
 
 		protected void RaiseWeightChanged(decimal oldWeight, decimal newWeight)
 		{
@@ -57,6 +84,9 @@ namespace Roguelike.Core
 			}
 		}
 
-		public abstract string GetDescription(Language language, IAlive forWhom);
+		public string GetDescription(Language language, IAlive forWhom)
+		{
+			return _getDescription(language, forWhom);
+		}
 	}
 }

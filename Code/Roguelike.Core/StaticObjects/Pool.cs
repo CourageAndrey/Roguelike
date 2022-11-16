@@ -24,7 +24,6 @@ namespace Roguelike.Core.StaticObjects
 			}
 			else
 			{
-#warning Warn about "You don't want to drink."
 				return null;
 			}
 #warning Take vermins into account.

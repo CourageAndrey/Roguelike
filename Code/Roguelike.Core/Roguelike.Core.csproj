@@ -72,6 +72,7 @@
     <Compile Include="EventHandler.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Interfaces\IDescriptive.cs" />
+    <Compile Include="Items\Nutricious.cs" />
     <Compile Include="Items\Food.cs" />
     <Compile Include="Items\Drink.cs" />
     <Compile Include="Items\Naked.cs" />

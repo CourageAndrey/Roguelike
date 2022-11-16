@@ -374,10 +374,10 @@ namespace Roguelike.Core.ActiveObjects
 			Activity = activity;
 		}
 
-		public void EatDrink(Food food, Language language)
+		public void EatDrink(Nutricious nutricious, Language language)
 		{
-			_foodLevel += food.Nutricity;
-			_waterLevel += food.Water;
+			_foodLevel += nutricious.Nutricity;
+			_waterLevel += nutricious.Water;
 
 			var random = new Random(DateTime.Now.Millisecond);
 			if (_foodLevel > _balance.Food.OvereatingDeathLevel)

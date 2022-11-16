@@ -70,5 +70,7 @@ namespace Roguelike.Core.Interfaces
 		void EatDrink(Nutricious nutricious, Language language);
 
 		void PassTime(Time span, Language language);
+
+		int GetWaterToFull();
 	}
 }

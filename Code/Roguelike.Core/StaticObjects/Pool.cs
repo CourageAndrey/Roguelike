@@ -1,5 +1,4 @@
-﻿using Roguelike.Core.ActiveObjects;
-using Roguelike.Core.Interfaces;
+﻿using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
 
@@ -16,8 +15,7 @@ namespace Roguelike.Core.StaticObjects
 
 		public ActionResult Drink(IAlive who)
 		{
-#warning Avoid typecast below.
-			int water = ((State) who.State).WaterToFull;
+			int water = who.State.GetWaterToFull();
 			if (water > 0)
 			{
 				return who.Drink(CreateDrink(water));

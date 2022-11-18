@@ -3,23 +3,18 @@ using System.Collections.Generic;
 
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Objects;
 using Roguelike.Core.StaticObjects;
 
 namespace Roguelike.Core.ActiveObjects
 {
-	public class Hero : Humanoid, IHero
+	public class Hero : Humanoid
 	{
-		#region Properties
-
-		public ICamera Camera
-		{ get; }
-
-		#endregion
-
-		public Hero(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name, IObjectAspect[] aspects = null)
-			: base(balance, race, sexIsMale, birthDate, properties, inventory, name, aspects)
+		public Hero(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
+			: base(balance, race, sexIsMale, birthDate, properties, inventory, name, new IObjectAspect[1])
 		{
-			Camera = new HeroCamera(this);
+#warning Errorneous typecast.
+			((IObjectAspect[]) Aspects)[0] = new HeroCamera(this);
 		}
 
 		protected override ActionResult DoImplementation()

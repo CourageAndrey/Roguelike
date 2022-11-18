@@ -48,7 +48,7 @@
     <Compile Include="ActiveObjects\Diseases\Plague.cs" />
     <Compile Include="ActiveObjects\Diseases\Ulcer.cs" />
     <Compile Include="ActiveObjects\Diseases\Worms.cs" />
-    <Compile Include="Objects\HeroCamera.cs" />
+    <Compile Include="Objects\CreatureCamera.cs" />
     <Compile Include="ActiveObjects\Manequin.cs" />
     <Compile Include="ActiveObjects\Properties.cs" />
     <Compile Include="ActiveObjects\Humanoid.cs" />

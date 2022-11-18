@@ -14,7 +14,7 @@ namespace Roguelike.Core.ActiveObjects
 			: base(balance, race, sexIsMale, birthDate, properties, inventory, name, new IObjectAspect[1])
 		{
 #warning Errorneous typecast.
-			((IObjectAspect[]) Aspects)[0] = new HeroCamera(this);
+			((IObjectAspect[]) Aspects)[0] = new CreatureCamera(this);
 		}
 
 		protected override ActionResult DoImplementation()

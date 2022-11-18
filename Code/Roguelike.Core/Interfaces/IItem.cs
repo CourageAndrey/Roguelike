@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IItem : IRequireGravitation, IDescriptive
+	public interface IItem : IRequireGravitation, IDescriptive, IAspectHolder<IItemAspect>
 	{
 		ItemType Type
 		{ get; }
@@ -21,9 +20,6 @@ namespace Roguelike.Core.Interfaces
 		void RaisePicked(IAlive who);
 
 		void RaiseDropped(IAlive who);
-
-		IReadOnlyCollection<IItemAspect> Aspects
-		{ get; }
 	}
 
 	public interface IItemAspect : IAspect

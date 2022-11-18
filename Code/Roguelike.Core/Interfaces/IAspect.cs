@@ -6,24 +6,38 @@ namespace Roguelike.Core.Interfaces
 	public interface IAspect
 	{ }
 
+	public interface IAspectHolder
+	{
+		IReadOnlyCollection<IAspect> Aspects
+		{ get; }
+	}
+
+	public interface IAspectHolder<AspectT> : IAspectHolder
+		where AspectT : IAspect
+	{
+		new IReadOnlyCollection<AspectT> Aspects
+		{ get; }
+	}
+
 	public static class AspectExtensions
 	{
-		public static bool Is<AspectT>(this IItem item)
+		public static bool Is<AspectT>(this IAspectHolder holder)
 			where AspectT : IAspect
 		{
-			return item.Aspects.OfType<AspectT>().Any();
+			return holder.Aspects.OfType<AspectT>().Any();
 		}
 
-		public static IEnumerable<IItem> Select<AspectT>(this IEnumerable<IItem> items)
+		public static IEnumerable<HolderT> Select<HolderT, AspectT>(this IEnumerable<HolderT> holders)
+			where HolderT : IAspectHolder
 			where AspectT : IAspect
 		{
-			return items.Where(item => item.Is<AspectT>());
+			return holders.Where(holder => holder.Is<AspectT>());
 		}
 
-		public static AspectT GetAspect<AspectT>(this IItem item)
+		public static AspectT GetAspect<AspectT>(this IAspectHolder holder)
 			where AspectT : IAspect
 		{
-			return item.Aspects.OfType<AspectT>().Single();
+			return holder.Aspects.OfType<AspectT>().Single();
 		}
 	}
 }

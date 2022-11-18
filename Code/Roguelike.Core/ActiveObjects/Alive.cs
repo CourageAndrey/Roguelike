@@ -336,7 +336,7 @@ namespace Roguelike.Core.ActiveObjects
 			var language = game.Language;
 			var random = new Random(DateTime.Now.Millisecond);
 
-			var missile = Inventory.Select<Missile>().First();
+			var missile = Inventory.Select<IItem, Missile>().First();
 
 			if (!CurrentCell.Position.Equals(target.Position))
 			{

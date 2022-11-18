@@ -30,6 +30,9 @@ namespace Roguelike.Core
 
 		public event EventHandler<IItem, IAlive> Dropped;
 
+		IReadOnlyCollection<IAspect> IAspectHolder.Aspects
+		{ get { return Aspects; } }
+
 		public IReadOnlyCollection<IItemAspect> Aspects
 		{ get; }
 

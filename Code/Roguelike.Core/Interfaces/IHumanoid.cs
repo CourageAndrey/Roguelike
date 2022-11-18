@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using Roguelike.Core.Objects;
+
 namespace Roguelike.Core.Interfaces
 {
 	public interface IHumanoid : IAlive, IInterlocutor
@@ -19,7 +21,7 @@ namespace Roguelike.Core.Interfaces
 		IDictionary<Skill, double> SkillExperience
 		{ get; }
 
-		ITransport Transport
+		Transport Transport
 		{ get; set; }
 	}
 }

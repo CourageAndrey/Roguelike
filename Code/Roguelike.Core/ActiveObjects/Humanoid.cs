@@ -8,6 +8,7 @@ using Roguelike.Core.Chat;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.ActiveObjects
 {
@@ -30,7 +31,7 @@ namespace Roguelike.Core.ActiveObjects
 		public IDictionary<Skill, double> SkillExperience
 		{ get; }
 
-		public ITransport Transport
+		public Transport Transport
 		{
 			get { return _transport; }
 			set
@@ -49,7 +50,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		private readonly ICollection<Humanoid> _knownPersons = new HashSet<Humanoid>();
 		private readonly IDictionary<Humanoid, Attitude> _attitudes = new Dictionary<Humanoid, Attitude>();
-		private ITransport _transport;
+		private Transport _transport;
 
 		public SocialGroup SocialGroup
 		{ get { return SocialGroup.No; } }
@@ -121,8 +122,8 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
-			: base(balance, sexIsMale, birthDate, properties, inventory)
+		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name, IObjectAspect[] aspects = null)
+			: base(balance, sexIsMale, birthDate, properties, inventory, aspects)
 		{
 			if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
 

@@ -16,8 +16,8 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public Hero(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
-			: base(balance, race, sexIsMale, birthDate, properties, inventory, name)
+		public Hero(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name, IObjectAspect[] aspects = null)
+			: base(balance, race, sexIsMale, birthDate, properties, inventory, name, aspects)
 		{
 			Camera = new HeroCamera(this);
 		}

@@ -328,10 +328,11 @@ namespace Roguelike.Console
 		{
 			if (hero.Transport == null)
 			{
-				var transport = SelectTarget<ITransport>(ui, game, hero, language.SelectDirectionsPromt, h => h.Rider == null);
-				if (transport != null)
+				var transportObject = SelectTarget<IObject>(ui, game, hero, language.SelectDirectionsPromt, h => h.Is<Transport>() && h.GetAspect<Transport>().Rider == null);
+				var transportAspect = transportObject?.GetAspect<Transport>();
+				if (transportAspect != null)
 				{
-					transport.Rider = hero;
+					transportAspect.Rider = hero;
 					return new ActionResult(
 						Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.RideHorse),
 						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.RideHorse, hero.GetDescription(language, hero)));

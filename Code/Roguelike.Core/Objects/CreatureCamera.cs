@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Objects
 {
-	public class HeroCamera : ICamera
+	public class CreatureCamera : ICamera
 	{
 		#region Properties
 
-		private readonly Hero _hero;
+		private readonly IAlive _holder;
 
 		public Cell Cell
-		{ get { return _hero.CurrentCell; } }
+		{ get { return _holder.CurrentCell; } }
 
 		public double Distance
-		{ get { return _hero.Properties.Perception; } }
+		{ get { return _holder.Properties.Perception; } }
 
 		public ICollection<Cell> MapMemory
 		{ get; }
@@ -30,9 +29,9 @@ namespace Roguelike.Core.Objects
 
 		#endregion
 
-		public HeroCamera(Hero hero)
+		public CreatureCamera(IAlive holder)
 		{
-			_hero = hero;
+			_holder = holder;
 			MapMemory = new HashSet<Cell>();
 			VisibleCells = new Dictionary<Cell, bool>();
 		}
@@ -124,8 +123,8 @@ namespace Roguelike.Core.Objects
 
 		private bool IsNeigboorTransparent(Vector cellPosition)
 		{
-			var position = _hero.CurrentCell.Position;
-			var region = _hero.CurrentCell.Region;
+			var position = _holder.CurrentCell.Position;
+			var region = _holder.CurrentCell.Region;
 
 			const double rateMinimum = 1d/3,
 						 rateMaximum = 3,

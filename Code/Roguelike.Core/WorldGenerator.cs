@@ -6,6 +6,7 @@ using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Configuration;
+using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 using Roguelike.Core.StaticObjects;
 
@@ -185,12 +186,12 @@ namespace Roguelike.Core
 					var cell = region.GetCell(vector);
 					if (cell != null)
 					{
-						hero.Camera.MapMemory.Add(cell);
+						hero.GetAspect<ICamera>().MapMemory.Add(cell);
 					}
 				}
 			}
 
-			hero.Camera.RefreshVisibleCells();
+			hero.GetAspect<ICamera>().RefreshVisibleCells();
 		}
 	}
 }

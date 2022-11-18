@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
+using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
 
-namespace Roguelike.Core.ActiveObjects
+namespace Roguelike.Core.Objects
 {
 	public class HeroCamera : ICamera
 	{
 		#region Properties
 
-		private readonly IHero _hero;
+		private readonly Hero _hero;
 
 		public Cell Cell
 		{ get { return _hero.CurrentCell; } }
@@ -29,7 +30,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public HeroCamera(IHero hero)
+		public HeroCamera(Hero hero)
 		{
 			_hero = hero;
 			MapMemory = new HashSet<Cell>();

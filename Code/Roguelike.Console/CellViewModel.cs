@@ -58,7 +58,7 @@ namespace Roguelike.Console
 
 		private void cellViewChanged(Cell sender, bool transparencyChanged)
 		{
-			var camera = _cell.Region.World.Hero.Camera;
+			var camera = _cell.Region.World.Hero.GetAspect<ICamera>();
 			bool isVisible;
 			if (camera != null && camera.VisibleCells.TryGetValue(_cell, out isVisible) && isVisible)
 			{

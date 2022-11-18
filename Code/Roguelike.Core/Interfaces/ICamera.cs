@@ -2,7 +2,7 @@
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface ICamera
+	public interface ICamera : IObjectAspect
 	{
 		Cell Cell
 		{ get; }

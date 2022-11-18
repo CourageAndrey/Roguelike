@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
@@ -13,6 +14,12 @@ namespace Roguelike.Core
 		{ get; private set; }
 
 		public event ValueChangedEventHandler<IObject, Cell> CellChanged;
+
+		IReadOnlyCollection<IAspect> IAspectHolder.Aspects
+		{ get { return Aspects; } }
+
+		public IReadOnlyCollection<IObjectAspect> Aspects
+		{ get; } = new IObjectAspect[0];
 
 		#region Physical properties
 

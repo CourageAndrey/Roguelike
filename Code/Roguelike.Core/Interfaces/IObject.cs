@@ -1,6 +1,6 @@
 ﻿namespace Roguelike.Core.Interfaces
 {
-	public interface IObject : IDescriptive
+	public interface IObject : IDescriptive, IAspectHolder<IObjectAspect>
 	{
 		Cell CurrentCell
 		{ get; }
@@ -14,4 +14,7 @@
 
 		event ValueChangedEventHandler<IObject, Cell> CellChanged;
 	}
+
+	public interface IObjectAspect : IAspect
+	{ }
 }

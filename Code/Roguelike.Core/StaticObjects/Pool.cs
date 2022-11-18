@@ -1,10 +1,10 @@
 ﻿using Roguelike.Core.Interfaces;
-using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.StaticObjects
 {
-	public class Pool : Object, IWaterSource
+	public class Pool : Object
 	{
 		#region Properties
 
@@ -13,30 +13,9 @@ namespace Roguelike.Core.StaticObjects
 
 		#endregion
 
-		public ActionResult Drink(IAlive who)
-		{
-			int water = who.State.GetWaterToFull();
-			if (water > 0)
-			{
-				return who.Drink(CreateDrink(water));
-			}
-			else
-			{
-				return null;
-			}
-#warning Take vermins into account.
-		}
-
-		private static IItem CreateDrink(int water)
-		{
-			return new Item(
-				(language, alive) => language.Objects.Pool,
-				() => 0,
-				ItemType.Potion,
-				Material.Liquid.Color,
-				Material.Liquid,
-				new Drink(0, water));
-		}
+		public Pool()
+			: base(new IObjectAspect[] { new WaterSource() })
+		{ }
 
 		public override string GetDescription(Language language, IAlive forWhom)
 		{

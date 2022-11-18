@@ -1,9 +1,10 @@
 ﻿using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.StaticObjects
 {
-	public class Bed : Object, ISleepingArea
+	public class Bed : Object
 	{
 		#region Properties
 
@@ -11,6 +12,10 @@ namespace Roguelike.Core.StaticObjects
 		{ get { return false; } }
 
 		#endregion
+
+		public Bed()
+			: base(new IObjectAspect[] { new SleepingArea() })
+		{ }
 
 		public override string GetDescription(Language language, IAlive forWhom)
 		{

@@ -19,7 +19,7 @@ namespace Roguelike.Core
 		{ get { return Aspects; } }
 
 		public IReadOnlyCollection<IObjectAspect> Aspects
-		{ get; } = new IObjectAspect[0];
+		{ get; }
 
 		#region Physical properties
 
@@ -63,6 +63,11 @@ namespace Roguelike.Core
 		#endregion
 
 		#endregion
+
+		protected Object(IObjectAspect[] aspects = null)
+		{
+			Aspects = aspects ?? new IObjectAspect[0];
+		}
 
 		public abstract string GetDescription(Language language, IAlive forWhom);
 

@@ -91,7 +91,7 @@
     <Compile Include="Interfaces\IAlive.cs" />
     <Compile Include="Interfaces\IBody.cs" />
     <Compile Include="Interfaces\IBodyPart.cs" />
-    <Compile Include="Interfaces\IFireSource.cs" />
+    <Compile Include="Objects\FireSource.cs" />
     <Compile Include="Interfaces\IHasOwner.cs" />
     <Compile Include="Interfaces\IInteractive.cs" />
     <Compile Include="Interfaces\IInterlocutor.cs" />
@@ -100,8 +100,8 @@
     <Compile Include="Interfaces\IObject.cs" />
     <Compile Include="Interfaces\IProperties.cs" />
     <Compile Include="Interfaces\IRequireGravitation.cs" />
-    <Compile Include="Interfaces\ISleepingArea.cs" />
-    <Compile Include="Interfaces\IWaterSource.cs" />
+    <Compile Include="Objects\SleepingArea.cs" />
+    <Compile Include="Objects\WaterSource.cs" />
     <Compile Include="Items\Unarmed.cs" />
     <Compile Include="Items\Weapon.cs" />
     <Compile Include="Items\Wear.cs" />

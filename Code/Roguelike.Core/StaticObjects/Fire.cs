@@ -1,9 +1,10 @@
 ﻿using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.StaticObjects
 {
-	public class Fire : Object, IFireSource
+	public class Fire : Object
 	{
 		#region Properties
 
@@ -11,6 +12,10 @@ namespace Roguelike.Core.StaticObjects
 		{ get { return false; } }
 
 		#endregion
+
+		public Fire()
+			: base(new IObjectAspect[] { new FireSource() })
+		{ }
 
 		public override string GetDescription(Language language, IAlive forWhom)
 		{

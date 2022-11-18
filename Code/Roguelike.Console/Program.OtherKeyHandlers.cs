@@ -9,6 +9,7 @@ using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Console
 {
@@ -400,7 +401,7 @@ namespace Roguelike.Console
 			World world,
 			Hero hero)
 		{
-			var source = hero.CurrentCell.Objects.OfType<IWaterSource>().FirstOrDefault();
+			var source = hero.CurrentCell.Objects.FirstOrDefault(o => o.Is<WaterSource>())?.GetAspect<WaterSource>();
 			if (source != null && ui.AskForYesNoCancel(language.Promts.DrinkFromSource, game) == true)
 			{
 				return source.Drink(hero);

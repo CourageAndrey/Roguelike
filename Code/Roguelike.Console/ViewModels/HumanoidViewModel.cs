@@ -27,7 +27,7 @@ namespace Roguelike.Console.ViewModels
 				
 				if (Object.Transport != null)
 				{
-					var aliveTransport = Object.Transport as IAlive;
+					var aliveTransport = Object.Transport.Object as IAlive;
 					return (aliveTransport != null
 						? aliveTransport.SkinColor
 						: invert(getColor(Object))).ToConsole();

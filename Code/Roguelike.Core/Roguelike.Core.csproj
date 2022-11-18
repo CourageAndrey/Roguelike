@@ -79,7 +79,7 @@
     <Compile Include="Items\Naked.cs" />
     <Compile Include="Items\TreeChopper.cs" />
     <Compile Include="Items\Missile.cs" />
-    <Compile Include="Interfaces\ITransport.cs" />
+    <Compile Include="Objects\Transport.cs" />
     <Compile Include="Items\Paper.cs" />
     <Compile Include="Interfaces\IItemsContainer.cs" />
     <Compile Include="Interfaces\ITree.cs" />

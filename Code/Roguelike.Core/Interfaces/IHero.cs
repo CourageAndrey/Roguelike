@@ -1,6 +1,6 @@
 ﻿namespace Roguelike.Core.Interfaces
 {
-	public interface IHero : IActive
+	public interface IHero : IHumanoid
 	{
 		ICamera Camera
 		{ get; }

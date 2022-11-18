@@ -11,7 +11,7 @@ namespace Roguelike.Core.ActiveObjects
 	{
 		#region Properties
 
-		private readonly Hero _hero;
+		private readonly IHero _hero;
 
 		public Cell Cell
 		{ get { return _hero.CurrentCell; } }
@@ -29,7 +29,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		public HeroCamera(Hero hero)
+		public HeroCamera(IHero hero)
 		{
 			_hero = hero;
 			MapMemory = new HashSet<Cell>();

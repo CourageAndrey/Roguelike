@@ -367,7 +367,7 @@ namespace Roguelike.Console
 			Cell target;
 			return	hero.IsAgressive &&
 					hero.WeaponToFight.GetAspect<Weapon>().IsRange &&
-					hero.Inventory.Select<Missile>().Any() &&
+					hero.Inventory.Select<IItem, Missile>().Any() &&
 					(target = ui.SelectShootingTarget(game)) != null
 				? hero.Shoot(target)
 				: null;

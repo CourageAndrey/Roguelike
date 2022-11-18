@@ -152,7 +152,7 @@ namespace Roguelike.Console
 
 			public IEnumerable<IItem> FilterSuitableItems(IEnumerable<IItem> items)
 			{
-				return items.Select<Wear>().Where(i => i.GetAspect<Wear>().SuitableSlot == Slot);
+				return items.Select<IItem, Wear>().Where(i => i.GetAspect<Wear>().SuitableSlot == Slot);
 			}
 		}
 	}

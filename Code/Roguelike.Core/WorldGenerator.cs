@@ -23,12 +23,12 @@ namespace Roguelike.Core
 			return new ReadOnlyCollection<Region>(regions);
 		}
 
-		public static void CreateRoom(this Region region, int x1, int x2, int y1, int y2, int z, Direction door)
+		public static void CreateRoom(this Region region, Random seed, int x1, int x2, int y1, int y2, int z, Direction doorSide)
 		{
 			if (Math.Abs(x1 - x2) < 3 || Math.Abs(y1 - y2) < 3) throw new Exception("Room is too small - 3x3 is minimal size.");
 
 			int doorX, doorY;
-			switch (door)
+			switch (doorSide)
 			{
 				case Direction.Left:
 					doorX = Math.Min(x1, x2);
@@ -83,7 +83,12 @@ namespace Roguelike.Core
 
 			var doorCell = region.GetCell(doorX, doorY, z);
 			doorCell.RemoveObject(doorCell.Objects.OfType<Wall>().First());
-			new Door().MoveTo(doorCell);
+			var door = new Door();
+			door.MoveTo(doorCell);
+			if (seed.Next(0, 2) == 1)
+			{
+				door.Close();
+			}
 		}
 
 		public static void CreateVillage(this Region region, Balance balance, Random seed, int x1, int x2, int y1, int y2, int z)
@@ -127,7 +132,7 @@ namespace Roguelike.Core
 
 					var doorDirection = possibleDoorDirections[seed.Next(0, possibleDoorDirections.Count - 1)];
 
-					region.CreateRoom(finalX1, finalX2, finalY1, finalY2, z, doorDirection);
+					region.CreateRoom(seed, finalX1, finalX2, finalY1, finalY2, z, doorDirection);
 					totalHouses++;
 
 					new Fire().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);

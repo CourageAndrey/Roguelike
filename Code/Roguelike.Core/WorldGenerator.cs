@@ -168,7 +168,7 @@ namespace Roguelike.Core
 				int x = seed.Next(x1, x2);
 				int y = seed.Next(y1, y2);
 				cell = region.GetCell(x, y, z);
-			} while (cell.Objects.Count > 0 && cell.IsTransparent);
+			} while (!cell.IsTransparent);
 			@object.MoveTo(cell);
 		}
 	}

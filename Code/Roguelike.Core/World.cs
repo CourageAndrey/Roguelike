@@ -68,7 +68,7 @@ namespace Roguelike.Core
 				Hero.Inventory.Add(ItemFactory.CreateArrow());
 			}
 			Hero.Inventory.Add(ItemFactory.CreateBook(Color.Coral, language => language.HelloWorld, language => language.HelloWorld));
-			Hero.MakeMapKnown(balance.Distance.HeroInitialView);
+			Hero.GetAspect<ICamera>().MakeMapKnown(balance.Distance.HeroInitialView);
 
 			region.CreateVillage(
 				balance,

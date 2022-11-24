@@ -47,5 +47,26 @@ namespace Roguelike.Core.Interfaces
 
 			return result;
 		}
+
+		public static void MakeMapKnown(this ICamera camera, int viewDistance)
+		{
+			var region = camera.Cell.Region;
+			var position = camera.Cell.Position;
+
+			for (int x = position.X - viewDistance; x <= position.X + viewDistance; x++)
+			{
+				for (int y = position.Y - viewDistance; y <= position.Y + viewDistance; y++)
+				{
+					var vector = new Vector(x, y, position.Z);
+					var cell = region.GetCell(vector);
+					if (cell != null)
+					{
+						camera.MapMemory.Add(cell);
+					}
+				}
+			}
+
+			camera.RefreshVisibleCells();
+		}
 	}
 }

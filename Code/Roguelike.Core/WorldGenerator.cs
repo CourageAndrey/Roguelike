@@ -6,7 +6,6 @@ using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Configuration;
-using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 using Roguelike.Core.StaticObjects;
 
@@ -171,27 +170,6 @@ namespace Roguelike.Core
 				cell = region.GetCell(x, y, z);
 			} while (cell.Objects.Count > 0 && cell.IsTransparent);
 			@object.MoveTo(cell);
-		}
-
-		public static void MakeMapKnown(this Hero hero, int viewDistance)
-		{
-			var region = hero.CurrentCell.Region;
-			var position = hero.CurrentCell.Position;
-
-			for (int x = position.X - viewDistance; x <= position.X + viewDistance; x++)
-			{
-				for (int y = position.Y - viewDistance; y <= position.Y + viewDistance; y++)
-				{
-					var vector = new Vector(x, y, position.Z);
-					var cell = region.GetCell(vector);
-					if (cell != null)
-					{
-						hero.GetAspect<ICamera>().MapMemory.Add(cell);
-					}
-				}
-			}
-
-			hero.GetAspect<ICamera>().RefreshVisibleCells();
 		}
 	}
 }

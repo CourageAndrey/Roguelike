@@ -25,16 +25,16 @@ namespace Roguelike.Core
 
 		public ActionResult TryMove(Direction direction)
 		{
-			var world = CurrentCell.Region.World;
+			var world = this.GetWorld();
 			var game = world.Game;
 			var balance = game.Balance;
 
-			var oldPosition = CurrentCell.Position;
-			var newCell = CurrentCell.Region.GetCell(CurrentCell.Position.GetNeighboor(direction));
+			var oldPosition = this.GetPosition();
+			var newCell = this.GetRegion().GetCell(this.GetPosition().GetNeighboor(direction));
 			if (newCell != null)
 			{
-				double distance = CurrentCell.Position != null
-					? newCell.Position.GetDistance(CurrentCell.Position)
+				double distance = this.GetPosition() != null
+					? newCell.Position.GetDistance(this.GetPosition())
 					: 0;
 				var language = game.Language.LogActionFormats;
 

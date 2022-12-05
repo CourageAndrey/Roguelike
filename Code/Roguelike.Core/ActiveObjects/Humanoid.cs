@@ -112,7 +112,7 @@ namespace Roguelike.Core.ActiveObjects
 				return new Text(string.Format(
 					CultureInfo.InvariantCulture,
 					language.Talk.AnswerFormats.Age,
-					Age));
+					this.GetAge(this.GetWorld().Time)));
 			}
 			else
 			{

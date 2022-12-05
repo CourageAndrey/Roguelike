@@ -1,4 +1,6 @@
-﻿namespace Roguelike.Core.Interfaces
+﻿using Roguelike.Core.ActiveObjects;
+
+namespace Roguelike.Core.Interfaces
 {
 	public interface IObject : IDescriptive, IAspectHolder<IObjectAspect>
 	{
@@ -17,4 +19,32 @@
 
 	public interface IObjectAspect : IAspect
 	{ }
+
+	public static class ObjectExtensions
+	{
+		public static Vector GetPosition(this IObject obj)
+		{
+			return obj.CurrentCell?.Position;
+		}
+
+		public static Region GetRegion(this IObject obj)
+		{
+			return obj.CurrentCell?.Region;
+		}
+
+		public static World GetWorld(this IObject obj)
+		{
+			return obj.GetRegion()?.World;
+		}
+
+		public static Game GetGame(this IObject obj)
+		{
+			return obj.GetWorld()?.Game;
+		}
+
+		public static Hero GetHero(this IObject obj)
+		{
+			return obj.GetWorld()?.Hero;
+		}
+	}
 }

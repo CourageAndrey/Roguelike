@@ -10,7 +10,7 @@ namespace Roguelike.Core.Interfaces
 		bool SexIsMale
 		{ get; }
 
-		uint Age
+		Time BirthDate
 		{ get; }
 
 		IProperties Properties
@@ -60,5 +60,13 @@ namespace Roguelike.Core.Interfaces
 		ActionResult Eat(IItem food);
 
 		ActionResult Drink(IItem drink);
+	}
+
+	public static class AliveExtensions
+	{
+		public static uint GetAge(this IAlive alive, Time now)
+		{
+			return (uint) (now - alive.BirthDate).Year;
+		}
 	}
 }

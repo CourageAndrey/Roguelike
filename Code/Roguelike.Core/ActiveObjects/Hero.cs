@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Objects;
-using Roguelike.Core.StaticObjects;
 
 namespace Roguelike.Core.ActiveObjects
 {

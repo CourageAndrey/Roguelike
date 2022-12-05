@@ -1,4 +1,4 @@
-﻿using Roguelike.Core.StaticObjects;
+﻿using Roguelike.Core.Objects;
 
 namespace Roguelike.Console.ViewModels
 {

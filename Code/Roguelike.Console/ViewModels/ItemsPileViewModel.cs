@@ -3,7 +3,7 @@ using System.Linq;
 
 using Roguelike.Core;
 using Roguelike.Core.Interfaces;
-using Roguelike.Core.StaticObjects;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Console.ViewModels
 {

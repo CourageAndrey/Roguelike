@@ -4,7 +4,7 @@ using System.Drawing;
 
 using Roguelike.Core;
 using Roguelike.Core.ActiveObjects;
-using Roguelike.Core.StaticObjects;
+using Roguelike.Core.Objects;
 using Roguelike.Console.ViewModels;
 
 namespace Roguelike.Console

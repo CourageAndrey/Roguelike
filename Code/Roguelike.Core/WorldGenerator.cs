@@ -7,7 +7,7 @@ using System.Linq;
 using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Items;
-using Roguelike.Core.StaticObjects;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Core
 {

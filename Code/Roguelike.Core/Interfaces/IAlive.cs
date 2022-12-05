@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-using Roguelike.Core.StaticObjects;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Interfaces
 {

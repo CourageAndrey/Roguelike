@@ -34,14 +34,14 @@ namespace Roguelike.Core.ActiveObjects
 			}
 			else
 			{
-				var nextStep = Ai.CalculateRoute(CurrentCell.Region, CurrentCell.Position, Owner.CurrentCell.Position).Skip(1).FirstOrDefault();
+				var nextStep = Ai.CalculateRoute(this.GetRegion(), this.GetPosition(), Owner.GetPosition()).Skip(1).FirstOrDefault();
 				if (nextStep != null)
 				{
-					return TryMove(CurrentCell.Position.GetDirection(nextStep));
+					return TryMove(this.GetPosition().GetDirection(nextStep));
 				}
 				else
 				{
-					var game = CurrentCell.Region.World.Game;
+					var game = this.GetGame();
 					var balance = game.Balance;
 					return new ActionResult(
 						Time.FromTicks(balance.Time, balance.ActionLongevity.Wait),

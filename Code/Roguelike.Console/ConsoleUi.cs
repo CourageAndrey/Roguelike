@@ -322,7 +322,7 @@ namespace Roguelike.Console
 				System.Console.WriteLine($"=== {humanoid.Name} ===");
 				System.Console.ForegroundColor = ConsoleColor.White;
 				string sex = humanoid.SexIsMale ? language.Character.SexIsMale : language.Character.SexIsFemale;
-				System.Console.WriteLine($"{sex} {humanoid.Race.GetName(language.Character.Races)}, {humanoid.Age} {language.Character.AgeYears}");
+				System.Console.WriteLine($"{sex} {humanoid.Race.GetName(language.Character.Races)}, {humanoid.GetAge(humanoid.GetWorld().Time)} {language.Character.AgeYears}");
 				System.Console.WriteLine();
 
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -483,7 +483,7 @@ namespace Roguelike.Console
 			possibleTargets.Remove(shooter.CurrentCell);
 
 			var aim = possibleTargets.FirstOrDefault() ?? shooter.CurrentCell;
-			var region = shooter.CurrentCell.Region;
+			var region = shooter.GetRegion();
 			bool aimSelected = false;
 
 			_cellsViewsCache[aim].SetOverlay(OverlayViewModel.Aim);

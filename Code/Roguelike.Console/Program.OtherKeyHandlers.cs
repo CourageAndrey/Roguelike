@@ -53,8 +53,8 @@ namespace Roguelike.Console
 				filter = i => true;
 			}
 
-			var heroPosition = hero.CurrentCell.Position;
-			var cells = hero.CurrentCell.Region.GetCellsAroundPoint(heroPosition);
+			var heroPosition = hero.GetPosition();
+			var cells = hero.GetRegion().GetCellsAroundPoint(heroPosition);
 			cells.Remove(Direction.None);
 			var items = new List<ListItem>();
 			foreach (var cell in cells)
@@ -278,7 +278,7 @@ namespace Roguelike.Console
 				}
 				return new ActionResult(
 					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.OpenCloseDoor),
-					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.OpenDoor, hero.GetDescription(language, hero), door.CurrentCell.Position));
+					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.OpenDoor, hero.GetDescription(language, hero), door.GetPosition()));
 			}
 			else
 			{

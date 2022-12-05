@@ -24,7 +24,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		public override Corpse Die(string reason)
 		{
-			var game = CurrentCell.Region.World.Game;
+			var game = this.GetGame();
 			game.Defeat();
 			return base.Die(reason);
 		}

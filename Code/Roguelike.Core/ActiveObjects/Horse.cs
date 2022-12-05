@@ -28,7 +28,7 @@ namespace Roguelike.Core.ActiveObjects
 		protected override ActionResult DoImplementation()
 		{
 #warning Horse is too passive.
-			var game = CurrentCell.Region.World.Game;
+			var game = this.GetGame();
 			var balance = game.Balance;
 			return new ActionResult(Time.FromYears(balance.Time, 1), string.Empty);
 		}

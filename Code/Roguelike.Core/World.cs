@@ -90,7 +90,7 @@ namespace Roguelike.Core
 		public void DoOneStep()
 		{
 			var language = Game.Language;
-			var currentRegion = Hero.CurrentCell.Region;
+			var currentRegion = Hero.GetRegion();
 			var actors = currentRegion.GetActiveObjects();
 			var nextActor = actors.Dequeue();
 			while (nextActor != Hero)

@@ -23,22 +23,6 @@ namespace Roguelike.Core.ActiveObjects
 		public Time BirthDate
 		{ get; }
 
-		public uint Age
-		{
-			get
-			{
-				if (CurrentCell != null)
-				{
-					var world = CurrentCell.Region.World;
-					return (uint) (world.Time - BirthDate).Year;
-				}
-				else
-				{
-					return 0;
-				}
-			}
-		}
-
 		public IProperties Properties
 		{ get; private set; }
 
@@ -75,7 +59,7 @@ namespace Roguelike.Core.ActiveObjects
 			{
 				if (CurrentCell != null)
 				{
-					var balance = CurrentCell.Region.World.Game.Balance;
+					var balance = this.GetGame().Balance;
 					return 1 + Math.Pow(balance.Player.ReflexesRate, Properties.Reaction - balance.Player.ReflexesAverage);
 				}
 				else
@@ -139,7 +123,7 @@ namespace Roguelike.Core.ActiveObjects
 			}
 
 			string deathMessage;
-			var game = CurrentCell.Region.World.Game;
+			var game = this.GetGame();
 			if (CurrentCell != null)
 			{
 				deathMessage = string.Format(CultureInfo.InvariantCulture, game.Language.LogActionFormats.Death, GetDescription(game.Language, game.Hero), reason);
@@ -222,7 +206,7 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			int time;
 			string logMessage;
-			var game = CurrentCell.Region.World.Game;
+			var game = this.GetGame();
 			var language = game.Language.LogActionFormats;
 			var balance = game.Balance;
 			Activity newActivity = null;
@@ -263,7 +247,7 @@ namespace Roguelike.Core.ActiveObjects
 		{
 			int time;
 			string logMessage;
-			var game = CurrentCell.Region.World.Game;
+			var game = this.GetGame();
 			var language = game.Language.LogActionFormats;
 			var balance = game.Balance;
 
@@ -310,7 +294,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		public virtual ActionResult Attack(IAlive target)
 		{
-			var world = CurrentCell.Region.World;
+			var world = this.GetWorld();
 			var game = world.Game;
 			var balance = game.Balance;
 			var language = game.Language;
@@ -331,7 +315,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		public virtual ActionResult Shoot(Cell target)
 		{
-			var world = CurrentCell.Region.World;
+			var world = this.GetWorld();
 			var game = world.Game;
 			var balance = game.Balance;
 			var language = game.Language;
@@ -339,22 +323,22 @@ namespace Roguelike.Core.ActiveObjects
 
 			var missile = Inventory.Select<IItem, Missile>().First();
 
-			if (!CurrentCell.Position.Equals(target.Position))
+			if (!this.GetPosition().Equals(target.Position))
 			{
-				var direction = CurrentCell.Position.GetDirection(target.Position);
-				var region = CurrentCell.Region;
-				int z = CurrentCell.Position.Z;
+				var direction = this.GetPosition().GetDirection(target.Position);
+				var region = this.GetRegion();
+				int z = this.GetPosition().Z;
 
 				// take all obstacles into account
 				var track = new List<Cell>();
 				var step = CurrentCell;
-				int dx = target.Position.X - CurrentCell.Position.X,
-					dy = target.Position.Y - CurrentCell.Position.Y;
+				int dx = target.Position.X - this.GetPosition().X,
+					dy = target.Position.Y - this.GetPosition().Y;
 				double	distance = Math.Sqrt(dx * dx + dy * dy),
 						sx = dx / distance,
 						sy = dy / distance,
-						x = CurrentCell.Position.X,
-						y = CurrentCell.Position.Y;
+						x = this.GetPosition().X,
+						y = this.GetPosition().Y;
 				while (distance > 1)
 				{
 					x += sx;
@@ -401,7 +385,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		public virtual ActionResult DropItem(IItem item)
 		{
-			var world = CurrentCell.Region.World;
+			var world = this.GetWorld();
 			var game = world.Game;
 			var balance = game.Balance;
 			var language = game.Language.LogActionFormats;
@@ -436,7 +420,7 @@ namespace Roguelike.Core.ActiveObjects
 			Func<ActionLongevityBalance, long> getLongevity,
 			Func<LanguageLogActionFormats, string> getLogFormat)
 		{
-			var world = CurrentCell.Region.World;
+			var world = this.GetWorld();
 			var game = world.Game;
 			Balance balance = game.Balance;
 			var language = game.Language;

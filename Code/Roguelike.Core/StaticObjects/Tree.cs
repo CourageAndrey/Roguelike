@@ -21,7 +21,7 @@ namespace Roguelike.Core.StaticObjects
 
 		public List<Interaction> GetAvailableInteractions(Object actor)
 		{
-			var game = CurrentCell.Region.World.Game;
+			var game = this.GetGame();
 			var balance = game.Balance;
 			var language = game.Language;
 			return new List<Interaction>
@@ -35,7 +35,7 @@ namespace Roguelike.Core.StaticObjects
 					}
 					return new ActionResult(
 						Time.FromTicks(balance.Time, balance.ActionLongevity.ChopTree),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ChopTree, a.GetDescription(game.Language, game.Hero), CurrentCell.Position),
+						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ChopTree, a.GetDescription(game.Language, game.Hero), this.GetPosition()),
 						Activity.ChopsTree);
 				}),
 			};

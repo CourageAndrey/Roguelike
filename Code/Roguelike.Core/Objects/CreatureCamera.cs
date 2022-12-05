@@ -123,8 +123,8 @@ namespace Roguelike.Core.Objects
 
 		private bool IsNeigboorTransparent(Vector cellPosition)
 		{
-			var position = _holder.CurrentCell.Position;
-			var region = _holder.CurrentCell.Region;
+			var position = _holder.GetPosition();
+			var region = _holder.GetRegion();
 
 			const double rateMinimum = 1d/3,
 						 rateMaximum = 3,

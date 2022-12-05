@@ -9,7 +9,7 @@ using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
-using Roguelike.Core.StaticObjects;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.ActiveObjects
 {

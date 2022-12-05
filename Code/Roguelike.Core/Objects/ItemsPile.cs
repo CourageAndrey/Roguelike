@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
-namespace Roguelike.Core.StaticObjects
+namespace Roguelike.Core.Objects
 {
 	public class ItemsPile : Object, IItemsContainer
 	{

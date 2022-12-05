@@ -11,10 +11,9 @@ namespace Roguelike.Core.ActiveObjects
 	public class Hero : Humanoid
 	{
 		public Hero(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
-			: base(balance, race, sexIsMale, birthDate, properties, inventory, name, new IObjectAspect[1])
+			: base(balance, race, sexIsMale, birthDate, properties, inventory, name)
 		{
-#warning Errorneous typecast.
-			((IObjectAspect[]) Aspects)[0] = new CreatureCamera(this);
+			AddAspects(new CreatureCamera(this));
 		}
 
 		protected override ActionResult DoImplementation()

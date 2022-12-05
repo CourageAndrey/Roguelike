@@ -17,10 +17,6 @@ namespace Roguelike.Core
 
 		#endregion
 
-		protected Active(IObjectAspect[] aspects = null)
-			: base(aspects)
-		{ }
-
 		public abstract ActionResult Do();
 
 		public ActionResult TryMove(Direction direction)

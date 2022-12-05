@@ -18,11 +18,10 @@ namespace Roguelike.Core.ActiveObjects
 		#endregion
 
 		public Horse(Balance balance, bool sexIsMale, Time birthDate, Color skinColor)
-			: base(balance, sexIsMale, birthDate, new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>(), new IObjectAspect[1])
+			: base(balance, sexIsMale, birthDate, new Properties(5, 5, 30, 5, 5, 5), Enumerable.Empty<Item>())
 		{
 			SkinColor = skinColor;
-#warning Errorneous typecast.
-			((IObjectAspect[]) Aspects)[0] = new Transport(this);
+			AddAspects(new Transport(this));
 		}
 
 		protected override ActionResult DoImplementation()

@@ -146,8 +146,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected Alive(Balance balance, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, IObjectAspect[] aspects = null)
-			: base(aspects)
+		protected Alive(Balance balance, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory)
 		{
 			if (properties == null) throw new ArgumentNullException(nameof(properties));
 			if (inventory == null) throw new ArgumentNullException(nameof(inventory));

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using Roguelike.Core.Objects;
+using Roguelike.Core.Objects.Aspects;
 
 namespace Roguelike.Core.Interfaces
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
-using Roguelike.Core.Objects;
+using Roguelike.Core.Objects.Aspects;
 
 namespace Roguelike.Core.ActiveObjects
 {

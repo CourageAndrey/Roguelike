@@ -1,5 +1,6 @@
 ﻿using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Objects.Aspects;
 
 namespace Roguelike.Core.Objects
 {

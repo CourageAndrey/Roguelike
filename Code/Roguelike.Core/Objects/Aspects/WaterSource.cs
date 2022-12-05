@@ -1,7 +1,7 @@
 ﻿using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 
-namespace Roguelike.Core.Objects
+namespace Roguelike.Core.Objects.Aspects
 {
 	public class WaterSource : IObjectAspect
 	{

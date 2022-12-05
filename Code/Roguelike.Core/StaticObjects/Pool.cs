@@ -14,8 +14,9 @@ namespace Roguelike.Core.StaticObjects
 		#endregion
 
 		public Pool()
-			: base(new IObjectAspect[] { new WaterSource() })
-		{ }
+		{
+			AddAspects(new WaterSource());
+		}
 
 		public override string GetDescription(Language language, IAlive forWhom)
 		{

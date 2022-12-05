@@ -14,8 +14,9 @@ namespace Roguelike.Core.StaticObjects
 		#endregion
 
 		public Fire()
-			: base(new IObjectAspect[] { new FireSource() })
-		{ }
+		{
+			AddAspects(new FireSource());
+		}
 
 		public override string GetDescription(Language language, IAlive forWhom)
 		{

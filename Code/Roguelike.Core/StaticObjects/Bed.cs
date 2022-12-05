@@ -14,8 +14,9 @@ namespace Roguelike.Core.StaticObjects
 		#endregion
 
 		public Bed()
-			: base(new IObjectAspect[] { new SleepingArea() })
-		{ }
+		{
+			AddAspects(new SleepingArea());
+		}
 
 		public override string GetDescription(Language language, IAlive forWhom)
 		{

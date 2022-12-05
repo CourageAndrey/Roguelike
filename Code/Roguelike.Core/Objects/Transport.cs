@@ -21,8 +21,7 @@ namespace Roguelike.Core.Objects
 				{
 					_rider = value;
 					_rider.Transport = this;
-#warning Errorneous typecast.
-					((Object) Object).MoveTo(null);
+					Object.MoveTo(null);
 				}
 				else if (_rider != null && value == null)
 				{
@@ -31,8 +30,7 @@ namespace Roguelike.Core.Objects
 					cells.Remove(Direction.None);
 					var horseCell = cells.Values.First(c => c.IsTransparent);
 
-#warning Errorneous typecast.
-					((Object) Object).MoveTo(horseCell);
+					Object.MoveTo(horseCell);
 
 					_rider.Transport = null;
 					_rider = null;

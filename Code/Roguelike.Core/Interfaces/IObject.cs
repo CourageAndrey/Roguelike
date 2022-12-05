@@ -10,7 +10,7 @@ namespace Roguelike.Core.Interfaces
 		bool IsSolid
 		{ get; }
 
-		bool TryMoveTo(Cell cell);
+		void MoveTo(Cell cell);
 
 		event ValueChangedEventHandler<IObject, bool> IsSolidChanged;
 

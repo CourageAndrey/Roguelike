@@ -73,20 +73,7 @@ namespace Roguelike.Core
 
 		#region Movement
 
-		public bool TryMoveTo(Cell cell)
-		{
-			if (!IsSolid || cell.IsTransparent)
-			{
-				MoveTo(cell);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-		internal void MoveTo(Cell cell)
+		public void MoveTo(Cell cell)
 		{
 			var oldCell = CurrentCell;
 			if (CurrentCell != null)

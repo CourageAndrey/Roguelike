@@ -9,7 +9,7 @@ using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
-using Roguelike.Core.Objects;
+using Roguelike.Core.Objects.Aspects;
 
 namespace Roguelike.Console
 {

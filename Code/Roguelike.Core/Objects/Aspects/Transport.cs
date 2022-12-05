@@ -3,7 +3,7 @@ using System.Linq;
 
 using Roguelike.Core.Interfaces;
 
-namespace Roguelike.Core.Objects
+namespace Roguelike.Core.Objects.Aspects
 {
 	public class Transport : IObjectAspect
 	{

@@ -48,7 +48,7 @@
     <Compile Include="ActiveObjects\Diseases\Plague.cs" />
     <Compile Include="ActiveObjects\Diseases\Ulcer.cs" />
     <Compile Include="ActiveObjects\Diseases\Worms.cs" />
-    <Compile Include="Objects\CreatureCamera.cs" />
+    <Compile Include="Objects\Aspects\CreatureCamera.cs" />
     <Compile Include="ActiveObjects\Manequin.cs" />
     <Compile Include="ActiveObjects\Properties.cs" />
     <Compile Include="ActiveObjects\Humanoid.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="Items\Naked.cs" />
     <Compile Include="Items\TreeChopper.cs" />
     <Compile Include="Items\Missile.cs" />
-    <Compile Include="Objects\Transport.cs" />
+    <Compile Include="Objects\Aspects\Transport.cs" />
     <Compile Include="Items\Paper.cs" />
     <Compile Include="Interfaces\IItemsContainer.cs" />
     <Compile Include="Interfaces\ITree.cs" />
@@ -90,7 +90,7 @@
     <Compile Include="Interfaces\IAlive.cs" />
     <Compile Include="Interfaces\IBody.cs" />
     <Compile Include="Interfaces\IBodyPart.cs" />
-    <Compile Include="Objects\FireSource.cs" />
+    <Compile Include="Objects\Aspects\FireSource.cs" />
     <Compile Include="Interfaces\IHasOwner.cs" />
     <Compile Include="Interfaces\IInteractive.cs" />
     <Compile Include="Interfaces\IInterlocutor.cs" />
@@ -99,8 +99,8 @@
     <Compile Include="Interfaces\IObject.cs" />
     <Compile Include="Interfaces\IProperties.cs" />
     <Compile Include="Interfaces\IRequireGravitation.cs" />
-    <Compile Include="Objects\SleepingArea.cs" />
-    <Compile Include="Objects\WaterSource.cs" />
+    <Compile Include="Objects\Aspects\SleepingArea.cs" />
+    <Compile Include="Objects\Aspects\WaterSource.cs" />
     <Compile Include="Items\Unarmed.cs" />
     <Compile Include="Items\Weapon.cs" />
     <Compile Include="Items\Wear.cs" />

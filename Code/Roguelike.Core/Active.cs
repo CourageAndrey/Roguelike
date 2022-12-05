@@ -49,15 +49,23 @@ namespace Roguelike.Core
 					Activity newActivity = (this as IAlive)?.IsAgressive == false
 						? Activity.Walks
 						: null;
-					return TryMoveTo(newCell)
-						? new ActionResult(
+
+					if (!IsSolid || newCell.IsTransparent)
+					{
+						MoveTo(newCell);
+
+						return new ActionResult(
 							Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Step * distance)),
 							string.Format(CultureInfo.InvariantCulture, language.Move, GetDescription(game.Language, game.Hero), oldPosition, newCell.Position),
-							newActivity)
-						: new ActionResult(
+							newActivity);
+					}
+					else
+					{
+						return new ActionResult(
 							Time.FromTicks(balance.Time, balance.ActionLongevity.Disabled),
 							string.Format(CultureInfo.InvariantCulture, language.MoveDisabled, GetDescription(game.Language, game.Hero), oldPosition, newCell.Position),
 							newActivity);
+					}
 				}
 			}
 			else

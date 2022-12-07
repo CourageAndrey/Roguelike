@@ -1,5 +1,6 @@
 ﻿using Roguelike.Core;
 using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Console

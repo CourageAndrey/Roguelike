@@ -204,7 +204,7 @@ namespace Roguelike.Core
 
 		private Queue<Active> _activeCache;
 
-		private void OnLogMessage(IActive sender, ICollection<string> messages)
+		private void OnLogMessage(IObject sender, ICollection<string> messages)
 		{
 			foreach (string line in messages)
 			{

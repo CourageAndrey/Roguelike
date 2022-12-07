@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Items;
 
 namespace Roguelike.Core.Interfaces
 {
@@ -56,6 +59,57 @@ namespace Roguelike.Core.Interfaces
 		internal static void WriteToLog(this IObject obj, string message)
 		{
 			obj.WriteToLog(new[] { message });
+		}
+
+		public static ActionResult TryMove(this IObject obj, Direction direction)
+		{
+			var world = obj.GetWorld();
+			var game = world.Game;
+			var balance = game.Balance;
+
+			var oldPosition = obj.GetPosition();
+			var newCell = obj.GetRegion().GetCell(obj.GetPosition().GetNeighboor(direction));
+			if (newCell != null)
+			{
+				double distance = obj.GetPosition() != null
+					? newCell.Position.GetDistance(obj.GetPosition())
+					: 0;
+				var language = game.Language.LogActionFormats;
+
+				var alive = obj as IAlive;
+				IAlive target = null;
+				if (alive?.IsAgressive == true && alive?.WeaponToFight?.GetAspect<Weapon>()?.IsRange == false && (target = newCell.Objects.OfType<IAlive>().FirstOrDefault()) != null)
+				{
+					return alive.Attack(target);
+				}
+				else
+				{
+					Activity newActivity = (obj as IAlive)?.IsAgressive == false
+						? Activity.Walks
+						: null;
+
+					if (!obj.IsSolid || newCell.IsTransparent)
+					{
+						obj.MoveTo(newCell);
+
+						return new ActionResult(
+							Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Step * distance)),
+							string.Format(CultureInfo.InvariantCulture, language.Move, obj.GetDescription(game.Language, game.Hero), oldPosition, newCell.Position),
+							newActivity);
+					}
+					else
+					{
+						return new ActionResult(
+							Time.FromTicks(balance.Time, balance.ActionLongevity.Disabled),
+							string.Format(CultureInfo.InvariantCulture, language.MoveDisabled, obj.GetDescription(game.Language, game.Hero), oldPosition, newCell.Position),
+							newActivity);
+					}
+				}
+			}
+			else
+			{
+				return ActionResult.GetEmpty(balance);
+			}
 		}
 	}
 }

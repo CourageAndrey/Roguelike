@@ -22,7 +22,7 @@ namespace Roguelike.Core.ActiveObjects
 		{
 #warning Implement NPC AI.
 			var random = new Random(DateTime.Now.Millisecond);
-			return TryMove(DirectionHelper.AllDirections[random.Next(0, DirectionHelper.AllDirections.Count - 1)]);
+			return this.TryMove(DirectionHelper.AllDirections[random.Next(0, DirectionHelper.AllDirections.Count - 1)]);
 		}
 	}
 }

@@ -30,14 +30,14 @@ namespace Roguelike.Core.ActiveObjects
 			if (Owner == null)
 			{
 				var random = new Random(DateTime.Now.Millisecond);
-				return TryMove(DirectionHelper.AllDirections[random.Next(0, DirectionHelper.AllDirections.Count - 1)]);
+				return this.TryMove(DirectionHelper.AllDirections[random.Next(0, DirectionHelper.AllDirections.Count - 1)]);
 			}
 			else
 			{
 				var nextStep = Ai.CalculateRoute(this.GetRegion(), this.GetPosition(), Owner.GetPosition()).Skip(1).FirstOrDefault();
 				if (nextStep != null)
 				{
-					return TryMove(this.GetPosition().GetDirection(nextStep));
+					return this.TryMove(this.GetPosition().GetDirection(nextStep));
 				}
 				else
 				{

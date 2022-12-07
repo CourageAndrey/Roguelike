@@ -68,12 +68,12 @@ namespace Roguelike.Core.Interfaces
 			var balance = game.Balance;
 
 			var oldPosition = obj.GetPosition();
-			var newCell = obj.GetRegion().GetCell(obj.GetPosition().GetNeighboor(direction));
+			var newCell = oldPosition != null
+				? obj.GetRegion().GetCell(oldPosition.GetNeighboor(direction))
+				: null;
 			if (newCell != null)
 			{
-				double distance = obj.GetPosition() != null
-					? newCell.Position.GetDistance(obj.GetPosition())
-					: 0;
+				double distance = newCell.Position.GetDistance(oldPosition);
 				var language = game.Language.LogActionFormats;
 
 				var alive = obj as IAlive;

@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
-using System.Threading;
 
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
@@ -10,12 +8,8 @@ namespace Roguelike.Core
 {
 	public abstract class Active : Object, IActive
 	{
-		#region Properties
-
 		public Time? NextActionTime
 		{ get; internal set; }
-
-		#endregion
 
 		public abstract ActionResult Do();
 
@@ -69,25 +63,5 @@ namespace Roguelike.Core
 				return ActionResult.GetEmpty(balance);
 			}
 		}
-
-		#region Log messages
-
-		public event EventHandler<IActive, ICollection<string>> OnLogMessage;
-
-		protected internal void WriteToLog(ICollection<string> messages)
-		{
-			var handler = Volatile.Read(ref OnLogMessage);
-			if (handler != null)
-			{
-				handler(this, messages);
-			}
-		}
-
-		protected internal void WriteToLog(string message)
-		{
-			WriteToLog(new[] { message });
-		}
-
-		#endregion
 	}
 }

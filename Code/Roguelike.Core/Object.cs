@@ -62,7 +62,18 @@ namespace Roguelike.Core
 
 		#endregion
 
+		public event EventHandler<IObject, ICollection<string>> OnLogMessage;
+
 		#endregion
+
+		public void WriteToLog(ICollection<string> messages)
+		{
+			var handler = Volatile.Read(ref OnLogMessage);
+			if (handler != null)
+			{
+				handler(this, messages);
+			}
+		}
 
 		protected void AddAspects(params IObjectAspect[] aspects)
 		{

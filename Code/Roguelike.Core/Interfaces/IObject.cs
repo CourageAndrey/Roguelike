@@ -1,4 +1,6 @@
-﻿using Roguelike.Core.ActiveObjects;
+﻿using System.Collections.Generic;
+
+using Roguelike.Core.ActiveObjects;
 
 namespace Roguelike.Core.Interfaces
 {
@@ -15,6 +17,10 @@ namespace Roguelike.Core.Interfaces
 		event ValueChangedEventHandler<IObject, bool> IsSolidChanged;
 
 		event ValueChangedEventHandler<IObject, Cell> CellChanged;
+
+		void WriteToLog(ICollection<string> messages);
+
+		event EventHandler<IObject, ICollection<string>> OnLogMessage;
 	}
 
 	public interface IObjectAspect : IAspect
@@ -45,6 +51,11 @@ namespace Roguelike.Core.Interfaces
 		public static Hero GetHero(this IObject obj)
 		{
 			return obj.GetWorld()?.Hero;
+		}
+
+		internal static void WriteToLog(this IObject obj, string message)
+		{
+			obj.WriteToLog(new[] { message });
 		}
 	}
 }

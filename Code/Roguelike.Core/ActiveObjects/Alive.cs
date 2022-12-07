@@ -132,7 +132,7 @@ namespace Roguelike.Core.ActiveObjects
 			{
 				deathMessage = $"{this.GetDescription(game.Language, game.Hero)} die: {reason}";
 			}
-			WriteToLog(deathMessage);
+			this.WriteToLog(deathMessage);
 
 			var corpse = new Corpse(this);
 			if (CurrentCell != null)

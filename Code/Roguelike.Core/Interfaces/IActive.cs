@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Roguelike.Core.Interfaces
+﻿namespace Roguelike.Core.Interfaces
 {
 	public interface IActive : IObject
 	{
@@ -8,7 +6,5 @@ namespace Roguelike.Core.Interfaces
 		{ get; }
 
 		ActionResult Do();
-
-		event EventHandler<IActive, ICollection<string>> OnLogMessage;
 	}
 }

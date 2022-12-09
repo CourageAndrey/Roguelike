@@ -39,5 +39,11 @@ namespace Roguelike.Core.Interfaces
 		{
 			return holder.Aspects.OfType<AspectT>().Single();
 		}
+
+		public static AspectT TryGetAspect<AspectT>(this IAspectHolder holder)
+			where AspectT : IAspect
+		{
+			return holder.Aspects.OfType<AspectT>().FirstOrDefault();
+		}
 	}
 }

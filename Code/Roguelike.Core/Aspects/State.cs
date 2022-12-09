@@ -4,14 +4,13 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 
-using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
-namespace Roguelike.Core.ActiveObjects
+namespace Roguelike.Core.Aspects
 {
-	public class State : IState
+	public class State : IAspect
 	{
 		#region Properties
 
@@ -131,7 +130,7 @@ namespace Roguelike.Core.ActiveObjects
 		public Activity Activity
 		{ get; private set; }
 
-		public event EventHandler<IState> Changed;
+		public event EventHandler<State> Changed;
 
 		protected void RaiseChanged()
 		{

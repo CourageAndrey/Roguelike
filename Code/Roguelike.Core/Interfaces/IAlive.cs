@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IAlive : IActive, IVariableMassy, IFighter
+	public interface IAlive : IActive, IVariableMassy
 	{
 		bool SexIsMale
 		{ get; }
@@ -13,16 +13,19 @@ namespace Roguelike.Core.Interfaces
 		Time BirthDate
 		{ get; }
 
-		IProperties Properties
+		Properties Properties
 		{ get; }
 
-		IBody Body
+		Body Body
 		{ get; }
 
-		IState State
+		State State
 		{ get; }
 
-		ICollection<IItem> Inventory
+		Inventory Inventory
+		{ get; }
+
+		Fighter Fighter
 		{ get; }
 
 		double Toughness
@@ -49,29 +52,6 @@ namespace Roguelike.Core.Interfaces
 		ActionResult Eat(IItem food);
 
 		ActionResult Drink(IItem drink);
-	}
-
-	public interface IFighter
-	{
-		IItem WeaponToFight
-		{ get; }
-
-		bool IsAgressive
-		{ get; }
-
-		event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
-
-		event ValueChangedEventHandler<IAlive, IItem> WeaponChanged;
-
-		ActionResult ChangeAggressive(bool agressive);
-
-		ActionResult ChangeWeapon(IItem weapon);
-
-		ActionResult Attack(IAlive target);
-
-		ActionResult Shoot(Cell target);
-
-		ActionResult Backstab(IAlive actor);
 	}
 
 	public static class AliveExtensions

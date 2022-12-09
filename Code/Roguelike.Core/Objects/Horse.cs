@@ -35,7 +35,7 @@ namespace Roguelike.Core.Objects
 
 		public override Body CreateBody()
 		{
-			return ActiveObjects.Body.CreateAnimal();
+			return Body.CreateAnimal();
 		}
 
 		public override string GetDescription(Language language, IAlive forWhom)

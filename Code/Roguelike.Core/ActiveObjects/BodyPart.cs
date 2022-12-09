@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
@@ -12,7 +13,7 @@ namespace Roguelike.Core.ActiveObjects
 	{
 		#region Properties
 
-		public IBody Body
+		public Body Body
 		{ get; }
 
 		public IReadOnlyCollection<IBodyPart> Parts
@@ -32,11 +33,11 @@ namespace Roguelike.Core.ActiveObjects
 
 		#region Constructors
 
-		internal BodyPart(IBody body, decimal weight, Func<LanguageBodyParts, string> getName, bool isVital = false)
+		internal BodyPart(Body body, decimal weight, Func<LanguageBodyParts, string> getName, bool isVital = false)
 			: this(body, weight, getName, new IBodyPart[0], isVital)
 		{ }
 
-		internal BodyPart(IBody body, decimal weight, Func<LanguageBodyParts, string> getName, IList<IBodyPart> parts, bool isVital = false)
+		internal BodyPart(Body body, decimal weight, Func<LanguageBodyParts, string> getName, IList<IBodyPart> parts, bool isVital = false)
 		{
 			Body = body;
 			Weight = weight;

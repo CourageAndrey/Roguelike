@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
@@ -55,21 +54,21 @@ namespace Roguelike.Core
 				seed.Next(10, balance.WorldSize.RegionYdimension - 50),
 				0);
 			Hero.MoveTo(heroCell);
-			Hero.Inventory.Add(ItemFactory.CreateHatchet());
-			Hero.Inventory.Add(ItemFactory.CreateBow());
+			Hero.Inventory.Items.Add(ItemFactory.CreateHatchet());
+			Hero.Inventory.Items.Add(ItemFactory.CreateBow());
 			for (int i = 0; i < 3; i++)
 			{
-				Hero.Inventory.Add(ItemFactory.CreateLoafOfBread());
-				Hero.Inventory.Add(ItemFactory.CreateBottleOFWater());
+				Hero.Inventory.Items.Add(ItemFactory.CreateLoafOfBread());
+				Hero.Inventory.Items.Add(ItemFactory.CreateBottleOFWater());
 			}
 			Hero.Manequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
 			Hero.Manequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
 			Hero.Manequin.Jewelry.Add(ItemFactory.CreateRing());
 			for (int i = 0; i < 20; i++)
 			{
-				Hero.Inventory.Add(ItemFactory.CreateArrow());
+				Hero.Inventory.Items.Add(ItemFactory.CreateArrow());
 			}
-			Hero.Inventory.Add(ItemFactory.CreateBook(Color.Coral, language => language.HelloWorld, language => language.HelloWorld));
+			Hero.Inventory.Items.Add(ItemFactory.CreateBook(Color.Coral, language => language.HelloWorld, language => language.HelloWorld));
 			Hero.Camera.MakeMapKnown(balance.Distance.HeroInitialView);
 
 			region.CreateVillage(

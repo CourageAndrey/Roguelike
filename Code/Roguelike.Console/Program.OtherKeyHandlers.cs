@@ -88,7 +88,7 @@ namespace Roguelike.Console
 			World world,
 			IHero hero)
 		{
-			return hero.ChangeAggressive(!hero.IsAgressive);
+			return hero.Fighter.ChangeAggressive(!hero.Fighter.IsAgressive);
 		}
 
 		private static ActionResult HandleDropItem(
@@ -98,7 +98,7 @@ namespace Roguelike.Console
 			World world,
 			IHero hero)
 		{
-			var itemsToDrop = hero.Inventory.Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
+			var itemsToDrop = hero.Inventory.Items.Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
 
 			ListItem selectedItemToDrop;
 			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrop, itemsToDrop, out selectedItemToDrop))
@@ -118,10 +118,10 @@ namespace Roguelike.Console
 			World world,
 			IHero hero)
 		{
-			var weapons = new List<IItem>(hero.Inventory.Where(i => i.Is<Weapon>())).ToList();
-			if (hero.WeaponToFight.GetType() != typeof(Unarmed))
+			var weapons = new List<IItem>(hero.Inventory.Items.Where(i => i.Is<Weapon>())).ToList();
+			if (hero.Fighter.WeaponToFight.GetType() != typeof(Unarmed))
 			{
-				weapons.Remove(hero.WeaponToFight);
+				weapons.Remove(hero.Fighter.WeaponToFight);
 				weapons.Add(new Unarmed(hero));
 			}
 
@@ -133,10 +133,10 @@ namespace Roguelike.Console
 			}
 			else
 			{
-				selectedWeapon = hero.WeaponToFight;
+				selectedWeapon = hero.Fighter.WeaponToFight;
 			}
 
-			return hero.ChangeWeapon(selectedWeapon);
+			return hero.Fighter.ChangeWeapon(selectedWeapon);
 		}
 
 		private static ActionResult HandleChat(
@@ -203,7 +203,7 @@ namespace Roguelike.Console
 			var alive = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
 			if (alive != null)
 			{
-				return alive.Backstab(hero);
+				return alive.Fighter.Backstab(hero);
 			}
 			else
 			{
@@ -245,7 +245,7 @@ namespace Roguelike.Console
 
 			if (itemToPick != null)
 			{
-				itemsContainer.PickItem(itemToPick, hero.Inventory);
+				itemsContainer.PickItem(itemToPick, hero.Inventory.Items);
 				return new ActionResult(
 					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.PickItem),
 					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.PickItem, hero.GetDescription(language, hero), itemToPick));
@@ -294,7 +294,7 @@ namespace Roguelike.Console
 		{
 			Paper selectedBook = null;
 
-			var booksToRead = hero.Inventory.OfType<Paper>().Select(i => new ListItem<Paper>(i, i.GetTitle(language.Books))).ToList();
+			var booksToRead = hero.Inventory.Items.OfType<Paper>().Select(i => new ListItem<Paper>(i, i.GetTitle(language.Books))).ToList();
 			if (booksToRead.Count > 0)
 			{
 				ListItem selectedBookToRead;
@@ -346,11 +346,11 @@ namespace Roguelike.Console
 			IHero hero)
 		{
 			Cell target;
-			return	hero.IsAgressive &&
-					hero.WeaponToFight.GetAspect<Weapon>().IsRange &&
-					hero.Inventory.Select<IItem, Missile>().Any() &&
+			return	hero.Fighter.IsAgressive &&
+					hero.Fighter.WeaponToFight.GetAspect<Weapon>().IsRange &&
+					hero.Inventory.Items.Select<IItem, Missile>().Any() &&
 					(target = ui.SelectShootingTarget(game)) != null
-				? hero.Shoot(target)
+				? hero.Fighter.Shoot(target)
 				: null;
 		}
 
@@ -361,7 +361,7 @@ namespace Roguelike.Console
 			World world,
 			IHero hero)
 		{
-			var itemsToEat = hero.Inventory.Where(i => i.Type == ItemType.Food).Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
+			var itemsToEat = hero.Inventory.Items.Where(i => i.Type == ItemType.Food).Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
 
 			ListItem selectedItemToEat;
 			if (ui.TrySelectItem(game, language.Promts.SelectItemToEat, itemsToEat, out selectedItemToEat))
@@ -387,7 +387,7 @@ namespace Roguelike.Console
 				return source.Drink(hero);
 			}
 
-			var itemsToDrink = hero.Inventory.Where(i => i.Type == ItemType.Potion).Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
+			var itemsToDrink = hero.Inventory.Items.Where(i => i.Type == ItemType.Potion).Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
 			ListItem selectedItemToDrink;
 			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrink, itemsToDrink, out selectedItemToDrink))
 			{

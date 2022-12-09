@@ -27,12 +27,12 @@ namespace Roguelike.Core.Objects
 			var language = game.Language;
 			return new List<Interaction>
 			{
-				new Interaction(language.Interactions.ChopTree, (actor as IAlive)?.Inventory.Any(item => item.Is<TreeChopper>()) == true, a =>
+				new Interaction(language.Interactions.ChopTree, (actor as IAlive)?.Inventory.Items.Any(item => item.Is<TreeChopper>()) == true, a =>
 				{
 					var inventory = ((IAlive) a).Inventory;
 					foreach (var log in Chop())
 					{
-						inventory.Add(log);
+						inventory.Items.Add(log);
 					}
 					return new ActionResult(
 						Time.FromTicks(balance.Time, balance.ActionLongevity.ChopTree),

@@ -117,7 +117,7 @@ namespace Roguelike.Core.Aspects
 			if (itemSlot != null && !(itemSlot is Naked))
 			{
 				itemSlot.GetAspect<Wear>().RaiseUnequipped(_holder);
-				_holder.Inventory.Add(itemSlot);
+				_holder.Inventory.Items.Add(itemSlot);
 			}
 			itemSlot = newItem;
 			if (!(itemSlot is Naked))
@@ -125,7 +125,7 @@ namespace Roguelike.Core.Aspects
 				if (newItem.GetAspect<Wear>().SuitableSlot == slot)
 				{
 					itemSlot.GetAspect<Wear>().RaiseEquipped(_holder);
-					_holder.Inventory.Remove(itemSlot);
+					_holder.Inventory.Items.Remove(itemSlot);
 				}
 				else
 				{

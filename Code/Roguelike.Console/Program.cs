@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using Roguelike.Core;
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
@@ -33,7 +34,7 @@ namespace Roguelike.Console
 			};
 			game.Start();
 
-			ui.Camera = hero.GetAspect<ICamera>();
+			ui.Camera = hero.GetAspect<Camera>();
 
 			do
 			{

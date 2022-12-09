@@ -8,8 +8,15 @@ using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.ActiveObjects
 {
-	public class Hero : Humanoid
+	public class Hero : Humanoid, IHero
 	{
+		#region Properties
+
+		public Camera Camera
+		{ get { return this.GetAspect<Camera>(); } }
+
+		#endregion
+
 		public Hero(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
 			: base(balance, race, sexIsMale, birthDate, properties, inventory, name)
 		{

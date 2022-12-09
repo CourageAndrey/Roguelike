@@ -1,5 +1,4 @@
 ﻿using Roguelike.Core;
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
@@ -12,7 +11,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			return hero.TryMove(Direction.Left);
 		}
@@ -22,7 +21,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			return hero.TryMove(Direction.Right);
 		}
@@ -32,7 +31,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			return hero.TryMove(Direction.Up);
 		}
@@ -42,7 +41,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			return hero.TryMove(Direction.Down);
 		}
@@ -52,7 +51,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			return hero.TryMove(Direction.DownLeft);
 		}
@@ -62,7 +61,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			return hero.TryMove(Direction.DownRight);
 		}
@@ -72,7 +71,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			return hero.TryMove(Direction.UpLeft);
 		}
@@ -82,7 +81,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			return hero.TryMove(Direction.UpRight);
 		}
@@ -92,7 +91,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			return hero.TryMove(Direction.None);
 		}

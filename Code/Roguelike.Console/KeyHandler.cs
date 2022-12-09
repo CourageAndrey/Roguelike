@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Roguelike.Core;
-using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Console
@@ -11,7 +11,7 @@ namespace Roguelike.Console
 		ConsoleUi ui,
 		Game game,
 		World world,
-		Hero hero);
+		IHero hero);
 
 	internal class KeyHandler
 	{

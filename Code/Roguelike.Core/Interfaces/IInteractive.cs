@@ -5,16 +5,16 @@ namespace Roguelike.Core.Interfaces
 {
 	public interface IInteractive
 	{
-		List<Interaction> GetAvailableInteractions(Object actor);
+		List<Interaction> GetAvailableInteractions(IObject actor);
 	}
 
 	public class Interaction
 	{
 		public string Name { get; }
 		public bool IsAvailable { get; }
-		private readonly Func<Object, ActionResult> handler;
+		private readonly Func<IObject, ActionResult> handler;
 
-		internal Interaction(string name, bool isAvailable, Func<Object, ActionResult> handler)
+		internal Interaction(string name, bool isAvailable, Func<IObject, ActionResult> handler)
 		{
 			if (handler == null) throw new ArgumentNullException("handler");
 			Name = name;
@@ -22,7 +22,7 @@ namespace Roguelike.Core.Interfaces
 			this.handler = handler;
 		}
 
-		public ActionResult Perform(Object actor)
+		public ActionResult Perform(IObject actor)
 		{
 			return handler(actor);
 		}

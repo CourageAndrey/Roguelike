@@ -20,7 +20,7 @@ namespace Roguelike.Core.Objects
 
 		#region Implementation of IInteractive
 
-		public List<Interaction> GetAvailableInteractions(Object actor)
+		public List<Interaction> GetAvailableInteractions(IObject actor)
 		{
 			var game = this.GetGame();
 			var balance = game.Balance;

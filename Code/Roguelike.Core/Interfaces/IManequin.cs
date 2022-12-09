@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
-using Roguelike.Core.Items;
 
 namespace Roguelike.Core.Interfaces
 {

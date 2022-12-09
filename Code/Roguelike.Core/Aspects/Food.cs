@@ -1,4 +1,4 @@
-﻿namespace Roguelike.Core.Items
+﻿namespace Roguelike.Core.Aspects
 {
 	public class Food : Nutricious
 	{

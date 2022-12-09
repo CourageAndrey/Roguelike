@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
-using Roguelike.Core.Objects.Aspects;
 
 namespace Roguelike.Core
 {

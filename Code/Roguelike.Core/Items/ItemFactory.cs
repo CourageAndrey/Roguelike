@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 

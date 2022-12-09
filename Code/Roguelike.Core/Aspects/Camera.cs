@@ -7,17 +7,19 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Aspects
 {
-	public class CreatureCamera : ICamera
+	public class Camera : ICamera
 	{
 		#region Properties
 
-		private readonly IAlive _holder;
+		private readonly IObject _holder;
 
 		public Cell Cell
 		{ get { return _holder.CurrentCell; } }
 
 		public double Distance
-		{ get { return _holder.Properties.Perception; } }
+		{ get { return _getDistance(); } }
+
+		private readonly Func<double> _getDistance;
 
 		public ICollection<Cell> MapMemory
 		{ get; }
@@ -29,9 +31,10 @@ namespace Roguelike.Core.Aspects
 
 		#endregion
 
-		public CreatureCamera(IAlive holder)
+		public Camera(IObject holder, Func<double> getDistance)
 		{
 			_holder = holder;
+			_getDistance = getDistance;
 			MapMemory = new HashSet<Cell>();
 			VisibleCells = new Dictionary<Cell, bool>();
 		}

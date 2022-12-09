@@ -6,6 +6,7 @@ using System.Linq;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Objects.Aspects;
 
 namespace Roguelike.Core.ActiveObjects
 {
@@ -27,14 +28,15 @@ namespace Roguelike.Core.ActiveObjects
 		protected override ActionResult DoImplementation()
 		{
 #warning Implement animal AI.
-			if (Owner == null)
+			var owner = this.GetAspect<Ownership>().Owner;
+			if (owner == null)
 			{
 				var random = new Random(DateTime.Now.Millisecond);
 				return this.TryMove(DirectionHelper.AllDirections[random.Next(0, DirectionHelper.AllDirections.Count - 1)]);
 			}
 			else
 			{
-				var nextStep = Ai.CalculateRoute(this.GetRegion(), this.GetPosition(), Owner.GetPosition()).Skip(1).FirstOrDefault();
+				var nextStep = Ai.CalculateRoute(this.GetRegion(), this.GetPosition(), owner.GetPosition()).Skip(1).FirstOrDefault();
 				if (nextStep != null)
 				{
 					return this.TryMove(this.GetPosition().GetDirection(nextStep));

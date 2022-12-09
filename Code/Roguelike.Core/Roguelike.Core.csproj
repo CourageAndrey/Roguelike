@@ -92,7 +92,7 @@
     <Compile Include="Interfaces\IBody.cs" />
     <Compile Include="Interfaces\IBodyPart.cs" />
     <Compile Include="Objects\Aspects\FireSource.cs" />
-    <Compile Include="Interfaces\IHasOwner.cs" />
+    <Compile Include="Objects\Aspects\Ownership.cs" />
     <Compile Include="Interfaces\IInteractive.cs" />
     <Compile Include="Interfaces\IInterlocutor.cs" />
     <Compile Include="Interfaces\IItem.cs" />

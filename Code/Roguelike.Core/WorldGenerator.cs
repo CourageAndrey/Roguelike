@@ -6,8 +6,10 @@ using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Configuration;
+using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 using Roguelike.Core.Objects;
+using Roguelike.Core.Objects.Aspects;
 
 namespace Roguelike.Core
 {
@@ -157,10 +159,12 @@ namespace Roguelike.Core
 				wife.Manequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
 				wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var pet = new Dog(balance, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), Color.Gray) { Owner = husband };
+				var pet = new Dog(balance, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), Color.Gray);
+				pet.GetAspect<Ownership>().OwnBy(husband);
 				pet.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var transport = new Horse(balance, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-10), Color.LightSalmon) { Owner = husband };
+				var transport = new Horse(balance, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-10), Color.LightSalmon);
+				transport.GetAspect<Ownership>().OwnBy(husband);
 				transport.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 			}
 		}

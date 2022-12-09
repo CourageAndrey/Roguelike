@@ -3,10 +3,11 @@ using System.Threading;
 
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Objects.Aspects;
 
 namespace Roguelike.Core
 {
-	public abstract class Object : IObject, IHasOwner
+	public abstract class Object : IObject
 	{
 		#region Properties
 
@@ -41,27 +42,14 @@ namespace Roguelike.Core
 
 		#endregion
 
-		#region Ownership
-
-		public IObject Owner
-		{ get; internal set; }
-
-		public event ValueChangedEventHandler<IObject, IObject> OwnerChanged;
-
-		protected void RaiseOwnerChanged(IObject oldOwner, IObject newOwner)
-		{
-			var handler = Volatile.Read(ref OwnerChanged);
-			if (handler != null)
-			{
-				handler(this, oldOwner, newOwner);
-			}
-		}
-
-		#endregion
-
 		public event EventHandler<IObject, ICollection<string>> OnLogMessage;
 
 		#endregion
+
+		protected Object()
+		{
+			AddAspects(new Ownership(this));
+		}
 
 		public void WriteToLog(ICollection<string> messages)
 		{

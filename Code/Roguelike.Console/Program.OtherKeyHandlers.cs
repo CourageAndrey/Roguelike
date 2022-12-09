@@ -325,34 +325,14 @@ namespace Roguelike.Console
 			World world,
 			IHero hero)
 		{
-			if (hero.Transport == null)
+			if (hero.Rider.Transport == null)
 			{
-				var transportObject = SelectTarget<IObject>(ui, game, hero, language.SelectDirectionsPromt, h => h.Is<Transport>() && h.GetAspect<Transport>().Rider == null);
-				var transportAspect = transportObject?.GetAspect<Transport>();
-				if (transportAspect != null)
-				{
-					transportAspect.Rider = hero;
-					return new ActionResult(
-						Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.RideHorse),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.RideHorse, hero.GetDescription(language, hero)));
-				}
-				else
-				{
-					return null;
-				}
+				var transport = SelectTarget<IObject>(ui, game, hero, language.SelectDirectionsPromt, h => h.Is<Transport>() && h.GetAspect<Transport>().Rider == null);
+				return transport != null ? hero.Ride(transport) : null;
 			}
 			else
 			{
-				var heroCell = hero.CurrentCell;
-				var cells = heroCell.Region.GetCellsAroundPoint(heroCell.Position);
-				cells.Remove(Direction.None);
-				if (cells.Any(cell => cell.Value.IsTransparent))
-				{
-					hero.Transport.Rider = null;
-					return new ActionResult(
-						Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.RideHorse),
-						string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.RideHorse, hero.GetDescription(language, hero)));
-				}
+				return hero.Unride();
 			}
 
 			return null;

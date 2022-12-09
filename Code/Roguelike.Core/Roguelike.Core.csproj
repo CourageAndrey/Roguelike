@@ -48,11 +48,13 @@
     <Compile Include="ActiveObjects\Diseases\Plague.cs" />
     <Compile Include="ActiveObjects\Diseases\Ulcer.cs" />
     <Compile Include="ActiveObjects\Diseases\Worms.cs" />
+    <Compile Include="Aspects\Interlocutor.cs" />
+    <Compile Include="Aspects\Skilled.cs" />
+    <Compile Include="Aspects\Manequin.cs" />
     <Compile Include="Interfaces\IColorful.cs" />
     <Compile Include="Interfaces\IHero.cs" />
     <Compile Include="Interfaces\ILogSource.cs" />
     <Compile Include="Aspects\Camera.cs" />
-    <Compile Include="ActiveObjects\Manequin.cs" />
     <Compile Include="ActiveObjects\Properties.cs" />
     <Compile Include="ActiveObjects\Humanoid.cs" />
     <Compile Include="ActiveObjects\State.cs" />
@@ -82,7 +84,7 @@
     <Compile Include="Items\Naked.cs" />
     <Compile Include="Aspects\TreeChopper.cs" />
     <Compile Include="Aspects\Missile.cs" />
-    <Compile Include="Aspects\Transport.cs" />
+    <Compile Include="Aspects\Transportation.cs" />
     <Compile Include="Aspects\Paper.cs" />
     <Compile Include="Interfaces\IItemsContainer.cs" />
     <Compile Include="Interfaces\ITree.cs" />
@@ -96,9 +98,7 @@
     <Compile Include="Aspects\FireSource.cs" />
     <Compile Include="Aspects\Ownership.cs" />
     <Compile Include="Interfaces\IInteractive.cs" />
-    <Compile Include="Interfaces\IInterlocutor.cs" />
     <Compile Include="Interfaces\IItem.cs" />
-    <Compile Include="Interfaces\IManequin.cs" />
     <Compile Include="Interfaces\IObject.cs" />
     <Compile Include="Interfaces\IProperties.cs" />
     <Compile Include="Interfaces\IMassy.cs" />

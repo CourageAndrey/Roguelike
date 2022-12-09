@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 
 using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 
@@ -25,9 +26,9 @@ namespace Roguelike.Console.ViewModels
 			get
 			{
 				
-				if (Object.Transport != null)
+				if (Object.Rider.Transport != null)
 				{
-					var aliveTransport = Object.Transport.Object as IAlive;
+					var aliveTransport = Object.Rider.Transport as IAlive;
 					return (aliveTransport != null
 						? aliveTransport.SkinColor
 						: invert(getColor(Object))).ToConsole();
@@ -58,7 +59,7 @@ namespace Roguelike.Console.ViewModels
 				: humanoid.SkinColor;
 		}
 
-		private static IItem getTopWear(IManequin manequin)
+		private static IItem getTopWear(Manequin manequin)
 		{
 			if (!(manequin.CoverWear is Naked)) return manequin.CoverWear;
 			if (!(manequin.UpperBodyWear is Naked)) return manequin.UpperBodyWear;

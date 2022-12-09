@@ -4,7 +4,7 @@ using Roguelike.Core.Aspects;
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IHumanoid : IAlive, IInterlocutor, ISkilled, IRider
+	public interface IHumanoid : IAlive
 	{
 		string Name
 		{ get; }
@@ -12,7 +12,16 @@ namespace Roguelike.Core.Interfaces
 		Race Race
 		{ get; }
 
-		IManequin Manequin
+		Manequin Manequin
+		{ get; }
+
+		Skilled Skilled
+		{ get; }
+
+		Rider Rider
+		{ get; }
+
+		Interlocutor Interlocutor
 		{ get; }
 	}
 

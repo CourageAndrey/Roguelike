@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
@@ -7,7 +6,7 @@ using Roguelike.Core.Items;
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IObject : IDescriptive, IAspectHolder
+	public interface IObject : IDescriptive, IAspectHolder, ILogSource
 	{
 		Cell CurrentCell
 		{ get; }
@@ -20,10 +19,6 @@ namespace Roguelike.Core.Interfaces
 		event ValueChangedEventHandler<IObject, bool> IsSolidChanged;
 
 		event ValueChangedEventHandler<IObject, Cell> CellChanged;
-
-		void WriteToLog(ICollection<string> messages);
-
-		event EventHandler<IObject, ICollection<string>> OnLogMessage;
 	}
 
 	public static class ObjectExtensions
@@ -51,11 +46,6 @@ namespace Roguelike.Core.Interfaces
 		public static Hero GetHero(this IObject obj)
 		{
 			return obj.GetWorld()?.Hero;
-		}
-
-		internal static void WriteToLog(this IObject obj, string message)
-		{
-			obj.WriteToLog(new[] { message });
 		}
 
 		public static ActionResult TryMove(this IObject obj, Direction direction)

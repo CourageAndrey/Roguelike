@@ -13,7 +13,7 @@ namespace Roguelike.Core.ActiveObjects
 		public Hero(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
 			: base(balance, race, sexIsMale, birthDate, properties, inventory, name)
 		{
-			AddAspects(new CreatureCamera(this));
+			AddAspects(new Camera(this, () => Properties.Perception));
 		}
 
 		protected override ActionResult DoImplementation()

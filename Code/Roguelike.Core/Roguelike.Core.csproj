@@ -50,7 +50,7 @@
     <Compile Include="ActiveObjects\Diseases\Worms.cs" />
     <Compile Include="Interfaces\IColorful.cs" />
     <Compile Include="Interfaces\ILogSource.cs" />
-    <Compile Include="Aspects\CreatureCamera.cs" />
+    <Compile Include="Aspects\Camera.cs" />
     <Compile Include="ActiveObjects\Manequin.cs" />
     <Compile Include="ActiveObjects\Properties.cs" />
     <Compile Include="ActiveObjects\Humanoid.cs" />

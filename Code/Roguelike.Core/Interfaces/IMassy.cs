@@ -4,7 +4,10 @@
 	{
 		decimal Weight
 		{ get; }
+	}
 
+	public interface IVariableMassy : IMassy
+	{
 		event ValueChangedEventHandler<IMassy, decimal> WeightChanged;
 	}
 }

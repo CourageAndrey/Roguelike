@@ -5,7 +5,7 @@ using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IAlive : IActive, IMassy
+	public interface IAlive : IActive, IVariableMassy
 	{
 		bool SexIsMale
 		{ get; }

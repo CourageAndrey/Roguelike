@@ -2,7 +2,7 @@
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IBodyPart : IMassy
+	public interface IBodyPart : IVariableMassy
 	{
 		IBody Body
 		{ get; }

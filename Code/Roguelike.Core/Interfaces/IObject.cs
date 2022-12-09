@@ -2,7 +2,7 @@
 using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
-using Roguelike.Core.Items;
+using Roguelike.Core.Aspects;
 
 namespace Roguelike.Core.Interfaces
 {

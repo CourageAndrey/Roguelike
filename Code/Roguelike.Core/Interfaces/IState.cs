@@ -1,4 +1,4 @@
-﻿using Roguelike.Core.Items;
+﻿using Roguelike.Core.Aspects;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Interfaces

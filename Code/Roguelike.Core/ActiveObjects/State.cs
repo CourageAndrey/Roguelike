@@ -4,9 +4,9 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
-using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.ActiveObjects

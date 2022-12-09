@@ -2,7 +2,7 @@
 
 using Roguelike.Core.Interfaces;
 
-namespace Roguelike.Core.Items
+namespace Roguelike.Core.Aspects
 {
 	public class Weapon : IAspect
 	{

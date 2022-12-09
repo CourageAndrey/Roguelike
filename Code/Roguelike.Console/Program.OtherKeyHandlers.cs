@@ -6,10 +6,10 @@ using System.Text;
 
 using Roguelike.Core;
 using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
-using Roguelike.Core.Objects.Aspects;
 
 namespace Roguelike.Console
 {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Objects;
-using Roguelike.Core.Objects.Aspects;
 
 namespace Roguelike.Core.ActiveObjects
 {

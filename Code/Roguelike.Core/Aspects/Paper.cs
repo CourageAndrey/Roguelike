@@ -3,7 +3,7 @@
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
-namespace Roguelike.Core.Items
+namespace Roguelike.Core.Aspects
 {
 	public class Paper : IAspect
 	{

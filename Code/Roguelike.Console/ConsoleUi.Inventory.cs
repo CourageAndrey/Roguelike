@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 using Roguelike.Core.Localization;

@@ -1,13 +1,8 @@
-﻿using System.Drawing;
-
-namespace Roguelike.Core.Interfaces
+﻿namespace Roguelike.Core.Interfaces
 {
-	public interface IItem : IRequireGravitation, IDescriptive, IAspectHolder
+	public interface IItem : IRequireGravitation, IDescriptive, IAspectHolder, IColorful
 	{
 		ItemType Type
-		{ get; }
-
-		Color Color
 		{ get; }
 
 		Material Material

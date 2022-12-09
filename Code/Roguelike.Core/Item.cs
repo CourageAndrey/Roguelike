@@ -24,7 +24,7 @@ namespace Roguelike.Core
 		public Material Material
 		{ get { return _material; } }
 
-		public event ValueChangedEventHandler<IRequireGravitation, decimal> WeightChanged;
+		public event ValueChangedEventHandler<IMassy, decimal> WeightChanged;
 
 		public event EventHandler<IItem, IAlive> Picked;
 

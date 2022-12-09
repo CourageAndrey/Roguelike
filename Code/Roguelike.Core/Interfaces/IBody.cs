@@ -4,7 +4,7 @@ using Roguelike.Core.ActiveObjects;
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IBody : IRequireGravitation
+	public interface IBody : IMassy
 	{
 		ICollection<BodyPart> Parts
 		{ get; }

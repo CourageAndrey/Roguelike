@@ -1,6 +1,6 @@
 ﻿namespace Roguelike.Core.Interfaces
 {
-	public interface IItem : IRequireGravitation, IDescriptive, IAspectHolder, IColorful
+	public interface IItem : IMassy, IDescriptive, IAspectHolder, IColorful
 	{
 		ItemType Type
 		{ get; }

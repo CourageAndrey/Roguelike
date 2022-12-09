@@ -76,7 +76,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#region Events
 
-		public event ValueChangedEventHandler<IRequireGravitation, decimal> WeightChanged;
+		public event ValueChangedEventHandler<IMassy, decimal> WeightChanged;
 
 		public event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
 
@@ -167,7 +167,7 @@ namespace Roguelike.Core.ActiveObjects
 			Body = CreateBody();
 			Body.WeightChanged += (sender, value, newValue) => updateWeight();
 
-			void updateOnItemChange(IRequireGravitation item, decimal oldWeight, decimal newWeight)
+			void updateOnItemChange(IMassy item, decimal oldWeight, decimal newWeight)
 			{
 				updateWeight();
 			}

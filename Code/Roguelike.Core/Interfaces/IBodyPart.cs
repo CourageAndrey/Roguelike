@@ -2,7 +2,7 @@
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IBodyPart : IRequireGravitation
+	public interface IBodyPart : IMassy
 	{
 		IBody Body
 		{ get; }

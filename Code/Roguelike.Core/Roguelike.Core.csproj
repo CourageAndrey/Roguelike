@@ -37,8 +37,8 @@
     <Compile Include="ActionResult.cs" />
     <Compile Include="Active.cs" />
     <Compile Include="ActiveObjects\Alive.cs" />
-    <Compile Include="ActiveObjects\Horse.cs" />
-    <Compile Include="ActiveObjects\Dog.cs" />
+    <Compile Include="Objects\Horse.cs" />
+    <Compile Include="Objects\Dog.cs" />
     <Compile Include="ActiveObjects\Body.cs" />
     <Compile Include="ActiveObjects\BodyPart.cs" />
     <Compile Include="ActiveObjects\Disease.cs" />
@@ -155,7 +155,7 @@
     <Compile Include="Objects\Pool.cs" />
     <Compile Include="Objects\Wall.cs" />
     <Compile Include="Cell.cs" />
-    <Compile Include="ActiveObjects\Hero.cs" />
+    <Compile Include="Objects\Hero.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Interfaces\IActive.cs" />
     <Compile Include="ActiveObjects\Npc.cs" />

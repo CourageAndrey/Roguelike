@@ -3,12 +3,13 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 
+using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
-namespace Roguelike.Core.ActiveObjects
+namespace Roguelike.Core.Objects
 {
 	public class Dog : Alive
 	{

@@ -37,7 +37,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		#endregion
 
-		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, IProperties properties, IEnumerable<Item> inventory, string name)
+		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string name)
 			: base(balance, sexIsMale, birthDate, properties, inventory)
 		{
 			if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
@@ -66,7 +66,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		public override Body CreateBody()
 		{
-			return ActiveObjects.Body.CreateHumanoid();
+			return Body.CreateHumanoid();
 		}
 
 		public override string GetDescription(Language language, IAlive forWhom)

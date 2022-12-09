@@ -364,7 +364,7 @@ namespace Roguelike.Console
 			{
 				var language = game.Language;
 
-				foreach (var itemTypeGroup in humanoid.Inventory.GroupBy(item => item.Type))
+				foreach (var itemTypeGroup in humanoid.Inventory.Items.GroupBy(item => item.Type))
 				{
 					System.Console.ForegroundColor = ConsoleColor.Yellow;
 					System.Console.WriteLine($"=== {itemTypeGroup.Key.GetName(language.Items.ItemTypes)}: ===");
@@ -405,7 +405,7 @@ namespace Roguelike.Console
 							if (itemSlot.Wear is Naked || itemSlot.Wear == null)
 							{ // dress
 								var possibleItems = itemSlot
-									.FilterSuitableItems(game.Hero.Inventory)
+									.FilterSuitableItems(game.Hero.Inventory.Items)
 									.Select(i => new ListItem<IItem>(i, i.GetDescription(language, game.Hero)))
 								.ToList();
 

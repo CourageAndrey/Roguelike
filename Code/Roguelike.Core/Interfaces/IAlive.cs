@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+
 using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IAlive : IActive, IVariableMassy
+	public interface IAlive : IActive, IVariableMassy, IFighter
 	{
 		bool SexIsMale
 		{ get; }
@@ -24,25 +25,11 @@ namespace Roguelike.Core.Interfaces
 		ICollection<IItem> Inventory
 		{ get; }
 
-		IItem WeaponToFight
-		{ get; }
-
-		bool IsAgressive
-		{ get; }
-
 		double Toughness
 		{ get; }
 
 		double Speed
 		{ get; }
-
-		ActionResult Attack(IAlive target);
-
-		ActionResult Shoot(Cell target);
-
-		event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
-
-		event ValueChangedEventHandler<IAlive, IItem> WeaponChanged;
 
 		bool IsDead
 		{ get; }
@@ -54,12 +41,6 @@ namespace Roguelike.Core.Interfaces
 
 		event EventHandler<IAlive, string> OnDeath;
 
-		ActionResult ChangeAggressive(bool agressive);
-
-		ActionResult ChangeWeapon(IItem weapon);
-
-		ActionResult Backstab(IAlive actor);
-
 		ActionResult DropItem(IItem item);
 
 		Color SkinColor
@@ -68,6 +49,29 @@ namespace Roguelike.Core.Interfaces
 		ActionResult Eat(IItem food);
 
 		ActionResult Drink(IItem drink);
+	}
+
+	public interface IFighter
+	{
+		IItem WeaponToFight
+		{ get; }
+
+		bool IsAgressive
+		{ get; }
+
+		event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
+
+		event ValueChangedEventHandler<IAlive, IItem> WeaponChanged;
+
+		ActionResult ChangeAggressive(bool agressive);
+
+		ActionResult ChangeWeapon(IItem weapon);
+
+		ActionResult Attack(IAlive target);
+
+		ActionResult Shoot(Cell target);
+
+		ActionResult Backstab(IAlive actor);
 	}
 
 	public static class AliveExtensions

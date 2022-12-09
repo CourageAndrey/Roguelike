@@ -158,7 +158,6 @@
     <Compile Include="Direction.cs" />
     <Compile Include="Interfaces\IActive.cs" />
     <Compile Include="ActiveObjects\Npc.cs" />
-    <Compile Include="Interfaces\ICamera.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Region.cs" />

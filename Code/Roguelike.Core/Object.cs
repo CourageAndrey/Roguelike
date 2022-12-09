@@ -76,7 +76,7 @@ namespace Roguelike.Core
 			var oldCell = CurrentCell;
 			if (CurrentCell != null)
 			{
-				var camera = this.GetHero()?.GetAspect<ICamera>();
+				var camera = this.GetHero()?.GetAspect<Camera>();
 				bool visibleDestination; // we need to track this in order not to refresh screen twice on object move
 				bool refreshOnRemove =	!IsSolid ||
 										cell != null && (

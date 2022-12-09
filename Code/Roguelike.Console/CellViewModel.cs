@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Roguelike.Core;
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Console
@@ -58,7 +59,7 @@ namespace Roguelike.Console
 
 		private void cellViewChanged(Cell sender, bool transparencyChanged)
 		{
-			var camera = _cell.Region.World.Hero.GetAspect<ICamera>();
+			var camera = _cell.Region.World.Hero.GetAspect<Camera>();
 			bool isVisible;
 			if (camera != null && camera.VisibleCells.TryGetValue(_cell, out isVisible) && isVisible)
 			{
@@ -73,7 +74,7 @@ namespace Roguelike.Console
 			}
 		}
 
-		public void Update(ICamera camera)
+		public void Update(Camera camera)
 		{
 			if (_cell == null || !camera.MapMemory.Contains(_cell)) return;
 
@@ -126,7 +127,7 @@ namespace Roguelike.Console
 			Draw(overlay, true);
 		}
 
-		public void ResetOverlay(ICamera camera)
+		public void ResetOverlay(Camera camera)
 		{
 			Invalidate();
 			Update(camera);

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 
 using Roguelike.Core;
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 
@@ -42,9 +43,9 @@ namespace Roguelike.Console
 		private int _screenXOfCameraLeft, _screenXOfCameraRight, _screenYOfCameraTop, _screenYOfCameraDown;
 		private readonly CellViewModel[,] _cellViewModels;
 		private readonly IDictionary<Cell, CellViewModel> _cellsViewsCache = new Dictionary<Cell, CellViewModel>();
-		private ICamera _camera;
+		private Camera _camera;
 
-		public ICamera Camera
+		public Camera Camera
 		{
 			get { return _camera; }
 			set
@@ -149,7 +150,7 @@ namespace Roguelike.Console
 			}
 		}
 
-		private void cameraCellsVisibilityChanged(ICamera senderCamera, IDictionary<Cell, bool> delta)
+		private void cameraCellsVisibilityChanged(Camera senderCamera, IDictionary<Cell, bool> delta)
 		{
 			if (isCameraNearScreenBounds(senderCamera))
 			{
@@ -173,7 +174,7 @@ namespace Roguelike.Console
 			}
 		}
 
-		private bool isCameraNearScreenBounds(ICamera camera)
+		private bool isCameraNearScreenBounds(Camera camera)
 		{
 			updateCameraScreenBounds(camera);
 
@@ -193,7 +194,7 @@ namespace Roguelike.Console
 			_worldYOfScreenDown = cameraPosition.Y - _halfScreenHeight;
 		}
 
-		private void updateCameraScreenBounds(ICamera camera)
+		private void updateCameraScreenBounds(Camera camera)
 		{
 			int cameraDistance = (int) Math.Ceiling(_camera.Distance);
 			var cameraPosition = camera.Cell.Position;
@@ -476,7 +477,7 @@ namespace Roguelike.Console
 		public Cell SelectShootingTarget(Game game)
 		{
 			var shooter = game.Hero;
-			var possibleTargets = shooter.GetAspect<ICamera>().VisibleCells
+			var possibleTargets = shooter.GetAspect<Camera>().VisibleCells
 				.Where(cell => cell.Value && cell.Key.Objects.OfType<IAlive>().Any())
 				.Select(cell => cell.Key)
 				.ToList();

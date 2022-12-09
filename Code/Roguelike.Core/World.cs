@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 
@@ -68,7 +69,7 @@ namespace Roguelike.Core
 				Hero.Inventory.Add(ItemFactory.CreateArrow());
 			}
 			Hero.Inventory.Add(ItemFactory.CreateBook(Color.Coral, language => language.HelloWorld, language => language.HelloWorld));
-			Hero.GetAspect<ICamera>().MakeMapKnown(balance.Distance.HeroInitialView);
+			Hero.GetAspect<Camera>().MakeMapKnown(balance.Distance.HeroInitialView);
 
 			region.CreateVillage(
 				balance,

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 
+using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Core
 {
-	public class Material
+	public class Material : IColorful
 	{
 		#region Properties
 

@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Linq;
 
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Aspects;
 
 namespace Roguelike.Core.Interfaces
@@ -43,7 +42,7 @@ namespace Roguelike.Core.Interfaces
 			return obj.GetWorld()?.Game;
 		}
 
-		public static Hero GetHero(this IObject obj)
+		public static IHero GetHero(this IObject obj)
 		{
 			return obj.GetWorld()?.Hero;
 		}

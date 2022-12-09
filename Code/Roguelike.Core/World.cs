@@ -23,7 +23,7 @@ namespace Roguelike.Core
 		public IReadOnlyCollection<Region> Regions
 		{ get; }
 
-		public Hero Hero
+		public IHero Hero
 		{ get; }
 
 		private Time _time;
@@ -69,7 +69,7 @@ namespace Roguelike.Core
 				Hero.Inventory.Add(ItemFactory.CreateArrow());
 			}
 			Hero.Inventory.Add(ItemFactory.CreateBook(Color.Coral, language => language.HelloWorld, language => language.HelloWorld));
-			Hero.GetAspect<Camera>().MakeMapKnown(balance.Distance.HeroInitialView);
+			Hero.Camera.MakeMapKnown(balance.Distance.HeroInitialView);
 
 			region.CreateVillage(
 				balance,
@@ -110,7 +110,7 @@ namespace Roguelike.Core
 			currentRegion.ResetActiveCache();
 		}
 
-		public void ApplyAction(Active actor, ActionResult actionResult)
+		public void ApplyAction(IActive actor, ActionResult actionResult)
 		{
 			foreach (string line in actionResult.LogMessages)
 			{
@@ -123,7 +123,8 @@ namespace Roguelike.Core
 				alive.State.SetActivity(actionResult.NewActivity);
 			}
 
-			actor.NextActionTime += actionResult.Longevity;
+#warning Wrong typecast.
+			(actor as Active).NextActionTime += actionResult.Longevity;
 			if ((actor.NextActionTime != null) && (actor.NextActionTime > _time))
 			{
 				_time = actor.NextActionTime.Value;

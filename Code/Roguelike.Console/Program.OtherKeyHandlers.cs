@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 
 using Roguelike.Core;
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
@@ -20,7 +19,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			var interactive = hero.CurrentCell.Objects.OfType<IInteractive>().FirstOrDefault();
 			if (interactive != null)
@@ -43,7 +42,7 @@ namespace Roguelike.Console
 		internal static TargetT SelectTarget<TargetT>(
 			ConsoleUi ui,
 			Game game,
-			Hero hero,
+			IHero hero,
 			string promt,
 			Func<TargetT, bool> filter = null)
 			where TargetT : class
@@ -87,7 +86,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			return hero.ChangeAggressive(!hero.IsAgressive);
 		}
@@ -97,7 +96,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			var itemsToDrop = hero.Inventory.Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
 
@@ -117,7 +116,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			var weapons = new List<IItem>(hero.Inventory.Where(i => i.Is<Weapon>())).ToList();
 			if (hero.WeaponToFight.GetType() != typeof(Unarmed))
@@ -145,7 +144,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			var humanoid = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
 			if (humanoid != null)
@@ -163,7 +162,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			var humanoid = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
 			if (humanoid != null)
@@ -181,7 +180,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			var humanoid = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
 			if (humanoid != null)
@@ -199,7 +198,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			var alive = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
 			if (alive != null)
@@ -217,7 +216,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			IItem itemToPick = null;
 
@@ -263,7 +262,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			var door = SelectTarget<IDoor>(ui, game, hero, language.SelectDirectionsPromt);
 			if (door != null)
@@ -291,7 +290,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			Paper selectedBook = null;
 
@@ -324,7 +323,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			if (hero.Transport == null)
 			{
@@ -364,7 +363,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			Cell target;
 			return	hero.IsAgressive &&
@@ -380,7 +379,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			var itemsToEat = hero.Inventory.Where(i => i.Type == ItemType.Food).Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
 
@@ -400,7 +399,7 @@ namespace Roguelike.Console
 			ConsoleUi ui,
 			Game game,
 			World world,
-			Hero hero)
+			IHero hero)
 		{
 			var source = hero.CurrentCell.Objects.FirstOrDefault(o => o.Is<WaterSource>())?.GetAspect<WaterSource>();
 			if (source != null && ui.AskForYesNoCancel(language.Promts.DrinkFromSource, game) == true)

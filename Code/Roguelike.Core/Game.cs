@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
@@ -25,7 +24,7 @@ namespace Roguelike.Core
 		public Language Language
 		{ get; }
 
-		public Hero Hero
+		public IHero Hero
 		{ get { return World.Hero; } }
 
 		public IUserInterface UserInterface

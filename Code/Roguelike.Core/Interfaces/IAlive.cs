@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-
 using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Interfaces
@@ -34,6 +33,9 @@ namespace Roguelike.Core.Interfaces
 		double Toughness
 		{ get; }
 
+		double Speed
+		{ get; }
+
 		ActionResult Attack(IAlive target);
 
 		ActionResult Shoot(Cell target);
@@ -52,7 +54,13 @@ namespace Roguelike.Core.Interfaces
 
 		event EventHandler<IAlive, string> OnDeath;
 
+		ActionResult ChangeAggressive(bool agressive);
+
+		ActionResult ChangeWeapon(IItem weapon);
+
 		ActionResult Backstab(IAlive actor);
+
+		ActionResult DropItem(IItem item);
 
 		Color SkinColor
 		{ get; }

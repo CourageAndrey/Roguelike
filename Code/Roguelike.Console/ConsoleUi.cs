@@ -477,7 +477,7 @@ namespace Roguelike.Console
 		public Cell SelectShootingTarget(Game game)
 		{
 			var shooter = game.Hero;
-			var possibleTargets = shooter.GetAspect<Camera>().VisibleCells
+			var possibleTargets = shooter.Camera.VisibleCells
 				.Where(cell => cell.Value && cell.Key.Objects.OfType<IAlive>().Any())
 				.Select(cell => cell.Key)
 				.ToList();

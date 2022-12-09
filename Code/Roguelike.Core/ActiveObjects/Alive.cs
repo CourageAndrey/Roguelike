@@ -202,7 +202,7 @@ namespace Roguelike.Core.ActiveObjects
 					WeaponToFight.Weight;
 		}
 
-		public ActionResult ChangeAggressive(bool agressive)
+		public virtual ActionResult ChangeAggressive(bool agressive)
 		{
 			int time;
 			string logMessage;
@@ -243,7 +243,7 @@ namespace Roguelike.Core.ActiveObjects
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage, newActivity);
 		}
 
-		public ActionResult ChangeWeapon(IItem weapon)
+		public virtual ActionResult ChangeWeapon(IItem weapon)
 		{
 			int time;
 			string logMessage;
@@ -285,7 +285,7 @@ namespace Roguelike.Core.ActiveObjects
 
 		public abstract Body CreateBody();
 
-		public ActionResult Backstab(IAlive actor)
+		public virtual ActionResult Backstab(IAlive actor)
 		{
 			Die("backstabbed");
 			return null;

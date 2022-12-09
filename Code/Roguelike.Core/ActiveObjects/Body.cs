@@ -16,7 +16,7 @@ namespace Roguelike.Core.ActiveObjects
 		public decimal Weight
 		{ get { return Parts.Sum(part => part.Weight); } }
 
-		public event ValueChangedEventHandler<IRequireGravitation, decimal> WeightChanged;
+		public event ValueChangedEventHandler<IMassy, decimal> WeightChanged;
 
 		protected void RaiseWeightChanged(decimal oldWeight, decimal newWeight)
 		{
@@ -51,7 +51,7 @@ namespace Roguelike.Core.ActiveObjects
 			}
 		}
 
-		private void onPartWeightChanged(IRequireGravitation part, decimal oldPartWeight, decimal newPartWeight)
+		private void onPartWeightChanged(IMassy part, decimal oldPartWeight, decimal newPartWeight)
 		{
 			decimal newWeight = Weight;
 			decimal oldWeigth = newWeight - newPartWeight + oldPartWeight;

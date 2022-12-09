@@ -2,6 +2,6 @@
 
 namespace Roguelike.Core.Items
 {
-	public class Missile : IItemAspect
+	public class Missile : IAspect
 	{ }
 }

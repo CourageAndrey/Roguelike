@@ -2,6 +2,6 @@
 
 namespace Roguelike.Core.Items
 {
-	public class TreeChopper : IItemAspect
+	public class TreeChopper : IAspect
 	{ }
 }

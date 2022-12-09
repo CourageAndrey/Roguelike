@@ -4,7 +4,7 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Items
 {
-	public class Wear : IItemAspect
+	public class Wear : IAspect
 	{
 		public WearSlot SuitableSlot
 		{ get; }

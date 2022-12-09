@@ -2,7 +2,7 @@
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IItem : IRequireGravitation, IDescriptive, IAspectHolder<IItemAspect>
+	public interface IItem : IRequireGravitation, IDescriptive, IAspectHolder
 	{
 		ItemType Type
 		{ get; }
@@ -21,7 +21,4 @@ namespace Roguelike.Core.Interfaces
 
 		void RaiseDropped(IAlive who);
 	}
-
-	public interface IItemAspect : IAspect
-	{ }
 }

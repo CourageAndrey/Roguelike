@@ -2,7 +2,7 @@
 
 namespace Roguelike.Core.Objects.Aspects
 {
-	public class FireSource : IObjectAspect
+	public class FireSource : IAspect
 	{
 	}
 }

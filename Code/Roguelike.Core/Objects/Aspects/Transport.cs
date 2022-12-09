@@ -5,7 +5,7 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Objects.Aspects
 {
-	public class Transport : IObjectAspect
+	public class Transport : IAspect
 	{
 		#region Properties
 

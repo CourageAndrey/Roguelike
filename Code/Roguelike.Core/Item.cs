@@ -30,10 +30,7 @@ namespace Roguelike.Core
 
 		public event EventHandler<IItem, IAlive> Dropped;
 
-		IReadOnlyCollection<IAspect> IAspectHolder.Aspects
-		{ get { return Aspects; } }
-
-		public IReadOnlyCollection<IItemAspect> Aspects
+		public IReadOnlyCollection<IAspect> Aspects
 		{ get; }
 
 		private readonly Func<Language, IAlive, string> _getDescription;
@@ -50,7 +47,7 @@ namespace Roguelike.Core
 			ItemType type,
 			Color color,
 			Material material,
-			params IItemAspect[] aspects)
+			params IAspect[] aspects)
 		{
 			_getDescription = getDescription;
 			_getWeight = getWeight;

@@ -2,7 +2,7 @@
 
 namespace Roguelike.Core.Objects.Aspects
 {
-	public class SleepingArea : IObjectAspect
+	public class SleepingArea : IAspect
 	{
 	}
 }

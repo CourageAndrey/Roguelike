@@ -3,7 +3,7 @@ using Roguelike.Core.Items;
 
 namespace Roguelike.Core.Objects.Aspects
 {
-	public class WaterSource : IObjectAspect
+	public class WaterSource : IAspect
 	{
 		public ActionResult Drink(IAlive who)
 		{

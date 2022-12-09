@@ -7,7 +7,7 @@ using Roguelike.Core.Items;
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IObject : IDescriptive, IAspectHolder<IObjectAspect>
+	public interface IObject : IDescriptive, IAspectHolder
 	{
 		Cell CurrentCell
 		{ get; }
@@ -25,9 +25,6 @@ namespace Roguelike.Core.Interfaces
 
 		event EventHandler<IObject, ICollection<string>> OnLogMessage;
 	}
-
-	public interface IObjectAspect : IAspect
-	{ }
 
 	public static class ObjectExtensions
 	{

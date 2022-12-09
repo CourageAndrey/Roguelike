@@ -2,7 +2,7 @@
 
 namespace Roguelike.Core.Items
 {
-	public class Nutricious : IItemAspect
+	public class Nutricious : IAspect
 	{
 		public int Nutricity
 		{ get; }

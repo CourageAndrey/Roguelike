@@ -12,13 +12,6 @@ namespace Roguelike.Core.Interfaces
 		{ get; }
 	}
 
-	public interface IAspectHolder<AspectT> : IAspectHolder
-		where AspectT : IAspect
-	{
-		new IReadOnlyCollection<AspectT> Aspects
-		{ get; }
-	}
-
 	public static class AspectExtensions
 	{
 		public static bool Is<AspectT>(this IAspectHolder holder)

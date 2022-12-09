@@ -15,11 +15,8 @@ namespace Roguelike.Core
 
 		public event ValueChangedEventHandler<IObject, Cell> CellChanged;
 
-		IReadOnlyCollection<IAspect> IAspectHolder.Aspects
-		{ get { return Aspects; } }
-
-		public IReadOnlyCollection<IObjectAspect> Aspects
-		{ get; private set; } = new IObjectAspect[0];
+		public IReadOnlyCollection<IAspect> Aspects
+		{ get; private set; } = new IAspect[0];
 
 		#region Physical properties
 
@@ -75,9 +72,9 @@ namespace Roguelike.Core
 			}
 		}
 
-		protected void AddAspects(params IObjectAspect[] aspects)
+		protected void AddAspects(params IAspect[] aspects)
 		{
-			var list = new List<IObjectAspect>(Aspects);
+			var list = new List<IAspect>(Aspects);
 			list.AddRange(aspects);
 			Aspects = list.ToArray();
 		}

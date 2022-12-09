@@ -4,7 +4,7 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Items
 {
-	public class Weapon : IItemAspect
+	public class Weapon : IAspect
 	{
 		public bool IsRange
 		{ get; }

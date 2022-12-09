@@ -5,7 +5,7 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Items
 {
-	public class Paper : IItemAspect
+	public class Paper : IAspect
 	{
 		private readonly Func<LanguageBooks, string> _getTitle;
 		private readonly Func<LanguageBooks, string> _getText;

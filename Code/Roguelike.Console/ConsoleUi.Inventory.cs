@@ -110,7 +110,7 @@ namespace Roguelike.Console
 				System.Console.Write($"[{Letter}]");
 			}
 
-			public static Dictionary<char, EquipmentSlot> Display(Language language, IAlive forWhom, IManequin manequin)
+			public static Dictionary<char, EquipmentSlot> Display(Language language, IAlive forWhom, Manequin manequin)
 			{
 				var menuLanguage = language.Character.Manequin;
 

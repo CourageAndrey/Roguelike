@@ -383,7 +383,7 @@ namespace Roguelike.Console
 			});
 		}
 
-		public ActionResult ShowEquipment(Game game, IManequin manequin)
+		public ActionResult ShowEquipment(Game game, Manequin manequin)
 		{
 			var operations = new List<KeyValuePair<IItem, bool>>();
 

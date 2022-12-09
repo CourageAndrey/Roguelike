@@ -4,7 +4,7 @@ using Roguelike.Core.ActiveObjects;
 
 namespace Roguelike.Core.Interfaces
 {
-	public interface IBody : IMassy
+	public interface IBody : IVariableMassy
 	{
 		ICollection<BodyPart> Parts
 		{ get; }

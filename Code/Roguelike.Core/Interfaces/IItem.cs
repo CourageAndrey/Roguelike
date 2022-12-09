@@ -1,6 +1,6 @@
 ﻿namespace Roguelike.Core.Interfaces
 {
-	public interface IItem : IMassy, IDescriptive, IAspectHolder, IColorful
+	public interface IItem : IVariableMassy, IDescriptive, IAspectHolder, IColorful
 	{
 		ItemType Type
 		{ get; }

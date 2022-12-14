@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roguelike.Core", "Roguelike.Core\Roguelike.Core.csproj", "{9191D293-ECD7-4A66-9E70-AAD02041414C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roguelike.Console", "Roguelike.Console\Roguelike.Console.csproj", "{19ADB3E0-D435-4417-BD90-F62D412AE31A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roguelike.Tests", "Roguelike.Tests\Roguelike.Tests.csproj", "{7D4DCEC3-9C15-4A1E-BA34-A5E29C51400B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roguelike.Tests", "Roguelike.Tests\Roguelike.Tests.csproj", "{7D4DCEC3-9C15-4A1E-BA34-A5E29C51400B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roguelike.Core", "Roguelike.Core\Roguelike.Core.csproj", "{7C9DF299-F353-4E9B-BD1F-409BA64F8ACE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9191D293-ECD7-4A66-9E70-AAD02041414C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9191D293-ECD7-4A66-9E70-AAD02041414C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9191D293-ECD7-4A66-9E70-AAD02041414C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9191D293-ECD7-4A66-9E70-AAD02041414C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{19ADB3E0-D435-4417-BD90-F62D412AE31A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{19ADB3E0-D435-4417-BD90-F62D412AE31A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19ADB3E0-D435-4417-BD90-F62D412AE31A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{7D4DCEC3-9C15-4A1E-BA34-A5E29C51400B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D4DCEC3-9C15-4A1E-BA34-A5E29C51400B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D4DCEC3-9C15-4A1E-BA34-A5E29C51400B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C9DF299-F353-4E9B-BD1F-409BA64F8ACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C9DF299-F353-4E9B-BD1F-409BA64F8ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C9DF299-F353-4E9B-BD1F-409BA64F8ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C9DF299-F353-4E9B-BD1F-409BA64F8ACE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

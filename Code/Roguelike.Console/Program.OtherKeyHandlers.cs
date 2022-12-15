@@ -334,8 +334,6 @@ namespace Roguelike.Console
 			{
 				return hero.Unride();
 			}
-
-			return null;
 		}
 
 		private static ActionResult HandleShoot(

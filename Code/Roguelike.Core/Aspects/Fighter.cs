@@ -148,10 +148,11 @@ namespace Roguelike.Core.Aspects
 				Activity.Fights);
 		}
 
-#warning Rethink cache variables within method below.
 		public ActionResult Shoot(Cell target)
 		{
-			var world = _holder.GetWorld();
+			var position = _holder.CurrentCell.Position;
+			var region = _holder.CurrentCell.Region;
+			var world = region.World;
 			var game = world.Game;
 			var balance = game.Balance;
 			var language = game.Language;
@@ -159,22 +160,19 @@ namespace Roguelike.Core.Aspects
 
 			var missile = _holder.Inventory.Items.Select<IItem, Missile>().First();
 
-			if (!_holder.GetPosition().Equals(target.Position))
+			if (!position.Equals(target.Position))
 			{
-				var direction = _holder.GetPosition().GetDirection(target.Position);
-				var region = _holder.GetRegion();
-				int z = _holder.GetPosition().Z;
+				var direction = position.GetDirection(target.Position);
 
 				// take all obstacles into account
 				var track = new List<Cell>();
-				var step = _holder.CurrentCell;
-				int dx = target.Position.X - _holder.GetPosition().X,
-					dy = target.Position.Y - _holder.GetPosition().Y;
+				int dx = target.Position.X - position.X,
+					dy = target.Position.Y - position.Y;
 				double	distance = Math.Sqrt(dx * dx + dy * dy),
 						sx = dx / distance,
 						sy = dy / distance,
-						x = _holder.GetPosition().X,
-						y = _holder.GetPosition().Y;
+						x = position.X,
+						y = position.Y;
 				while (distance > 1)
 				{
 					x += sx;
@@ -182,7 +180,8 @@ namespace Roguelike.Core.Aspects
 					var cell = region.GetCell(
 						(int) Math.Round(x, MidpointRounding.AwayFromZero),
 						(int) Math.Round(y, MidpointRounding.AwayFromZero),
-						z);
+#warning Z is ignored here.
+						position.Z);
 					if (!track.Contains(cell))
 					{
 						track.Add(cell);

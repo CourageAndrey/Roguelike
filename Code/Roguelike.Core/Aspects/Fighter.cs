@@ -119,10 +119,9 @@ namespace Roguelike.Core.Aspects
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage);
 		}
 
-#warning Revert method argument and this.
-		public ActionResult Backstab(IAlive actor)
+		public ActionResult Backstab(IAlive target)
 		{
-			_holder.Die("backstabbed");
+			target.Die("backstabbed");
 			return null;
 #warning Finish implementation, translate it and make not so easy.
 		}

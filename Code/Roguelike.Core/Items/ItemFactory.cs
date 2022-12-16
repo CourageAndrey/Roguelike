@@ -138,5 +138,17 @@ namespace Roguelike.Core.Items
 				new Wear(WearSlot.LowerBody)
 			);
 		}
+
+		public static IItem CreateGrass(int nutricity)
+		{
+			return new Item(
+				(language, alive) => language.Items.Grass,
+				() => 0,
+				ItemType.Food,
+				Color.DarkGreen,
+				Material.Food,
+				new Food(nutricity, nutricity / 8)
+			);
+		}
 	}
 }

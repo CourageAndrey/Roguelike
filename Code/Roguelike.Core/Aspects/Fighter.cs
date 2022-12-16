@@ -121,9 +121,19 @@ namespace Roguelike.Core.Aspects
 
 		public ActionResult Backstab(IAlive target)
 		{
-			target.Die("backstabbed");
-			return null;
-#warning Finish implementation, translate it and make not so easy.
+			var game = _holder.GetGame();
+			var language = game.Language;
+			var balance = game.Balance;
+
+			target.Die(language.DeathReasons.Backstabbed);
+			return new ActionResult(
+				Time.FromTicks(balance.Time, balance.ActionLongevity.Backstab),
+				string.Format(
+					CultureInfo.InvariantCulture,
+					language.LogActionFormats.Backstab,
+					target.GetDescription(language, game.Hero),
+					_holder.GetDescription(language, game.Hero),
+					WeaponToFight.GetDescription(language, game.Hero)));
 		}
 
 		public ActionResult Attack(IAlive target)

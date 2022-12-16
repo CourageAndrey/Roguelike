@@ -47,6 +47,9 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Ring
 		{ get; set; }
+		[XmlElement]
+		public string Grass
+		{ get; set; }
 
 		#endregion
 
@@ -67,6 +70,7 @@ namespace Roguelike.Core.Localization
 				Arrow = "Arrow",
 				Unarmed = "Bare hands (fight unarmed)",
 				Ring = "Ring",
+				Grass = "Grass",
 			};
 		}
 	}

@@ -137,5 +137,25 @@ namespace Roguelike.Core
 				}
 			}
 		}
+
+		public static Cell FindClosiest(this Cell center, Func<Cell, bool> predicate, int maxRadius = int.MaxValue)
+		{
+			if (center == null) throw new ArgumentNullException(nameof(center));
+			if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+			if (maxRadius <= 0) throw new ArgumentOutOfRangeException(nameof(maxRadius));
+
+			for (int radius = 1; radius <= maxRadius; radius ++)
+			{
+				foreach (var cell in center.EnumerateCellsAround(radius))
+				{
+					if (predicate(cell))
+					{
+						return cell;
+					}
+				}
+			}
+
+			return null;
+		}
 	}
 }

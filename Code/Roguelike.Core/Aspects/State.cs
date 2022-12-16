@@ -39,6 +39,11 @@ namespace Roguelike.Core.Aspects
 			return _balance.Food.BloatedWaterLevel - _waterLevel;
 		}
 
+		public int GetFoodToFull()
+		{
+			return _balance.Food.BloatedLevel - _foodLevel;
+		}
+
 		public bool IsHungry
 		{
 			get { return _foodLevel < _balance.Food.HungerLevel; }

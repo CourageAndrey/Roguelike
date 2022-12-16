@@ -55,6 +55,9 @@
 		public int Drink
 		{ get; set; }
 
+		public int Backstab
+		{ get; set; }
+
 		public DressTimeBalance Dress
 		{ get; set; }
 
@@ -81,6 +84,7 @@
 				RideHorse = 5 * 60 * 1000,
 				Eat = 10 * 60 * 1000,
 				Drink = 30 * 1000,
+				Backstab = 500,
 				Dress = DressTimeBalance.CreateDefault(),
 			};
 		}

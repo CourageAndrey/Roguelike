@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
 
 using Roguelike.Core.ActiveObjects;
@@ -28,7 +27,6 @@ namespace Roguelike.Core.Objects
 
 		protected override ActionResult DoImplementation()
 		{
-#warning Implement animal AI.
 			var owner = this.GetAspect<Ownership>().Owner;
 			if (owner == null)
 			{
@@ -44,14 +42,7 @@ namespace Roguelike.Core.Objects
 				}
 				else
 				{
-					var game = this.GetGame();
-					var balance = game.Balance;
-					return new ActionResult(
-						Time.FromTicks(balance.Time, balance.ActionLongevity.Wait),
-						string.Format(
-							CultureInfo.InvariantCulture,
-							game.Language.LogActionFormats.Wait,
-							GetDescription(game.Language, game.Hero)));
+					return ActionResult.Wait(this);
 				}
 			}
 		}

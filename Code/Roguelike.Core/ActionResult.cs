@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 
 using Roguelike.Core.Configuration;
+using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core
 {
@@ -37,6 +39,18 @@ namespace Roguelike.Core
 		internal static ActionResult GetEmpty(Balance balance)
 		{
 			return new ActionResult(Time.FromTicks(balance.Time, balance.ActionLongevity.Null), string.Empty);
+		}
+
+		internal static ActionResult Wait(IObject forWhom)
+		{
+			var game = forWhom.GetGame();
+			var balance = game.Balance;
+			return new ActionResult(
+				Time.FromTicks(balance.Time, balance.ActionLongevity.Wait),
+				string.Format(
+					CultureInfo.InvariantCulture,
+					game.Language.LogActionFormats.Wait,
+					forWhom.GetDescription(game.Language, game.Hero)));
 		}
 	}
 }

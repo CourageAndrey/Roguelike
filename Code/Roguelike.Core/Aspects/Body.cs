@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading;
 
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Aspects
 {

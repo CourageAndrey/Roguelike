@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 using Roguelike.Core.Aspects;
@@ -18,6 +19,14 @@ namespace Roguelike.Core.Items
 				Color.White,
 				Material.Wood,
 				new Missile());
+		}
+
+		public static IEnumerable<IItem> CreateArrows(uint count)
+		{
+			for (uint i = 0; i < count; i++)
+			{
+				yield return CreateArrow();
+			}
 		}
 
 		public static IItem CreateBook(Color coverColor, Func<LanguageBooks, string> getTitle, Func<LanguageBooks, string> getText)

@@ -10,6 +10,8 @@ namespace Roguelike.Core.Items
 {
 	internal static class ItemFactory
 	{
+		#region Missiles
+
 		public static IItem CreateArrow()
 		{
 			return new Item(
@@ -29,6 +31,10 @@ namespace Roguelike.Core.Items
 			}
 		}
 
+		#endregion
+
+		#region Papers
+
 		public static IItem CreateBook(Color coverColor, Func<LanguageBooks, string> getTitle, Func<LanguageBooks, string> getText)
 		{
 			return new Item(
@@ -40,6 +46,10 @@ namespace Roguelike.Core.Items
 				new Paper(getTitle, getText)
 			);
 		}
+
+		#endregion
+
+		#region Potions
 
 		public static IItem CreateBottleOFWater()
 		{
@@ -53,6 +63,10 @@ namespace Roguelike.Core.Items
 			);
 		}
 
+		#endregion
+
+		#region Range weapons
+
 		public static IItem CreateBow()
 		{
 			return new Item(
@@ -64,6 +78,10 @@ namespace Roguelike.Core.Items
 				new Weapon(true)
 			);
 		}
+
+		#endregion
+
+		#region Melee weapons
 
 		public static IItem CreateHatchet()
 		{
@@ -77,6 +95,46 @@ namespace Roguelike.Core.Items
 			);
 		}
 
+		public static IItem CreateSword()
+		{
+			return new Item(
+				(language, alive) => language.Items.Sword,
+				() => 1.5m,
+				ItemType.Weapon,
+				Material.Metal.Color,
+				Material.Metal,
+				new Weapon(false)
+			);
+		}
+
+		public static IItem CreateMace()
+		{
+			return new Item(
+				(language, alive) => language.Items.Mace,
+				() => 2,
+				ItemType.Weapon,
+				Material.Wood.Color,
+				Material.Wood,
+				new Weapon(false)
+			);
+		}
+
+		public static IItem CreateSpear()
+		{
+			return new Item(
+				(language, alive) => language.Items.Spear,
+				() => 3,
+				ItemType.Weapon,
+				Material.Wood.Color,
+				Material.Wood,
+				new Weapon(false)
+			);
+		}
+
+		#endregion
+
+		#region Food
+
 		public static IItem CreateLoafOfBread()
 		{
 			return new Item(
@@ -89,6 +147,10 @@ namespace Roguelike.Core.Items
 			);
 		}
 
+		#endregion
+
+		#region Tools
+
 		public static IItem CreateLog()
 		{
 			return new Item(
@@ -99,6 +161,10 @@ namespace Roguelike.Core.Items
 				Material.Wood
 			);
 		}
+
+		#endregion
+
+		#region Jewelry
 
 		public static IItem CreateRing()
 		{
@@ -111,6 +177,10 @@ namespace Roguelike.Core.Items
 				new Wear(WearSlot.Jewelry)
 			);
 		}
+
+		#endregion
+
+		#region Clothes
 
 		public static IItem CreateShirt(Color clothColor)
 		{
@@ -148,6 +218,46 @@ namespace Roguelike.Core.Items
 			);
 		}
 
+		public static IItem CreateMantle(Color clothColor)
+		{
+			return new Item(
+				(language, alive) => language.Items.Mantle,
+				() => 2,
+				ItemType.Wear,
+				clothColor,
+				Material.Fabric,
+				new Wear(WearSlot.UpperBody)
+			);
+		}
+
+		public static IItem CreateGown(Color clothColor)
+		{
+			return new Item(
+				(language, alive) => language.Items.Gown,
+				() => 3,
+				ItemType.Wear,
+				clothColor,
+				Material.Fabric,
+				new Wear(WearSlot.UpperBody)
+			);
+		}
+
+		public static IItem CreateHoodedCloak(Color clothColor)
+		{
+			return new Item(
+				(language, alive) => language.Items.HoodedCloak,
+				() => 2,
+				ItemType.Wear,
+				clothColor,
+				Material.Fabric,
+				new Wear(WearSlot.Cover)
+			);
+		}
+
+		#endregion
+
+		#region Special
+
 		public static IItem CreateGrass(int nutricity)
 		{
 			return new Item(
@@ -159,5 +269,7 @@ namespace Roguelike.Core.Items
 				new Food(nutricity, nutricity / 8)
 			);
 		}
+
+		#endregion
 	}
 }

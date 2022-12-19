@@ -45,7 +45,7 @@ namespace Roguelike.Core.Objects
 						: null;
 
 					var nextStep = waterSource != null
-						? Ai.CalculateRoute(this.GetRegion(), this.GetPosition(), waterSource.CurrentCell.Position).Skip(1).FirstOrDefault()
+						? this.GetNextStep(waterSource.CurrentCell)
 						: null;
 					if (nextStep != null)
 					{
@@ -68,7 +68,7 @@ namespace Roguelike.Core.Objects
 					Cell grassCell = CurrentCell.FindClosiest(cell => cell.Background == CellBackground.Grass, balance.Distance.AiRange);
 
 					var nextStep = grassCell != null
-						? Ai.CalculateRoute(this.GetRegion(), this.GetPosition(), grassCell.Position).Skip(1).FirstOrDefault()
+						? this.GetNextStep(grassCell)
 						: null;
 					if (nextStep != null)
 					{

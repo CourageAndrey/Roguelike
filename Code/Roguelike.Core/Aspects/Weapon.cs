@@ -4,19 +4,18 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Weapon : IAspect
+	public abstract class Weapon : IAspect
 	{
-		public bool IsRange
+		#region Properties
+
+		public abstract bool IsRange
 		{ get; }
 
 		public event EventHandler<Weapon, IAlive> PreparedForBattle;
 
 		public event EventHandler<Weapon, IAlive> StoppedBattle;
 
-		public Weapon(bool isRange)
-		{
-			IsRange = isRange;
-		}
+		#endregion
 
 		public void RaisePreparedForBattle(IAlive who)
 		{
@@ -34,6 +33,34 @@ namespace Roguelike.Core.Aspects
 			{
 				handler(this, who);
 			}
+		}
+	}
+
+	public class MeleeWeapon : Weapon
+	{
+		#region Properties
+
+		public override bool IsRange
+		{ get { return false; } }
+
+		#endregion
+	}
+
+	public class RangeWeapon : Weapon
+	{
+		#region Properties
+
+		public override bool IsRange
+		{ get { return true; } }
+
+		public MissileType Type
+		{ get; }
+
+		#endregion
+
+		public RangeWeapon(MissileType type)
+		{
+			Type = type;
 		}
 	}
 }

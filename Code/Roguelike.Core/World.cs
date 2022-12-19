@@ -64,7 +64,7 @@ namespace Roguelike.Core
 			Hero.Manequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
 			Hero.Manequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
 			Hero.Manequin.Jewelry.Add(ItemFactory.CreateRing());
-			foreach (var arrow in ItemFactory.CreateArrows(20))
+			foreach (var arrow in ItemFactory.CreateMissiles(MissileType.Arrow, 20))
 			{
 				Hero.Inventory.Items.Add(arrow);
 			}

@@ -80,6 +80,12 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Bow
 		{ get; set; }
+		[XmlElement]
+		public string Crossbow
+		{ get; set; }
+		[XmlElement]
+		public string Sling
+		{ get; set; }
 
 		#endregion
 
@@ -95,6 +101,12 @@ namespace Roguelike.Core.Localization
 
 		[XmlElement]
 		public string Arrow
+		{ get; set; }
+		[XmlElement]
+		public string Bolt
+		{ get; set; }
+		[XmlElement]
+		public string Bullet
 		{ get; set; }
 
 		#endregion
@@ -140,8 +152,12 @@ namespace Roguelike.Core.Localization
 				Mace = "Mace",
 				Spear = "Spear",
 				Bow = "Bow",
+				Crossbow = "Crossbow",
+				Sling = "Sling",
 				Book = "Book",
 				Arrow = "Arrow",
+				Bolt = "Bolt",
+				Bullet = "Sling bullet",
 				Unarmed = "Bare hands (fight unarmed)",
 				Ring = "Ring",
 				Grass = "Grass",

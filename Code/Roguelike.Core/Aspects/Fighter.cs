@@ -138,6 +138,8 @@ namespace Roguelike.Core.Aspects
 
 		public ActionResult Attack(IAlive target)
 		{
+			if (WeaponToFight?.GetAspect<Weapon>()?.IsRange != false) return null;
+
 			var world = _holder.GetWorld();
 			var game = world.Game;
 			var balance = game.Balance;
@@ -159,6 +161,8 @@ namespace Roguelike.Core.Aspects
 
 		public ActionResult Shoot(Cell target)
 		{
+			if (WeaponToFight?.GetAspect<Weapon>()?.IsRange != true) return null;
+
 			var position = _holder.CurrentCell.Position;
 			var region = _holder.CurrentCell.Region;
 			var world = region.World;
@@ -167,7 +171,10 @@ namespace Roguelike.Core.Aspects
 			var language = game.Language;
 			var random = new Random(DateTime.Now.Millisecond);
 
-			var missile = _holder.Inventory.Items.Select<IItem, Missile>().First();
+			var missileType = WeaponToFight.GetAspect<RangeWeapon>().Type;
+			var missile = _holder.Inventory.Items
+				.Select<IItem, Missile>()
+				.FirstOrDefault(m => m.GetAspect<Missile>().Type == missileType);
 
 			if (!position.Equals(target.Position))
 			{
@@ -201,7 +208,7 @@ namespace Roguelike.Core.Aspects
 
 				if (track.Count > 0)
 				{
-					// animate arrow fly
+					// animate missile fly
 					game.UserInterface.AnimateShoot(direction, track, missile);
 				}
 			}

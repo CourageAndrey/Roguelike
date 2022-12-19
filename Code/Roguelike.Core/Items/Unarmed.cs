@@ -21,7 +21,7 @@ namespace Roguelike.Core.Items
 				ItemType.Weapon,
 				default(Color),
 				Material.Skin,
-				new Weapon(false))
+				new MeleeWeapon())
 		{
 			Fighter = fighter;
 		}

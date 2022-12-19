@@ -7,7 +7,6 @@ using System.Linq;
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
-using Roguelike.Core.Items;
 using Roguelike.Core.Objects;
 
 namespace Roguelike.Core
@@ -149,13 +148,11 @@ namespace Roguelike.Core
 			for (int i = 0; i < totalHouses; i++)
 			{
 				var husband = new Npc(balance, Race.SinglePossible, true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "John Smith " + i);
-				husband.Manequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
-				husband.Manequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
+				husband.Race.DressCostume(husband);
 				husband.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
 				var wife = new Npc(balance, Race.SinglePossible, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "Mary Poppins " + i);
-				wife.Manequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.Red);
-				wife.Manequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
+				wife.Race.DressCostume(wife);
 				wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
 				var pet = new Dog(balance, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), Color.Gray);

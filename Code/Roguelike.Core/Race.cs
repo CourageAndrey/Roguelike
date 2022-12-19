@@ -13,8 +13,9 @@ namespace Roguelike.Core
 	{
 		#region Properties
 
-		private readonly Func<LanguageRaces, string> _getName;
+		private readonly Func<LanguageRaces, string> _getRaceName;
 		private readonly Action<Humanoid> _dressCostume;
+		private readonly Func<bool, string> _generateName;
 
 		public Color SkinColor
 		{ get; }
@@ -27,23 +28,30 @@ namespace Roguelike.Core
 		private Race(
 			Func<LanguageRaces, string> getName,
 			Action<Humanoid> dressCostume,
+			Func<bool, string> generateName,
 			Color skinColor,
 			IEnumerable<Color> hairColors)
 		{
-			_getName = getName;
+			_getRaceName = getName;
 			_dressCostume = dressCostume;
+			_generateName = generateName;
 			SkinColor = skinColor;
 			HairColors = hairColors.ToArray();
 		}
 
 		public string GetName(LanguageRaces language)
 		{
-			return _getName(language);
+			return _getRaceName(language);
 		}
 
 		public void DressCostume(Humanoid humanoid)
 		{
 			_dressCostume(humanoid);
+		}
+
+		public string GenerateName(bool sexIsMale)
+		{
+			return _generateName(sexIsMale);
 		}
 
 		#region List
@@ -63,8 +71,45 @@ namespace Roguelike.Core
 					humanoid.Manequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
 				}
 			},
-		Color.White,
-		new[] { Color.Black });
+			sexIsMale =>
+			{
+				var maleNames = new List<string>
+				{
+					"John",
+					"Bill",
+					"Bob",
+					"Tom",
+					"Edward",
+					"Harry",
+					"Jack",
+					"Charles",
+					"George",
+					"Henry",
+					"Louis",
+					"Oscar",
+				};
+
+				var femaleNames = new List<string>
+				{
+					"Emma",
+					"Alice",
+					"Berta",
+					"Ella",
+					"Charlotte",
+					"Amelia",
+					"Lillian",
+					"Eleanor",
+					"Lucy",
+					"Juliet",
+				};
+
+				var names = sexIsMale ? maleNames : femaleNames;
+				var random = new Random(DateTime.Now.Millisecond);
+#warning Need to generate surnames
+				return names[random.Next(0, names.Count - 1)] + " Smith";
+			},
+			Color.White,
+			new[] { Color.Black });
 
 		#endregion
 	}

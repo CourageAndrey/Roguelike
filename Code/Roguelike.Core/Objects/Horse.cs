@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
 using System.Linq;
 
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 
 using Roguelike.Core;
-using Roguelike.Core.ActiveObjects;
 using Roguelike.Core.Objects;
 using Roguelike.Console.ViewModels;
 

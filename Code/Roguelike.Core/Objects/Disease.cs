@@ -1,7 +1,7 @@
 ﻿using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
-namespace Roguelike.Core.ActiveObjects
+namespace Roguelike.Core.Objects
 {
 	public abstract class Disease : IDisease
 	{

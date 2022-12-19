@@ -1,17 +1,17 @@
 ﻿using Roguelike.Core.Localization;
 
-namespace Roguelike.Core.ActiveObjects.Diseases
+namespace Roguelike.Core.Objects.Diseases
 {
-	public class Plague : Disease
+	public class Ulcer : Disease
 	{
 		public override string GetName(LanguageDiseases language)
 		{
-			return language.Plague;
+			return language.Ulcer;
 		}
 
 		public override string ToString()
 		{
-			return nameof(Plague);
+			return nameof(Ulcer);
 		}
 	}
 }

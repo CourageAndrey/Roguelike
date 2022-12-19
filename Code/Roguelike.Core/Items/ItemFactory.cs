@@ -12,7 +12,7 @@ namespace Roguelike.Core.Items
 	{
 		#region Missiles
 
-		public static IItem CreateArrow()
+		public static IItem CreateMissile(MissileType missileType)
 		{
 			return new Item(
 				(language, alive) => language.Items.Arrow,
@@ -20,14 +20,14 @@ namespace Roguelike.Core.Items
 				ItemType.Weapon,
 				Color.White,
 				Material.Wood,
-				new Missile());
+				new Missile(missileType));
 		}
 
-		public static IEnumerable<IItem> CreateArrows(uint count)
+		public static IEnumerable<IItem> CreateMissiles(MissileType missileType, uint count)
 		{
 			for (uint i = 0; i < count; i++)
 			{
-				yield return CreateArrow();
+				yield return CreateMissile(missileType);
 			}
 		}
 
@@ -75,7 +75,31 @@ namespace Roguelike.Core.Items
 				ItemType.Weapon,
 				Material.Wood.Color,
 				Material.Wood,
-				new Weapon(true)
+				new RangeWeapon(MissileType.Arrow)
+			);
+		}
+
+		public static IItem CreateCrossbow()
+		{
+			return new Item(
+				(language, alive) => language.Items.Crossbow,
+				() => 3,
+				ItemType.Weapon,
+				Material.Wood.Color,
+				Material.Wood,
+				new RangeWeapon(MissileType.Bolt)
+			);
+		}
+
+		public static IItem CreateSling()
+		{
+			return new Item(
+				(language, alive) => language.Items.Sling,
+				() => 0.25m,
+				ItemType.Weapon,
+				Material.Skin.Color,
+				Material.Skin,
+				new RangeWeapon(MissileType.Bullet)
 			);
 		}
 
@@ -91,7 +115,7 @@ namespace Roguelike.Core.Items
 				ItemType.Weapon,
 				Material.Metal.Color,
 				Material.Metal,
-				new Weapon(false), new TreeChopper()
+				new MeleeWeapon(), new TreeChopper()
 			);
 		}
 
@@ -103,7 +127,7 @@ namespace Roguelike.Core.Items
 				ItemType.Weapon,
 				Material.Metal.Color,
 				Material.Metal,
-				new Weapon(false)
+				new MeleeWeapon()
 			);
 		}
 
@@ -115,7 +139,7 @@ namespace Roguelike.Core.Items
 				ItemType.Weapon,
 				Material.Wood.Color,
 				Material.Wood,
-				new Weapon(false)
+				new MeleeWeapon()
 			);
 		}
 
@@ -127,7 +151,7 @@ namespace Roguelike.Core.Items
 				ItemType.Weapon,
 				Material.Wood.Color,
 				Material.Wood,
-				new Weapon(false)
+				new MeleeWeapon()
 			);
 		}
 

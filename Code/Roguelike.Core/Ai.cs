@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Roguelike.Core.Interfaces;
+
 namespace Roguelike.Core
 {
 	public static class Ai
@@ -59,6 +61,30 @@ namespace Roguelike.Core
 				{
 					yield return vector;
 				}
+			}
+		}
+
+		public static Vector GetNextStep(this IObject from, Cell to)
+		{
+			return CalculateRoute(from.GetRegion(), from.GetPosition(), to.Position).Skip(1).FirstOrDefault();
+		}
+
+		public static ActionResult Wander(this IObject actor)
+		{
+			var random = new Random(DateTime.Now.Millisecond);
+			return actor.TryMove(DirectionHelper.AllDirections[random.Next(0, DirectionHelper.AllDirections.Count - 1)]);
+		}
+
+		public static ActionResult Follow(this IObject actor, IObject target)
+		{
+			var nextStep = actor.GetNextStep(target.CurrentCell);
+			if (nextStep != null)
+			{
+				return actor.TryMove(actor.GetPosition().GetDirection(nextStep));
+			}
+			else
+			{
+				return ActionResult.Wait(actor);
 			}
 		}
 	}

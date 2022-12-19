@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
 
 using Roguelike.Core.Aspects;
@@ -29,20 +28,11 @@ namespace Roguelike.Core.Objects
 			var owner = this.GetAspect<Ownership>().Owner;
 			if (owner == null)
 			{
-				var random = new Random(DateTime.Now.Millisecond);
-				return this.TryMove(DirectionHelper.AllDirections[random.Next(0, DirectionHelper.AllDirections.Count - 1)]);
+				return this.Wander();
 			}
 			else
 			{
-				var nextStep = Ai.CalculateRoute(this.GetRegion(), this.GetPosition(), owner.GetPosition()).Skip(1).FirstOrDefault();
-				if (nextStep != null)
-				{
-					return this.TryMove(this.GetPosition().GetDirection(nextStep));
-				}
-				else
-				{
-					return ActionResult.Wait(this);
-				}
+				return this.Follow(owner);
 			}
 		}
 

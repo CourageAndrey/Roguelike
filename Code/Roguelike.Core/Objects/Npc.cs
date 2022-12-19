@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
-using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Objects
 {
@@ -21,9 +19,7 @@ namespace Roguelike.Core.Objects
 
 		protected override ActionResult DoImplementation()
 		{
-#warning Implement NPC AI.
-			var random = new Random(DateTime.Now.Millisecond);
-			return this.TryMove(DirectionHelper.AllDirections[random.Next(0, DirectionHelper.AllDirections.Count - 1)]);
+			return this.Wander();
 		}
 	}
 }

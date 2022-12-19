@@ -1,17 +1,25 @@
 ﻿using System;
 
+using Roguelike.Core.Localization;
+
 namespace Roguelike.Core.Chat
 {
 	public class SocialGroup
 	{
-		public string Name
-		{ get { return _nameGetter(); } }
+		#region Properties
 
-		private readonly Func<string> _nameGetter;
+		private readonly Func<Language, string> _getName;
 
-		private SocialGroup(Func<string> nameGetter)
+		#endregion
+
+		private SocialGroup(Func<Language, string> nameGetter)
 		{
-			_nameGetter = nameGetter;
+			_getName = nameGetter;
+		}
+
+		public string GetName(Language language)
+		{
+			return _getName(language);
 		}
 
 		public Attitude GetAttitude(SocialGroup other)
@@ -20,6 +28,6 @@ namespace Roguelike.Core.Chat
 			return Attitude.Neutral;
 		}
 
-		public static readonly SocialGroup No = new SocialGroup(() => string.Empty);
+		public static readonly SocialGroup No = new SocialGroup(language => string.Empty);
 	}
 }

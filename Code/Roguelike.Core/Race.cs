@@ -23,6 +23,9 @@ namespace Roguelike.Core
 		public IReadOnlyCollection<Color> HairColors
 		{ get; }
 
+		public IReadOnlyList<string> Surnames
+		{ get; }
+
 		#endregion
 
 		private Race(
@@ -30,13 +33,15 @@ namespace Roguelike.Core
 			Action<Humanoid> dressCostume,
 			Func<bool, string, string> generateName,
 			Color skinColor,
-			IEnumerable<Color> hairColors)
+			IEnumerable<Color> hairColors,
+			IEnumerable<string> surnames)
 		{
 			_getRaceName = getName;
 			_dressCostume = dressCostume;
 			_generateName = generateName;
 			SkinColor = skinColor;
 			HairColors = hairColors.ToArray();
+			Surnames = surnames.ToArray();
 		}
 
 		public string GetName(LanguageRaces language)
@@ -108,7 +113,25 @@ namespace Roguelike.Core
 				return names[random.Next(0, names.Count - 1)] + " " + familyName;
 			},
 			Color.White,
-			new[] { Color.Black });
+			new[] { Color.Black },
+			new[]
+			{
+				"Black",
+				"White",
+				"Green",
+				"Brown",
+				"Evans",
+				"Stone",
+				"Roberts",
+				"Mills",
+				"Lewis",
+				"Morgan",
+				"Florence",
+				"Campbell",
+				"Bronte",
+				"Bell",
+				"Adams",
+			});
 
 		#endregion
 	}

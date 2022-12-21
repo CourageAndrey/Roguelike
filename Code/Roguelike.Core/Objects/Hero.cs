@@ -17,7 +17,7 @@ namespace Roguelike.Core.Objects
 		#endregion
 
 		public Hero(Balance balance, Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string name)
-			: base(balance, race, sexIsMale, birthDate, properties, inventory, name)
+			: base(balance, race, sexIsMale, birthDate, properties, inventory, name, Profession.Everyman)
 		{
 			AddAspects(new Camera(this, () => Properties.Perception));
 		}

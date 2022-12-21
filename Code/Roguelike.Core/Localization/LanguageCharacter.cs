@@ -39,6 +39,10 @@ namespace Roguelike.Core.Localization
 		public LanguageManequin Manequin
 		{ get; set; }
 
+		[XmlElement]
+		public LanguageProfessions Professions
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageCharacter CreateDefault()
@@ -60,6 +64,8 @@ namespace Roguelike.Core.Localization
 				Races = LanguageRaces.CreateDefault(),
 
 				Manequin = LanguageManequin.CreateDefault(),
+
+				Professions = LanguageProfessions.CreateDefault(),
 			};
 		}
 	}

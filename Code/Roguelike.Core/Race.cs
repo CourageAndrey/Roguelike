@@ -15,7 +15,7 @@ namespace Roguelike.Core
 
 		private readonly Func<LanguageRaces, string> _getRaceName;
 		private readonly Action<Humanoid> _dressCostume;
-		private readonly Func<bool, string> _generateName;
+		private readonly Func<bool, string, string> _generateName;
 
 		public Color SkinColor
 		{ get; }
@@ -28,7 +28,7 @@ namespace Roguelike.Core
 		private Race(
 			Func<LanguageRaces, string> getName,
 			Action<Humanoid> dressCostume,
-			Func<bool, string> generateName,
+			Func<bool, string, string> generateName,
 			Color skinColor,
 			IEnumerable<Color> hairColors)
 		{
@@ -49,9 +49,9 @@ namespace Roguelike.Core
 			_dressCostume(humanoid);
 		}
 
-		public string GenerateName(bool sexIsMale)
+		public string GenerateName(bool sexIsMale, string familyName)
 		{
-			return _generateName(sexIsMale);
+			return _generateName(sexIsMale, familyName);
 		}
 
 		#region List
@@ -71,7 +71,7 @@ namespace Roguelike.Core
 					humanoid.Manequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
 				}
 			},
-			sexIsMale =>
+			(sexIsMale, familyName) =>
 			{
 				var maleNames = new List<string>
 				{
@@ -105,8 +105,7 @@ namespace Roguelike.Core
 
 				var names = sexIsMale ? maleNames : femaleNames;
 				var random = new Random(DateTime.Now.Millisecond);
-#warning Need to generate surnames
-				return names[random.Next(0, names.Count - 1)] + " Smith";
+				return names[random.Next(0, names.Count - 1)] + " " + familyName;
 			},
 			Color.White,
 			new[] { Color.Black });

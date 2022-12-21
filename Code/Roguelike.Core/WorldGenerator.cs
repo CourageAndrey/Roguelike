@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 
 using Roguelike.Core.Aspects;
-using Roguelike.Core.Chat;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;

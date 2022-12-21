@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 
 using Roguelike.Core;
-using Roguelike.Core.Aspects;
-using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Console
@@ -15,7 +13,10 @@ namespace Roguelike.Console
 		{
 			var language = Language.CreateDefault();
 			var ui = new ConsoleUi();
-			var game = new Game(ui, language);
+
+			var game = ShowMainMenu(ui, language);
+			if (game == null) return;
+
 			var world = game.World;
 			var hero = world.Hero;
 			game.StateChanged += (g, state) =>

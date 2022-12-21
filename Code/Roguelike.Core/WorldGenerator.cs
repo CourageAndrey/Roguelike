@@ -5,8 +5,10 @@ using System.Drawing;
 using System.Linq;
 
 using Roguelike.Core.Aspects;
+using Roguelike.Core.Chat;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Localization;
 using Roguelike.Core.Objects;
 
 namespace Roguelike.Core
@@ -91,7 +93,7 @@ namespace Roguelike.Core
 			}
 		}
 
-		public static void CreateVillage(this Region region, Balance balance, Random seed, int x1, int x2, int y1, int y2, int z)
+		public static void CreateVillage(this Region region, Balance balance, Random seed, Language language, int x1, int x2, int y1, int y2, int z)
 		{
 			if (Math.Abs(x1 - x2) < 10 || Math.Abs(y1 - y2) < 10) throw new Exception("Village is too small - 10x10 is minimal size.");
 
@@ -147,11 +149,15 @@ namespace Roguelike.Core
 
 			for (int i = 0; i < totalHouses; i++)
 			{
-				var husband = new Npc(balance, Race.SinglePossible, true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>());
+				var race = Race.SinglePossible;
+
+				string surname = Profession.All[i % Profession.All.Count].GetName(language.Character.Professions);
+
+				var husband = new Npc(balance, race, true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), surname);
 				husband.Race.DressCostume(husband);
 				husband.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var wife = new Npc(balance, Race.SinglePossible, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>());
+				var wife = new Npc(balance, race, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), surname);
 				wife.Race.DressCostume(wife);
 				wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 

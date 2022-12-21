@@ -7,6 +7,7 @@ using System.Threading;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Objects;
 using Roguelike.Core.Saves;
 
 namespace Roguelike.Core
@@ -65,18 +66,18 @@ namespace Roguelike.Core
 
 		#region Constructors
 
-		private Game(Balance balance, World world, Language language, IUserInterface userInterface)
+		private Game(World world, Language language, IUserInterface userInterface)
 		{
 			State = GameState.Initialize;
-			_log = new Queue<string>(balance.MaxLogSize);
+			_log = new Queue<string>(world.Balance.MaxLogSize);
 			Language = language;
-			World = world ?? new World(balance, language);
+			World = world;
 			World.Game = this;
 			UserInterface = userInterface;
 		}
 
-		public Game(IUserInterface userInterface, Language language)
-			: this(Balance.CreateDefault(), null, language, userInterface)
+		public Game(IUserInterface userInterface, Language language, HeroStartSettings heroStartSettings)
+			: this(new World(Balance.CreateDefault(), language, heroStartSettings), language, userInterface)
 		{ }
 
 		public static Game Load(Save save, IUserInterface userInterface, Language language)
@@ -86,8 +87,7 @@ namespace Roguelike.Core
 			{
 				world = world.UpdateToNewestVersion();
 			}
-			var balance = Balance.CreateDefault();
-			var game = new Game(balance, world.Load(), language, userInterface);
+			var game = new Game(world.Load(), language, userInterface);
 			return game;
 		}
 

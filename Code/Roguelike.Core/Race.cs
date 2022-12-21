@@ -133,6 +133,11 @@ namespace Roguelike.Core
 				"Adams",
 			});
 
+		public static readonly IReadOnlyCollection<Race> All = new[]
+		{
+			SinglePossible,
+		};
+
 		#endregion
 	}
 }

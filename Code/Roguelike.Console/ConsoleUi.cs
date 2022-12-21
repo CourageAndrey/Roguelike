@@ -211,12 +211,7 @@ namespace Roguelike.Console
 
 		private void startDialog(Action code)
 		{
-			System.Console.Clear();
-			System.Console.CursorVisible = true;
-			System.Console.CursorTop = 0;
-			System.Console.CursorLeft = 0;
-			System.Console.ForegroundColor = ConsoleColor.White;
-			System.Console.BackgroundColor = ConsoleColor.Black;
+			Clear(true);
 
 			code();
 
@@ -424,9 +419,7 @@ namespace Roguelike.Console
 							}
 						}
 
-						System.Console.Clear();
-						System.Console.CursorTop = 0;
-						System.Console.CursorLeft = 0;
+						Clear(false);
 					}
 					else if (key.Key == ConsoleKey.Escape)
 					{
@@ -590,5 +583,17 @@ namespace Roguelike.Console
 		}
 
 		#endregion
+
+		public void Clear(bool resetColors)
+		{
+			System.Console.Clear();
+			System.Console.CursorTop = 0;
+			System.Console.CursorLeft = 0;
+			if (resetColors)
+			{
+				System.Console.ForegroundColor = ConsoleColor.White;
+				System.Console.BackgroundColor = ConsoleColor.Black;
+			}
+		}
 	}
 }

@@ -19,6 +19,10 @@ namespace Roguelike.Core.Localization
 		public LanguageUiCharacter CharacterScreen
 		{ get; set; }
 
+		[XmlElement]
+		public string AnyOtherKey
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageUi CreateDefault()
@@ -28,6 +32,7 @@ namespace Roguelike.Core.Localization
 				Common = LanguageUiCommon.CreateDefault(),
 				MainScreen = LanguageUiMainScreen.CreateDefault(),
 				CharacterScreen = LanguageUiCharacter.CreateDefault(),
+				AnyOtherKey = "any other key",
 			};
 		}
 	}

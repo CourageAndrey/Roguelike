@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Roguelike.Core.Localization;
 
-namespace Roguelike.Core.Chat
+namespace Roguelike.Core
 {
 	public class Profession
 	{

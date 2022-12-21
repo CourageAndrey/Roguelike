@@ -22,11 +22,7 @@ namespace Roguelike.Console
 
 			do
 			{
-				System.Console.Clear();
-				System.Console.CursorTop = 0;
-				System.Console.CursorLeft = 0;
-				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.BackgroundColor = ConsoleColor.Black;
+				ui.Clear(true);
 
 				foreach (var menuPoint in menuPoints.Values)
 				{

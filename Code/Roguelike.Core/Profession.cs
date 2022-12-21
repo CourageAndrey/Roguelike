@@ -11,11 +11,15 @@ namespace Roguelike.Core
 
 		private readonly Func<LanguageProfessions, string> _getName;
 
+		public bool IsSurname
+		{ get; }
+
 		#endregion
 
-		private Profession(Func<LanguageProfessions, string> nameGetter)
+		private Profession(Func<LanguageProfessions, string> nameGetter, bool isSurname = false)
 		{
 			_getName = nameGetter;
+			IsSurname = isSurname;
 		}
 
 		public string GetName(LanguageProfessions language)
@@ -25,15 +29,15 @@ namespace Roguelike.Core
 
 		#region List
 
-		public static readonly Profession Miller		= new Profession(language => language.Miller);
-		public static readonly Profession Baker			= new Profession(language => language.Baker);
-		public static readonly Profession Weaver		= new Profession(language => language.Weaver);
-		public static readonly Profession Tailor		= new Profession(language => language.Tailor);
-		public static readonly Profession Hunter		= new Profession(language => language.Hunter);
-		public static readonly Profession Fisher		= new Profession(language => language.Fisher);
+		public static readonly Profession Miller		= new Profession(language => language.Miller, true);
+		public static readonly Profession Baker			= new Profession(language => language.Baker, true);
+		public static readonly Profession Weaver		= new Profession(language => language.Weaver, true);
+		public static readonly Profession Tailor		= new Profession(language => language.Tailor, true);
+		public static readonly Profession Hunter		= new Profession(language => language.Hunter, true);
+		public static readonly Profession Fisher		= new Profession(language => language.Fisher, true);
 		public static readonly Profession Tanner		= new Profession(language => language.Tanner);
 		public static readonly Profession Miner			= new Profession(language => language.Miner);
-		public static readonly Profession Smith			= new Profession(language => language.Smith);
+		public static readonly Profession Smith			= new Profession(language => language.Smith, true);
 		public static readonly Profession Farmer		= new Profession(language => language.Farmer);
 		public static readonly Profession WoodCutter	= new Profession(language => language.WoodCutter);
 		public static readonly Profession Soldier		= new Profession(language => language.Soldier);

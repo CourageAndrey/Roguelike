@@ -13,8 +13,8 @@ namespace Roguelike.Core.Objects
 
 		#endregion
 
-		public Npc(Balance balance, Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string surmame)
-			: base(balance, race, sexIsMale, birthDate, properties, inventory, race.GenerateName(sexIsMale, surmame), Profession.Everyman)
+		public Npc(Balance balance, Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string surmame, Profession profession)
+			: base(balance, race, sexIsMale, birthDate, properties, inventory, race.GenerateName(sexIsMale, surmame), profession)
 		{ }
 
 		protected override ActionResult DoImplementation()

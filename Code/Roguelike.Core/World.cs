@@ -6,6 +6,7 @@ using System.Linq;
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
+using Roguelike.Core.Localization;
 using Roguelike.Core.Objects;
 
 namespace Roguelike.Core
@@ -15,7 +16,7 @@ namespace Roguelike.Core
 		#region Properties
 
 		public Game Game
-		{ get; }
+		{ get; internal set; }
 
 		public Time Time
 		{ get { return _time; } }
@@ -30,11 +31,8 @@ namespace Roguelike.Core
 
 		#endregion
 
-		public World(Game game)
+		public World(Configuration.Balance balance, Language language)
 		{
-			Game = game;
-			var balance = game.Balance;
-
 			var seed = Randomize();
 
 			_time = new Time(
@@ -45,7 +43,7 @@ namespace Roguelike.Core
 				(byte) seed.Next(0, balance.Time.DaysInWeek),
 				(uint) seed.Next(0, (int) balance.Time.TicksInDay));
 
-			Regions = this.GenerateRegions(balance.WorldSize.RegionsCount);
+			Regions = this.GenerateRegions(balance.WorldSize);
 			var region = Regions.First();
 
 			Hero = new Hero(balance, Race.SinglePossible, true, _time.AddYears(-25), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "Andor Drakon");
@@ -74,7 +72,7 @@ namespace Roguelike.Core
 			region.CreateVillage(
 				balance,
 				seed,
-				game.Language,
+				language,
 				heroCell.Position.X + 1,
 				heroCell.Position.X + 30,
 				heroCell.Position.Y + 1,

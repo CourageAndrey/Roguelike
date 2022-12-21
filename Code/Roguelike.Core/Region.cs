@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core
@@ -22,10 +22,9 @@ namespace Roguelike.Core
 
 		#endregion
 
-		public Region(World world)
+		public Region(World world, WorldSizeBalance balance)
 		{
 			World = world;
-			var balance = world.Game.Balance.WorldSize;
 			Size = new Vector(
 				balance.RegionXdimension,
 				balance.RegionYdimension,

@@ -8,7 +8,8 @@ namespace Roguelike.Core
 	{
 		#region Properties
 
-		private readonly TimeBalance _balance;
+		internal TimeBalance Balance
+		{ get; }
 
 		public int Year
 		{ get; }
@@ -23,7 +24,7 @@ namespace Roguelike.Core
 		{ get; }
 
 		public short MonthDay
-		{ get { return (short) (Week * _balance.DaysInWeek + Day); } }
+		{ get { return (short) (Week * Balance.DaysInWeek + Day); } }
 
 		public uint Ticks
 		{ get; }
@@ -33,10 +34,10 @@ namespace Roguelike.Core
 			get
 			{
 				long ticks = Year;
-				ticks = ticks * _balance.MonthInYear + Month;
-				ticks = ticks * _balance.WeeksInMonth + Week;
-				ticks = ticks * _balance.DaysInWeek + Day;
-				ticks = ticks * _balance.TicksInDay + Ticks;
+				ticks = ticks * Balance.MonthInYear + Month;
+				ticks = ticks * Balance.WeeksInMonth + Week;
+				ticks = ticks * Balance.DaysInWeek + Day;
+				ticks = ticks * Balance.TicksInDay + Ticks;
 				return ticks;
 			}
 		}
@@ -47,7 +48,7 @@ namespace Roguelike.Core
 
 		public Time(TimeBalance balance, int year, byte month, byte week, byte day, uint ticks)
 		{
-			_balance = balance;
+			Balance = balance;
 
 			Year = year;
 			Month = month;
@@ -108,7 +109,7 @@ namespace Roguelike.Core
 
 		public bool Equals(Time other)
 		{
-			EnsureSameBalance(_balance, other._balance);
+			EnsureSameBalance(Balance, other.Balance);
 
 			return	Year == other.Year &&
 					Month == other.Month &&
@@ -119,7 +120,7 @@ namespace Roguelike.Core
 
 		public int CompareTo(Time other)
 		{
-			EnsureSameBalance(_balance, other._balance);
+			EnsureSameBalance(Balance, other.Balance);
 
 			int result = Year.CompareTo(other.Year);
 			if (result == 0)
@@ -190,7 +191,7 @@ namespace Roguelike.Core
 			if (delta == 0) return this;
 
 			return new Time(
-				_balance,
+				Balance,
 				Year + delta,
 				Month,
 				Week,
@@ -204,7 +205,7 @@ namespace Roguelike.Core
 
 			int thisLevelValue = Month + delta;
 			int nextLevelDelta;
-			int multiplier = _balance.MonthInYear;
+			int multiplier = Balance.MonthInYear;
 
 			if (thisLevelValue < 0)
 			{
@@ -222,7 +223,7 @@ namespace Roguelike.Core
 			}
 
 			return new Time(
-				_balance,
+				Balance,
 				Year,
 				(byte) thisLevelValue,
 				Week,
@@ -236,7 +237,7 @@ namespace Roguelike.Core
 
 			int thisLevelValue = Week + delta;
 			int nextLevelDelta;
-			int multiplier = _balance.WeeksInMonth;
+			int multiplier = Balance.WeeksInMonth;
 
 			if (thisLevelValue < 0)
 			{
@@ -254,7 +255,7 @@ namespace Roguelike.Core
 			}
 
 			return new Time(
-				_balance,
+				Balance,
 				Year,
 				Month,
 				(byte) thisLevelValue,
@@ -268,7 +269,7 @@ namespace Roguelike.Core
 
 			int thisLevelValue = Day + delta;
 			int nextLevelDelta;
-			int multiplier = _balance.DaysInWeek;
+			int multiplier = Balance.DaysInWeek;
 
 			if (thisLevelValue < 0)
 			{
@@ -286,7 +287,7 @@ namespace Roguelike.Core
 			}
 
 			return new Time(
-				_balance,
+				Balance,
 				Year,
 				Month,
 				Week,
@@ -300,7 +301,7 @@ namespace Roguelike.Core
 
 			long thisLevelValue = Ticks + delta;
 			long nextLevelDelta;
-			uint multiplier = _balance.TicksInDay;
+			uint multiplier = Balance.TicksInDay;
 
 			if (thisLevelValue < 0)
 			{
@@ -318,7 +319,7 @@ namespace Roguelike.Core
 			}
 
 			return new Time(
-				_balance,
+				Balance,
 				Year,
 				Month,
 				Week,
@@ -328,13 +329,13 @@ namespace Roguelike.Core
 
 		public Time Scale(double rate)
 		{
-			return FromTicks(_balance, (long) Math.Min(Math.Max(Math.Floor(TotalTicks * rate), long.MinValue), long.MaxValue));
+			return FromTicks(Balance, (long) Math.Min(Math.Max(Math.Floor(TotalTicks * rate), long.MinValue), long.MaxValue));
 		}
 
 		public Time Date()
 		{
 			return new Time(
-				_balance,
+				Balance,
 				Year,
 				Month,
 				Week,
@@ -345,7 +346,7 @@ namespace Roguelike.Core
 		public Time DayTime()
 		{
 			return new Time(
-				_balance,
+				Balance,
 				0,
 				0,
 				0,

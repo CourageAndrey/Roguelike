@@ -74,7 +74,8 @@ namespace Roguelike.Core
 			State = GameState.Initialize;
 			_log = new Queue<string>(balance.MaxLogSize);
 			Language = language;
-			World = world ?? new World(this);
+			World = world ?? new World(balance, language);
+			World.Game = this;
 			UserInterface = userInterface;
 		}
 

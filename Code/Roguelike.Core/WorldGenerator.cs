@@ -151,7 +151,9 @@ namespace Roguelike.Core
 				var race = Race.SinglePossible;
 
 				var profession = Profession.Everyman;
-				string surname = (profession.IsSurname ? profession : Profession.All[i % Profession.All.Count]).GetName(language.Character.Professions);
+				string surname = profession.IsSurname
+					? profession.GetName(language.Character.Professions)
+					: race.Surnames[i % race.Surnames.Count];
 
 				var husband = new Npc(balance, race, true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), surname, profession);
 				husband.Race.DressCostume(husband);

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 
 using Roguelike.Core.Aspects;
+using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
@@ -14,6 +15,9 @@ namespace Roguelike.Core
 	public class World
 	{
 		#region Properties
+
+		public Balance Balance
+		{ get; }
 
 		public Game Game
 		{ get; internal set; }
@@ -31,8 +35,10 @@ namespace Roguelike.Core
 
 		#endregion
 
-		public World(Configuration.Balance balance, Language language)
+		public World(Balance balance, Language language)
 		{
+			Balance = balance;
+
 			var seed = Randomize();
 
 			_time = new Time(

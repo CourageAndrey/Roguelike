@@ -23,7 +23,7 @@ namespace Roguelike.Core.Objects
 		public List<Interaction> GetAvailableInteractions(IObject actor)
 		{
 			var game = this.GetGame();
-			var balance = game.Balance;
+			var balance = game.World.Balance;
 			var language = game.Language;
 			return new List<Interaction>
 			{

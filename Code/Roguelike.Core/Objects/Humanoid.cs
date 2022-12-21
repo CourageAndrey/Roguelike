@@ -29,6 +29,9 @@ namespace Roguelike.Core.Objects
 		public Rider Rider
 		{ get { return this.GetAspect<Rider>(); } }
 
+		public Profession Profession
+		{ get; }
+
 		public Interlocutor Interlocutor
 		{ get { return this.GetAspect<Interlocutor>(); } }
 
@@ -37,13 +40,14 @@ namespace Roguelike.Core.Objects
 
 		#endregion
 
-		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string name)
+		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string name, Profession profession)
 			: base(balance, sexIsMale, birthDate, properties, inventory)
 		{
 			if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
 
 			Name = name;
 			Race = race;
+			Profession = profession;
 
 			var manequin = new Manequin(this);
 			manequin.EquipmentChanged += m => CurrentCell?.RefreshView(false);

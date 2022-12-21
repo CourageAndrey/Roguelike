@@ -21,6 +21,9 @@ namespace Roguelike.Core.Interfaces
 		Rider Rider
 		{ get; }
 
+		Profession Profession
+		{ get; }
+
 		Interlocutor Interlocutor
 		{ get; }
 	}

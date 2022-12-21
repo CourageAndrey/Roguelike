@@ -247,7 +247,7 @@ namespace Roguelike.Console
 			{
 				itemsContainer.PickItem(itemToPick, hero.Inventory.Items);
 				return new ActionResult(
-					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.PickItem),
+					Time.FromTicks(world.Balance.Time, world.Balance.ActionLongevity.PickItem),
 					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.PickItem, hero.GetDescription(language, hero), itemToPick));
 
 			}
@@ -276,7 +276,7 @@ namespace Roguelike.Console
 					door.Open();
 				}
 				return new ActionResult(
-					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.OpenCloseDoor),
+					Time.FromTicks(world.Balance.Time, world.Balance.ActionLongevity.OpenCloseDoor),
 					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.OpenDoor, hero.GetDescription(language, hero), door.GetPosition()));
 			}
 			else
@@ -309,7 +309,7 @@ namespace Roguelike.Console
 				ui.ShowMessage(selectedBook.GetTitle(language.Books), new StringBuilder(selectedBook.GetText(language.Books)));
 
 				return new ActionResult(
-					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.ReadBook),
+					Time.FromTicks(world.Balance.Time, world.Balance.ActionLongevity.ReadBook),
 					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.ReadBook, hero.GetDescription(language, hero)));
 			}
 			else

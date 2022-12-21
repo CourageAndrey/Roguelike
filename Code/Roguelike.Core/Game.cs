@@ -15,9 +15,6 @@ namespace Roguelike.Core
 	{
 		#region Properties
 
-		public Balance Balance
-		{ get; }
-
 		public World World
 		{ get; }
 
@@ -54,7 +51,7 @@ namespace Roguelike.Core
 		{
 			if (!string.IsNullOrEmpty(message))
 			{
-				if (_log.Count == Balance.MaxLogSize)
+				if (_log.Count == World.Balance.MaxLogSize)
 				{
 					_log.Dequeue();
 				}
@@ -70,7 +67,6 @@ namespace Roguelike.Core
 
 		private Game(Balance balance, World world, Language language, IUserInterface userInterface)
 		{
-			Balance = balance;
 			State = GameState.Initialize;
 			_log = new Queue<string>(balance.MaxLogSize);
 			Language = language;

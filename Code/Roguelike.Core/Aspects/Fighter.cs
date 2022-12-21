@@ -44,7 +44,7 @@ namespace Roguelike.Core.Aspects
 			string logMessage;
 			var game = _holder.GetGame();
 			var language = game.Language.LogActionFormats;
-			var balance = game.Balance;
+			var balance = game.World.Balance;
 			Activity newActivity = null;
 
 			if (IsAgressive != agressive)
@@ -85,7 +85,7 @@ namespace Roguelike.Core.Aspects
 			string logMessage;
 			var game = _holder.GetGame();
 			var language = game.Language.LogActionFormats;
-			var balance = game.Balance;
+			var balance = game.World.Balance;
 
 			var oldWeapon = WeaponToFight;
 			if (oldWeapon != weapon)
@@ -123,7 +123,7 @@ namespace Roguelike.Core.Aspects
 		{
 			var game = _holder.GetGame();
 			var language = game.Language;
-			var balance = game.Balance;
+			var balance = game.World.Balance;
 
 			target.Die(language.DeathReasons.Backstabbed);
 			return new ActionResult(
@@ -142,7 +142,7 @@ namespace Roguelike.Core.Aspects
 
 			var world = _holder.GetWorld();
 			var game = world.Game;
-			var balance = game.Balance;
+			var balance = world.Balance;
 			var language = game.Language;
 			var random = new Random(DateTime.Now.Millisecond);
 
@@ -167,7 +167,7 @@ namespace Roguelike.Core.Aspects
 			var region = _holder.CurrentCell.Region;
 			var world = region.World;
 			var game = world.Game;
-			var balance = game.Balance;
+			var balance = world.Balance;
 			var language = game.Language;
 			var random = new Random(DateTime.Now.Millisecond);
 

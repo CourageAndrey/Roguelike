@@ -44,7 +44,7 @@ namespace Roguelike.Core
 		internal static ActionResult Wait(IObject forWhom)
 		{
 			var game = forWhom.GetGame();
-			var balance = game.Balance;
+			var balance = game.World.Balance;
 			return new ActionResult(
 				Time.FromTicks(balance.Time, balance.ActionLongevity.Wait),
 				string.Format(

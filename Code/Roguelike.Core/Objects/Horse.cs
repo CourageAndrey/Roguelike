@@ -28,7 +28,7 @@ namespace Roguelike.Core.Objects
 		protected override ActionResult DoImplementation()
 		{
 			var game = this.GetGame();
-			var balance = game.Balance;
+			var balance = game.World.Balance;
 
 			if (State.IsThirsty)
 			{

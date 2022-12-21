@@ -51,7 +51,7 @@ namespace Roguelike.Core.Interfaces
 		{
 			var world = obj.GetWorld();
 			var game = world.Game;
-			var balance = game.Balance;
+			var balance = world.Balance;
 
 			var oldPosition = obj.GetPosition();
 			var newCell = oldPosition != null

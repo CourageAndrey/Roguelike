@@ -56,7 +56,7 @@ namespace Roguelike.Core.Objects
 			{
 				if (CurrentCell != null)
 				{
-					var balance = this.GetGame().Balance;
+					var balance = this.GetWorld().Balance;
 					return 1 + Math.Pow(balance.Player.ReflexesRate, Properties.Reaction - balance.Player.ReflexesAverage);
 				}
 				else
@@ -165,7 +165,7 @@ namespace Roguelike.Core.Objects
 		{
 			var world = this.GetWorld();
 			var game = world.Game;
-			var balance = game.Balance;
+			var balance = world.Balance;
 			var language = game.Language.LogActionFormats;
 
 			var itemsPile = CurrentCell.Objects.OfType<ItemsPile>().SingleOrDefault();
@@ -200,7 +200,7 @@ namespace Roguelike.Core.Objects
 		{
 			var world = this.GetWorld();
 			var game = world.Game;
-			Balance balance = game.Balance;
+			Balance balance = world.Balance;
 			var language = game.Language;
 
 			State.EatDrink(food.GetAspect<Nutricious>(), language);

@@ -95,7 +95,7 @@ namespace Roguelike.Core.Aspects
 				var game = rider.GetGame();
 				var language = game.Language;
 				return new ActionResult(
-					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.RideHorse),
+					Time.FromTicks(game.World.Balance.Time, game.World.Balance.ActionLongevity.RideHorse),
 					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.RideHorse, rider.GetDescription(language, game.Hero)));
 			}
 			else
@@ -123,7 +123,7 @@ namespace Roguelike.Core.Aspects
 				var game = rider.GetGame();
 				var language = game.Language;
 				return new ActionResult(
-					Time.FromTicks(game.Balance.Time, game.Balance.ActionLongevity.RideHorse),
+					Time.FromTicks(game.World.Balance.Time, game.World.Balance.ActionLongevity.RideHorse),
 					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.RideHorse, rider.GetDescription(language, game.Hero)));
 			}
 			else

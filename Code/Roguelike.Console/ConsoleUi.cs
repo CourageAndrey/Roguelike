@@ -430,13 +430,13 @@ namespace Roguelike.Console
 
 			if (operations.Count > 0)
 			{
-				var longevity = new Time(game.Balance.Time);
+				var longevity = new Time(game.World.Balance.Time);
 				var messages = new List<string>();
 				var languageLog = game.Language.LogActionFormats;
 
 				foreach (var operation in operations)
 				{
-					longevity = longevity.AddTicks(operation.Key.GetDressTime(game.Balance.ActionLongevity.Dress));
+					longevity = longevity.AddTicks(operation.Key.GetDressTime(game.World.Balance.ActionLongevity.Dress));
 					messages.Add(string.Format(
 						CultureInfo.InvariantCulture,
 						operation.Value ? languageLog.Dress : languageLog.Undress,

@@ -30,7 +30,7 @@ namespace Roguelike.Console
 					.ToList();
 
 				ListItem selectedInteractionItem;
-				if (ui.TrySelectItem(game, language.Promts.SelectInteraction, items, out selectedInteractionItem))
+				if (ui.TrySelectItem(language.Promts.SelectInteraction, items, out selectedInteractionItem))
 				{
 					return ((Interaction) selectedInteractionItem.ValueObject).Perform(hero);
 				}
@@ -68,7 +68,7 @@ namespace Roguelike.Console
 			if (items.Count > 1)
 			{
 				ListItem selectedItem;
-				if (ui.TrySelectItem(game, promt, items, out selectedItem))
+				if (ui.TrySelectItem(promt, items, out selectedItem))
 				{
 					return ((ListItem<TargetT>) selectedItem).Value;
 				}
@@ -101,7 +101,7 @@ namespace Roguelike.Console
 			var itemsToDrop = hero.Inventory.Items.Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
 
 			ListItem selectedItemToDrop;
-			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrop, itemsToDrop, out selectedItemToDrop))
+			if (ui.TrySelectItem(language.Promts.SelectItemToDrop, itemsToDrop, out selectedItemToDrop))
 			{
 				return hero.DropItem((IItem) selectedItemToDrop.ValueObject);
 			}
@@ -127,7 +127,7 @@ namespace Roguelike.Console
 
 			IItem selectedWeapon;
 			ListItem selectedWeaponItem;
-			if (ui.TrySelectItem(game, language.Promts.SelectWeapon, weapons.Select(w => new ListItem<IItem>(w, w.GetDescription(language, hero))), out selectedWeaponItem))
+			if (ui.TrySelectItem(language.Promts.SelectWeapon, weapons.Select(w => new ListItem<IItem>(w, w.GetDescription(language, hero))), out selectedWeaponItem))
 			{
 				selectedWeapon = ((ListItem<IItem>) selectedWeaponItem).Value;
 			}
@@ -232,7 +232,7 @@ namespace Roguelike.Console
 					}
 
 					ListItem selectedItem;
-					if (ui.TrySelectItem(game, language.Promts.SelectItemToPick, items, out selectedItem))
+					if (ui.TrySelectItem(language.Promts.SelectItemToPick, items, out selectedItem))
 					{
 						itemToPick = ((ListItem<IItem>) selectedItem).Value;
 					}
@@ -298,7 +298,7 @@ namespace Roguelike.Console
 			if (booksToRead.Count > 0)
 			{
 				ListItem selectedBookToRead;
-				if (ui.TrySelectItem(game, language.Promts.SelectItemToRead, booksToRead, out selectedBookToRead))
+				if (ui.TrySelectItem(language.Promts.SelectItemToRead, booksToRead, out selectedBookToRead))
 				{
 					selectedBook = ((ListItem<Paper>) selectedBookToRead).Value;
 				}
@@ -362,7 +362,7 @@ namespace Roguelike.Console
 			var itemsToEat = hero.Inventory.Items.Where(i => i.Type == ItemType.Food).Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
 
 			ListItem selectedItemToEat;
-			if (ui.TrySelectItem(game, language.Promts.SelectItemToEat, itemsToEat, out selectedItemToEat))
+			if (ui.TrySelectItem(language.Promts.SelectItemToEat, itemsToEat, out selectedItemToEat))
 			{
 				return hero.Eat(((ListItem<IItem>) selectedItemToEat).Value);
 			}
@@ -387,7 +387,7 @@ namespace Roguelike.Console
 
 			var itemsToDrink = hero.Inventory.Items.Where(i => i.Type == ItemType.Potion).Select(i => new ListItem<IItem>(i, i.GetDescription(language, hero)));
 			ListItem selectedItemToDrink;
-			if (ui.TrySelectItem(game, language.Promts.SelectItemToDrink, itemsToDrink, out selectedItemToDrink))
+			if (ui.TrySelectItem(language.Promts.SelectItemToDrink, itemsToDrink, out selectedItemToDrink))
 			{
 				return hero.Drink(((ListItem<IItem>) selectedItemToDrink).Value);
 			}

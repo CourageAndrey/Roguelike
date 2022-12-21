@@ -236,7 +236,7 @@ namespace Roguelike.Console
 			});
 		}
 
-		public bool TrySelectItem(Game game, string question, IEnumerable<ListItem> items, out ListItem selectedItem)
+		public bool TrySelectItem(string question, IEnumerable<ListItem> items, out ListItem selectedItem)
 		{
 			bool result = false;
 			ListItem selected = null;
@@ -271,7 +271,7 @@ namespace Roguelike.Console
 			return result;
 		}
 
-		public bool TrySelectItems(Game game, string question, IEnumerable<ListItem> items, out IList<ListItem> selectedItems)
+		public bool TrySelectItems(string question, IEnumerable<ListItem> items, out IList<ListItem> selectedItems)
 		{
 			var selected = new List<ListItem>();
 
@@ -405,7 +405,7 @@ namespace Roguelike.Console
 								.ToList();
 
 								ListItem selectedItemItem;
-								if (TrySelectItem(game, language.Promts.SelectWear, possibleItems, out selectedItemItem))
+								if (TrySelectItem(language.Promts.SelectWear, possibleItems, out selectedItemItem))
 								{
 									var itemToDress = (IItem) selectedItemItem.ValueObject;
 									manequin.Dress(itemToDress);

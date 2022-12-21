@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
@@ -16,8 +16,16 @@ namespace Roguelike.Core.Objects
 
 		#endregion
 
-		public Hero(Balance balance, Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string name)
-			: base(balance, race, sexIsMale, birthDate, properties, inventory, name, Profession.Everyman)
+		public Hero(Balance balance, Time now, HeroStartSettings startSettings)
+			: base(
+				balance,
+				startSettings.Race,
+				startSettings.SexIsMale,
+				now.AddYears(- (int) startSettings.Age).AddDays(1),
+				new Properties(10, 10, 30, 10, 10, 10),
+				Enumerable.Empty<Item>(),
+				startSettings.Name,
+				startSettings.Profession)
 		{
 			AddAspects(new Camera(this, () => Properties.Perception));
 		}
@@ -33,5 +41,27 @@ namespace Roguelike.Core.Objects
 			game.Defeat();
 			return base.Die(reason);
 		}
+	}
+
+	public class HeroStartSettings
+	{
+		#region Properties
+
+		public Race Race
+		{ get; set; }
+
+		public bool SexIsMale
+		{ get; set; }
+
+		public uint Age
+		{ get; set; }
+
+		public string Name
+		{ get; set; }
+
+		public Profession Profession
+		{ get; set; }
+
+		#endregion
 	}
 }

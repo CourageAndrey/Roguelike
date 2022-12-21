@@ -4,6 +4,7 @@ using System.Text;
 
 using Roguelike.Core;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Console
 {
@@ -14,7 +15,7 @@ namespace Roguelike.Console
 			MenuPoint helpMenuPoint;
 			var menuPoints = new[]
 			{
-				new MenuPoint("N", language.Ui.MainScreen.NewGame, () => new Game(ui, language)),
+				new MenuPoint("N", language.Ui.MainScreen.NewGame, () => CreateNewGame(ui, language)),
 				new MenuPoint("L", language.Ui.MainScreen.LoadGame, () => { throw new NotImplementedException(); }),
 				helpMenuPoint = new MenuPoint(language.Ui.AnyOtherKey, language.Ui.MainScreen.Help, null),
 				new MenuPoint("E", language.Ui.MainScreen.Exit, () => null),
@@ -82,6 +83,71 @@ namespace Roguelike.Console
 			{
 				return _getGame();
 			}
+		}
+
+		private static Game CreateNewGame(ConsoleUi ui, Language language)
+		{
+			var heroStartSettings = new HeroStartSettings
+			{
+				Race = SelectRace(ui, language),
+				SexIsMale = InputSex(ui, language),
+				Age = InputAge(ui, language),
+				Name = InputName(ui, language),
+				Profession = SelectProfession(ui, language),
+			};
+			return new Game(ui, language, heroStartSettings);
+		}
+
+		private static Race SelectRace(ConsoleUi ui, Language language)
+		{
+			var items = Race.All.Select(r => new ListItem<Race>(r, r.GetName(language.Character.Races)));
+			ListItem selected;
+			if (!ui.TrySelectItem(language.Ui.CreateHero.SelectRace, items, out selected))
+			{
+				selected = items.First();
+			}
+
+			return ((ListItem<Race>) selected).Value;
+		}
+
+		private static bool InputSex(ConsoleUi ui, Language language)
+		{
+			ui.Clear(true);
+			System.Console.WriteLine(language.Ui.CreateHero.InputSex);
+
+			var key = System.Console.ReadKey().KeyChar;
+			return key != 'f' && key != 'F';
+		}
+
+		private static uint InputAge(ConsoleUi ui, Language language)
+		{
+			ui.Clear(true);
+			System.Console.WriteLine(language.Ui.CreateHero.InputAge);
+
+			return uint.Parse(System.Console.ReadLine());
+		}
+
+		private static string InputName(ConsoleUi ui, Language language)
+		{
+			ui.Clear(true);
+			System.Console.WriteLine(language.Ui.CreateHero.InputName);
+
+			string name = System.Console.ReadLine();
+			return !string.IsNullOrEmpty(name)
+				? name
+				: "Andor Drakon";
+		}
+
+		private static Profession SelectProfession(ConsoleUi ui, Language language)
+		{
+			var items = Profession.All.Select(p => new ListItem<Profession>(p, p.GetName(language.Character.Professions)));
+			ListItem selected;
+			if (!ui.TrySelectItem(language.Ui.CreateHero.SelectProfession, items, out selected))
+			{
+				selected = items.First();
+			}
+
+			return ((ListItem<Profession>) selected).Value;
 		}
 	}
 }

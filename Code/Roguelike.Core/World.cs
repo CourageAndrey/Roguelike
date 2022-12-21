@@ -35,7 +35,7 @@ namespace Roguelike.Core
 
 		#endregion
 
-		public World(Balance balance, Language language)
+		public World(Balance balance, Language language, HeroStartSettings heroStartSettings)
 		{
 			Balance = balance;
 
@@ -52,7 +52,7 @@ namespace Roguelike.Core
 			Regions = this.GenerateRegions(balance.WorldSize);
 			var region = Regions.First();
 
-			Hero = new Hero(balance, Race.SinglePossible, true, _time.AddYears(-25), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), "Andor Drakon");
+			Hero = new Hero(balance, _time, heroStartSettings);
 			var heroCell = region.GetCell(
 				seed.Next(10, balance.WorldSize.RegionXdimension - 50),
 				seed.Next(10, balance.WorldSize.RegionYdimension - 50),

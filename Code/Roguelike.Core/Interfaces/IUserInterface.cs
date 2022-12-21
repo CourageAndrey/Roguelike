@@ -8,8 +8,8 @@ namespace Roguelike.Core.Interfaces
 	public interface IUserInterface
 	{
 		void ShowMessage(string title, StringBuilder text);
-		bool TrySelectItem(Game game, string question, IEnumerable<ListItem> items, out ListItem selectedItem);
-		bool TrySelectItems(Game game, string question, IEnumerable<ListItem> items, out IList<ListItem> selectedItems);
+		bool TrySelectItem(string question, IEnumerable<ListItem> items, out ListItem selectedItem);
+		bool TrySelectItems(string question, IEnumerable<ListItem> items, out IList<ListItem> selectedItems);
 		void ShowCharacter(Game game, IHumanoid humanoid);
 		void ShowInventory(Game game, IHumanoid humanoid);
 		ActionResult ShowEquipment(Game game, Manequin manequin);
@@ -32,7 +32,7 @@ namespace Roguelike.Core.Interfaces
 			};
 
 			ListItem selected;
-			if (ui.TrySelectItem(game, question, cases, out selected))
+			if (ui.TrySelectItem(question, cases, out selected))
 			{
 				return ((ListItem<bool>) selected).Value;
 			}

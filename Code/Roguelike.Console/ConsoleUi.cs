@@ -454,7 +454,33 @@ namespace Roguelike.Console
 
 		public ActionResult BeginChat(Game game, IHumanoid humanoid)
 		{
-			throw new NotImplementedException();
+			var language = game.Language;
+			var hero = game.Hero;
+			var interlocutor = humanoid.Interlocutor;
+
+			startDialog(() =>
+			{
+				System.Console.WriteLine(interlocutor.GetName(hero));
+				System.Console.WriteLine(interlocutor.SocialGroup.GetName(language));
+				System.Console.WriteLine(interlocutor.GetAttitude(hero).ToString());
+				System.Console.WriteLine();
+
+				var topics = interlocutor.GetTopics(hero).ToList();
+				for (int t = 0; t < topics.Count; t++)
+				{
+					System.Console.WriteLine($"{t+1}. {topics[t].Ask(language.Talk.Questions)}");
+				}
+				System.Console.WriteLine();
+
+				var topic = topics[int.Parse(System.Console.ReadLine()) - 1];
+				var answer = interlocutor.Discuss(hero, topic, language);
+				System.Console.WriteLine(answer.PlainString);
+				System.Console.WriteLine();
+
+				System.Console.ReadKey(true);
+			});
+
+			return null;
 		}
 
 		public ActionResult BeginTrade(Game game, IHumanoid humanoid)

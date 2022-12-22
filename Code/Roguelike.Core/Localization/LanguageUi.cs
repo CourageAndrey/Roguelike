@@ -20,6 +20,10 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public LanguageLoadSave LoadSave
+		{ get; set; }
+
+		[XmlElement]
 		public LanguageUiCharacter CharacterScreen
 		{ get; set; }
 
@@ -36,6 +40,7 @@ namespace Roguelike.Core.Localization
 				Common = LanguageUiCommon.CreateDefault(),
 				MainScreen = LanguageUiMainScreen.CreateDefault(),
 				CreateHero = LanguageCreateHero.CreateDefault(),
+				LoadSave = LanguageLoadSave.CreateDefault(),
 				CharacterScreen = LanguageUiCharacter.CreateDefault(),
 				AnyOtherKey = "any other key",
 			};

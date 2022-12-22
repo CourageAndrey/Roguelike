@@ -155,11 +155,11 @@ namespace Roguelike.Core
 					? profession.GetName(language.Character.Professions)
 					: race.Surnames[i % race.Surnames.Count];
 
-				var husband = new Npc(balance, race, true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), surname, profession);
+				var husband = new Npc(balance, race, true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), Enumerable.Empty<Item>(), surname, profession);
 				husband.Race.DressCostume(husband);
 				husband.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var wife = new Npc(balance, race, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), new Properties(10, 10, 30, 10, 10, 10), Enumerable.Empty<Item>(), surname, profession);
+				var wife = new Npc(balance, race, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), Enumerable.Empty<Item>(), surname, profession);
 				wife.Race.DressCostume(wife);
 				wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 

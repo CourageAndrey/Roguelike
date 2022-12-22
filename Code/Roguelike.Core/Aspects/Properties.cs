@@ -6,33 +6,33 @@ namespace Roguelike.Core.Aspects
 	{
 		#region Properties
 
-		public uint Strength
+		public int Strength
 		{ get; }
 
-		public uint Endurance
+		public int Endurance
 		{ get; }
 
-		public uint Reaction
+		public int Reaction
 		{ get; }
 
-		public uint Perception
+		public int Perception
 		{ get; }
 
-		public uint Intelligence
+		public int Intelligence
 		{ get; }
 
-		public uint Willpower
+		public int Willpower
 		{ get; }
 
 		#endregion
 
 		public Properties(
-			uint strength,
-			uint endurance,
-			uint reaction,
-			uint perception,
-			uint intelligence,
-			uint willpower)
+			int strength,
+			int endurance,
+			int reaction,
+			int perception,
+			int intelligence,
+			int willpower)
 		{
 			Strength = strength;
 			Endurance = endurance;
@@ -45,6 +45,27 @@ namespace Roguelike.Core.Aspects
 		public override string ToString()
 		{
 			return $"STR={Strength} END={Endurance} REA={Reaction} PER={Perception} INT={Intelligence} WIL={Willpower}";
+		}
+
+		public static Properties Empty()
+		{
+			return new Properties(0, 0, 0, 0, 0, 0);
+		}
+
+		public Properties Merge(Properties other)
+		{
+			if (other == null)
+			{
+				other = Empty();
+			}
+
+			return new Properties(
+				Strength + other.Strength,
+				Endurance + other.Endurance,
+				Reaction + other.Reaction,
+				Perception + other.Perception,
+				Intelligence + other.Intelligence,
+				Willpower + other.Willpower);
 		}
 	}
 }

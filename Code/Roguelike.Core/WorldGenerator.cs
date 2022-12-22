@@ -14,8 +14,10 @@ namespace Roguelike.Core
 {
 	public static class WorldGenerator
 	{
-		public static IReadOnlyCollection<Region> GenerateRegions(this World world, WorldSizeBalance balance)
+		public static IReadOnlyCollection<Region> GenerateRegions(this World world)
 		{
+			var balance = world.Balance.WorldSize;
+
 			var regions = new Region[balance.RegionsCount];
 			for (int r = 0; r < balance.RegionsCount; r++)
 			{

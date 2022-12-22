@@ -49,7 +49,7 @@ namespace Roguelike.Core
 				(byte) seed.Next(0, balance.Time.DaysInWeek),
 				(uint) seed.Next(0, (int) balance.Time.TicksInDay));
 
-			Regions = this.GenerateRegions(balance.WorldSize);
+			Regions = this.GenerateRegions();
 			var region = Regions.First();
 
 			Hero = new Hero(balance, _time, heroStartSettings);

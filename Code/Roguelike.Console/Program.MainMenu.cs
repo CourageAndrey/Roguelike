@@ -91,8 +91,8 @@ namespace Roguelike.Console
 			{
 				Race = SelectRace(ui, language),
 				SexIsMale = InputSex(ui, language),
-				Age = InputAge(ui, language),
-				Name = InputName(ui, language),
+				Age = ui.ReadNumber(language.Ui.CreateHero.InputAge, 25),
+				Name = ui.ReadString(language.Ui.CreateHero.InputName, "Andor Drakon"),
 				Profession = SelectProfession(ui, language),
 			};
 			return new Game(ui, language, heroStartSettings);
@@ -117,25 +117,6 @@ namespace Roguelike.Console
 
 			var key = System.Console.ReadKey().KeyChar;
 			return key != 'f' && key != 'F';
-		}
-
-		private static uint InputAge(ConsoleUi ui, Language language)
-		{
-			ui.Clear(true);
-			System.Console.WriteLine(language.Ui.CreateHero.InputAge);
-
-			return uint.Parse(System.Console.ReadLine());
-		}
-
-		private static string InputName(ConsoleUi ui, Language language)
-		{
-			ui.Clear(true);
-			System.Console.WriteLine(language.Ui.CreateHero.InputName);
-
-			string name = System.Console.ReadLine();
-			return !string.IsNullOrEmpty(name)
-				? name
-				: "Andor Drakon";
 		}
 
 		private static Profession SelectProfession(ConsoleUi ui, Language language)

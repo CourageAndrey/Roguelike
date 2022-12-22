@@ -31,8 +31,8 @@ namespace Roguelike.Core.Localization
 			{
 				SelectRace = "Select your race (first - default):",
 				InputSex = "Select your sex (F/f for female, otherwise - male):",
-				InputAge = "Input your age (number):",
-				InputName = "Input your name:",
+				InputAge = "Input your age (number, default is {0}):",
+				InputName = "Input your name (default is {0}):",
 				SelectProfession = "Select your profession (first - default):",
 			};
 		}

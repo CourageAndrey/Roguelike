@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 
 using Roguelike.Core;
 using Roguelike.Core.Objects;
@@ -57,6 +58,32 @@ namespace Roguelike.Console
 		};
 
 		public const string Aim = "+";
+
+		#endregion
+
+		#region Read helpers
+
+		public static string ReadString(this ConsoleUi ui, string prompt, string defaultValue)
+		{
+			ui.Clear(true);
+			System.Console.WriteLine(string.Format(CultureInfo.InvariantCulture, prompt, defaultValue));
+
+			string value = System.Console.ReadLine();
+			return !string.IsNullOrEmpty(value)
+				? value
+				: defaultValue;
+		}
+
+		public static uint ReadNumber(this ConsoleUi ui, string prompt, uint defaultValue)
+		{
+			ui.Clear(true);
+			System.Console.WriteLine(string.Format(CultureInfo.InvariantCulture, prompt, defaultValue));
+
+			uint value;
+			return uint.TryParse(System.Console.ReadLine(), out value)
+				? value
+				: defaultValue;
+		}
 
 		#endregion
 

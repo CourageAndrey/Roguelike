@@ -22,7 +22,6 @@ namespace Roguelike.Core.Objects
 				startSettings.Race,
 				startSettings.SexIsMale,
 				now.AddYears(- (int) startSettings.Age).AddDays(1),
-				Enumerable.Empty<IItem>(),
 				startSettings.Name,
 				startSettings.Profession)
 		{

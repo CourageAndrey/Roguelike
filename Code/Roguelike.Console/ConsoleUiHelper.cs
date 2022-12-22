@@ -74,9 +74,13 @@ namespace Roguelike.Console
 				: defaultValue;
 		}
 
-		public static uint ReadNumber(this ConsoleUi ui, string prompt, uint defaultValue)
+		public static uint ReadNumber(this ConsoleUi ui, string prompt, uint defaultValue, bool clearScreen = true)
 		{
-			ui.Clear(true);
+			if (clearScreen)
+			{
+				ui.Clear(true);
+			}
+
 			System.Console.WriteLine(string.Format(CultureInfo.InvariantCulture, prompt, defaultValue));
 
 			uint value;

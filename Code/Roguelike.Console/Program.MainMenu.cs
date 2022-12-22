@@ -1,6 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Xml;
+using System.Xml.Serialization;
 
 using Roguelike.Core;
 using Roguelike.Core.Localization;
@@ -10,13 +14,15 @@ namespace Roguelike.Console
 {
 	partial class Program
 	{
+		private static XmlSerializer _serializer;
+
 		private static Game ShowMainMenu(ConsoleUi ui, Language language)
 		{
 			MenuPoint helpMenuPoint;
 			var menuPoints = new[]
 			{
 				new MenuPoint("N", language.Ui.MainScreen.NewGame, () => CreateNewGame(ui, language)),
-				new MenuPoint("L", language.Ui.MainScreen.LoadGame, () => { throw new NotImplementedException(); }),
+				new MenuPoint("L", language.Ui.MainScreen.LoadGame, () => LoadGame(ui, language)),
 				helpMenuPoint = new MenuPoint(language.Ui.AnyOtherKey, language.Ui.MainScreen.Help, null),
 				new MenuPoint("E", language.Ui.MainScreen.Exit, () => null),
 			}.ToDictionary(mp => mp.Letter, mp => mp);
@@ -96,6 +102,48 @@ namespace Roguelike.Console
 				Profession = SelectProfession(ui, language),
 			};
 			return new Game(ui, language, heroStartSettings);
+		}
+
+		private static Game LoadGame(ConsoleUi ui, Language language)
+		{
+			string appPath = AppDomain.CurrentDomain.BaseDirectory;
+			var savesFolder = new DirectoryInfo(Path.Combine(appPath, "Saves"));
+			if (!savesFolder.Exists)
+			{
+				savesFolder.Create();
+			}
+
+			ui.Clear(true);
+			var saveFiles = savesFolder.GetFiles("*.sav");
+			if (saveFiles.Length > 0)
+			{
+				System.Console.WriteLine();
+				for (int f = 0; f < saveFiles.Length; f++)
+				{
+					System.Console.WriteLine($"{f+1}. {saveFiles[f].Name}");
+				}
+				System.Console.WriteLine();
+				uint saveNumber = ui.ReadNumber(language.Ui.LoadSave.SelectPromt, 0, false);
+
+				if (_serializer == null)
+				{
+					_serializer = new XmlSerializer(typeof(Save));
+				}
+
+				Save save;
+				using (var xmlFile = new XmlTextReader(saveFiles[saveNumber].FullName))
+				{
+					save = (Save) _serializer.Deserialize(xmlFile);
+				}
+
+				return Game.Load(save, ui, language);
+			}
+			else
+			{
+				System.Console.WriteLine(language.Ui.LoadSave.NoSaves);
+				Thread.Sleep(500);
+				return CreateNewGame(ui, language);
+			}
 		}
 
 		private static Race SelectRace(ConsoleUi ui, Language language)

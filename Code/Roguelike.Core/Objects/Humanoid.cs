@@ -40,8 +40,8 @@ namespace Roguelike.Core.Objects
 
 		#endregion
 
-		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string name, Profession profession)
-			: base(balance, sexIsMale, birthDate, properties, inventory)
+		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, IEnumerable<Item> inventory, string name, Profession profession)
+			: base(balance, sexIsMale, birthDate, race.GetProperties(profession), inventory)
 		{
 			if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
 

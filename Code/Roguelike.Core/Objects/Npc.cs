@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 
 namespace Roguelike.Core.Objects
@@ -13,8 +12,8 @@ namespace Roguelike.Core.Objects
 
 		#endregion
 
-		public Npc(Balance balance, Race race, bool sexIsMale, Time birthDate, Properties properties, IEnumerable<Item> inventory, string surmame, Profession profession)
-			: base(balance, race, sexIsMale, birthDate, properties, inventory, race.GenerateName(sexIsMale, surmame), profession)
+		public Npc(Balance balance, Race race, bool sexIsMale, Time birthDate, IEnumerable<Item> inventory, string surmame, Profession profession)
+			: base(balance, race, sexIsMale, birthDate, inventory, race.GenerateName(sexIsMale, surmame), profession)
 		{ }
 
 		protected override ActionResult DoImplementation()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
 using Roguelike.Core.Objects;
@@ -16,6 +17,7 @@ namespace Roguelike.Core
 		private readonly Func<LanguageRaces, string> _getRaceName;
 		private readonly Action<Humanoid> _dressCostume;
 		private readonly Func<bool, string, string> _generateName;
+		private readonly Func<Profession, Properties> _getProperties;
 
 		public Color SkinColor
 		{ get; }
@@ -34,7 +36,8 @@ namespace Roguelike.Core
 			Func<bool, string, string> generateName,
 			Color skinColor,
 			IEnumerable<Color> hairColors,
-			IEnumerable<string> surnames)
+			IEnumerable<string> surnames,
+			Func<Profession, Properties> getProperties)
 		{
 			_getRaceName = getName;
 			_dressCostume = dressCostume;
@@ -42,6 +45,7 @@ namespace Roguelike.Core
 			SkinColor = skinColor;
 			HairColors = hairColors.ToArray();
 			Surnames = surnames.ToArray();
+			_getProperties = getProperties;
 		}
 
 		public string GetName(LanguageRaces language)
@@ -57,6 +61,11 @@ namespace Roguelike.Core
 		public string GenerateName(bool sexIsMale, string familyName)
 		{
 			return _generateName(sexIsMale, familyName);
+		}
+
+		public Properties GetProperties(Profession profession)
+		{
+			return _getProperties(profession);
 		}
 
 		#region List
@@ -131,7 +140,8 @@ namespace Roguelike.Core
 				"Bronte",
 				"Bell",
 				"Adams",
-			});
+			},
+			profession => new Properties(10, 10, 30, 10, 10, 10));
 
 		public static readonly IReadOnlyCollection<Race> All = new[]
 		{

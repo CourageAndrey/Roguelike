@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 
 using Roguelike.Core.Aspects;
-using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Interfaces
 {
@@ -29,11 +27,8 @@ namespace Roguelike.Core.Interfaces
 		Interlocutor Interlocutor
 		{ get; }
 
-		Color HairColor
+		Appearance Appearance
 		{ get; }
-
-		Haircut Haircut
-		{ get; set; }
 	}
 
 	public interface ISkilled

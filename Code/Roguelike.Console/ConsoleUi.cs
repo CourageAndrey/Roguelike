@@ -321,10 +321,10 @@ namespace Roguelike.Console
 				string sex = humanoid.SexIsMale ? language.Character.SexIsMale : language.Character.SexIsFemale;
 				System.Console.WriteLine($"{sex} {humanoid.Race.GetName(language.Character.Races)}, {humanoid.GetAge(humanoid.GetWorld().Time)} {language.Character.AgeYears}");
 				System.Console.WriteLine(
-					humanoid.Haircut != Haircut.Bald ? languageUi.AppearanceFormat : languageUi.AppearanceFormatBald,
+					humanoid.Appearance.Haircut != Haircut.Bald ? languageUi.AppearanceFormat : languageUi.AppearanceFormatBald,
 					humanoid.SkinColor.Name.ToLowerInvariant(),
-					humanoid.Haircut,
-					humanoid.HairColor.Name.ToLowerInvariant());
+					humanoid.Appearance.Haircut.GetName(language.Character.Haircuts),
+					humanoid.Appearance.HairColor.Name.ToLowerInvariant());
 				System.Console.WriteLine();
 
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;

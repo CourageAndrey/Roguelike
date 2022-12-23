@@ -151,17 +151,18 @@ namespace Roguelike.Core
 			for (int i = 0; i < totalHouses; i++)
 			{
 				var race = Race.SinglePossible;
+				var hairColors = race.HairColors.ToList();
 
 				var profession = Profession.Everyman;
 				string surname = profession.IsSurname
 					? profession.GetName(language.Character.Professions)
 					: race.Surnames[i % race.Surnames.Count];
 
-				var husband = new Npc(balance, race, true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), surname, profession);
+				var husband = new Npc(balance, race, true, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), surname, profession, hairColors[seed.Next(hairColors.Count)]);
 				husband.Race.DressCostume(husband);
 				husband.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
-				var wife = new Npc(balance, race, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), surname, profession);
+				var wife = new Npc(balance, race, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50), surname, profession, hairColors[seed.Next(hairColors.Count)]);
 				wife.Race.DressCostume(wife);
 				wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 

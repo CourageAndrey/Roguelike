@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -93,13 +94,15 @@ namespace Roguelike.Console
 
 		private static Game CreateNewGame(ConsoleUi ui, Language language)
 		{
+			Race race;
 			var heroStartSettings = new HeroStartSettings
 			{
-				Race = SelectRace(ui, language),
+				Race = race = SelectRace(ui, language),
 				SexIsMale = InputSex(ui, language),
 				Age = ui.ReadNumber(language.Ui.CreateHero.InputAge, 25),
 				Name = ui.ReadString(language.Ui.CreateHero.InputName, "Andor Drakon"),
 				Profession = SelectProfession(ui, language),
+				HairColor = SelectHairColor(race, ui, language),
 			};
 			return new Game(ui, language, heroStartSettings);
 		}
@@ -177,6 +180,18 @@ namespace Roguelike.Console
 			}
 
 			return ((ListItem<Profession>) selected).Value;
+		}
+
+		private static Color SelectHairColor(Race race, ConsoleUi ui, Language language)
+		{
+			var items = race.HairColors.Select(hc => new ListItem<Color>(hc, hc.Name));
+			ListItem selected;
+			if (!ui.TrySelectItem(language.Ui.CreateHero.SelectHairColor, items, out selected))
+			{
+				selected = items.First();
+			}
+
+			return ((ListItem<Color>) selected).Value;
 		}
 	}
 }

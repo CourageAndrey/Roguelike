@@ -12,8 +12,8 @@ namespace Roguelike.Core.Objects
 
 		#endregion
 
-		public Npc(Balance balance, Race race, bool sexIsMale, Time birthDate, string surmame, Profession profession, Color hairColor)
-			: base(balance, race, sexIsMale, birthDate, race.GenerateName(sexIsMale, surmame), profession, hairColor)
+		public Npc(Balance balance, Race race, bool sexIsMale, Time birthDate, string surmame, Profession profession, Color hairColor, Haircut haircut)
+			: base(balance, race, sexIsMale, birthDate, race.GenerateName(sexIsMale, surmame), profession, hairColor, haircut)
 		{ }
 
 		protected override ActionResult DoImplementation()

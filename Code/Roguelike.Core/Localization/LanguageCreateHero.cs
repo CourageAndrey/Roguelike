@@ -25,6 +25,9 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string SelectHairColor
 		{ get; set; }
+		[XmlElement]
+		public string SelectHaircut
+		{ get; set; }
 
 		#endregion
 
@@ -38,6 +41,7 @@ namespace Roguelike.Core.Localization
 				InputName = "Input your name (default is {0}):",
 				SelectProfession = "Select your profession (first - default):",
 				SelectHairColor = "Select your hair color (first - default):",
+				SelectHaircut = "Select your haircut (first - default):",
 			};
 		}
 	}

@@ -103,6 +103,7 @@ namespace Roguelike.Console
 				Name = ui.ReadString(language.Ui.CreateHero.InputName, "Andor Drakon"),
 				Profession = SelectProfession(ui, language),
 				HairColor = SelectHairColor(race, ui, language),
+				Haircut = SelectHaircut(race, ui, language),
 			};
 			return new Game(ui, language, heroStartSettings);
 		}
@@ -192,6 +193,18 @@ namespace Roguelike.Console
 			}
 
 			return ((ListItem<Color>) selected).Value;
+		}
+
+		private static Haircut SelectHaircut(Race race, ConsoleUi ui, Language language)
+		{
+			var items = Haircut.All.Select(hc => new ListItem<Haircut>(hc, hc.GetName(language.Character.Haircuts)));
+			ListItem selected;
+			if (!ui.TrySelectItem(language.Ui.CreateHero.SelectHaircut, items, out selected))
+			{
+				selected = items.First();
+			}
+
+			return ((ListItem<Haircut>) selected).Value;
 		}
 	}
 }

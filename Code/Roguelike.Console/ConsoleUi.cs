@@ -9,6 +9,7 @@ using Roguelike.Core;
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Console
 {
@@ -319,6 +320,11 @@ namespace Roguelike.Console
 				System.Console.ForegroundColor = ConsoleColor.White;
 				string sex = humanoid.SexIsMale ? language.Character.SexIsMale : language.Character.SexIsFemale;
 				System.Console.WriteLine($"{sex} {humanoid.Race.GetName(language.Character.Races)}, {humanoid.GetAge(humanoid.GetWorld().Time)} {language.Character.AgeYears}");
+				System.Console.WriteLine(
+					humanoid.Haircut != Haircut.Bald ? languageUi.AppearanceFormat : languageUi.AppearanceFormatBald,
+					humanoid.SkinColor.Name.ToLowerInvariant(),
+					humanoid.Haircut,
+					humanoid.HairColor.Name.ToLowerInvariant());
 				System.Console.WriteLine();
 
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;

@@ -35,29 +35,11 @@ namespace Roguelike.Core.Objects
 		public Interlocutor Interlocutor
 		{ get { return this.GetAspect<Interlocutor>(); } }
 
+		public Appearance Appearance
+		{ get { return this.GetAspect<Appearance>(); } }
+
 		public override Color SkinColor
 		{ get { return Race.SkinColor; } }
-
-		public Color HairColor
-		{ get; }
-
-		public Haircut Haircut
-		{
-			get { return _haircut; }
-			set
-			{
-				if (value != null)
-				{
-					_haircut = value;
-				}
-				else
-				{
-					throw new ArgumentNullException(nameof(value));
-				}
-			}
-		}
-
-		private Haircut _haircut;
 
 		#endregion
 
@@ -69,8 +51,6 @@ namespace Roguelike.Core.Objects
 			Name = name;
 			Race = race;
 			Profession = profession;
-			HairColor = hairColor;
-			Haircut = haircut;
 
 			var manequin = new Manequin(this);
 			manequin.EquipmentChanged += m => CurrentCell?.RefreshView(false);
@@ -79,7 +59,8 @@ namespace Roguelike.Core.Objects
 				manequin,
 				new Skilled(),
 				new Rider(this),
-				new Interlocutor(this));
+				new Interlocutor(this),
+				new Appearance(hairColor, haircut));
 
 #warning Need to recalculate total weight here because manequin is not included now - even if it's empty.
 		}

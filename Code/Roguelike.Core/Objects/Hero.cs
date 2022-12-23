@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Drawing;
 
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
@@ -23,7 +23,8 @@ namespace Roguelike.Core.Objects
 				startSettings.SexIsMale,
 				now.AddYears(- (int) startSettings.Age).AddDays(1),
 				startSettings.Name,
-				startSettings.Profession)
+				startSettings.Profession,
+				startSettings.HairColor)
 		{
 			AddAspects(new Camera(this, () => Properties.Perception));
 		}
@@ -58,6 +59,9 @@ namespace Roguelike.Core.Objects
 		{ get; set; }
 
 		public Profession Profession
+		{ get; set; }
+
+		public Color HairColor
 		{ get; set; }
 
 		#endregion

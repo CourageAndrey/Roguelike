@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 
 using Roguelike.Core.Aspects;
 
@@ -25,6 +26,9 @@ namespace Roguelike.Core.Interfaces
 		{ get; }
 
 		Interlocutor Interlocutor
+		{ get; }
+
+		Color HairColor
 		{ get; }
 	}
 

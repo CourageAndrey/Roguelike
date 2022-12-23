@@ -38,9 +38,12 @@ namespace Roguelike.Core.Objects
 		public override Color SkinColor
 		{ get { return Race.SkinColor; } }
 
+		public Color HairColor
+		{ get; }
+
 		#endregion
 
-		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, string name, Profession profession)
+		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, string name, Profession profession, Color hairColor)
 			: base(balance, sexIsMale, birthDate, race.GetProperties(profession), race.GetItems(profession))
 		{
 			if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
@@ -48,6 +51,7 @@ namespace Roguelike.Core.Objects
 			Name = name;
 			Race = race;
 			Profession = profession;
+			HairColor = hairColor;
 
 			var manequin = new Manequin(this);
 			manequin.EquipmentChanged += m => CurrentCell?.RefreshView(false);

@@ -24,7 +24,8 @@ namespace Roguelike.Core.Objects
 				now.AddYears(- (int) startSettings.Age).AddDays(1),
 				startSettings.Name,
 				startSettings.Profession,
-				startSettings.HairColor)
+				startSettings.HairColor,
+				startSettings.Haircut)
 		{
 			AddAspects(new Camera(this, () => Properties.Perception));
 		}
@@ -62,6 +63,9 @@ namespace Roguelike.Core.Objects
 		{ get; set; }
 
 		public Color HairColor
+		{ get; set; }
+
+		public Haircut Haircut
 		{ get; set; }
 
 		#endregion

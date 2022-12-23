@@ -43,6 +43,10 @@ namespace Roguelike.Core.Localization
 		public LanguageProfessions Professions
 		{ get; set; }
 
+		[XmlElement]
+		public LanguageHaircuts Haircuts
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageCharacter CreateDefault()
@@ -66,6 +70,8 @@ namespace Roguelike.Core.Localization
 				Manequin = LanguageManequin.CreateDefault(),
 
 				Professions = LanguageProfessions.CreateDefault(),
+
+				Haircuts = LanguageHaircuts.CreateDefault(),
 			};
 		}
 	}

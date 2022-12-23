@@ -41,9 +41,27 @@ namespace Roguelike.Core.Objects
 		public Color HairColor
 		{ get; }
 
+		public Haircut Haircut
+		{
+			get { return _haircut; }
+			set
+			{
+				if (value != null)
+				{
+					_haircut = value;
+				}
+				else
+				{
+					throw new ArgumentNullException(nameof(value));
+				}
+			}
+		}
+
+		private Haircut _haircut;
+
 		#endregion
 
-		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, string name, Profession profession, Color hairColor)
+		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, string name, Profession profession, Color hairColor, Haircut haircut)
 			: base(balance, sexIsMale, birthDate, race.GetProperties(profession), race.GetItems(profession))
 		{
 			if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
@@ -52,6 +70,7 @@ namespace Roguelike.Core.Objects
 			Race = race;
 			Profession = profession;
 			HairColor = hairColor;
+			Haircut = haircut;
 
 			var manequin = new Manequin(this);
 			manequin.EquipmentChanged += m => CurrentCell?.RefreshView(false);
@@ -68,7 +87,7 @@ namespace Roguelike.Core.Objects
 		protected override decimal GetTotalWeigth()
 		{
 			var manequin = this.TryGetAspect<Manequin>();
-			return	base.GetTotalWeigth() +
+			return base.GetTotalWeigth() +
 					(manequin?.GetAllItems() ?? new IItem[0] as IEnumerable<IItem>).Sum(wear => wear.Weight);
 		}
 

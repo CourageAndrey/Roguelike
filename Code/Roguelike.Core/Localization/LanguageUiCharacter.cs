@@ -28,6 +28,12 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Inventory
 		{ get; set; }
+		[XmlElement]
+		public string AppearanceFormat
+		{ get; set; }
+		[XmlElement]
+		public string AppearanceFormatBald
+		{ get; set; }
 
 		#endregion
 
@@ -42,6 +48,8 @@ namespace Roguelike.Core.Localization
 				Skills = "Skills",
 				WearedItems = "Weared Items",
 				Inventory = "Inventory",
+				AppearanceFormat = "{0} skin, {1} with {2} hair",
+				AppearanceFormatBald = "{0} skin, bald",
 			};
 		}
 	}

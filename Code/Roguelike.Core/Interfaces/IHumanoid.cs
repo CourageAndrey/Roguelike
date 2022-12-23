@@ -2,6 +2,7 @@
 using System.Drawing;
 
 using Roguelike.Core.Aspects;
+using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Interfaces
 {
@@ -30,6 +31,9 @@ namespace Roguelike.Core.Interfaces
 
 		Color HairColor
 		{ get; }
+
+		Haircut Haircut
+		{ get; set; }
 	}
 
 	public interface ISkilled

@@ -26,7 +26,7 @@ namespace Roguelike.Core
 			return new ReadOnlyCollection<Region>(regions);
 		}
 
-		public static void CreateRoom(this Region region, Random seed, int x1, int x2, int y1, int y2, int z, Direction doorSide)
+		public static void CreateWalls(this Region region, Random seed, int x1, int x2, int y1, int y2, int z, Direction doorSide)
 		{
 			if (Math.Abs(x1 - x2) < 3 || Math.Abs(y1 - y2) < 3) throw new Exception("Room is too small - 3x3 is minimal size.");
 
@@ -94,6 +94,64 @@ namespace Roguelike.Core
 			}
 		}
 
+		public static void CreateHouse(this Region region, Random seed, int minHouseDimension, int maxHouseDimension, int houseX1, int houseY1, int z)
+		{
+			int finalX1 = seed.Next(houseX1 - 1, houseX1 + 1);
+			int finalX2 = finalX1 + seed.Next(minHouseDimension, maxHouseDimension) - 1;
+			int finalY1 = seed.Next(houseY1 - 1, houseY1 + 1);
+			int finalY2 = finalY1 + seed.Next(minHouseDimension, maxHouseDimension) - 1;
+
+			var doorDirection = _possibleDoorDirections[seed.Next(0, _possibleDoorDirections.Length - 1)];
+
+			region.CreateWalls(seed, finalX1, finalX2, finalY1, finalY2, z, doorDirection);
+
+			new Fire().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);
+			new Bed().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);
+			new Bed().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);
+		}
+
+		public static Npc CreateFamily(this Region region, Balance balance, Random seed, Race race, Profession profession, string surname, int x1, int x2, int y1, int y2, int z)
+		{
+			var hairColors = race.HairColors.ToList();
+
+			var husband = new Npc(
+				balance,
+				race,
+				true,
+				Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50),
+				surname,
+				profession,
+				hairColors[seed.Next(hairColors.Count)],
+				Haircut.ShortHairs);
+			husband.Race.DressCostume(husband);
+			husband.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
+
+			var wife = new Npc(
+				balance,
+				race,
+				false,
+				Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50),
+				surname,
+				profession,
+				hairColors[seed.Next(hairColors.Count)],
+				Haircut.LongHairs);
+			wife.Race.DressCostume(wife);
+			wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
+
+			return husband;
+		}
+
+		public static void CreateAnimals(this Region region, Balance balance, Random seed, IObject owner, int x1, int x2, int y1, int y2, int z)
+		{
+			var pet = new Dog(balance, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), Color.Gray);
+			pet.GetAspect<Ownership>().OwnBy(owner);
+			pet.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
+
+			var transport = new Horse(balance, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-10), Color.LightSalmon);
+			transport.GetAspect<Ownership>().OwnBy(owner);
+			transport.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
+		}
+
 		public static void CreateVillage(this Region region, Balance balance, Random seed, Language language, int x1, int x2, int y1, int y2, int z)
 		{
 			if (Math.Abs(x1 - x2) < 10 || Math.Abs(y1 - y2) < 10) throw new Exception("Village is too small - 10x10 is minimal size.");
@@ -121,19 +179,8 @@ namespace Roguelike.Core
 				int houseX1 = x1 + 1;
 				while (houseX1 + maxHouseDimension + 1 < x2)
 				{
-					int finalX1 = seed.Next(houseX1 - 1, houseX1 + 1);
-					int finalX2 = finalX1 + seed.Next(minHouseDimension, maxHouseDimension) - 1;
-					int finalY1 = seed.Next(houseY1 - 1, houseY1 + 1);
-					int finalY2 = finalY1 + seed.Next(minHouseDimension, maxHouseDimension) - 1;
-
-					var doorDirection = _possibleDoorDirections[seed.Next(0, _possibleDoorDirections.Length - 1)];
-
-					region.CreateRoom(seed, finalX1, finalX2, finalY1, finalY2, z, doorDirection);
+					region.CreateHouse(seed, minHouseDimension, maxHouseDimension, houseX1, houseY1, z);
 					totalHouses++;
-
-					new Fire().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);
-					new Bed().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);
-					new Bed().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);
 
 					houseX1 += maxHouseDimension + seed.Next(1, 2);
 				}
@@ -144,44 +191,13 @@ namespace Roguelike.Core
 			for (int i = 0; i < totalHouses; i++)
 			{
 				var race = Race.SinglePossible;
-				var hairColors = race.HairColors.ToList();
-
 				var profession = Profession.Everyman;
 				string surname = profession.IsSurname
 					? profession.GetName(language.Character.Professions)
 					: race.Surnames[i % race.Surnames.Count];
+				var husband = region.CreateFamily(balance, seed, race, profession, surname, x1, x2, y1, y2, z);
 
-				var husband = new Npc(
-					balance,
-					race,
-					true,
-					Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50),
-					surname,
-					profession,
-					hairColors[seed.Next(hairColors.Count)],
-					Haircut.ShortHairs);
-				husband.Race.DressCostume(husband);
-				husband.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
-
-				var wife = new Npc(
-					balance,
-					race,
-					false,
-					Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-50),
-					surname,
-					profession,
-					hairColors[seed.Next(hairColors.Count)],
-					Haircut.LongHairs);
-				wife.Race.DressCostume(wife);
-				wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
-
-				var pet = new Dog(balance, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-5), Color.Gray);
-				pet.GetAspect<Ownership>().OwnBy(husband);
-				pet.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
-
-				var transport = new Horse(balance, false, Time.FromYears(balance.Time, balance.Time.BeginYear).AddYears(-10), Color.LightSalmon);
-				transport.GetAspect<Ownership>().OwnBy(husband);
-				transport.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
+				region.CreateAnimals(balance, seed, husband, x1, x2, y1, y2, z);
 			}
 		}
 

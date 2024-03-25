@@ -32,7 +32,29 @@ namespace Roguelike.Core.Objects
 
 		private double GetVisibleDistance()
 		{
-			return Properties.Perception;
+			double distance = Properties.Perception;
+			var world = this.GetWorld();
+
+			var time = world.Time.DayPart;
+			var balance = world.Balance.Distance;
+			if (time == DayPart.Night)
+			{
+				distance *= balance.NightVisibilityPercent;
+			}
+			else if (time == DayPart.Evening || time == DayPart.Morning)
+			{
+				distance *= balance.TwilightVisibilityPercent;
+			}
+			else
+			{
+				distance *= 100;
+			}
+			distance /= 100;
+#warning React on time change
+
+#warning Take dungeons into account
+
+			return Math.Max(1, distance);
 		}
 
 		protected override ActionResult DoImplementation()

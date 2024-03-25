@@ -10,6 +10,15 @@
 		public int HeroInitialView
 		{ get; set; }
 
+		public int NightVisibilityPercent
+		{ get; set; }
+
+		public int TwilightVisibilityPercent
+		{ get; set; }
+
+		public int DungeonVisibilityPercent
+		{ get; set; }
+
 		#endregion
 
 		public static DistanceBalance CreateDefault()
@@ -18,6 +27,9 @@
 			{
 				AiRange = 30,
 				HeroInitialView = 15,
+				NightVisibilityPercent=20,
+				TwilightVisibilityPercent=45,
+				DungeonVisibilityPercent=5,
 			};
 		}
 	}

@@ -27,7 +27,12 @@ namespace Roguelike.Core.Objects
 				startSettings.HairColor,
 				startSettings.Haircut)
 		{
-			AddAspects(new Camera(this, () => Properties.Perception));
+			AddAspects(new Camera(this, GetVisibleDistance));
+		}
+
+		private double GetVisibleDistance()
+		{
+			return Properties.Perception;
 		}
 
 		protected override ActionResult DoImplementation()

@@ -4,6 +4,22 @@ using Roguelike.Core.Configuration;
 
 namespace Roguelike.Core
 {
+	public enum Season
+	{
+		Winter,
+		Spring,
+		Summer,
+		Autumn,
+	}
+
+	public enum DayPart
+	{
+		Morning,
+		Noon,
+		Evening,
+		Night,
+	}
+
 	public readonly struct Time : IEquatable<Time>, IComparable<Time>
 	{
 		#region Properties
@@ -25,6 +41,59 @@ namespace Roguelike.Core
 
 		public short MonthDay
 		{ get { return (short) (Week * Balance.DaysInWeek + Day); } }
+
+		public Season Season
+		{
+			get
+			{
+				switch (Month)
+				{
+					case 0:
+					case 1:
+					case 11:
+						return Season.Winter;
+					case 2:
+					case 3:
+					case 4:
+						return Season.Spring;
+					case 5:
+					case 6:
+					case 7:
+						return Season.Summer;
+					case 8:
+					case 9:
+					case 10:
+						return Season.Autumn;
+					default:
+						throw new NotSupportedException("Season is broken");
+				}
+			}
+		}
+
+		public DayPart DayPart
+		{
+			get
+			{
+				double ticksInHour = (double)Balance.TicksInDay / 24;
+				double hoursNow = Ticks / ticksInHour;
+				if (hoursNow >= 3 && hoursNow < 9)
+				{
+					return DayPart.Morning;
+				}
+				else if (hoursNow >= 9 && hoursNow < 15)
+				{
+					return DayPart.Noon;
+				}
+				else if (hoursNow >= 15 && hoursNow < 21)
+				{
+					return DayPart.Evening;
+				}
+				else
+				{
+					return DayPart.Night;
+				}
+			}
+		}
 
 		public uint Ticks
 		{ get; }

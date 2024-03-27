@@ -50,7 +50,6 @@ namespace Roguelike.Core.Objects
 				distance *= 100;
 			}
 			distance /= 100;
-#warning React on time change
 
 #warning Take dungeons into account
 

@@ -132,7 +132,12 @@ namespace Roguelike.Core
 			(actor as Active).NextActionTime += actionResult.Longevity;
 			if ((actor.NextActionTime != null) && (actor.NextActionTime > _time))
 			{
+				var previousDayPart = _time.DayPart;
 				_time = actor.NextActionTime.Value;
+				if (_time.DayPart != previousDayPart)
+				{
+					Hero.Camera.RefreshVisibleCells();
+				}
 			}
 		}
 

@@ -138,7 +138,7 @@ namespace Roguelike.Core
 			}
 		}
 
-		public static Cell FindClosiest(this Cell center, Func<Cell, bool> predicate, int maxRadius = int.MaxValue)
+		public static Cell FindClosest(this Cell center, Func<Cell, bool> predicate, int maxRadius = int.MaxValue)
 		{
 			if (center == null) throw new ArgumentNullException(nameof(center));
 			if (predicate == null) throw new ArgumentNullException(nameof(predicate));

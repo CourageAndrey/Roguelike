@@ -39,7 +39,7 @@ namespace Roguelike.Core.Objects
 				}
 				else
 				{
-					var waterCell = CurrentCell.FindClosiest(cell => cell.Objects.Any(o => o.Is<WaterSource>()), balance.Distance.AiRange);
+					var waterCell = CurrentCell.FindClosest(cell => cell.Objects.Any(o => o.Is<WaterSource>()), balance.Distance.AiRange);
 					waterSource = waterCell != null
 						? waterCell.Objects.Select<IObject, WaterSource>().First()
 						: null;
@@ -65,7 +65,7 @@ namespace Roguelike.Core.Objects
 				}
 				else
 				{
-					Cell grassCell = CurrentCell.FindClosiest(cell => cell.Background == CellBackground.Grass, balance.Distance.AiRange);
+					Cell grassCell = CurrentCell.FindClosest(cell => cell.Background == CellBackground.Grass, balance.Distance.AiRange);
 
 					var nextStep = grassCell != null
 						? this.GetNextStep(grassCell)

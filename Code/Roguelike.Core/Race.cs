@@ -85,13 +85,13 @@ namespace Roguelike.Core
 			{
 				if (humanoid.SexIsMale)
 				{
-					humanoid.Manequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
-					humanoid.Manequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
 				}
 				else
 				{
-					humanoid.Manequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.Red);
-					humanoid.Manequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.Red);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
 				}
 			},
 			(sexIsMale, familyName) =>

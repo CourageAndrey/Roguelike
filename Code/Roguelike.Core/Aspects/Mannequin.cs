@@ -8,7 +8,7 @@ using Roguelike.Core.Items;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Manequin : IAspect
+	public class Mannequin : IAspect
 	{
 		#region Properties
 
@@ -74,7 +74,7 @@ namespace Roguelike.Core.Aspects
 			}
 		}
 
-		public Manequin(
+		public Mannequin(
 			IHumanoid holder,
 			IItem headWear = null,
 			IItem upperBodyWear = null,
@@ -137,77 +137,77 @@ namespace Roguelike.Core.Aspects
 		}
 	}
 
-	public static class ManequinExtensions
+	public static class MannequinExtensions
 	{
-		public static IEnumerable<IItem> GetAllItems(this Manequin manequin)
+		public static IEnumerable<IItem> GetAllItems(this Mannequin mannequin)
 		{
-			if (manequin.HeadWear != null)
+			if (mannequin.HeadWear != null)
 			{
-				yield return manequin.HeadWear;
+				yield return mannequin.HeadWear;
 			}
 
-			if (manequin.UpperBodyWear != null)
+			if (mannequin.UpperBodyWear != null)
 			{
-				yield return manequin.UpperBodyWear;
+				yield return mannequin.UpperBodyWear;
 			}
 
-			if (manequin.LowerBodyWear != null)
+			if (mannequin.LowerBodyWear != null)
 			{
-				yield return manequin.LowerBodyWear;
+				yield return mannequin.LowerBodyWear;
 			}
 
-			if (manequin.CoverWear != null)
+			if (mannequin.CoverWear != null)
 			{
-				yield return manequin.CoverWear;
+				yield return mannequin.CoverWear;
 			}
 
-			if (manequin.HandsWear != null)
+			if (mannequin.HandsWear != null)
 			{
-				yield return manequin.HandsWear;
+				yield return mannequin.HandsWear;
 			}
 
-			if (manequin.FootsWear != null)
+			if (mannequin.FootsWear != null)
 			{
-				yield return manequin.FootsWear;
+				yield return mannequin.FootsWear;
 			}
 
-			foreach (var jewelry in manequin.Jewelry)
+			foreach (var jewelry in mannequin.Jewelry)
 			{
 				yield return jewelry;
 			}
 		}
 
-		public static void Dress(this Manequin manequin, IItem item)
+		public static void Dress(this Mannequin mannequin, IItem item)
 		{
 			var wear = item.GetAspect<Wear>();
 
 			if (wear.SuitableSlot == WearSlot.Head)
 			{
-				manequin.HeadWear = item;
+				mannequin.HeadWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.UpperBody)
 			{
-				manequin.UpperBodyWear = item;
+				mannequin.UpperBodyWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.LowerBody)
 			{
-				manequin.LowerBodyWear = item;
+				mannequin.LowerBodyWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.Cover)
 			{
-				manequin.CoverWear = item;
+				mannequin.CoverWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.Hands)
 			{
-				manequin.HandsWear = item;
+				mannequin.HandsWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.Foots)
 			{
-				manequin.FootsWear = item;
+				mannequin.FootsWear = item;
 			}
 			else if (wear.SuitableSlot == WearSlot.Jewelry)
 			{
-				manequin.Jewelry.Add(item);
+				mannequin.Jewelry.Add(item);
 			}
 			else
 			{
@@ -215,37 +215,37 @@ namespace Roguelike.Core.Aspects
 			}
 		}
 
-		public static void Undress(this Manequin manequin, IItem item)
+		public static void Undress(this Mannequin mannequin, IItem item)
 		{
 			var wear = item.GetAspect<Wear>();
 
 			if (wear.SuitableSlot == WearSlot.Head)
 			{
-				manequin.HeadWear = null;
+				mannequin.HeadWear = null;
 			}
 			else if (wear.SuitableSlot == WearSlot.UpperBody)
 			{
-				manequin.UpperBodyWear = null;
+				mannequin.UpperBodyWear = null;
 			}
 			else if (wear.SuitableSlot == WearSlot.LowerBody)
 			{
-				manequin.LowerBodyWear = null;
+				mannequin.LowerBodyWear = null;
 			}
 			else if (wear.SuitableSlot == WearSlot.Cover)
 			{
-				manequin.CoverWear = null;
+				mannequin.CoverWear = null;
 			}
 			else if (wear.SuitableSlot == WearSlot.Hands)
 			{
-				manequin.HandsWear = null;
+				mannequin.HandsWear = null;
 			}
 			else if (wear.SuitableSlot == WearSlot.Foots)
 			{
-				manequin.FootsWear = null;
+				mannequin.FootsWear = null;
 			}
 			else if (wear.SuitableSlot == WearSlot.Jewelry)
 			{
-				manequin.Jewelry.Remove(item);
+				mannequin.Jewelry.Remove(item);
 			}
 			else
 			{

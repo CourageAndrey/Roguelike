@@ -20,8 +20,8 @@ namespace Roguelike.Core.Objects
 		public Race Race
 		{ get; }
 
-		public Manequin Manequin
-		{ get { return this.GetAspect<Manequin>(); } }
+		public Mannequin Mannequin
+		{ get { return this.GetAspect<Mannequin>(); } }
 
 		public Skilled Skilled
 		{ get { return this.GetAspect<Skilled>(); } }
@@ -52,24 +52,24 @@ namespace Roguelike.Core.Objects
 			Race = race;
 			Profession = profession;
 
-			var manequin = new Manequin(this);
-			manequin.EquipmentChanged += m => CurrentCell?.RefreshView(false);
+			var mannequin = new Mannequin(this);
+			mannequin.EquipmentChanged += m => CurrentCell?.RefreshView(false);
 
 			AddAspects(
-				manequin,
+				mannequin,
 				new Skilled(),
 				new Rider(this),
 				new Interlocutor(this),
 				new Appearance(hairColor, haircut));
 
-#warning Need to recalculate total weight here because manequin is not included now - even if it's empty.
+#warning Need to recalculate total weight here because mannequin is not included now - even if it's empty.
 		}
 
 		protected override decimal GetTotalWeigth()
 		{
-			var manequin = this.TryGetAspect<Manequin>();
+			var mannequin = this.TryGetAspect<Mannequin>();
 			return base.GetTotalWeigth() +
-					(manequin?.GetAllItems() ?? Array.Empty<IItem>() as IEnumerable<IItem>).Sum(wear => wear.Weight);
+					(mannequin?.GetAllItems() ?? Array.Empty<IItem>() as IEnumerable<IItem>).Sum(wear => wear.Weight);
 		}
 
 		public override Body CreateBody()

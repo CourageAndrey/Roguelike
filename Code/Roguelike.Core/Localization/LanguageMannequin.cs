@@ -3,7 +3,7 @@
 namespace Roguelike.Core.Localization
 {
 	[XmlType]
-	public class LanguageManequin
+	public class LanguageMannequin
 	{
 		#region Properties
 
@@ -37,9 +37,9 @@ namespace Roguelike.Core.Localization
 
 		#endregion
 
-		public static LanguageManequin CreateDefault()
+		public static LanguageMannequin CreateDefault()
 		{
-			return new LanguageManequin
+			return new LanguageMannequin
 			{
 				HeadWear = "Head",
 				UpperBodyWear = "Upper body",

@@ -12,7 +12,7 @@ namespace Roguelike.Core.Interfaces
 		Race Race
 		{ get; }
 
-		Manequin Manequin
+		Mannequin Mannequin
 		{ get; }
 
 		Skilled Skilled

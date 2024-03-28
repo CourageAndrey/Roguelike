@@ -37,7 +37,7 @@ namespace Roguelike.Console
 			World world,
 			IHero hero)
 		{
-			return ui.ShowEquipment(game, hero.Manequin);
+			return ui.ShowEquipment(game, hero.Mannequin);
 		}
 
 		private static ActionResult HandleShowInventory(

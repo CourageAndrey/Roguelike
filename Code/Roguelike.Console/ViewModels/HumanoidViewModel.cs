@@ -53,17 +53,17 @@ namespace Roguelike.Console.ViewModels
 
 		private static Color getColor(IHumanoid humanoid)
 		{
-			var topWear = getTopWear(humanoid.Manequin);
+			var topWear = getTopWear(humanoid.Mannequin);
 			return topWear != null
 				? topWear.Color
 				: humanoid.SkinColor;
 		}
 
-		private static IItem getTopWear(Manequin manequin)
+		private static IItem getTopWear(Mannequin mannequin)
 		{
-			if (!(manequin.CoverWear is Naked)) return manequin.CoverWear;
-			if (!(manequin.UpperBodyWear is Naked)) return manequin.UpperBodyWear;
-			if (!(manequin.LowerBodyWear is Naked)) return manequin.LowerBodyWear;
+			if (!(mannequin.CoverWear is Naked)) return mannequin.CoverWear;
+			if (!(mannequin.UpperBodyWear is Naked)) return mannequin.UpperBodyWear;
+			if (!(mannequin.LowerBodyWear is Naked)) return mannequin.LowerBodyWear;
 			return null;
 		}
 	}

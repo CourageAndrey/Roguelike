@@ -12,7 +12,7 @@ namespace Roguelike.Core.Interfaces
 		bool TrySelectItems(string question, IEnumerable<ListItem> items, out IList<ListItem> selectedItems);
 		void ShowCharacter(Game game, IHumanoid humanoid);
 		void ShowInventory(Game game, IHumanoid humanoid);
-		ActionResult ShowEquipment(Game game, Manequin manequin);
+		ActionResult ShowEquipment(Game game, Mannequin mannequin);
 		ActionResult BeginChat(Game game, IHumanoid humanoid);
 		ActionResult BeginTrade(Game game, IHumanoid humanoid);
 		ActionResult BeginPickpocket(Game game, IHumanoid humanoid);

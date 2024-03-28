@@ -384,7 +384,7 @@ namespace Roguelike.Console
 			});
 		}
 
-		public ActionResult ShowEquipment(Game game, Manequin manequin)
+		public ActionResult ShowEquipment(Game game, Mannequin mannequin)
 		{
 			var operations = new List<KeyValuePair<IItem, bool>>();
 
@@ -394,7 +394,7 @@ namespace Roguelike.Console
 
 				do
 				{
-					var itemSlots = EquipmentSlot.Display(language, game.Hero, game.Hero.Manequin);
+					var itemSlots = EquipmentSlot.Display(language, game.Hero, game.Hero.Mannequin);
 					var key = System.Console.ReadKey(true);
 
 					if (char.IsLetter(key.KeyChar))
@@ -414,13 +414,13 @@ namespace Roguelike.Console
 								if (TrySelectItem(language.Promts.SelectWear, possibleItems, out selectedItemItem))
 								{
 									var itemToDress = (IItem) selectedItemItem.ValueObject;
-									manequin.Dress(itemToDress);
+									mannequin.Dress(itemToDress);
 									operations.Add(new KeyValuePair<IItem, bool>(itemToDress, true));
 								}
 							}
 							else
 							{ // undress
-								manequin.Undress(itemSlot.Wear);
+								mannequin.Undress(itemSlot.Wear);
 								operations.Add(new KeyValuePair<IItem, bool>(itemSlot.Wear, false));
 							}
 						}

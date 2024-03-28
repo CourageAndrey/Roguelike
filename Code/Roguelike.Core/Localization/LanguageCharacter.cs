@@ -36,7 +36,7 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
-		public LanguageManequin Manequin
+		public LanguageMannequin Mannequin
 		{ get; set; }
 
 		[XmlElement]
@@ -67,7 +67,7 @@ namespace Roguelike.Core.Localization
 
 				Races = LanguageRaces.CreateDefault(),
 
-				Manequin = LanguageManequin.CreateDefault(),
+				Mannequin = LanguageMannequin.CreateDefault(),
 
 				Professions = LanguageProfessions.CreateDefault(),
 

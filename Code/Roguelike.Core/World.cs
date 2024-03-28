@@ -65,9 +65,9 @@ namespace Roguelike.Core
 				Hero.Inventory.Items.Add(ItemFactory.CreateLoafOfBread());
 				Hero.Inventory.Items.Add(ItemFactory.CreateBottleOFWater());
 			}
-			Hero.Manequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
-			Hero.Manequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
-			Hero.Manequin.Jewelry.Add(ItemFactory.CreateRing());
+			Hero.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
+			Hero.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
+			Hero.Mannequin.Jewelry.Add(ItemFactory.CreateRing());
 			foreach (var arrow in ItemFactory.CreateMissiles(MissileType.Arrow, 20))
 			{
 				Hero.Inventory.Items.Add(arrow);

@@ -32,7 +32,7 @@ namespace Roguelike.Console
 
 			private readonly Language _language;
 
-			private static readonly IDictionary<WearSlot, Func<LanguageManequin, string>> _slotNames = new Dictionary<WearSlot, Func<LanguageManequin, string>>
+			private static readonly IDictionary<WearSlot, Func<LanguageMannequin, string>> _slotNames = new Dictionary<WearSlot, Func<LanguageMannequin, string>>
 			{
 				{ WearSlot.Head, l => l.HeadWear },
 				{ WearSlot.UpperBody, l => l.UpperBodyWear },
@@ -48,7 +48,7 @@ namespace Roguelike.Console
 			private EquipmentSlot(char letter, WearSlot slot, IItem wear, Language language)
 			{
 				Slot = slot;
-				SlotName = _slotNames[slot](language.Character.Manequin);
+				SlotName = _slotNames[slot](language.Character.Mannequin);
 				Letter = letter;
 				Wear = wear;
 				_language = language;
@@ -110,18 +110,18 @@ namespace Roguelike.Console
 				System.Console.Write($"[{Letter}]");
 			}
 
-			public static Dictionary<char, EquipmentSlot> Display(Language language, IAlive forWhom, Manequin manequin)
+			public static Dictionary<char, EquipmentSlot> Display(Language language, IAlive forWhom, Mannequin mannequin)
 			{
-				var menuLanguage = language.Character.Manequin;
+				var menuLanguage = language.Character.Mannequin;
 
 				var result = new Dictionary<char, EquipmentSlot>
 				{
-					{ 'A', new EquipmentSlot('A', WearSlot.Head, manequin.HeadWear, language) },
-					{ 'B', new EquipmentSlot('B', WearSlot.UpperBody, manequin.UpperBodyWear, language) },
-					{ 'C', new EquipmentSlot('C', WearSlot.LowerBody, manequin.LowerBodyWear, language) },
-					{ 'D', new EquipmentSlot('D', WearSlot.Cover, manequin.CoverWear, language) },
-					{ 'E', new EquipmentSlot('E', WearSlot.Hands, manequin.HandsWear, language) },
-					{ 'F', new EquipmentSlot('F', WearSlot.Foots, manequin.FootsWear, language) },
+					{ 'A', new EquipmentSlot('A', WearSlot.Head, mannequin.HeadWear, language) },
+					{ 'B', new EquipmentSlot('B', WearSlot.UpperBody, mannequin.UpperBodyWear, language) },
+					{ 'C', new EquipmentSlot('C', WearSlot.LowerBody, mannequin.LowerBodyWear, language) },
+					{ 'D', new EquipmentSlot('D', WearSlot.Cover, mannequin.CoverWear, language) },
+					{ 'E', new EquipmentSlot('E', WearSlot.Hands, mannequin.HandsWear, language) },
+					{ 'F', new EquipmentSlot('F', WearSlot.Foots, mannequin.FootsWear, language) },
 				};
 				foreach (var slot in result.Values)
 				{
@@ -133,9 +133,9 @@ namespace Roguelike.Console
 				System.Console.WriteLine($" {menuLanguage.Jewelry} :");
 
 				char letter = _firstJewelryLetter;
-				if (manequin.Jewelry.Count > 0)
+				if (mannequin.Jewelry.Count > 0)
 				{
-					foreach (var jewelry in manequin.Jewelry)
+					foreach (var jewelry in mannequin.Jewelry)
 					{
 						var jewelrySlot = new EquipmentSlot(letter++, WearSlot.Jewelry, jewelry, language);
 						result[jewelrySlot.Letter] = jewelrySlot;

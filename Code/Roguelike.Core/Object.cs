@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 using Roguelike.Core.Aspects;
@@ -17,7 +18,7 @@ namespace Roguelike.Core
 		public event ValueChangedEventHandler<IObject, Cell> CellChanged;
 
 		public IReadOnlyCollection<IAspect> Aspects
-		{ get; private set; } = new IAspect[0];
+		{ get; private set; } = Array.Empty<IAspect>();
 
 		#region Physical properties
 

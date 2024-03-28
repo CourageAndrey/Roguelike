@@ -69,7 +69,7 @@ namespace Roguelike.Core.Objects
 		{
 			var manequin = this.TryGetAspect<Manequin>();
 			return base.GetTotalWeigth() +
-					(manequin?.GetAllItems() ?? new IItem[0] as IEnumerable<IItem>).Sum(wear => wear.Weight);
+					(manequin?.GetAllItems() ?? Array.Empty<IItem>() as IEnumerable<IItem>).Sum(wear => wear.Weight);
 		}
 
 		public override Body CreateBody()

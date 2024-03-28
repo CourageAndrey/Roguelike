@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -40,7 +41,7 @@ namespace Roguelike.Core.Aspects
 				updateWeight(newWeight - oldWeight);
 			}
 
-			var _items = new EventCollection<IItem>(items ?? new IItem[0]);
+			var _items = new EventCollection<IItem>(items ?? Array.Empty<IItem>());
 			_items.ItemAdded += (sender, args) =>
 			{
 				updateWeight(args.Item.Weight);

@@ -172,7 +172,7 @@ namespace Roguelike.Core.Aspects
 			_balance = balance;
 			_owner = owner;
 
-			_diseases = new List<IDisease>(diseases ?? new IDisease[0]);
+			_diseases = new List<IDisease>(diseases ?? Array.Empty<IDisease>());
 
 			_isDirty = isDirty;
 			_isPoisoned = isPoisoned;

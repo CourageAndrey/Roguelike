@@ -34,7 +34,7 @@ namespace Roguelike.Core.Objects
 		#region Constructors
 
 		internal BodyPart(Body body, decimal weight, Func<LanguageBodyParts, string> getName, bool isVital = false)
-			: this(body, weight, getName, new IBodyPart[0], isVital)
+			: this(body, weight, getName, Array.Empty<IBodyPart>(), isVital)
 		{ }
 
 		internal BodyPart(Body body, decimal weight, Func<LanguageBodyParts, string> getName, IList<IBodyPart> parts, bool isVital = false)

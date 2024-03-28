@@ -96,7 +96,7 @@ namespace Roguelike.Core.Aspects
 			HandsWear = handsWear ?? _naked;
 			FootsWear = footsWear ?? _naked;
 
-			var jewelryCollection = new EventCollection<IItem>(jewelry ?? new IItem[0]);
+			var jewelryCollection = new EventCollection<IItem>(jewelry ?? Array.Empty<IItem>());
 			jewelryCollection.ItemAdded += (sender, eventArgs) =>
 			{
 				eventArgs.Item.GetAspect<Wear>().RaiseEquipped(_holder);

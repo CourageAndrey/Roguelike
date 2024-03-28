@@ -28,7 +28,7 @@ namespace Roguelike.Core
 		public event EventHandler<Cell, bool> ViewChanged;
 
 		private readonly List<Object> _objects = new List<Object>();
-		private IReadOnlyCollection<Object> _objectsView;
+		private IReadOnlyCollection<Object>? _objectsView;
 
 		#endregion
 
@@ -63,9 +63,9 @@ namespace Roguelike.Core
 			}
 		}
 
-		public Object GetTopVisibleObject()
+		public Object? GetTopVisibleObject()
 		{
-			Object found = null;
+			Object? found = null;
 			foreach (var o in _objects)
 			{
 				if (o.IsSolid)
@@ -101,7 +101,7 @@ namespace Roguelike.Core
 			var region = center.Region;
 
 			Vector vector;
-			Cell cell;
+			Cell? cell;
 
 			for (int x = position.X - radius; x <= position.X + radius; x++)
 			{
@@ -138,7 +138,7 @@ namespace Roguelike.Core
 			}
 		}
 
-		public static Cell FindClosest(this Cell center, Func<Cell, bool> predicate, int maxRadius = int.MaxValue)
+		public static Cell? FindClosest(this Cell center, Func<Cell, bool> predicate, int maxRadius = int.MaxValue)
 		{
 			if (center == null) throw new ArgumentNullException(nameof(center));
 			if (predicate == null) throw new ArgumentNullException(nameof(predicate));

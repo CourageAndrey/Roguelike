@@ -14,7 +14,7 @@ namespace Roguelike.Core.Aspects
 		private readonly IObject _holder;
 
 		public Cell Cell
-		{ get { return _holder.CurrentCell; } }
+		{ get { return _holder.CurrentCell!; } }
 
 		public double Distance
 		{ get { return _getDistance(); } }

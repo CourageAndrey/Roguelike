@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Objects;
@@ -14,22 +13,7 @@ namespace Roguelike.Core.Aspects
 		{ get; }
 
 		public Haircut Haircut
-		{
-			get { return _haircut; }
-			set
-			{
-				if (value != null)
-				{
-					_haircut = value;
-				}
-				else
-				{
-					throw new ArgumentNullException(nameof(value));
-				}
-			}
-		}
-
-		private Haircut _haircut;
+		{ get; set; }
 
 		#endregion
 

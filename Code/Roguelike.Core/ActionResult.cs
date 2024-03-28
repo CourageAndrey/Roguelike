@@ -16,18 +16,18 @@ namespace Roguelike.Core
 		public IList<string> LogMessages
 		{ get; }
 
-		public Activity NewActivity
+		public Activity? NewActivity
 		{ get; }
 
 		#endregion
 
 		#region Constructors
 
-		public ActionResult(Time longevity, string message, Activity newActivity = null)
+		public ActionResult(Time longevity, string message, Activity? newActivity = null)
 			: this(longevity, new[] { message }, newActivity)
 		{ }
 
-		public ActionResult(Time longevity, IEnumerable<string> messages, Activity newActivity = null)
+		public ActionResult(Time longevity, IEnumerable<string> messages, Activity? newActivity = null)
 		{
 			Longevity = longevity;
 			LogMessages = new List<string>(messages);

@@ -12,10 +12,10 @@ namespace Roguelike.Core
 	{
 		#region Properties
 
-		public Cell CurrentCell
+		public Cell? CurrentCell
 		{ get; private set; }
 
-		public event ValueChangedEventHandler<IObject, Cell> CellChanged;
+		public event ValueChangedEventHandler<IObject, Cell?> CellChanged;
 
 		public IReadOnlyCollection<IAspect> Aspects
 		{ get; private set; } = Array.Empty<IAspect>();
@@ -38,7 +38,7 @@ namespace Roguelike.Core
 				handler(this, oldSolid, newSolid);
 			}
 
-			CurrentCell.RefreshView(true);
+			CurrentCell?.RefreshView(true);
 		}
 
 		#endregion
@@ -72,7 +72,7 @@ namespace Roguelike.Core
 
 		#region Movement
 
-		public void MoveTo(Cell cell)
+		public void MoveTo(Cell? cell)
 		{
 			var oldCell = CurrentCell;
 			if (CurrentCell != null)
@@ -97,7 +97,7 @@ namespace Roguelike.Core
 			HandleCellChanged(oldCell, cell);
 		}
 
-		protected virtual void HandleCellChanged(Cell oldCell, Cell newCell)
+		protected virtual void HandleCellChanged(Cell? oldCell, Cell? newCell)
 		{
 			var handler = Volatile.Read(ref CellChanged);
 			if (handler != null)

@@ -45,7 +45,7 @@ namespace Roguelike.Core.Aspects
 			var game = _holder.GetGame();
 			var language = game.Language.LogActionFormats;
 			var balance = game.World.Balance;
-			Activity newActivity = null;
+			Activity? newActivity = null;
 
 			if (IsAggressive != aggressive)
 			{
@@ -159,9 +159,9 @@ namespace Roguelike.Core.Aspects
 				Activity.Fights);
 		}
 
-		public ActionResult Shoot(Cell target)
+		public ActionResult? Shoot(Cell target)
 		{
-			if (WeaponToFight?.GetAspect<Weapon>()?.IsRange != true) return null;
+			if (!WeaponToFight.GetAspect<Weapon>().IsRange) return null;
 
 			var position = _holder.CurrentCell.Position;
 			var region = _holder.CurrentCell.Region;
@@ -175,6 +175,7 @@ namespace Roguelike.Core.Aspects
 			var missile = _holder.Inventory.Items
 				.Select<IItem, Missile>()
 				.FirstOrDefault(m => m.GetAspect<Missile>().Type == missileType);
+#warning Check missile for null value.
 
 			if (!position.Equals(target.Position))
 			{

@@ -45,12 +45,12 @@ namespace Roguelike.Core
 
 		#region GetCell-methods
 
-		public Cell GetCell(Vector v)
+		public Cell? GetCell(Vector v)
 		{
 			return GetCell(v.X, v.Y, v.Z);
 		}
 
-		public Cell GetCell(int x, int y, int z)
+		public Cell? GetCell(int x, int y, int z)
 		{
 			return x >= 0 && y >= 0 && z >= 0 && x < Size.X && y < Size.Y && z < Size.Z
 				? _cells[x, y, z]
@@ -201,7 +201,7 @@ namespace Roguelike.Core
 			_activeCache = null;
 		}
 
-		private Queue<Active> _activeCache;
+		private Queue<Active>? _activeCache;
 
 		private void OnLogMessage(IObject sender, ICollection<string> messages)
 		{

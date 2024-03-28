@@ -7,17 +7,17 @@ namespace Roguelike.Core.Interfaces
 {
 	public interface IObject : IDescriptive, IAspectHolder, ILogSource
 	{
-		Cell CurrentCell
+		Cell? CurrentCell
 		{ get; }
 
 		bool IsSolid
 		{ get; }
 
-		void MoveTo(Cell cell);
+		void MoveTo(Cell? cell);
 
 		event ValueChangedEventHandler<IObject, bool> IsSolidChanged;
 
-		event ValueChangedEventHandler<IObject, Cell> CellChanged;
+		event ValueChangedEventHandler<IObject, Cell?> CellChanged;
 	}
 
 	public static class ObjectExtensions

@@ -64,13 +64,13 @@ namespace Roguelike.Core.Interfaces
 
 				var alive = obj as IAlive;
 				IAlive target = null;
-				if (alive?.Fighter?.IsAgressive == true && alive?.Fighter?.WeaponToFight?.GetAspect<Weapon>()?.IsRange == false && (target = newCell.Objects.OfType<IAlive>().FirstOrDefault()) != null)
+				if (alive?.Fighter?.IsAggressive == true && alive?.Fighter?.WeaponToFight?.GetAspect<Weapon>()?.IsRange == false && (target = newCell.Objects.OfType<IAlive>().FirstOrDefault()) != null)
 				{
 					return alive.Fighter.Attack(target);
 				}
 				else
 				{
-					Activity newActivity = (obj as IAlive)?.Fighter?.IsAgressive == false
+					Activity newActivity = (obj as IAlive)?.Fighter?.IsAggressive == false
 						? Activity.Walks
 						: null;
 

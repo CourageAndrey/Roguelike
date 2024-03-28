@@ -22,7 +22,7 @@
 		public int EquipWeapon
 		{ get; set; }
 
-		public int ChangeAgressive
+		public int ChangeAggressive
 		{ get; set; }
 
 		public int ChangeWeapon
@@ -73,7 +73,7 @@
 				OpenCloseDoor = 2000,
 				ChopTree = 24 * 60 * 60 * 1000,
 				EquipWeapon = 2000,
-				ChangeAgressive = 1000,
+				ChangeAggressive = 1000,
 				ChangeWeapon = 2500,
 				Wait = 500,
 				Attack = 1000,

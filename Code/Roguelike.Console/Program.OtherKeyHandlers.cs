@@ -88,7 +88,7 @@ namespace Roguelike.Console
 			World world,
 			IHero hero)
 		{
-			return hero.Fighter.ChangeAggressive(!hero.Fighter.IsAgressive);
+			return hero.Fighter.ChangeAggressive(!hero.Fighter.IsAggressive);
 		}
 
 		private static ActionResult HandleDropItem(
@@ -344,7 +344,7 @@ namespace Roguelike.Console
 			IHero hero)
 		{
 			Cell target;
-			return	hero.Fighter.IsAgressive &&
+			return	hero.Fighter.IsAggressive &&
 					hero.Fighter.WeaponToFight.GetAspect<Weapon>().IsRange &&
 					hero.Inventory.Items.Select<IItem, Missile>().Any() &&
 					(target = ui.SelectShootingTarget(game)) != null

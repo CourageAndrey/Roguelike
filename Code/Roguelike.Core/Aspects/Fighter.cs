@@ -18,13 +18,13 @@ namespace Roguelike.Core.Aspects
 		public IItem WeaponToFight
 		{ get; private set; }
 
-		public bool IsAgressive
+		public bool IsAggressive
 		{ get; private set; }
 
 		public decimal Weight
 		{ get { return WeaponToFight.Weight; } }
 
-		public event ValueChangedEventHandler<IAlive, bool> AgressiveChanged;
+		public event ValueChangedEventHandler<IAlive, bool> AggressiveChanged;
 
 		public event ValueChangedEventHandler<IAlive, IItem> WeaponChanged;
 
@@ -38,7 +38,7 @@ namespace Roguelike.Core.Aspects
 			WeaponToFight = new Unarmed(_holder);
 		}
 
-		public ActionResult ChangeAggressive(bool agressive)
+		public ActionResult ChangeAggressive(bool aggressive)
 		{
 			int time;
 			string logMessage;
@@ -47,13 +47,13 @@ namespace Roguelike.Core.Aspects
 			var balance = game.World.Balance;
 			Activity newActivity = null;
 
-			if (IsAgressive != agressive)
+			if (IsAggressive != aggressive)
 			{
-				IsAgressive = agressive;
+				IsAggressive = aggressive;
 
-				RaiseAgressiveChanged(!agressive, agressive);
+				RaiseAggressiveChanged(!aggressive, aggressive);
 
-				if (agressive)
+				if (aggressive)
 				{
 					WeaponToFight.GetAspect<Weapon>().RaisePreparedForBattle(_holder);
 					newActivity = Activity.Guards;
@@ -64,10 +64,10 @@ namespace Roguelike.Core.Aspects
 					newActivity = Activity.Stands;
 				}
 
-				time = balance.ActionLongevity.ChangeAgressive;
+				time = balance.ActionLongevity.ChangeAggressive;
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,
-					IsAgressive ? language.StartFight : language.StopFight,
+					IsAggressive ? language.StartFight : language.StopFight,
 					_holder.GetDescription(game.Language, game.Hero),
 					WeaponToFight);
 			}
@@ -234,12 +234,12 @@ namespace Roguelike.Core.Aspects
 				Activity.Fights);
 		}
 
-		private void RaiseAgressiveChanged(bool oldAgressive, bool newAgressive)
+		private void RaiseAggressiveChanged(bool oldAggressive, bool newAggressive)
 		{
-			var handler = Volatile.Read(ref AgressiveChanged);
+			var handler = Volatile.Read(ref AggressiveChanged);
 			if (handler != null)
 			{
-				handler(_holder, oldAgressive, newAgressive);
+				handler(_holder, oldAggressive, newAggressive);
 			}
 		}
 

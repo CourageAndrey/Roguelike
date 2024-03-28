@@ -108,7 +108,7 @@ F3 - show Character's equipment
 F4 - show Character's inventory
 F5 - show events log
 
-arrow keys & NumPad keys - move (or attack if agressive)
+arrow keys & NumPad keys - move (or attack if aggressive)
 
 h - interact with object (sleep on bed, cook on fire, etc.)
 f - change aggressive state

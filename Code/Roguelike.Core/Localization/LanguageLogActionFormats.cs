@@ -97,7 +97,7 @@ namespace Roguelike.Core.Localization
 				StartFight = "{0} prepared to fight using {1}",
 				StopFight = "{0} stopped to fight using {1}",
 				Wait = "{0} waits",
-				ChangeFightModeDisabled = "{0} didn't manage to become more or less agressive",
+				ChangeFightModeDisabled = "{0} didn't manage to become more or less aggressive",
 				ChangeWeapon = "{0} changed weapon from {1} to {2}",
 				ChangeWeaponDisabled = "{0} didn't manage to change weapon",
 				Attack = "{0} attacks {1} with {2}",

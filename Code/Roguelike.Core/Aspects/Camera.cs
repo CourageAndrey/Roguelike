@@ -62,7 +62,7 @@ namespace Roguelike.Core.Aspects
 				{
 					if (position.GetDistanceSquare(cell.Position) <= distanceSquare)
 					{
-						ProcessCellVisibility(cell, IsNeigboorTransparent(cell.Position), previouslyVisibleCells, delta);
+						ProcessCellVisibility(cell, IsNeighborTransparent(cell.Position), previouslyVisibleCells, delta);
 					}
 				}
 			}
@@ -124,7 +124,7 @@ namespace Roguelike.Core.Aspects
 			}
 		}
 
-		private bool IsNeigboorTransparent(Vector cellPosition)
+		private bool IsNeighborTransparent(Vector cellPosition)
 		{
 			var position = _holder.GetPosition();
 			var region = _holder.GetRegion();

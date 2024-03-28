@@ -55,7 +55,7 @@ namespace Roguelike.Core.Interfaces
 
 			var oldPosition = obj.GetPosition();
 			var newCell = oldPosition != null
-				? obj.GetRegion().GetCell(oldPosition.GetNeighboor(direction))
+				? obj.GetRegion().GetCell(oldPosition.GetNeighbor(direction))
 				: null;
 			if (newCell != null)
 			{

@@ -51,7 +51,7 @@ namespace Roguelike.Core
 			return Math.Sqrt(GetDistanceSquare(other));
 		}
 
-		public bool IsNeighboor(Vector other)
+		public bool IsNeighbor(Vector other)
 		{
 			return	Math.Abs(X - other.X) <= 1 &&
 					Math.Abs(Y - other.Y) <= 1 &&
@@ -108,7 +108,7 @@ namespace Roguelike.Core
 			}
 		}
 
-		public Vector GetNeighboor(Direction direction)
+		public Vector GetNeighbor(Direction direction)
 		{
 			int x = X;
 			int y = Y;

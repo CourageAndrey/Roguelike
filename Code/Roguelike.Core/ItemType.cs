@@ -8,18 +8,18 @@ namespace Roguelike.Core
 	{
 		#region Properties
 
-		private readonly Func<LanguageItemTypes, string> getName;
+		private readonly Func<LanguageItemTypes, string> _getName;
 
 		#endregion
 
 		private ItemType(Func<LanguageItemTypes, string> getName)
 		{
-			this.getName = getName;
+			_getName = getName;
 		}
 
 		public string GetName(LanguageItemTypes language)
 		{
-			return getName(language);
+			return _getName(language);
 		}
 
 		#region List

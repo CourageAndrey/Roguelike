@@ -20,15 +20,15 @@ namespace Roguelike.Core
 		{ get; private set; }
 
 		public IReadOnlyCollection<Object> Objects
-		{ get { return objectsView ?? (objectsView = new ReadOnlyCollection<Object>(objects)); } }
+		{ get { return _objectsView ?? (_objectsView = new ReadOnlyCollection<Object>(_objects)); } }
 
 		public bool IsTransparent
 		{ get { return Objects.All(o => !o.IsSolid); } }
 
 		public event EventHandler<Cell, bool> ViewChanged;
 
-		private readonly List<Object> objects = new List<Object>();
-		private IReadOnlyCollection<Object> objectsView;
+		private readonly List<Object> _objects = new List<Object>();
+		private IReadOnlyCollection<Object> _objectsView;
 
 		#endregion
 
@@ -42,20 +42,20 @@ namespace Roguelike.Core
 		internal void RemoveObject(Object o, bool refreshTransparency = true)
 		{
 			bool isTransparent = IsTransparent;
-			objects.Remove(o);
+			_objects.Remove(o);
 			RefreshView(refreshTransparency && isTransparent != IsTransparent);
 		}
 
 		internal void AddObject(Object o, bool refreshTransparency = true)
 		{
 			bool isTransparent = IsTransparent;
-			objects.Add(o);
+			_objects.Add(o);
 			RefreshView(refreshTransparency && isTransparent != IsTransparent);
 		}
 
 		internal void RefreshView(bool transparencyChanged)
 		{
-			objectsView = null;
+			_objectsView = null;
 			var handler = Volatile.Read(ref ViewChanged);
 			if (handler != null)
 			{
@@ -66,7 +66,7 @@ namespace Roguelike.Core
 		public Object GetTopVisibleObject()
 		{
 			Object found = null;
-			foreach (var o in objects)
+			foreach (var o in _objects)
 			{
 				if (o.IsSolid)
 				{

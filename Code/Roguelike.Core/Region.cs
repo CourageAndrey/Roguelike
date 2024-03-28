@@ -18,7 +18,7 @@ namespace Roguelike.Core
 		public Vector Size
 		{ get; }
 
-		private readonly Cell[,,] cells;
+		private readonly Cell[,,] _cells;
 
 		#endregion
 
@@ -29,14 +29,14 @@ namespace Roguelike.Core
 				balance.RegionXdimension,
 				balance.RegionYdimension,
 				balance.RegionZdimension);
-			cells = new Cell[Size.X, Size.Y, Size.Z];
+			_cells = new Cell[Size.X, Size.Y, Size.Z];
 			for (int x = 0; x < Size.X; x++)
 			{
 				for (int y = 0; y < Size.Y; y++)
 				{
 					for (int z = 0; z < Size.Z; z++)
 					{
-						cells[x, y, z] = new Cell(this, new Vector(x, y, z), CellBackground.Grass);
+						_cells[x, y, z] = new Cell(this, new Vector(x, y, z), CellBackground.Grass);
 					}
 				}
 			}
@@ -53,7 +53,7 @@ namespace Roguelike.Core
 		public Cell GetCell(int x, int y, int z)
 		{
 			return x >= 0 && y >= 0 && z >= 0 && x < Size.X && y < Size.Y && z < Size.Z
-				? cells[x, y, z]
+				? _cells[x, y, z]
 				: null;
 		}
 
@@ -170,7 +170,7 @@ namespace Roguelike.Core
 					{
 						for (int z = 0; z < Size.Z; z++)
 						{
-							actives.AddRange(cells[x, y, z].Objects.OfType<Active>());
+							actives.AddRange(_cells[x, y, z].Objects.OfType<Active>());
 						}
 					}
 				}

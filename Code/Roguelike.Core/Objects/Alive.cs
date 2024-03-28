@@ -131,7 +131,7 @@ namespace Roguelike.Core.Objects
 
 			void updateWeight(IMassy massy, decimal oldWeight, decimal newWeight)
 			{
-				var weight = GetTotalWeigth();
+				var weight = GetTotalWeight();
 				RaiseWeightChanged(Weight, weight);
 				Weight = weight;
 			}
@@ -149,10 +149,10 @@ namespace Roguelike.Core.Objects
 				_inventory,
 				new Fighter(this));
 
-			Weight = GetTotalWeigth();
+			Weight = GetTotalWeight();
 		}
 
-		protected virtual decimal GetTotalWeigth()
+		protected virtual decimal GetTotalWeight()
 		{
 			return	(decimal) Toughness * Body.Weight +
 					Inventory.Weight +

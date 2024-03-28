@@ -65,10 +65,10 @@ namespace Roguelike.Core.Objects
 #warning Need to recalculate total weight here because mannequin is not included now - even if it's empty.
 		}
 
-		protected override decimal GetTotalWeigth()
+		protected override decimal GetTotalWeight()
 		{
 			var mannequin = this.TryGetAspect<Mannequin>();
-			return base.GetTotalWeigth() +
+			return base.GetTotalWeight() +
 					(mannequin?.GetAllItems() ?? Array.Empty<IItem>() as IEnumerable<IItem>).Sum(wear => wear.Weight);
 		}
 

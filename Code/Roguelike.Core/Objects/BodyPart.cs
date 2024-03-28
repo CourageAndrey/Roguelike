@@ -65,8 +65,8 @@ namespace Roguelike.Core.Objects
 		private void onPartWeightChanged(IMassy part, decimal oldPartWeight, decimal newPartWeight)
 		{
 			decimal newWeight = Weight;
-			decimal oldWeigth = newWeight - newPartWeight + oldPartWeight;
-			RaiseWeightChanged(oldWeigth, newWeight);
+			decimal oldWeight = newWeight - newPartWeight + oldPartWeight;
+			RaiseWeightChanged(oldWeight, newWeight);
 		}
 
 		public string GetName(LanguageBodyParts language)

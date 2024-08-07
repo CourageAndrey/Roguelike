@@ -3,6 +3,16 @@ using System.Threading;
 
 namespace Roguelike.Core
 {
+	public enum Precipitation
+	{
+		No,
+		Rain,
+		Storm,
+		Snow,
+		Hail,
+		Dust,
+	}
+
 	public class Weather
 	{
 		#region Properties
@@ -11,18 +21,18 @@ namespace Roguelike.Core
 		{ get; }
 
 		public double Temperature
-		{ get; private set; }
+		{ get; private set; } // C degrees
 
 		public Direction WindDirection
 		{ get; private set; }
 
 		public double WindSpeed
-		{ get; private set; }
+		{ get; private set; } // cells of arrow shift
 
 		public double VisibilityBonus
-		{ get; private set; }
+		{ get; private set; } // % of visibility range
 
-		public bool Precipitation
+		public Precipitation Precipitation
 		{ get; private set; }
 
 		public Time NextChangeTime
@@ -47,7 +57,7 @@ namespace Roguelike.Core
 			WindDirection = Direction.None;
 			WindSpeed = 0;
 			VisibilityBonus = 1;
-			Precipitation = false;
+			Precipitation = Precipitation.No;
 
 			var seed = new Random(DateTime.Now.Millisecond);
 			var balance = Region.World.Time.Balance;

@@ -16,6 +16,9 @@ namespace Roguelike.Core
 		public Region Region
 		{ get; }
 
+		public CellEnvironment Environment
+		{ get; private set; }
+
 		public CellBackground Background
 		{ get; private set; }
 
@@ -35,6 +38,7 @@ namespace Roguelike.Core
 		public Cell(Region region, Vector position, CellBackground background)
 		{
 			Region = region;
+			Environment = region.DefaultCellEnvironment;
 			Position = position;
 			Background = background;
 		}
@@ -87,6 +91,11 @@ namespace Roguelike.Core
 				Background = background;
 				RefreshView(false);
 			}
+		}
+
+		public void MakeInterior(InteriorCellEnvironment environment)
+		{
+			Environment = environment;
 		}
 	}
 

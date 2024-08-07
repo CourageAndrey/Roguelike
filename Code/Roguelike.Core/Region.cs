@@ -18,6 +18,9 @@ namespace Roguelike.Core
 		public Vector Size
 		{ get; }
 
+		public CellEnvironment DefaultCellEnvironment
+		{ get; }
+
 		private readonly Cell[,,] _cells;
 
 		#endregion
@@ -29,6 +32,7 @@ namespace Roguelike.Core
 				balance.RegionXdimension,
 				balance.RegionYdimension,
 				balance.RegionZdimension);
+			DefaultCellEnvironment = new ExteriorCellEnvironment(this);
 			_cells = new Cell[Size.X, Size.Y, Size.Z];
 			for (int x = 0; x < Size.X; x++)
 			{

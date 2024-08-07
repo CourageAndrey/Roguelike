@@ -57,7 +57,7 @@ namespace Roguelike.Core
 			{
 				for (int y = y1; y <= y2; y++)
 				{
-					var removedObjects = new List<Object>(region.GetCell(x, y, z).Objects);
+					var removedObjects = new List<Object>(region.GetCell(x, y, z)!.Objects);
 					foreach (var o in removedObjects)
 					{
 						o.MoveTo(null);
@@ -82,13 +82,13 @@ namespace Roguelike.Core
 			{
 				for (int y = y1; y <= y2; y++)
 				{
-					var cell = region.GetCell(x, y, z);
+					var cell = region.GetCell(x, y, z)!;
 					cell.ChangeBackground(CellBackground.Floor);
 					cell.MakeInterior(interior);
 				}
 			}
 
-			var doorCell = region.GetCell(doorX, doorY, z);
+			var doorCell = region.GetCell(doorX, doorY, z)!;
 			doorCell.RemoveObject(doorCell.Objects.OfType<Wall>().First());
 			var door = new Door();
 			door.MoveTo(doorCell);
@@ -220,7 +220,7 @@ namespace Roguelike.Core
 			{
 				int x = seed.Next(x1, x2);
 				int y = seed.Next(y1, y2);
-				cell = region.GetCell(x, y, z);
+				cell = region.GetCell(x, y, z)!;
 			} while (!cell.IsTransparent);
 			@object.MoveTo(cell);
 		}

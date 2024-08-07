@@ -215,14 +215,20 @@ namespace Roguelike.Core
 
 		private static void placeIntoFreeCell(this Object @object, Region region, Random seed, int x1, int x2, int y1, int y2, int z)
 		{
-			Cell cell;
-			do
+			var freeCells = new List<Cell>();
+			for (int x = x1; x <= x2; x++)
 			{
-				int x = seed.Next(x1, x2);
-				int y = seed.Next(y1, y2);
-				cell = region.GetCell(x, y, z)!;
-			} while (!cell.IsTransparent);
-			@object.MoveTo(cell);
+				for (int y = y1; y <= y2; y++)
+				{
+					var cell = region.GetCell(x, y, z)!;
+					if (cell.IsTransparent)
+					{
+						freeCells.Add(cell);
+					}
+				}
+			}
+
+			@object.MoveTo(freeCells[seed.Next(0, freeCells.Count - 1)]);
 		}
 	}
 }

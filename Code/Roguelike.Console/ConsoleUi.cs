@@ -19,8 +19,8 @@ namespace Roguelike.Console
 		{
 			System.Console.OutputEncoding = Encoding.UTF8;
 
-			_screenWidth = System.Console.WindowWidth = System.Console.LargestWindowWidth;
-			_screenHeight = System.Console.WindowHeight = System.Console.LargestWindowHeight;
+			_screenWidth = System.Console.WindowWidth;
+			_screenHeight = System.Console.WindowHeight;
 			_halfScreenWidth = _screenWidth / 2;
 			_halfScreenHeight = _screenHeight / 2;
 

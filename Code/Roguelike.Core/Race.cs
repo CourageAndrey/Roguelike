@@ -79,8 +79,15 @@ namespace Roguelike.Core
 
 		#region List
 
-		public static readonly Race SinglePossible = new Race(
-			language => "Human",
+		private static string GenerateRandomName(bool isMale, IList<string> maleNames, IList<string> femaleNames, string familyName)
+		{
+			var names = isMale ? maleNames : femaleNames;
+			var random = new Random(DateTime.Now.Millisecond);
+			return names[random.Next(0, names.Count - 1)] + " " + familyName;
+		}
+
+		public static readonly Race PlainsMan = new Race(
+			language => "Plainsman",
 			humanoid =>
 			{
 				if (humanoid.SexIsMale)
@@ -126,9 +133,7 @@ namespace Roguelike.Core
 					"Juliet",
 				};
 
-				var names = sexIsMale ? maleNames : femaleNames;
-				var random = new Random(DateTime.Now.Millisecond);
-				return names[random.Next(0, names.Count - 1)] + " " + familyName;
+				return GenerateRandomName(sexIsMale, maleNames, femaleNames, familyName);
 			},
 			Color.White,
 			new[] { Color.Black },
@@ -153,9 +158,242 @@ namespace Roguelike.Core
 			profession => new Properties(10, 10, 30, 10, 10, 10),
 			profession => Array.Empty<IItem>());
 
+		public static readonly Race Nomad = new Race(
+			language => "Nomad",
+			humanoid =>
+			{
+				if (humanoid.SexIsMale)
+				{
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.Brown);
+				}
+				else
+				{
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.SandyBrown);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.SandyBrown);
+				}
+			},
+			(sexIsMale, familyName) =>
+			{
+				var maleNames = new List<string>
+				{
+					"Abbas",
+					"Abu",
+					"Aziz",
+					"Ali",
+					"Valid",
+					"Jabir",
+					"Zahir",
+					"Imran",
+					"Ibrahim",
+					"Karim",
+					"Maimun",
+					"Mubarak",
+				};
+
+				var femaleNames = new List<string>
+				{
+					"Aisha",
+					"Basma",
+					"Jamila",
+					"Zainab",
+					"Zuhra",
+					"Leila",
+					"Mariam",
+				};
+
+				return GenerateRandomName(sexIsMale, maleNames, femaleNames, familyName);
+			},
+			Color.SaddleBrown,
+			new[] { Color.Black },
+			new[]
+			{
+				"Hagan",
+				"Hulgana",
+				"Shona",
+				"Naran",
+				"Oktaj",
+			},
+			profession => new Properties(10, 10, 30, 10, 10, 10),
+			profession => Array.Empty<IItem>());
+
+		public static readonly Race Highlander = new Race(
+			language => "Highlander",
+			humanoid =>
+			{
+				if (humanoid.SexIsMale)
+				{
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.DarkGreen);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.White);
+				}
+				else
+				{
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.DarkGreen);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.White);
+				}
+			},
+			(sexIsMale, familyName) =>
+			{
+				var maleNames = new List<string>
+				{
+					"Breasal",
+					"Brian",
+					"Conall",
+					"Conan",
+					"Kenneth",
+					"Lorcan",
+					"Niall",
+					"Rian",
+				};
+
+				var femaleNames = new List<string>
+				{
+					"Eithne",
+					"Deirdre",
+					"Sorcha",
+				};
+
+				return GenerateRandomName(sexIsMale, maleNames, femaleNames, familyName);
+			},
+			Color.LightGray,
+			new[] { Color.Black },
+			new[]
+			{
+				"McCartney",
+				"O'Sullivan",
+				"O'Connor",
+				"O'Neill",
+				"O'Reilly",
+				"Walsh",
+			},
+			profession => new Properties(10, 10, 30, 10, 10, 10),
+			profession => Array.Empty<IItem>());
+
+		public static readonly Race Jungleman = new Race(
+			language => "Jungleman",
+			humanoid =>
+			{
+				if (humanoid.SexIsMale)
+				{
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.DarkGreen);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LimeGreen);
+				}
+				else
+				{
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.DarkGreen);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LimeGreen);
+				}
+			},
+			(sexIsMale, familyName) =>
+			{
+				var maleNames = new List<string>
+				{
+					"Amokstly",
+					"Zolin",
+					"Ikstly",
+					"Kitlaly",
+					"Koatle",
+				};
+
+				var femaleNames = new List<string>
+				{
+					"Zelcine",
+					"Iskacine",
+					"Papan",
+					"Tlako",
+				};
+
+				return GenerateRandomName(sexIsMale, maleNames, femaleNames, familyName);
+			},
+			Color.RosyBrown,
+			new[] { Color.Black },
+			new[]
+			{
+				"Atl",
+				"Ake",
+				"kojotl",
+			},
+			profession => new Properties(10, 10, 30, 10, 10, 10),
+			profession => Array.Empty<IItem>());
+
+		public static readonly Race Nordman = new Race(
+			language => "Nordman",
+			humanoid =>
+			{
+				if (humanoid.SexIsMale)
+				{
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.White);
+				}
+				else
+				{
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.Brown);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.White);
+				}
+			},
+			(sexIsMale, familyName) =>
+			{
+				var maleNames = new List<string>
+				{
+					"Oscar",
+					"Liam",
+					"Axel",
+					"Noah",
+					"Nils",
+					"Arvid",
+					"Theodor",
+					"Olle",
+					"Erik",
+					"Viggo",
+					"Ebbe",
+					"Elton",
+					"Otto",
+				};
+
+				var femaleNames = new List<string>
+				{
+					"Elsa",
+					"Agnes",
+					"Olivia",
+					"Julia",
+					"Ebba",
+					"Linnea",
+					"Freja",
+					"Astrid",
+					"Signe",
+					"Tyra",
+					"Tuva",
+					"Tilde",
+				};
+
+				return GenerateRandomName(sexIsMale, maleNames, femaleNames, familyName);
+			},
+			Color.White,
+			new[] { Color.White },
+			new[]
+			{
+				"Andersson",
+				"Johansson",
+				"Karlsson",
+				"Nilsson",
+				"Eriksson",
+				"Pettersson",
+				"Lindberg",
+				"Lindgren",
+				"Bergström",
+				"Fredriksson",
+				"Björk",
+			},
+			profession => new Properties(10, 10, 30, 10, 10, 10),
+			profession => Array.Empty<IItem>());
+
 		public static readonly IReadOnlyCollection<Race> All = new[]
 		{
-			SinglePossible,
+			PlainsMan,
+			Nomad,
+			Highlander,
+			Nordman,
+			Jungleman,
 		};
 
 		#endregion

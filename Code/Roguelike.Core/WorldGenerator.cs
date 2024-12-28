@@ -194,7 +194,7 @@ namespace Roguelike.Core
 
 			for (int i = 0; i < totalHouses; i++)
 			{
-				var race = Race.SinglePossible;
+				var race = Race.PlainsMan;
 				var profession = Profession.Everyman;
 				string surname = profession.IsSurname
 					? profession.GetName(language.Character.Professions)

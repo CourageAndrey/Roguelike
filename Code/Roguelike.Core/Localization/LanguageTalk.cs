@@ -15,6 +15,14 @@ namespace Roguelike.Core.Localization
 		public LanguageAnswerFormats AnswerFormats
 		{ get; set; }
 
+		[XmlElement]
+		public string KnownPersonFormat
+		{ get; set; }
+
+		[XmlElement]
+		public string UnknownPersonFormat
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageTalk CreateDefault()
@@ -23,6 +31,8 @@ namespace Roguelike.Core.Localization
 			{
 				Questions = LanguageQuestions.CreateDefault(),
 				AnswerFormats = LanguageAnswerFormats.CreateDefault(),
+				KnownPersonFormat = "{2}, {0} {1}",
+				UnknownPersonFormat = "Unknown {0} {1}",
 			};
 		}
 	}

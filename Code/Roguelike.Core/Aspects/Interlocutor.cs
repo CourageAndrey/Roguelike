@@ -30,7 +30,12 @@ namespace Roguelike.Core.Aspects
 
 		public string GetName(IHumanoid other)
 		{
-			return _holder.Name;
+			var language = _holder.GetWorld().Game.Language;
+			return string.Format(
+				KnownPersons.Contains(other) ? language.Talk.KnownPersonFormat : language.Talk.UnknownPersonFormat,
+				_holder.SexIsMale ? language.Character.SexIsMale : language.Character.SexIsFemale,
+				_holder.Race.GetName(language.Character.Races),
+				_holder.Name);
 		}
 
 		public Attitude GetAttitude(IHumanoid other)

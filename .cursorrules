@@ -1,0 +1,142 @@
+# Roguelike Game - Cursor Rules
+
+## Project Overview
+This is a C# roguelike game with a Core library (netstandard2.1) and a Console UI client (netcoreapp3.1). The codebase uses an aspect-based design pattern where objects can have multiple aspects (IAspect) that provide different capabilities.
+
+## Coding Conventions
+
+### Naming
+- Use PascalCase for classes, methods, properties, and public members
+- Use underscore prefix for private fields (e.g., `_holder`, `_objects`, `_log`)
+- Interface names start with 'I' (e.g., `IAspect`, `IAlive`, `IObject`)
+- Event raising methods use 'Raise' prefix (e.g., `RaiseAggressiveChanged`, `RaiseWeaponChanged`)
+- Use descriptive names that reflect the game domain (objects, cells, aspects, etc.)
+
+### Code Organization
+- Use `#region` blocks to organize code sections:
+  - `#region Properties`
+  - `#region Constructors`
+  - `#region Methods` (if needed)
+  - `#region Events`
+- Use partial classes to split large files (e.g., `Program.cs` has multiple partial files)
+- Group related functionality in the same namespace
+
+### Properties
+- Always use explicit property getters with braces:
+  ```csharp
+  public World World
+  { get; }
+  
+  public IHero Hero
+  { get { return World.Hero; } }
+  ```
+- Use expression-bodied members only when simple and readable
+
+### Nullable Reference Types
+- Nullable reference types are enabled (`<Nullable>enable</Nullable>`)
+- Always use nullable annotations appropriately (`Cell?`, `Object?`)
+- Check for null values before using nullable references
+
+### Events
+- Use `Volatile.Read` when accessing event handlers in multi-threaded scenarios:
+  ```csharp
+  var handler = Volatile.Read(ref EventName);
+  if (handler != null)
+  {
+      handler(this, args);
+  }
+  ```
+- Use `ValueChangedEventHandler<TEntity, TValue>` for value change events
+
+### Aspect Pattern
+- All aspects implement `IAspect` interface
+- Use extension methods for aspect operations:
+  - `holder.GetAspect<T>()` - expects exactly one aspect of type T
+  - `holder.TryGetAspect<T>()` - returns null if not found
+  - `holder.Is<T>()` - checks if holder has aspect of type T
+- Aspects are added via `AddAspects(params IAspect[] aspects)` in constructors
+- Each aspect typically holds a reference to its owner object
+
+### Actions and Results
+- Actions return `ActionResult` with:
+  - `Time` (longevity/duration)
+  - Log messages (strings)
+  - Optional `Activity` state changes
+- Always use `string.Format` with `CultureInfo.InvariantCulture` for log messages
+- Access game/balance/language through context: `_holder.GetGame()`, `game.World.Balance`, `game.Language`
+
+### Localization
+- All user-facing strings should use the `Language` system
+- Access localization through `game.Language` or specific language properties (e.g., `game.Language.LogActionFormats`)
+- Use string formatting for parameterized messages
+
+### Thread Safety
+- Use `Volatile.Read` for event handlers in multi-threaded contexts
+- Consider thread safety when modifying shared state
+
+### Collections
+- Prefer `IReadOnlyCollection<T>` for public collection properties
+- Use private mutable collections internally and expose read-only views
+- Clear cached views when underlying collections change (e.g., `_objectsView = null`)
+
+### Error Handling
+- Use `#warning` directives for known issues or TODOs in the code
+- Handle null checks appropriately, especially for nullable reference types
+- Throw `ArgumentOutOfRangeException` for invalid enum values
+
+## Architecture Patterns
+
+### Core Structure
+- `Roguelike.Core` - Core game logic, no UI dependencies
+- `Roguelike.Console` - Console UI implementation
+- Interfaces in `Roguelike.Core.Interfaces` define contracts
+- Aspects in `Roguelike.Core.Aspects` provide capabilities
+- Objects in `Roguelike.Core.Objects` represent game entities
+- Localization classes in `Roguelike.Core.Localization`
+
+### World Structure
+- `World` contains `Region`s
+- `Region`s contain `Cell`s
+- `Cell`s contain `Object`s
+- Objects can have multiple aspects that provide different behaviors
+
+### Action Flow
+1. User input triggers key handler
+2. Key handler performs action and returns `ActionResult`
+3. Action is applied to world: `world.ApplyAction(hero, actionResult)`
+4. World processes one step: `world.DoOneStep()`
+5. Time passes for hero state: `hero.State.PassTime(longevity, language)`
+
+## Best Practices
+
+1. **Separation of Concerns**: Keep UI logic in `Roguelike.Console`, game logic in `Roguelike.Core`
+2. **Aspect Composition**: Use aspects to add capabilities to objects rather than inheritance
+3. **Immutability**: Prefer immutable value types (e.g., `Vector`) where possible
+4. **Event-Driven**: Use events for notifications and view updates
+5. **Configuration**: Use `Balance` classes for game balance configuration
+6. **Extensions**: Use extension methods to enhance interfaces (e.g., aspect extensions)
+7. **Documentation**: Add XML comments for public APIs, especially for complex behaviors
+
+## When Adding New Features
+
+1. **New Objects**: Create class in `Roguelike.Core.Objects`, inherit from `Object`, add aspects as needed
+2. **New Aspects**: Create class in `Roguelike.Core.Aspects`, implement `IAspect`, add extension methods if needed
+3. **New Actions**: Create methods that return `ActionResult`, use balance for timing, use language for messages
+4. **UI Features**: Add to appropriate partial file in `Roguelike.Console` or create new partial file
+5. **Localization**: Add new `Language*` classes in `Roguelike.Core.Localization` or extend existing ones
+
+## Testing
+- Tests are in `Roguelike.Tests` project
+- Follow existing test patterns when adding new tests
+
+## Dependencies
+- Core library has no external dependencies (uses only .NET Standard libraries)
+- Console client references Core library
+- Respect the separation: Core should not depend on Console
+
+## Style Notes
+- Use explicit types for clarity (e.g., `int time` rather than `var` when the type isn't obvious)
+- Prefer early returns for null checks
+- Use meaningful variable names that reflect game domain (e.g., `hero`, `world`, `cell`, `target`)
+- Keep methods focused and reasonably sized
+- Use LINQ where appropriate but prefer clarity over cleverness

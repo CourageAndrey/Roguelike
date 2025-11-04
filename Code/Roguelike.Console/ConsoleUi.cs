@@ -35,6 +35,8 @@ namespace Roguelike.Console
 
 			System.Console.Clear();
 			System.Console.CursorVisible = false;
+
+			LockConsoleSize(_screenWidth, _screenHeight);
 		}
 
 		#region DrawAPI

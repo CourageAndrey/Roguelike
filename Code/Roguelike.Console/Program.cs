@@ -87,12 +87,11 @@ namespace Roguelike.Console
 			{ ConsoleKey.W, new KeyHandler(HandleSelectWeapon) },
 			{ ConsoleKey.C, new KeyHandler(HandleChat) },
 			{ ConsoleKey.T, KeyHandler.Shift(HandleShoot, HandleTrade) },
-			{ ConsoleKey.P, new KeyHandler(HandlePickpocket) },
-			{ ConsoleKey.B, new KeyHandler(HandleBackstab) },
 			{ ConsoleKey.R, new KeyHandler(HandleReadBook) },
 			{ ConsoleKey.OemComma, new KeyHandler(HandlePick) },
 			{ ConsoleKey.O, new KeyHandler(HandleOpenClose) },
 			{ ConsoleKey.S, new KeyHandler(HandleRide) },
+			{ ConsoleKey.X, new KeyHandler(HandleSneak) },
 		};
 	}
 }

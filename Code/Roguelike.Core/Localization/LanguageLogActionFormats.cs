@@ -17,6 +17,9 @@ namespace Roguelike.Core.Localization
 		public string Move
 		{ get; set; }
 		[XmlElement]
+		public string Sneak
+		{ get; set; }
+		[XmlElement]
 		public string MoveDisabled
 		{ get; set; }
 		[XmlElement]
@@ -82,6 +85,21 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Backstab
 		{ get; set; }
+		[XmlElement]
+		public string StartSneaking
+		{ get; set; }
+		[XmlElement]
+		public string StopSneaking
+		{ get; set; }
+		[XmlElement]
+		public string ChangeSneakingDisabled
+		{ get; set; }
+		[XmlElement]
+		public string Pickpocket
+		{ get; set; }
+		[XmlElement]
+		public string PickpocketFailed
+		{ get; set; }
 
 		#endregion
 
@@ -92,6 +110,7 @@ namespace Roguelike.Core.Localization
 				OpenDoor = "{0} opens the door at {1}.",
 				CloseDoor = "{0} closes the door at {1}.",
 				Move = "{0} moves from {1} to {2}.",
+				Sneak = "{0} sneaks from {1} to {2}.",
 				MoveDisabled = "{0} attempts to move, but does not succeed.",
 				ChopTree = "{0} chops the tree at {1}",
 				StartFight = "{0} prepared to fight using {1}",
@@ -114,6 +133,11 @@ namespace Roguelike.Core.Localization
 				Dress = "{0} dresses {1}",
 				Undress = "{0} undresses {1}",
 				Backstab = "{0} backstabs {1} with {2}",
+				StartSneaking = "{0} starts sneaking",
+				StopSneaking = "{0} stops sneaking",
+				ChangeSneakingDisabled = "{0} didn't manage to change sneaking mode",
+				Pickpocket = "{0} pickpockets {1} and steals {2}",
+				PickpocketFailed = "{0} tried to pickpocket {1} but failed",
 			};
 		}
 	}

@@ -28,6 +28,9 @@ namespace Roguelike.Core.Interfaces
 		Fighter Fighter
 		{ get; }
 
+		Thief Thief
+		{ get; }
+
 		double Toughness
 		{ get; }
 

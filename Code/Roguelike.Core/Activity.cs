@@ -34,6 +34,7 @@ namespace Roguelike.Core
 		public static readonly Activity Fights = new Activity(language => language.Fights);
 		public static readonly Activity ChopsTree = new Activity(language => language.ChopsTree);
 		public static readonly Activity Dresses = new Activity(language => language.Dresses);
+		public static readonly Activity Sneaks = new Activity(language => language.Sneaks);
 
 		#endregion
 	}

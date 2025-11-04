@@ -116,6 +116,7 @@ namespace Roguelike.Core.Aspects
 				time = balance.ActionLongevity.Disabled;
 				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeWeaponDisabled, _holder.GetDescription(game.Language, game.Hero));
 			}
+
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage);
 		}
 

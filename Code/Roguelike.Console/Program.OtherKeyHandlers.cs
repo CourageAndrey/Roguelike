@@ -175,40 +175,14 @@ namespace Roguelike.Console
 			}
 		}
 
-		private static ActionResult HandlePickpocket(
+		private static ActionResult HandleSneak(
 			Language language,
 			ConsoleUi ui,
 			Game game,
 			World world,
 			IHero hero)
 		{
-			var humanoid = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
-			if (humanoid != null)
-			{
-				return game.UserInterface.BeginPickpocket(game, humanoid);
-			}
-			else
-			{
-				return null;
-			}
-		}
-
-		private static ActionResult HandleBackstab(
-			Language language,
-			ConsoleUi ui,
-			Game game,
-			World world,
-			IHero hero)
-		{
-			var alive = SelectTarget<IHumanoid>(ui, game, hero, language.SelectDirectionsPromt);
-			if (alive != null)
-			{
-				return hero.Fighter.Backstab(alive);
-			}
-			else
-			{
-				return null;
-			}
+			return hero.Thief.ChangeSneak(!hero.Thief.IsSneaking);
 		}
 
 		private static ActionResult HandlePick(

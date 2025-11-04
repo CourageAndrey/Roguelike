@@ -58,6 +58,12 @@
 		public int Backstab
 		{ get; set; }
 
+		public int ChangeSneaking
+		{ get; set; }
+
+		public int Pickpocket
+		{ get; set; }
+
 		public DressTimeBalance Dress
 		{ get; set; }
 
@@ -85,6 +91,8 @@
 				Eat = 10 * 60 * 1000,
 				Drink = 30 * 1000,
 				Backstab = 500,
+				ChangeSneaking = 1500,
+				Pickpocket = 5000,
 				Dress = DressTimeBalance.CreateDefault(),
 			};
 		}

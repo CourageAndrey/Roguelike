@@ -9,7 +9,6 @@ using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
-using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Objects
 {
@@ -37,6 +36,9 @@ namespace Roguelike.Core.Objects
 
 		public Fighter Fighter
 		{ get { return this.GetAspect<Fighter>(); } }
+
+		public Thief Thief
+		{ get { return this.GetAspect<Thief>(); } }
 
 		public bool IsDead
 		{ get; private set; }
@@ -147,7 +149,8 @@ namespace Roguelike.Core.Objects
 				body,
 				new State(balance, this),
 				_inventory,
-				new Fighter(this));
+				new Fighter(this),
+				new Thief(this));
 
 			Weight = GetTotalWeight();
 		}

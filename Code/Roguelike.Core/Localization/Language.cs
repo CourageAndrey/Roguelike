@@ -117,8 +117,7 @@ w - select weapon
 c - chat
 t - shoot
 T - trade
-p - pickpocket
-b - backstab
+x - sneak
 r - read book
 o - open/close (door)
 s - ride (horse)

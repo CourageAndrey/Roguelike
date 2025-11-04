@@ -64,14 +64,20 @@ namespace Roguelike.Core.Interfaces
 
 				var alive = obj as IAlive;
 				IAlive target = null;
-				if (alive?.Fighter?.IsAggressive == true && alive?.Fighter?.WeaponToFight?.GetAspect<Weapon>()?.IsRange == false && (target = newCell.Objects.OfType<IAlive>().FirstOrDefault()) != null)
+				bool canAttack =	alive?.Fighter?.IsAggressive == true &&
+									alive?.Fighter?.WeaponToFight?.GetAspect<Weapon>()?.IsRange == false &&
+									(target = newCell.Objects.OfType<IAlive>().FirstOrDefault()) != null;
+
+				if (canAttack)
 				{
-					return alive.Fighter.Attack(target);
+					return alive?.Thief?.IsSneaking == true
+						? alive.Fighter.Backstab(target)
+						: alive.Fighter.Attack(target);
 				}
 				else
 				{
-					Activity newActivity = (obj as IAlive)?.Fighter?.IsAggressive == false
-						? Activity.Walks
+					Activity newActivity = alive?.Fighter?.IsAggressive == false
+						? (alive?.Thief?.IsSneaking == true ? Activity.Sneaks : Activity.Walks)
 						: null;
 
 					if (!obj.IsSolid || newCell.IsTransparent)
@@ -80,15 +86,23 @@ namespace Roguelike.Core.Interfaces
 
 						return new ActionResult(
 							Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Step * distance)),
-							string.Format(CultureInfo.InvariantCulture, language.Move, obj.GetDescription(game.Language, game.Hero), oldPosition, newCell.Position),
+							string.Format(
+								CultureInfo.InvariantCulture,
+								(alive?.Thief?.IsSneaking == true ? language.Sneak : language.Move),
+								obj.GetDescription(game.Language, game.Hero),
+								oldPosition,
+								newCell.Position),
 							newActivity);
 					}
 					else
 					{
-						return new ActionResult(
-							Time.FromTicks(balance.Time, balance.ActionLongevity.Disabled),
-							string.Format(CultureInfo.InvariantCulture, language.MoveDisabled, obj.GetDescription(game.Language, game.Hero), oldPosition, newCell.Position),
-							newActivity);
+						var humanoid = obj as IHumanoid;
+						return humanoid != null && alive?.Thief?.IsSneaking == true
+							? game.UserInterface.BeginPickpocket(game, humanoid)
+							: new ActionResult(
+								Time.FromTicks(balance.Time, balance.ActionLongevity.Disabled),
+								string.Format(CultureInfo.InvariantCulture, language.MoveDisabled, obj.GetDescription(game.Language, game.Hero), oldPosition, newCell.Position),
+								newActivity);
 					}
 				}
 			}

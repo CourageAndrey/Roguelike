@@ -8,13 +8,10 @@ namespace Roguelike.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public string NameAgain
+		public string GetAcquainted
 		{ get; set; }
 		[XmlElement]
-		public string NameFirst
-		{ get; set; }
-		[XmlElement]
-		public string Age
+		public string AlreadyKnown
 		{ get; set; }
 
 		#endregion
@@ -23,9 +20,8 @@ namespace Roguelike.Core.Localization
 		{
 			return new LanguageAnswerFormats
 			{
-				NameAgain = "As I've said before, my name is {0}.",
-				NameFirst = "My name is {0}. - Nice to get aquainted, my name is {1}.",
-				Age = "I'm {0} years old.",
+				GetAcquainted = "{0}My name is {1}. I'm {2} and have {3} years old. - And my name is {4}.",
+				AlreadyKnown = "We've already got acquainted. ",
 			};
 		}
 	}

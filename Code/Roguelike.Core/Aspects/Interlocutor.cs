@@ -50,9 +50,7 @@ namespace Roguelike.Core.Aspects
 		{
 			return new[]
 			{
-				Topic.WhatIsYourName,
-				Topic.HowOldAreYou,
-				Topic.WhatDoYouDo,
+				Topic.WhoAreYou,
 				Topic.WhereAreWeNow,
 				Topic.WhereAreYouFrom,
 			};
@@ -66,31 +64,23 @@ namespace Roguelike.Core.Aspects
 
 		public Text Discuss(IHumanoid other, Topic topic, Language language)
 		{
-			if (topic == Topic.WhatIsYourName)
+			if (topic == Topic.WhoAreYou)
 			{
-				if (KnownPersons.Contains(other))
-				{
-					return new Text(string.Format(
-						CultureInfo.InvariantCulture,
-						language.Talk.AnswerFormats.NameAgain,
-						_holder.Name));
-				}
-				else
+				bool isKnown = KnownPersons.Contains(other);
+
+				if (!isKnown)
 				{
 					GetAcquainted(other);
-					return new Text(string.Format(
-						CultureInfo.InvariantCulture,
-						language.Talk.AnswerFormats.NameFirst,
-						_holder.Name,
-						other.Name));
 				}
-			}
-			else if (topic == Topic.HowOldAreYou)
-			{
+
 				return new Text(string.Format(
 					CultureInfo.InvariantCulture,
-					language.Talk.AnswerFormats.Age,
-					_holder.GetAge(_holder.GetWorld().Time)));
+					language.Talk.AnswerFormats.GetAcquainted,
+					isKnown ? language.Talk.AnswerFormats.AlreadyKnown : string.Empty,
+					_holder.Name,
+					_holder.Profession.GetName(language.Character.Professions),
+					_holder.GetAge(_holder.GetWorld().Time),
+					other.Name));
 			}
 			else
 			{

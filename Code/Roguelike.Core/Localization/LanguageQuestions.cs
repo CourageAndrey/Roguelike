@@ -8,13 +8,7 @@ namespace Roguelike.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public string WhatIsYourName
-		{ get; set; }
-		[XmlElement]
-		public string HowOldAreYou
-		{ get; set; }
-		[XmlElement]
-		public string WhatDoYouDo
+		public string WhoAreYou
 		{ get; set; }
 		[XmlElement]
 		public string WhereAreWeNow
@@ -29,9 +23,7 @@ namespace Roguelike.Core.Localization
 		{
 			return new LanguageQuestions
 			{
-				WhatIsYourName = "What is your name?",
-				HowOldAreYou = "How old are you?",
-				WhatDoYouDo = "What do you do?",
+				WhoAreYou = "Who are you?",
 				WhereAreWeNow = "Where are we now?",
 				WhereAreYouFrom = "Where are you from?",
 			};

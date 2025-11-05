@@ -21,6 +21,9 @@ namespace Roguelike.Core
 		public CellEnvironment DefaultCellEnvironment
 		{ get; }
 
+		public ICollection<Place> Places
+		{ get; }
+
 		private readonly Cell[,,] _cells;
 
 		#endregion
@@ -28,11 +31,14 @@ namespace Roguelike.Core
 		public Region(World world, WorldSizeBalance balance)
 		{
 			World = world;
+
 			Size = new Vector(
 				balance.RegionXdimension,
 				balance.RegionYdimension,
 				balance.RegionZdimension);
+
 			DefaultCellEnvironment = new ExteriorCellEnvironment(this);
+
 			_cells = new Cell[Size.X, Size.Y, Size.Z];
 			for (int x = 0; x < Size.X; x++)
 			{
@@ -44,6 +50,9 @@ namespace Roguelike.Core
 					}
 				}
 			}
+
+			Places = new List<Place>();
+
 			Weather = new Weather(this);
 		}
 

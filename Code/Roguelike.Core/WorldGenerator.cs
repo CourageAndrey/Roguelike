@@ -98,7 +98,7 @@ namespace Roguelike.Core
 			}
 		}
 
-		public static void CreateHouse(this Region region, Random seed, int minHouseDimension, int maxHouseDimension, int houseX1, int houseY1, int z)
+		public static House CreateHouse(this Region region, Random seed, int minHouseDimension, int maxHouseDimension, int houseX1, int houseY1, int z)
 		{
 			int finalX1 = seed.Next(houseX1 - 1, houseX1 + 1);
 			int finalX2 = finalX1 + seed.Next(minHouseDimension, maxHouseDimension) - 1;
@@ -112,9 +112,22 @@ namespace Roguelike.Core
 			new Fire().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);
 			new Bed().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);
 			new Bed().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);
+
+			var allHouseCells = new List<Cell>();
+			for (int x = finalX1; x <= finalX2; x++)
+			{
+				for (int y = finalY1; y <= finalY2; y++)
+				{
+					allHouseCells.Add(region.GetCell(x, y, z));
+				}
+			}
+
+			var house = new House(allHouseCells);
+			region.Places.Add(house);
+			return house;
 		}
 
-		public static Npc CreateFamily(this Region region, Balance balance, Random seed, Race race, Profession profession, string surname, int x1, int x2, int y1, int y2, int z)
+		public static Npc CreateFamily(this Region region, Balance balance, Random seed, Race race, Profession profession, string surname, int x1, int x2, int y1, int y2, int z, House house)
 		{
 			var hairColors = race.HairColors.ToList();
 
@@ -142,6 +155,8 @@ namespace Roguelike.Core
 			wife.Race.DressCostume(wife);
 			wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
+			house.Settle(husband, wife);
+
 			return husband;
 		}
 
@@ -163,8 +178,6 @@ namespace Roguelike.Core
 			const int minHouseDimension = 5;
 			const int maxHouseDimension = 7;
 
-			int totalHouses = 0;
-
 			int treesCount = (x2 - x1) * (y2 - y1) / 10;
 			for (int i = 0; i < treesCount; i++)
 			{
@@ -177,14 +190,14 @@ namespace Roguelike.Core
 				new Pool().placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 			}
 
+			var houses = new List<House>();
 			int houseY1 = y1 + 1;
 			while (houseY1 + maxHouseDimension + 1 < y2)
 			{
 				int houseX1 = x1 + 1;
 				while (houseX1 + maxHouseDimension + 1 < x2)
 				{
-					region.CreateHouse(seed, minHouseDimension, maxHouseDimension, houseX1, houseY1, z);
-					totalHouses++;
+					houses.Add(region.CreateHouse(seed, minHouseDimension, maxHouseDimension, houseX1, houseY1, z));
 
 					houseX1 += maxHouseDimension + seed.Next(1, 2);
 				}
@@ -192,14 +205,14 @@ namespace Roguelike.Core
 				houseY1 += maxHouseDimension + seed.Next(1, 2);
 			}
 
-			for (int i = 0; i < totalHouses; i++)
+			for (int i = 0; i < houses.Count; i++)
 			{
 				var race = Race.PlainsMan;
 				var profession = Profession.Everyman;
 				string surname = profession.IsSurname
 					? profession.GetName(language.Character.Professions)
 					: race.Surnames[i % race.Surnames.Count];
-				var husband = region.CreateFamily(balance, seed, race, profession, surname, x1, x2, y1, y2, z);
+				var husband = region.CreateFamily(balance, seed, race, profession, surname, x1, x2, y1, y2, z, houses[i]);
 
 				region.CreateAnimals(balance, seed, husband, x1, x2, y1, y2, z);
 			}

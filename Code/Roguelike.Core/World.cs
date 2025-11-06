@@ -56,7 +56,7 @@ namespace Roguelike.Core
 			var heroCell = region.GetCell(
 				seed.Next(10, balance.WorldSize.RegionXdimension - 50),
 				seed.Next(10, balance.WorldSize.RegionYdimension - 50),
-				0);
+				0)!;
 			Hero.MoveTo(heroCell);
 			Hero.Inventory.Items.Add(ItemFactory.CreateHatchet());
 			Hero.Inventory.Items.Add(ItemFactory.CreateBow());
@@ -72,7 +72,7 @@ namespace Roguelike.Core
 			{
 				Hero.Inventory.Items.Add(arrow);
 			}
-			Hero.Inventory.Items.Add(ItemFactory.CreateBook(Color.Coral, language => language.HelloWorld, language => language.HelloWorld));
+			Hero.Inventory.Items.Add(ItemFactory.CreateBook(Color.Coral, l => l.HelloWorld, l => l.HelloWorld));
 			Hero.Camera.MakeMapKnown(balance.Distance.HeroInitialView);
 
 			region.CreateVillage(

@@ -15,7 +15,7 @@ namespace Roguelike.Core
 		public Cell? CurrentCell
 		{ get; private set; }
 
-		public event ValueChangedEventHandler<IObject, Cell?> CellChanged;
+		public event ValueChangedEventHandler<IObject, Cell?>? CellChanged;
 
 		public IReadOnlyCollection<IAspect> Aspects
 		{ get; private set; } = Array.Empty<IAspect>();
@@ -28,7 +28,7 @@ namespace Roguelike.Core
 		public virtual bool IsSolid
 		{ get { return true; } }
 
-		public event ValueChangedEventHandler<IObject, bool> IsSolidChanged;
+		public event ValueChangedEventHandler<IObject, bool>? IsSolidChanged;
 
 		protected void RaiseIsSolidChanged(bool oldSolid, bool newSolid)
 		{
@@ -43,7 +43,7 @@ namespace Roguelike.Core
 
 		#endregion
 
-		public event EventHandler<IObject, ICollection<string>> OnLogMessage;
+		public event EventHandler<IObject, ICollection<string>>? OnLogMessage;
 
 		#endregion
 

@@ -135,7 +135,7 @@ namespace Roguelike.Core.Aspects
 		public Activity Activity
 		{ get; private set; }
 
-		public event EventHandler<State> Changed;
+		public event EventHandler<State>? Changed;
 
 		protected void RaiseChanged()
 		{
@@ -151,7 +151,7 @@ namespace Roguelike.Core.Aspects
 		public State(
 			Balance balance,
 			IAlive owner,
-			IEnumerable<IDisease> diseases = null,
+			IEnumerable<IDisease>? diseases = null,
 			bool isDirty = false,
 			bool isPoisoned = false,
 			bool hasHangover = false,

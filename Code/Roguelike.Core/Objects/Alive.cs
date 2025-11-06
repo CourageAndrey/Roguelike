@@ -43,7 +43,7 @@ namespace Roguelike.Core.Objects
 		public bool IsDead
 		{ get; private set; }
 
-		public string DeadReason
+		public string? DeadReason
 		{ get; private set; }
 
 		public decimal Weight
@@ -75,9 +75,9 @@ namespace Roguelike.Core.Objects
 
 		#region Events
 
-		public event ValueChangedEventHandler<IMassy, decimal> WeightChanged;
+		public event ValueChangedEventHandler<IMassy, decimal>? WeightChanged;
 
-		public event EventHandler<IAlive, string> OnDeath;
+		public event EventHandler<IAlive, string>? OnDeath;
 
 		protected void RaiseWeightChanged(decimal oldWeight, decimal newWeight)
 		{

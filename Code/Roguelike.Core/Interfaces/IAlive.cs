@@ -40,7 +40,7 @@ namespace Roguelike.Core.Interfaces
 		bool IsDead
 		{ get; }
 
-		string DeadReason
+		string? DeadReason
 		{ get; }
 
 		Corpse Die(string reason);

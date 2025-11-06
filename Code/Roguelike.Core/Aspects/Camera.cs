@@ -27,7 +27,7 @@ namespace Roguelike.Core.Aspects
 		public IDictionary<Cell, bool> VisibleCells
 		{ get; private set; }
 
-		public event EventHandler<Camera, IDictionary<Cell, bool>> CellsVisibilityChanged;
+		public event EventHandler<Camera, IDictionary<Cell, bool>>? CellsVisibilityChanged;
 
 		#endregion
 

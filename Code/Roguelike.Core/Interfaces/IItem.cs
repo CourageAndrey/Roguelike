@@ -8,9 +8,9 @@
 		Material Material
 		{ get; }
 
-		event EventHandler<IItem, IAlive> Picked;
+		event EventHandler<IItem, IAlive>? Picked;
 
-		event EventHandler<IItem, IAlive> Dropped;
+		event EventHandler<IItem, IAlive>? Dropped;
 
 		void RaisePicked(IAlive who);
 

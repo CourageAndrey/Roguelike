@@ -11,9 +11,9 @@ namespace Roguelike.Core.Aspects
 		public abstract bool IsRange
 		{ get; }
 
-		public event EventHandler<Weapon, IAlive> PreparedForBattle;
+		public event EventHandler<Weapon, IAlive>? PreparedForBattle;
 
-		public event EventHandler<Weapon, IAlive> StoppedBattle;
+		public event EventHandler<Weapon, IAlive>? StoppedBattle;
 
 		#endregion
 

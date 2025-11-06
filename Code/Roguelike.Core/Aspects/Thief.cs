@@ -14,7 +14,7 @@ namespace Roguelike.Core.Aspects
 		public bool IsSneaking
 		{ get; private set; }
 
-		public event ValueChangedEventHandler<IAlive, bool> SneakChanged;
+		public event ValueChangedEventHandler<IAlive, bool>? SneakChanged;
 
 		#endregion
 

@@ -119,7 +119,7 @@ namespace Roguelike.Core
 			changeState(GameState.Defeat);
 		}
 
-		public event Action<Game, GameState> StateChanged;
+		public event Action<Game, GameState>? StateChanged;
 
 		private void changeState(GameState state)
 		{

@@ -52,7 +52,7 @@ namespace Roguelike.Core.Aspects
 			return new Properties(0, 0, 0, 0, 0, 0);
 		}
 
-		public Properties Merge(Properties other)
+		public Properties Merge(Properties? other)
 		{
 			if (other == null)
 			{

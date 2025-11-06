@@ -24,11 +24,11 @@ namespace Roguelike.Core.Aspects
 		public decimal Weight
 		{ get { return WeaponToFight.Weight; } }
 
-		public event ValueChangedEventHandler<IAlive, bool> AggressiveChanged;
+		public event ValueChangedEventHandler<IAlive, bool>? AggressiveChanged;
 
-		public event ValueChangedEventHandler<IAlive, IItem> WeaponChanged;
+		public event ValueChangedEventHandler<IAlive, IItem>? WeaponChanged;
 
-		public event ValueChangedEventHandler<IMassy, decimal> WeightChanged;
+		public event ValueChangedEventHandler<IMassy, decimal>? WeightChanged;
 
 		#endregion
 
@@ -137,9 +137,9 @@ namespace Roguelike.Core.Aspects
 					WeaponToFight.GetDescription(language, game.Hero)));
 		}
 
-		public ActionResult Attack(IAlive target)
+		public ActionResult? Attack(IAlive target)
 		{
-			if (WeaponToFight?.GetAspect<Weapon>()?.IsRange != false) return null;
+			if (WeaponToFight.GetAspect<Weapon>().IsRange) return null;
 
 			var world = _holder.GetWorld();
 			var game = world.Game;
@@ -148,7 +148,7 @@ namespace Roguelike.Core.Aspects
 			var random = new Random(DateTime.Now.Millisecond);
 
 			int hitPossibility = balance.Player.BaseHitPossibility;
-			hitPossibility += ((int)_holder.Properties.Reaction - (int) target.Properties.Reaction) * 10;
+			hitPossibility += (_holder.Properties.Reaction - target.Properties.Reaction) * 10;
 			if (random.Next(0, 100) < hitPossibility)
 			{
 				target.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, _holder.GetDescription(game.Language, game.Hero)));
@@ -164,7 +164,7 @@ namespace Roguelike.Core.Aspects
 		{
 			if (!WeaponToFight.GetAspect<Weapon>().IsRange) return null;
 
-			var position = _holder.CurrentCell.Position;
+			var position = _holder.CurrentCell!.Position;
 			var region = _holder.CurrentCell.Region;
 			var world = region.World;
 			var game = world.Game;
@@ -220,7 +220,7 @@ namespace Roguelike.Core.Aspects
 			if (aim != null)
 			{
 				int hitPossibility = balance.Player.BaseHitPossibility;
-				hitPossibility += ((int)_holder.Properties.Perception - (int) aim.Properties.Reaction) * 10;
+				hitPossibility += (_holder.Properties.Perception - aim.Properties.Reaction) * 10;
 				if (random.Next(0, 100) < hitPossibility)
 				{
 					aim.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, _holder.GetDescription(game.Language, game.Hero)));
@@ -231,7 +231,7 @@ namespace Roguelike.Core.Aspects
 			_holder.Inventory.Items.Remove(missile);
 
 			return new ActionResult(
-				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Shoot)),
+				Time.FromTicks(balance.Time, balance.ActionLongevity.Shoot),
 				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Shoot, _holder.GetDescription(game.Language, game.Hero), target, WeaponToFight),
 				Activity.Fights);
 		}

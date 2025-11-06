@@ -4,7 +4,7 @@ namespace Roguelike.Core.Aspects
 {
 	public class WaterSource : IAspect
 	{
-		public ActionResult Drink(IAlive who)
+		public ActionResult? Drink(IAlive who)
 		{
 			int water = who.State.GetWaterToFull();
 			if (water > 0)

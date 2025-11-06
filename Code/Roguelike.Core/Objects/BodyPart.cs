@@ -27,7 +27,7 @@ namespace Roguelike.Core.Objects
 		public decimal Weight
 		{ get; }
 
-		public event ValueChangedEventHandler<IMassy, decimal> WeightChanged;
+		public event ValueChangedEventHandler<IMassy, decimal>? WeightChanged;
 
 		#endregion
 

@@ -23,12 +23,12 @@ namespace Roguelike.Core
 		{ get; private set; }
 
 		public IReadOnlyCollection<Object> Objects
-		{ get { return _objectsView ?? (_objectsView = new ReadOnlyCollection<Object>(_objects)); } }
+		{ get { return _objectsView ??= new ReadOnlyCollection<Object>(_objects); } }
 
 		public bool IsTransparent
 		{ get { return Objects.All(o => !o.IsSolid); } }
 
-		public event EventHandler<Cell, bool> ViewChanged;
+		public event EventHandler<Cell, bool>? ViewChanged;
 
 		private readonly List<Object> _objects = new List<Object>();
 		private IReadOnlyCollection<Object>? _objectsView;

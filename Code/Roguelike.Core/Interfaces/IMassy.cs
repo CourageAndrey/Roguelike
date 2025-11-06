@@ -8,6 +8,6 @@
 
 	public interface IVariableMassy : IMassy
 	{
-		event ValueChangedEventHandler<IMassy, decimal> WeightChanged;
+		event ValueChangedEventHandler<IMassy, decimal>? WeightChanged;
 	}
 }

@@ -17,7 +17,7 @@ namespace Roguelike.Core.Aspects
 		public decimal Weight
 		{ get { return Parts.Sum(part => part.Weight); } }
 
-		public event ValueChangedEventHandler<IMassy, decimal> WeightChanged;
+		public event ValueChangedEventHandler<IMassy, decimal>? WeightChanged;
 
 		protected void RaiseWeightChanged(decimal oldWeight, decimal newWeight)
 		{
@@ -118,7 +118,7 @@ namespace Roguelike.Core.Aspects
 
 		private static BodyPart createArm(Body body, int fingersCount)
 		{
-			return new BodyPart(body, 5, language => language.Arm, new[]
+			return new BodyPart(body, 5, language => language.Arm, new IBodyPart[]
 			{
 				new BodyPart(body, 2, language => language.Shoulder),
 				new BodyPart(body, 0.5m, language => language.Elbow),
@@ -129,7 +129,7 @@ namespace Roguelike.Core.Aspects
 
 		private static BodyPart createLeg(Body body, int fingersCount)
 		{
-			return new BodyPart(body, 10, language => language.Leg, new[]
+			return new BodyPart(body, 10, language => language.Leg, new IBodyPart[]
 			{
 				new BodyPart(body, 5, language => language.Haunch),
 				new BodyPart(body, 0.75m, language => language.Knee),
@@ -140,7 +140,7 @@ namespace Roguelike.Core.Aspects
 
 		private static BodyPart createUsualBody(Body body)
 		{
-			return new BodyPart(body, 40, language => language.Body, new[]
+			return new BodyPart(body, 40, language => language.Body, new IBodyPart[]
 			{
 				new BodyPart(body, 2, language => language.Ribs),
 				new BodyPart(body, 1, language => language.Heart, true),

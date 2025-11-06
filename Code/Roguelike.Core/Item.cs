@@ -24,11 +24,11 @@ namespace Roguelike.Core
 		public Material Material
 		{ get { return _material; } }
 
-		public event ValueChangedEventHandler<IMassy, decimal> WeightChanged;
+		public event ValueChangedEventHandler<IMassy, decimal>? WeightChanged;
 
-		public event EventHandler<IItem, IAlive> Picked;
+		public event EventHandler<IItem, IAlive>? Picked;
 
-		public event EventHandler<IItem, IAlive> Dropped;
+		public event EventHandler<IItem, IAlive>? Dropped;
 
 		public IReadOnlyCollection<IAspect> Aspects
 		{ get; }

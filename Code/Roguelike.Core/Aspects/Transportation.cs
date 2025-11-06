@@ -12,7 +12,7 @@ namespace Roguelike.Core.Aspects
 
 		private readonly IObject _holder;
 
-		public IObject Rider
+		public IObject? Rider
 		{
 			get { return _rider; }
 			set
@@ -42,7 +42,7 @@ namespace Roguelike.Core.Aspects
 			}
 		}
 
-		private IObject _rider;
+		private IObject? _rider;
 
 		#endregion
 
@@ -58,7 +58,7 @@ namespace Roguelike.Core.Aspects
 
 		private readonly IObject _holder;
 
-		public Transport Transport
+		public Transport? Transport
 		{
 			get { return _transport; }
 			set
@@ -68,7 +68,7 @@ namespace Roguelike.Core.Aspects
 			}
 		}
 
-		private Transport _transport;
+		private Transport? _transport;
 
 		#endregion
 
@@ -80,7 +80,7 @@ namespace Roguelike.Core.Aspects
 
 	public static class RidingHelper
 	{
-		public static ActionResult Ride(this IObject rider, IObject transport)
+		public static ActionResult? Ride(this IObject rider, IObject transport)
 		{
 			var riderAspect = rider.TryGetAspect<Rider>();
 			if (riderAspect == null) throw new InvalidOperationException("Object is not a rider.");
@@ -104,7 +104,7 @@ namespace Roguelike.Core.Aspects
 			}
 		}
 
-		public static ActionResult Unride(this IObject rider)
+		public static ActionResult? Unride(this IObject rider)
 		{
 			var riderAspect = rider.TryGetAspect<Rider>();
 			if (riderAspect == null) throw new InvalidOperationException("Object is not a rider.");

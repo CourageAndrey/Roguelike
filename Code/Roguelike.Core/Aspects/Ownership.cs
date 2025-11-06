@@ -13,7 +13,7 @@ namespace Roguelike.Core.Aspects
 		public IObject Owner
 		{ get; private set; }
 
-		public event ValueChangedEventHandler<IObject, IObject> OwnerChanged;
+		public event ValueChangedEventHandler<IObject, IObject>? OwnerChanged;
 
 		#endregion
 

@@ -19,11 +19,11 @@ namespace Roguelike.Core.Aspects
 		public decimal Weight
 		{ get { return Items.Sum(item => item.Weight); } }
 
-		public event ValueChangedEventHandler<IMassy, decimal> WeightChanged;
+		public event ValueChangedEventHandler<IMassy, decimal>? WeightChanged;
 
 		#endregion
 
-		public Inventory(IAlive holder, IEnumerable<IItem> items = null)
+		public Inventory(IAlive holder, IEnumerable<IItem>? items = null)
 		{
 			_holder = holder;
 

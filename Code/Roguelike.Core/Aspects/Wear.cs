@@ -9,9 +9,9 @@ namespace Roguelike.Core.Aspects
 		public WearSlot SuitableSlot
 		{ get; }
 
-		public event EventHandler<Wear, IAlive> Equipped;
+		public event EventHandler<Wear, IAlive>? Equipped;
 
-		public event EventHandler<Wear, IAlive> Unequipped;
+		public event EventHandler<Wear, IAlive>? Unequipped;
 
 		public Wear(WearSlot suitableSlot)
 		{

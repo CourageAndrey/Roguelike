@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 using Roguelike.Core.Localization;
 
@@ -21,7 +20,7 @@ namespace Roguelike.Core
 		DownRight = Down | Right,
 	}
 
-	public static class DirectionHelper
+	public static class Directions
 	{
 		public static string GetName(this Direction direction, LanguageDirections language)
 		{
@@ -50,6 +49,42 @@ namespace Roguelike.Core
 			}
 		}
 
-		public static readonly IList<Direction> AllDirections = new ReadOnlyCollection<Direction>(Enum.GetValues(typeof(Direction)).OfType<Direction>().ToList());
+		public static readonly IReadOnlyList<Direction> AllPossible = new ReadOnlyCollection<Direction>(new[]
+		{
+			Direction.None,
+			Direction.Left,
+			Direction.Right,
+			Direction.Up,
+			Direction.Down,
+			Direction.UpLeft,
+			Direction.UpRight,
+			Direction.DownLeft,
+			Direction.DownRight,
+		});
+
+		public static readonly IReadOnlyList<Direction> All8 = new ReadOnlyCollection<Direction>(new[]
+		{
+			Direction.Left,
+			Direction.Right,
+			Direction.Up,
+			Direction.Down,
+			Direction.UpLeft,
+			Direction.UpRight,
+			Direction.DownLeft,
+			Direction.DownRight,
+		});
+
+		public static readonly IReadOnlyList<Direction> All4 = new ReadOnlyCollection<Direction>(new[]
+		{
+			Direction.Left,
+			Direction.Right,
+			Direction.Up,
+			Direction.Down,
+		});
+
+		public static Direction GetRandom(this IReadOnlyList<Direction> list, Random seed)
+		{
+			return list[seed.Next(0, list.Count - 1)];
+		}
 	}
 }

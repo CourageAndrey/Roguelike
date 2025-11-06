@@ -72,7 +72,7 @@ namespace Roguelike.Core
 		public static ActionResult Wander(this IObject actor)
 		{
 			var random = new Random(DateTime.Now.Millisecond);
-			return actor.TryMove(DirectionHelper.AllDirections[random.Next(0, DirectionHelper.AllDirections.Count - 1)]);
+			return actor.TryMove(Directions.AllPossible.GetRandom(random));
 		}
 
 		public static ActionResult Follow(this IObject actor, IObject target)

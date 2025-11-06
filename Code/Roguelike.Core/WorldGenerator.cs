@@ -105,7 +105,7 @@ namespace Roguelike.Core
 			int finalY1 = seed.Next(houseY1 - 1, houseY1 + 1);
 			int finalY2 = finalY1 + seed.Next(minHouseDimension, maxHouseDimension) - 1;
 
-			var doorDirection = _possibleDoorDirections[seed.Next(0, _possibleDoorDirections.Length - 1)];
+			var doorDirection = Directions.All4.GetRandom(seed);
 
 			region.CreateWalls(seed, finalX1, finalX2, finalY1, finalY2, z, doorDirection);
 
@@ -217,14 +217,6 @@ namespace Roguelike.Core
 				region.CreateAnimals(balance, seed, husband, x1, x2, y1, y2, z);
 			}
 		}
-
-		private static readonly Direction[] _possibleDoorDirections = new[]
-		{
-			Direction.Down,
-			Direction.Up,
-			Direction.Left,
-			Direction.Right,
-		};
 
 		private static void placeIntoFreeCell(this Object @object, Region region, Random seed, int x1, int x2, int y1, int y2, int z)
 		{

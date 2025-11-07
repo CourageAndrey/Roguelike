@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 using Roguelike.Core.Chat;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Places;
 
 namespace Roguelike.Core.Aspects
 {
@@ -81,6 +83,21 @@ namespace Roguelike.Core.Aspects
 					_holder.Profession.GetName(language.Character.Professions),
 					_holder.GetAge(_holder.GetWorld().Time),
 					other.Name));
+			}
+			else if (topic == Topic.WhereAreYouFrom)
+			{
+#warning Calculate location
+				return new Text(string.Format(
+					CultureInfo.InvariantCulture,
+					language.Talk.AnswerFormats.Origination,
+					other.GetRegion().Places.OfType<Settlement>().Single().GetName(language)));
+			}
+			else if (topic == Topic.WhereAreWeNow)
+			{
+				return new Text(string.Format(
+					CultureInfo.InvariantCulture,
+					language.Talk.AnswerFormats.CurrentLocation,
+					_holder.BirthPlace.GetName(language)));
 			}
 			else
 			{

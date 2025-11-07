@@ -4,6 +4,7 @@ using System.Drawing;
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Places;
 
 namespace Roguelike.Core.Objects
 {
@@ -16,7 +17,7 @@ namespace Roguelike.Core.Objects
 
 		#endregion
 
-		public Hero(Balance balance, Time now, HeroStartSettings startSettings)
+		public Hero(Region region, Balance balance, Time now, HeroStartSettings startSettings)
 			: base(
 				balance,
 				startSettings.Race,
@@ -25,7 +26,8 @@ namespace Roguelike.Core.Objects
 				startSettings.Name,
 				startSettings.Profession,
 				startSettings.HairColor,
-				startSettings.Haircut)
+				startSettings.Haircut,
+				GetFakeSettlement(region))
 		{
 			AddAspects(new Camera(this, GetVisibleDistance));
 		}
@@ -54,6 +56,15 @@ namespace Roguelike.Core.Objects
 #warning Take dungeons into account
 
 			return Math.Max(1, distance);
+		}
+
+		private static Settlement GetFakeSettlement(Region region)
+		{
+#warning Make existing
+			var cell = region.GetCell(0, 0, 0);
+			new Door().MoveTo(cell);
+			var house = new House(new[] { cell });
+			return new Settlement(new[] { house }, l => string.Empty);
 		}
 
 		protected override ActionResult DoImplementation()

@@ -182,6 +182,7 @@ namespace Roguelike.Core
 		public static Npc CreateFamily(this Region region, Balance balance, Random seed, Race race, Profession profession, string surname, int x1, int x2, int y1, int y2, int z, House house)
 		{
 			var hairColors = race.HairColors.ToList();
+			var settlement = region.Places.OfType<Settlement>().Single();
 
 			var husband = new Npc(
 				balance,
@@ -191,7 +192,8 @@ namespace Roguelike.Core
 				surname,
 				profession,
 				hairColors[seed.Next(hairColors.Count)],
-				Haircut.ShortHairs);
+				Haircut.ShortHairs,
+				settlement);
 			husband.Race.DressCostume(husband);
 			husband.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
@@ -203,7 +205,8 @@ namespace Roguelike.Core
 				surname,
 				profession,
 				hairColors[seed.Next(hairColors.Count)],
-				Haircut.LongHairs);
+				Haircut.LongHairs,
+				settlement);
 			wife.Race.DressCostume(wife);
 			wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 

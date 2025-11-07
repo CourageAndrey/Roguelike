@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Roguelike.Core.Aspects;
+using Roguelike.Core.Places;
 
 namespace Roguelike.Core.Interfaces
 {
@@ -28,6 +29,9 @@ namespace Roguelike.Core.Interfaces
 		{ get; }
 
 		Appearance Appearance
+		{ get; }
+
+		Settlement BirthPlace
 		{ get; }
 	}
 

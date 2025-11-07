@@ -13,6 +13,12 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string AlreadyKnown
 		{ get; set; }
+		[XmlElement]
+		public string Origination
+		{ get; set; }
+		[XmlElement]
+		public string CurrentLocation
+		{ get; set; }
 
 		#endregion
 
@@ -22,6 +28,8 @@ namespace Roguelike.Core.Localization
 			{
 				GetAcquainted = "{0}My name is {1}. I'm {2} and have {3} years old. - And my name is {4}.",
 				AlreadyKnown = "We've already got acquainted. ",
+				Origination = "I'm from {0}.",
+				CurrentLocation = "We are in {0} now.",
 			};
 		}
 	}

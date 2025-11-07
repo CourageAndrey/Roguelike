@@ -7,6 +7,7 @@ using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Places;
 
 namespace Roguelike.Core.Objects
 {
@@ -38,19 +39,24 @@ namespace Roguelike.Core.Objects
 		public Appearance Appearance
 		{ get { return this.GetAspect<Appearance>(); } }
 
+		public Settlement BirthPlace
+		{ get; }
+
 		public override Color SkinColor
 		{ get { return Race.SkinColor; } }
 
 		#endregion
 
-		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, string name, Profession profession, Color hairColor, Haircut haircut)
+		protected Humanoid(Balance balance, Race race, bool sexIsMale, Time birthDate, string name, Profession profession, Color hairColor, Haircut haircut, Settlement birthPlace)
 			: base(balance, sexIsMale, birthDate, race.GetProperties(profession), race.GetItems(profession))
 		{
 			if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+			if (birthPlace == null) throw new ArgumentNullException(nameof(birthPlace));
 
 			Name = name;
 			Race = race;
 			Profession = profession;
+			BirthPlace = birthPlace;
 
 			var mannequin = new Mannequin(this);
 			mannequin.EquipmentChanged += m => CurrentCell?.RefreshView(false);

@@ -52,7 +52,7 @@ namespace Roguelike.Core
 			Regions = this.GenerateRegions();
 			var region = Regions.First();
 
-			Hero = new Hero(balance, _time, heroStartSettings);
+			Hero = new Hero(region, balance, _time, heroStartSettings);
 			var heroCell = region.GetCell(
 				seed.Next(10, balance.WorldSize.RegionXdimension - 50),
 				seed.Next(10, balance.WorldSize.RegionYdimension - 50),

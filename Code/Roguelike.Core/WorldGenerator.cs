@@ -62,6 +62,9 @@ namespace Roguelike.Core
 				houseY1 += maxHouseDimension + seed.Next(1, 2);
 			}
 
+#warning Make settlement names localizable
+			region.Places.Add(new Settlement(houses, l => "Citytown village"));
+
 			for (int i = 0; i < houses.Count; i++)
 			{
 				var race = Race.PlainsMan;

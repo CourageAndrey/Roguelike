@@ -68,10 +68,7 @@ namespace Roguelike.Core
 			Hero.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
 			Hero.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
 			Hero.Mannequin.Jewelry.Add(ItemFactory.CreateRing());
-			foreach (var arrow in ItemFactory.CreateMissiles(MissileType.Arrow, 20))
-			{
-				Hero.Inventory.Items.Add(arrow);
-			}
+			Hero.Inventory.Items.Add(new Pack(ItemFactory.CreateMissile(MissileType.Arrow), 20));
 			Hero.Inventory.Items.Add(ItemFactory.CreateBook(Color.Coral, l => l.HelloWorld, l => l.HelloWorld));
 			Hero.Camera.MakeMapKnown(balance.Distance.HeroInitialView);
 

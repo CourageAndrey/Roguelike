@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Items;
 
 namespace Roguelike.Core.Aspects
 {
@@ -60,6 +61,25 @@ namespace Roguelike.Core.Aspects
 			};
 
 			Items = _items;
+		}
+	}
+
+	public static class InventoryExtensions
+	{
+		public static void RemoveOneItem(this Inventory inventory, IItem item)
+		{
+			var pack = item as Pack;
+			if (pack != null)
+			{
+				if (pack.ChangeCount(-1) == 0)
+				{
+					inventory.Items.Remove(pack);
+				}
+			}
+			else
+			{
+				inventory.Items.Remove(item);
+			}
 		}
 	}
 }

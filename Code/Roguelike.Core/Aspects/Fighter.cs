@@ -228,7 +228,7 @@ namespace Roguelike.Core.Aspects
 			}
 
 			// remove missile
-			_holder.Inventory.Items.Remove(missile);
+			_holder.Inventory.RemoveOneItem(missile);
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, balance.ActionLongevity.Shoot),

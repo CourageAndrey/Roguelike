@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 
 using Roguelike.Core.Aspects;
@@ -21,14 +20,6 @@ namespace Roguelike.Core.Items
 				Color.White,
 				Material.Wood,
 				new Missile(missileType));
-		}
-
-		public static IEnumerable<IItem> CreateMissiles(MissileType missileType, uint count)
-		{
-			for (uint i = 0; i < count; i++)
-			{
-				yield return CreateMissile(missileType);
-			}
 		}
 
 		#endregion

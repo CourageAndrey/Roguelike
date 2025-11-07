@@ -9,6 +9,7 @@ using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 using Roguelike.Core.Objects;
+using Roguelike.Core.Places;
 
 namespace Roguelike.Core
 {

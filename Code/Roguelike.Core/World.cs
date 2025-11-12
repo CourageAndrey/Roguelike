@@ -50,12 +50,12 @@ namespace Roguelike.Core
 				(uint) seed.Next(0, (int) balance.Time.TicksInDay));
 
 			Regions = this.GenerateRegions();
-			var region = Regions.First();
+			var region = Regions.First(r => r.OriginationOf.Contains(heroStartSettings.Race));
 
 			Hero = new Hero(region, balance, _time, heroStartSettings);
 			var heroCell = region.GetCell(
-				seed.Next(10, balance.WorldSize.RegionXdimension - 50),
-				seed.Next(10, balance.WorldSize.RegionYdimension - 50),
+				seed.Next(10, region.Size.X - 50),
+				seed.Next(10, region.Size.Y - 50),
 				0)!;
 			Hero.MoveTo(heroCell);
 			Hero.Inventory.Items.Add(ItemFactory.CreateHatchet());

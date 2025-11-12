@@ -17,15 +17,14 @@ namespace Roguelike.Core
 	{
 		public static IReadOnlyCollection<Region> GenerateRegions(this World world)
 		{
-			var balance = world.Balance.WorldSize;
-
-			var regions = new Region[balance.RegionsCount];
-			for (int r = 0; r < balance.RegionsCount; r++)
+			return new ReadOnlyCollection<Region>(new[]
 			{
-				regions[r] = new Region(world, balance);
-			}
-
-			return new ReadOnlyCollection<Region>(regions);
+				new Region(world, new Vector(384, 128, 1), CellBackground.Snow) { OriginationOf = { Race.Nordman }},
+				new Region(world, new Vector(128, 384, 1), CellBackground.Sand) { OriginationOf = { Race.Nomad }},
+				new Region(world, new Vector(256, 128, 1), CellBackground.Rock) { OriginationOf = { Race.Highlander }},
+				new Region(world, new Vector(256, 256, 1), CellBackground.Grass) { OriginationOf = { Race.PlainsMan }},
+				new Region(world, new Vector(384, 128, 1), CellBackground.Swamp) { OriginationOf = { Race.Jungleman }},
+			});
 		}
 
 		public static void CreateVillage(this Region region, Balance balance, Random seed, Language language, int x1, int x2, int y1, int y2, int z)
@@ -67,7 +66,7 @@ namespace Roguelike.Core
 
 			for (int i = 0; i < houses.Count; i++)
 			{
-				var race = Race.PlainsMan;
+				var race = region.OriginationOf.First();
 				var profession = Profession.Everyman;
 				string surname = profession.IsSurname
 					? profession.GetName(language.Character.Professions)

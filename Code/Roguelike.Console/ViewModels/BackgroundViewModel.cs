@@ -30,6 +30,9 @@ namespace Roguelike.Console.ViewModels
 			{ CellBackground.Grass, new BackgroundViewModel(System.ConsoleColor.Green) },
 			{ CellBackground.Snow, new BackgroundViewModel(System.ConsoleColor.White) },
 			{ CellBackground.Floor, new BackgroundViewModel(System.ConsoleColor.Gray) },
+			{ CellBackground.Sand, new BackgroundViewModel(System.ConsoleColor.Yellow) },
+			{ CellBackground.Rock, new BackgroundViewModel(System.ConsoleColor.Gray) },
+			{ CellBackground.Swamp, new BackgroundViewModel(System.ConsoleColor.Cyan) },
 			{ CellBackground.Water, new BackgroundViewModel(System.ConsoleColor.Blue) },
 		};
 

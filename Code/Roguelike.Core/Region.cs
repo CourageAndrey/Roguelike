@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core
@@ -27,16 +26,15 @@ namespace Roguelike.Core
 
 		private readonly Cell[,,] _cells;
 
+		public readonly ICollection<Race> OriginationOf = new HashSet<Race>();
+
 		#endregion
 
-		public Region(World world, WorldSizeBalance balance)
+		public Region(World world, Vector size, CellBackground defaultCellBackground)
 		{
 			World = world;
 
-			Size = new Vector(
-				balance.RegionXdimension,
-				balance.RegionYdimension,
-				balance.RegionZdimension);
+			Size = size;
 
 			DefaultCellEnvironment = new ExteriorCellEnvironment(this);
 
@@ -47,7 +45,7 @@ namespace Roguelike.Core
 				{
 					for (int z = 0; z < Size.Z; z++)
 					{
-						_cells[x, y, z] = new Cell(this, new Vector(x, y, z), CellBackground.Grass);
+						_cells[x, y, z] = new Cell(this, new Vector(x, y, z), defaultCellBackground);
 					}
 				}
 			}

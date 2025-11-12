@@ -4,7 +4,7 @@
 	{
 		#region Properties
 
-		public int RegionsCount
+		/*public int RegionsCount
 		{ get; set; }
 
 		public int RegionXdimension
@@ -14,7 +14,7 @@
 		{ get; set; }
 
 		public int RegionZdimension
-		{ get; set; }
+		{ get; set; }*/
 
 		#endregion
 
@@ -22,10 +22,10 @@
 		{
 			return new WorldSizeBalance
 			{
-				RegionsCount = 1,
+				/*RegionsCount = 1,
 				RegionXdimension = 128,
 				RegionYdimension = 64,
-				RegionZdimension = 1,
+				RegionZdimension = 1,*/
 			};
 		}
 	}

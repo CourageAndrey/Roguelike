@@ -174,7 +174,12 @@ namespace Roguelike.Core.Aspects
 			var missile = Holder.Inventory.Items
 				.Select<IItem, Missile>()
 				.FirstOrDefault(m => m.GetAspect<Missile>().Type == missileType);
-#warning Check missile for null value.
+			if (missile == null)
+			{
+				return new ActionResult(
+					Time.FromTicks(balance.Time, 0),
+					language.LogActionFormats.NoMissiles);
+			}
 
 			if (!position.Equals(target.Position))
 			{

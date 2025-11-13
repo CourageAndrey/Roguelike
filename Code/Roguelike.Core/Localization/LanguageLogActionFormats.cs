@@ -100,6 +100,9 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string PickpocketFailed
 		{ get; set; }
+		[XmlElement]
+		public string NoMissiles
+		{ get; set; }
 
 		#endregion
 
@@ -138,6 +141,7 @@ namespace Roguelike.Core.Localization
 				ChangeSneakingDisabled = "{0} didn't manage to change sneaking mode",
 				Pickpocket = "{0} pickpockets {1} and steals {2}",
 				PickpocketFailed = "{0} tried to pickpocket {1} but failed",
+				NoMissiles = "{0} tried to shoot but has no missiles",
 			};
 		}
 	}

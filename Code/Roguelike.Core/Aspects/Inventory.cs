@@ -8,11 +8,9 @@ using Roguelike.Core.Items;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Inventory : IAspect, IVariableMassy
+	public class Inventory : AspectWithHolder<IAlive>, IVariableMassy
 	{
 		#region Properties
-
-		private readonly IAlive _holder;
 
 		public ICollection<IItem> Items
 		{ get; }
@@ -25,9 +23,8 @@ namespace Roguelike.Core.Aspects
 		#endregion
 
 		public Inventory(IAlive holder, IEnumerable<IItem>? items = null)
+			: base(holder)
 		{
-			_holder = holder;
-
 			void updateWeight(decimal delta)
 			{
 				var handler = Volatile.Read(ref WeightChanged);
@@ -49,11 +46,11 @@ namespace Roguelike.Core.Aspects
 
 				args.Item.WeightChanged += updateOnItemChange;
 
-				args.Item.RaisePicked(_holder);
+				args.Item.RaisePicked(Holder);
 			};
 			_items.ItemRemoved += (sender, args) =>
 			{
-				args.Item.RaiseDropped(_holder);
+				args.Item.RaiseDropped(Holder);
 
 				args.Item.WeightChanged -= updateOnItemChange;
 

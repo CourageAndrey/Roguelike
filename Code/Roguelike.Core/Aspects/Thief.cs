@@ -5,11 +5,9 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Thief : IAspect
+	public class Thief : AspectWithHolder<IAlive>
 	{
 		#region Properties
-
-		private readonly IAlive _holder;
 
 		public bool IsSneaking
 		{ get; private set; }
@@ -19,16 +17,15 @@ namespace Roguelike.Core.Aspects
 		#endregion
 
 		public Thief(IAlive holder)
-		{
-			_holder = holder;
-		}
+			: base(holder)
+		{ }
 
 		private void RaiseSneakingChanged(bool oldSneaking, bool newSneaking)
 		{
 			var handler = Volatile.Read(ref SneakChanged);
 			if (handler != null)
 			{
-				handler(_holder, oldSneaking, newSneaking);
+				handler(Holder, oldSneaking, newSneaking);
 			}
 		}
 
@@ -36,7 +33,7 @@ namespace Roguelike.Core.Aspects
 		{
 			int time;
 			string logMessage;
-			var game = _holder.GetGame();
+			var game = Holder.GetGame();
 			var language = game.Language.LogActionFormats;
 			var balance = game.World.Balance;
 			Activity? newActivity = null;
@@ -53,12 +50,12 @@ namespace Roguelike.Core.Aspects
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,
 					IsSneaking ? language.StartSneaking : language.StopSneaking,
-					_holder.GetDescription(game.Language, game.Hero));
+					Holder.GetDescription(game.Language, game.Hero));
 			}
 			else
 			{
 				time = balance.ActionLongevity.Disabled;
-				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeSneakingDisabled, _holder.GetDescription(game.Language, game.Hero));
+				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeSneakingDisabled, Holder.GetDescription(game.Language, game.Hero));
 			}
 
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage, newActivity);
@@ -66,7 +63,7 @@ namespace Roguelike.Core.Aspects
 
 		/*public ActionResult Pickpocket(IHumanoid target)
 		{
-			var game = _holder.GetGame();
+			var game = Holder.GetGame();
 			var balance = game.World.Balance;
 			var language = game.Language;
 			var random = new Random(DateTime.Now.Millisecond);
@@ -76,12 +73,12 @@ namespace Roguelike.Core.Aspects
 			{
 				return new ActionResult(
 					Time.FromTicks(balance.Time, balance.ActionLongevity.Disabled),
-					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.PickpocketFailed, _holder.GetDescription(language, game.Hero), target.GetDescription(language, game.Hero)));
+					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.PickpocketFailed, Holder.GetDescription(language, game.Hero), target.GetDescription(language, game.Hero)));
 			}
 
 			// Calculate success chance based on Reaction difference and sneaking state
 			int successChance = 50; // Base chance
-			successChance += ((int)_holder.Properties.Reaction - (int)target.Properties.Reaction) * 10;
+			successChance += ((int)Holder.Properties.Reaction - (int)target.Properties.Reaction) * 10;
 			if (IsSneaking)
 			{
 				successChance += 20; // Bonus for sneaking
@@ -92,11 +89,11 @@ namespace Roguelike.Core.Aspects
 				// Success - steal a random item
 				var itemToSteal = target.Inventory.Items.ElementAt(random.Next(target.Inventory.Items.Count));
 				target.Inventory.Items.Remove(itemToSteal);
-				_holder.Inventory.Items.Add(itemToSteal);
+				Holder.Inventory.Items.Add(itemToSteal);
 
 				return new ActionResult(
 					Time.FromTicks(balance.Time, balance.ActionLongevity.Pickpocket),
-					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Pickpocket, _holder.GetDescription(language, game.Hero), target.GetDescription(language, game.Hero), itemToSteal.GetDescription(language, _holder)));
+					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Pickpocket, Holder.GetDescription(language, game.Hero), target.GetDescription(language, game.Hero), itemToSteal.GetDescription(language, Holder)));
 			}
 			else
 			{
@@ -108,7 +105,7 @@ namespace Roguelike.Core.Aspects
 
 				return new ActionResult(
 					Time.FromTicks(balance.Time, balance.ActionLongevity.Pickpocket),
-					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.PickpocketFailed, _holder.GetDescription(language, game.Hero), target.GetDescription(language, game.Hero)));
+					string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.PickpocketFailed, Holder.GetDescription(language, game.Hero), target.GetDescription(language, game.Hero)));
 			}
 		}*/
 	}

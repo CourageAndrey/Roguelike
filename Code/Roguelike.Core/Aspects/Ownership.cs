@@ -4,11 +4,9 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Ownership : IAspect
+	public class Ownership : AspectWithHolder<IObject>
 	{
 		#region Properties
-
-		private readonly IObject _holder;
 
 		public IObject Owner
 		{ get; private set; }
@@ -18,9 +16,8 @@ namespace Roguelike.Core.Aspects
 		#endregion
 
 		public Ownership(IObject holder)
-		{
-			_holder = holder;
-		}
+			: base(holder)
+		{ }
 
 		public void OwnBy(IObject newOwner)
 		{
@@ -30,7 +27,7 @@ namespace Roguelike.Core.Aspects
 			var handler = Volatile.Read(ref OwnerChanged);
 			if (handler != null)
 			{
-				handler(_holder, oldOwner, newOwner);
+				handler(Holder, oldOwner, newOwner);
 			}
 		}
 	}

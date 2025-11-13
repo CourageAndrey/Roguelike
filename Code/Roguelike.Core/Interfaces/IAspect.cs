@@ -6,6 +6,13 @@ namespace Roguelike.Core.Interfaces
 	public interface IAspect
 	{ }
 
+	public interface IAspectWithHolder<HolderT> : IAspect
+		where HolderT : IAspectHolder
+	{
+		HolderT Holder
+		{ get; }
+	}
+
 	public interface IAspectHolder
 	{
 		IReadOnlyCollection<IAspect> Aspects

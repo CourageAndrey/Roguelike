@@ -5,7 +5,7 @@ using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Appearance : IAspect
+	public class Appearance : AspectWithHolder<IHumanoid>
 	{
 		#region Properties
 
@@ -17,7 +17,8 @@ namespace Roguelike.Core.Aspects
 
 		#endregion
 
-		public Appearance(Color hairColor, Haircut haircut)
+		public Appearance(IHumanoid holder, Color hairColor, Haircut haircut)
+			: base(holder)
 		{
 			HairColor = hairColor;
 			Haircut = haircut;

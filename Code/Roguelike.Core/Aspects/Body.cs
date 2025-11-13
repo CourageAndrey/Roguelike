@@ -7,7 +7,7 @@ using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Body : IAspect, IVariableMassy
+	public class Body : AspectWithHolder<IAlive>, IVariableMassy
 	{
 		#region Properties
 
@@ -30,7 +30,8 @@ namespace Roguelike.Core.Aspects
 
 		#endregion
 
-		private Body(IEnumerable<BodyPart> parts)
+		private Body(IAlive holder, IEnumerable<BodyPart> parts)
+			: base(holder)
 		{
 			var collection = new EventCollection<BodyPart>(parts);
 			collection.ItemAdded += (sender, args) =>
@@ -61,10 +62,10 @@ namespace Roguelike.Core.Aspects
 
 		#region Body constructors
 
-		public static Body CreateHumanoid()
+		public static Body CreateHumanoid(IAlive holder)
 		{
 			var parts = new List<BodyPart>();
-			var body = new Body(parts);
+			var body = new Body(holder, parts);
 			parts.AddRange(new[]
 			{
 				createUsualHead(body, 32),
@@ -78,10 +79,10 @@ namespace Roguelike.Core.Aspects
 			return body;
 		}
 
-		public static Body CreateAnimal()
+		public static Body CreateAnimal(IAlive holder)
 		{
 			var parts = new List<BodyPart>();
-			var body = new Body(parts);
+			var body = new Body(holder, parts);
 			parts.AddRange(new[]
 			{
 				createUsualHead(body, 20),

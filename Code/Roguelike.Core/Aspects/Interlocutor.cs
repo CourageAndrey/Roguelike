@@ -10,11 +10,10 @@ using Roguelike.Core.Places;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Interlocutor : IAspect
+	public class Interlocutor : AspectWithHolder<IHumanoid>
 	{
 		#region Properties
 
-		private readonly IHumanoid _holder;
 		private readonly IDictionary<IHumanoid, Attitude> _attitudes = new Dictionary<IHumanoid, Attitude>();
 
 		public ICollection<IHumanoid> KnownPersons
@@ -26,18 +25,17 @@ namespace Roguelike.Core.Aspects
 		#endregion
 
 		public Interlocutor(IHumanoid holder)
-		{
-			_holder = holder;
-		}
+			: base(holder)
+		{ }
 
 		public string GetName(IHumanoid other)
 		{
-			var language = _holder.GetWorld().Game.Language;
+			var language = Holder.GetWorld().Game.Language;
 			return string.Format(
 				KnownPersons.Contains(other) ? language.Talk.KnownPersonFormat : language.Talk.UnknownPersonFormat,
-				_holder.SexIsMale ? language.Character.SexIsMale : language.Character.SexIsFemale,
-				_holder.Race.GetName(language.Character.Races),
-				_holder.Name);
+				Holder.SexIsMale ? language.Character.SexIsMale : language.Character.SexIsFemale,
+				Holder.Race.GetName(language.Character.Races),
+				Holder.Name);
 		}
 
 		public Attitude GetAttitude(IHumanoid other)
@@ -61,7 +59,7 @@ namespace Roguelike.Core.Aspects
 		public void GetAcquainted(IHumanoid other)
 		{
 			_attitudes[other] = Attitude.Neutral;
-			other.Interlocutor._attitudes[_holder] = Attitude.Neutral;
+			other.Interlocutor._attitudes[Holder] = Attitude.Neutral;
 		}
 
 		public Text Discuss(IHumanoid other, Topic topic, Language language)
@@ -79,9 +77,9 @@ namespace Roguelike.Core.Aspects
 					CultureInfo.InvariantCulture,
 					language.Talk.AnswerFormats.GetAcquainted,
 					isKnown ? language.Talk.AnswerFormats.AlreadyKnown : string.Empty,
-					_holder.Name,
-					_holder.Profession.GetName(language.Character.Professions),
-					_holder.GetAge(_holder.GetWorld().Time),
+					Holder.Name,
+					Holder.Profession.GetName(language.Character.Professions),
+					Holder.GetAge(Holder.GetWorld().Time),
 					other.Name));
 			}
 			else if (topic == Topic.WhereAreYouFrom)
@@ -97,7 +95,7 @@ namespace Roguelike.Core.Aspects
 				return new Text(string.Format(
 					CultureInfo.InvariantCulture,
 					language.Talk.AnswerFormats.CurrentLocation,
-					_holder.BirthPlace.GetName(language)));
+					Holder.BirthPlace.GetName(language)));
 			}
 			else
 			{

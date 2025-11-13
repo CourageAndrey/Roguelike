@@ -4,7 +4,7 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Skilled : IAspect
+	public class Skilled : AspectWithHolder<IHumanoid>
 	{
 		#region Properties
 
@@ -15,5 +15,9 @@ namespace Roguelike.Core.Aspects
 		{ get; } = new Dictionary<Skill, double>();
 
 		#endregion
+
+		public Skilled(IHumanoid holder)
+			: base(holder)
+		{ }
 	}
 }

@@ -7,14 +7,12 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Camera : IAspect
+	public class Camera : AspectWithHolder<IObject>
 	{
 		#region Properties
 
-		private readonly IObject _holder;
-
 		public Cell Cell
-		{ get { return _holder.CurrentCell!; } }
+		{ get { return Holder.CurrentCell!; } }
 
 		public double Distance
 		{ get { return _getDistance(); } }
@@ -32,8 +30,8 @@ namespace Roguelike.Core.Aspects
 		#endregion
 
 		public Camera(IObject holder, Func<double> getDistance)
+			: base(holder)
 		{
-			_holder = holder;
 			_getDistance = getDistance;
 			MapMemory = new HashSet<Cell>();
 			VisibleCells = new Dictionary<Cell, bool>();
@@ -126,8 +124,8 @@ namespace Roguelike.Core.Aspects
 
 		private bool IsNeighborTransparent(Vector cellPosition)
 		{
-			var position = _holder.GetPosition();
-			var region = _holder.GetRegion();
+			var position = Holder.GetPosition();
+			var region = Holder.GetRegion();
 
 			const double rateMinimum = 1d/3,
 						 rateMaximum = 3,

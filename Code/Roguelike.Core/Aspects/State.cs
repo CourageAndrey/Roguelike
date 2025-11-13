@@ -10,12 +10,11 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Aspects
 {
-	public class State : IAspect
+	public class State : AspectWithHolder<IAlive>
 	{
 		#region Properties
 
 		private readonly Balance _balance;
-		private readonly IAlive _owner;
 		private readonly ICollection<IDisease> _diseases;
 		private readonly bool _isDirty;
 		private readonly bool _isPoisoned;
@@ -150,7 +149,7 @@ namespace Roguelike.Core.Aspects
 
 		public State(
 			Balance balance,
-			IAlive owner,
+			IAlive holder,
 			IEnumerable<IDisease>? diseases = null,
 			bool isDirty = false,
 			bool isPoisoned = false,
@@ -168,9 +167,9 @@ namespace Roguelike.Core.Aspects
 			bool isTired = false,
 			int waterLevel = 0,
 			int foodLevel = 0)
+			: base(holder)
 		{
 			_balance = balance;
-			_owner = owner;
 
 			_diseases = new List<IDisease>(diseases ?? Array.Empty<IDisease>());
 
@@ -390,7 +389,7 @@ namespace Roguelike.Core.Aspects
 			{
 				if (random.Next(0, 100) < _balance.Food.OverEatingDeathChancePercent)
 				{
-					_owner.Die(language.DeathReasons.Overeating);
+					Holder.Die(language.DeathReasons.Overeating);
 				}
 				else
 				{
@@ -401,7 +400,7 @@ namespace Roguelike.Core.Aspects
 			{
 				if (random.Next(0, 100) < _balance.Food.OverWaterDeathChancePercent)
 				{
-					_owner.Die(language.DeathReasons.Overwater);
+					Holder.Die(language.DeathReasons.Overwater);
 				}
 				else
 				{
@@ -416,8 +415,8 @@ namespace Roguelike.Core.Aspects
 		{
 			_foodLevel /= 20;
 			_waterLevel /= 5;
-			var hero = _owner.GetHero();
-			(_owner as Active)?.WriteToLog(string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Vomit, _owner.GetDescription(language, hero)));
+			var hero = Holder.GetHero();
+			(Holder as Active)?.WriteToLog(string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Vomit, Holder.GetDescription(language, hero)));
 		}
 
 		public void PassTime(Time span, Language language)
@@ -429,11 +428,11 @@ namespace Roguelike.Core.Aspects
 
 			if (_foodLevel < _balance.Food.HungerDeathLevel)
 			{
-				_owner.Die(language.DeathReasons.Hunger);
+				Holder.Die(language.DeathReasons.Hunger);
 			}
 			if (_waterLevel < _balance.Food.ThirstDeathLevel)
 			{
-				_owner.Die(language.DeathReasons.Thirst);
+				Holder.Die(language.DeathReasons.Thirst);
 			}
 		}
 

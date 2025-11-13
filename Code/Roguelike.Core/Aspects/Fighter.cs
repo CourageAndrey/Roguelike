@@ -9,11 +9,9 @@ using Roguelike.Core.Items;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Fighter : IAspect, IVariableMassy
+	public class Fighter : AspectWithHolder<IAlive>, IVariableMassy
 	{
 		#region Properties
-
-		private readonly IAlive _holder;
 
 		public IItem WeaponToFight
 		{ get; private set; }
@@ -33,16 +31,16 @@ namespace Roguelike.Core.Aspects
 		#endregion
 
 		public Fighter(IAlive holder)
+			: base(holder)
 		{
-			_holder = holder;
-			WeaponToFight = new Unarmed(_holder);
+			WeaponToFight = new Unarmed(holder);
 		}
 
 		public ActionResult ChangeAggressive(bool aggressive)
 		{
 			int time;
 			string logMessage;
-			var game = _holder.GetGame();
+			var game = Holder.GetGame();
 			var language = game.Language.LogActionFormats;
 			var balance = game.World.Balance;
 			Activity? newActivity = null;
@@ -55,12 +53,12 @@ namespace Roguelike.Core.Aspects
 
 				if (aggressive)
 				{
-					WeaponToFight.GetAspect<Weapon>().RaisePreparedForBattle(_holder);
+					WeaponToFight.GetAspect<Weapon>().RaisePreparedForBattle(Holder);
 					newActivity = Activity.Guards;
 				}
 				else
 				{
-					WeaponToFight.GetAspect<Weapon>().RaiseStoppedBattle(_holder);
+					WeaponToFight.GetAspect<Weapon>().RaiseStoppedBattle(Holder);
 					newActivity = Activity.Stands;
 				}
 
@@ -68,13 +66,13 @@ namespace Roguelike.Core.Aspects
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,
 					IsAggressive ? language.StartFight : language.StopFight,
-					_holder.GetDescription(game.Language, game.Hero),
+					Holder.GetDescription(game.Language, game.Hero),
 					WeaponToFight);
 			}
 			else
 			{
 				time = balance.ActionLongevity.Disabled;
-				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeFightModeDisabled, _holder.GetDescription(game.Language, game.Hero));
+				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeFightModeDisabled, Holder.GetDescription(game.Language, game.Hero));
 			}
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage, newActivity);
 		}
@@ -83,7 +81,7 @@ namespace Roguelike.Core.Aspects
 		{
 			int time;
 			string logMessage;
-			var game = _holder.GetGame();
+			var game = Holder.GetGame();
 			var language = game.Language.LogActionFormats;
 			var balance = game.World.Balance;
 
@@ -94,11 +92,11 @@ namespace Roguelike.Core.Aspects
 
 				if (!(oldWeapon is Unarmed))
 				{
-					_holder.Inventory.Items.Add(oldWeapon);
+					Holder.Inventory.Items.Add(oldWeapon);
 				}
 				if (!(weapon is Unarmed))
 				{
-					_holder.Inventory.Items.Remove(weapon);
+					Holder.Inventory.Items.Remove(weapon);
 				}
 
 				RaiseWeaponChanged(oldWeapon, weapon);
@@ -107,14 +105,14 @@ namespace Roguelike.Core.Aspects
 				logMessage = string.Format(
 					CultureInfo.InvariantCulture,
 					language.ChangeWeapon,
-					_holder.GetDescription(game.Language, game.Hero),
+					Holder.GetDescription(game.Language, game.Hero),
 					oldWeapon,
 					weapon);
 			}
 			else
 			{
 				time = balance.ActionLongevity.Disabled;
-				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeWeaponDisabled, _holder.GetDescription(game.Language, game.Hero));
+				logMessage = string.Format(CultureInfo.InvariantCulture, language.ChangeWeaponDisabled, Holder.GetDescription(game.Language, game.Hero));
 			}
 
 			return new ActionResult(Time.FromTicks(balance.Time, time), logMessage);
@@ -122,7 +120,7 @@ namespace Roguelike.Core.Aspects
 
 		public ActionResult Backstab(IAlive target)
 		{
-			var game = _holder.GetGame();
+			var game = Holder.GetGame();
 			var language = game.Language;
 			var balance = game.World.Balance;
 
@@ -133,7 +131,7 @@ namespace Roguelike.Core.Aspects
 					CultureInfo.InvariantCulture,
 					language.LogActionFormats.Backstab,
 					target.GetDescription(language, game.Hero),
-					_holder.GetDescription(language, game.Hero),
+					Holder.GetDescription(language, game.Hero),
 					WeaponToFight.GetDescription(language, game.Hero)));
 		}
 
@@ -141,22 +139,22 @@ namespace Roguelike.Core.Aspects
 		{
 			if (WeaponToFight.GetAspect<Weapon>().IsRange) return null;
 
-			var world = _holder.GetWorld();
+			var world = Holder.GetWorld();
 			var game = world.Game;
 			var balance = world.Balance;
 			var language = game.Language;
 			var random = new Random(DateTime.Now.Millisecond);
 
 			int hitPossibility = balance.Player.BaseHitPossibility;
-			hitPossibility += (_holder.Properties.Reaction - target.Properties.Reaction) * 10;
+			hitPossibility += (Holder.Properties.Reaction - target.Properties.Reaction) * 10;
 			if (random.Next(0, 100) < hitPossibility)
 			{
-				target.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, _holder.GetDescription(game.Language, game.Hero)));
+				target.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, Holder.GetDescription(game.Language, game.Hero)));
 			}
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, (int)(balance.ActionLongevity.Attack)),
-				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Attack, _holder.GetDescription(game.Language, game.Hero), target, WeaponToFight),
+				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Attack, Holder.GetDescription(game.Language, game.Hero), target, WeaponToFight),
 				Activity.Fights);
 		}
 
@@ -164,8 +162,8 @@ namespace Roguelike.Core.Aspects
 		{
 			if (!WeaponToFight.GetAspect<Weapon>().IsRange) return null;
 
-			var position = _holder.CurrentCell!.Position;
-			var region = _holder.CurrentCell.Region;
+			var position = Holder.CurrentCell!.Position;
+			var region = Holder.CurrentCell.Region;
 			var world = region.World;
 			var game = world.Game;
 			var balance = world.Balance;
@@ -173,7 +171,7 @@ namespace Roguelike.Core.Aspects
 			var random = new Random(DateTime.Now.Millisecond);
 
 			var missileType = WeaponToFight.GetAspect<RangeWeapon>().Type;
-			var missile = _holder.Inventory.Items
+			var missile = Holder.Inventory.Items
 				.Select<IItem, Missile>()
 				.FirstOrDefault(m => m.GetAspect<Missile>().Type == missileType);
 #warning Check missile for null value.
@@ -220,19 +218,19 @@ namespace Roguelike.Core.Aspects
 			if (aim != null)
 			{
 				int hitPossibility = balance.Player.BaseHitPossibility;
-				hitPossibility += (_holder.Properties.Perception - aim.Properties.Reaction) * 10;
+				hitPossibility += (Holder.Properties.Perception - aim.Properties.Reaction) * 10;
 				if (random.Next(0, 100) < hitPossibility)
 				{
-					aim.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, _holder.GetDescription(game.Language, game.Hero)));
+					aim.Die(string.Format(CultureInfo.InvariantCulture, language.DeathReasons.Killed, Holder.GetDescription(game.Language, game.Hero)));
 				}
 			}
 
 			// remove missile
-			_holder.Inventory.RemoveOneItem(missile);
+			Holder.Inventory.RemoveOneItem(missile);
 
 			return new ActionResult(
 				Time.FromTicks(balance.Time, balance.ActionLongevity.Shoot),
-				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Shoot, _holder.GetDescription(game.Language, game.Hero), target, WeaponToFight),
+				string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Shoot, Holder.GetDescription(game.Language, game.Hero), target, WeaponToFight),
 				Activity.Fights);
 		}
 
@@ -241,7 +239,7 @@ namespace Roguelike.Core.Aspects
 			var handler = Volatile.Read(ref AggressiveChanged);
 			if (handler != null)
 			{
-				handler(_holder, oldAggressive, newAggressive);
+				handler(Holder, oldAggressive, newAggressive);
 			}
 		}
 
@@ -250,13 +248,13 @@ namespace Roguelike.Core.Aspects
 			var weaponHandler = Volatile.Read(ref WeaponChanged);
 			if (weaponHandler != null)
 			{
-				weaponHandler(_holder, oldWeapon, newWeapon);
+				weaponHandler(Holder, oldWeapon, newWeapon);
 			}
 
 			var weightChanged = Volatile.Read(ref WeightChanged);
 			if (weightChanged != null)
 			{
-				weightChanged(_holder, oldWeapon.Weight, newWeapon.Weight);
+				weightChanged(Holder, oldWeapon.Weight, newWeapon.Weight);
 			}
 		}
 	}

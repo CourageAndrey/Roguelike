@@ -8,11 +8,10 @@ using Roguelike.Core.Items;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Mannequin : IAspect
+	public class Mannequin : AspectWithHolder<IHumanoid>
 	{
 		#region Properties
 
-		private readonly IHumanoid _holder;
 		private readonly Naked _naked;
 
 		public IItem HeadWear
@@ -70,7 +69,7 @@ namespace Roguelike.Core.Aspects
 			var handler = Volatile.Read(ref EquipmentChanged);
 			if (handler != null)
 			{
-				handler(_holder);
+				handler(Holder);
 			}
 		}
 
@@ -83,11 +82,11 @@ namespace Roguelike.Core.Aspects
 			IItem handsWear = null,
 			IItem footsWear = null,
 			IEnumerable<IItem> jewelry = null)
+			: base(holder)
 		{
 			if (holder == null) throw new ArgumentNullException(nameof(holder));
 
-			_holder = holder;
-			_naked = new Naked(_holder);
+			_naked = new Naked(Holder);
 
 			HeadWear = headWear ?? _naked;
 			UpperBodyWear = upperBodyWear ?? _naked;
@@ -99,13 +98,13 @@ namespace Roguelike.Core.Aspects
 			var jewelryCollection = new EventCollection<IItem>(jewelry ?? Array.Empty<IItem>());
 			jewelryCollection.ItemAdded += (sender, eventArgs) =>
 			{
-				eventArgs.Item.GetAspect<Wear>().RaiseEquipped(_holder);
+				eventArgs.Item.GetAspect<Wear>().RaiseEquipped(Holder);
 				RaiseEquipmentChanged();
 			};
 			jewelryCollection.ItemRemoved += (sender, eventArgs) =>
 			{
 				RaiseEquipmentChanged();
-				eventArgs.Item.GetAspect<Wear>().RaiseUnequipped(_holder);
+				eventArgs.Item.GetAspect<Wear>().RaiseUnequipped(Holder);
 			};
 			Jewelry = jewelryCollection;
 		}
@@ -116,16 +115,16 @@ namespace Roguelike.Core.Aspects
 
 			if (itemSlot != null && !(itemSlot is Naked))
 			{
-				itemSlot.GetAspect<Wear>().RaiseUnequipped(_holder);
-				_holder.Inventory.Items.Add(itemSlot);
+				itemSlot.GetAspect<Wear>().RaiseUnequipped(Holder);
+				Holder.Inventory.Items.Add(itemSlot);
 			}
 			itemSlot = newItem;
 			if (!(itemSlot is Naked))
 			{
 				if (newItem.GetAspect<Wear>().SuitableSlot == slot)
 				{
-					itemSlot.GetAspect<Wear>().RaiseEquipped(_holder);
-					_holder.Inventory.Items.Remove(itemSlot);
+					itemSlot.GetAspect<Wear>().RaiseEquipped(Holder);
+					Holder.Inventory.Items.Remove(itemSlot);
 				}
 				else
 				{

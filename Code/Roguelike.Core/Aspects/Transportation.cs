@@ -6,11 +6,9 @@ using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core.Aspects
 {
-	public class Transport : IAspect
+	public class Transport : AspectWithHolder<IObject>
 	{
 		#region Properties
-
-		private readonly IObject _holder;
 
 		public IObject? Rider
 		{
@@ -21,7 +19,7 @@ namespace Roguelike.Core.Aspects
 				{
 					_rider = value;
 					_rider.GetAspect<Rider>().Transport = this;
-					_holder.MoveTo(null);
+					Holder.MoveTo(null);
 				}
 				else if (_rider != null && value == null)
 				{
@@ -30,7 +28,7 @@ namespace Roguelike.Core.Aspects
 					cells.Remove(Direction.None);
 					var horseCell = cells.Values.First(c => c.IsTransparent);
 
-					_holder.MoveTo(horseCell);
+					Holder.MoveTo(horseCell);
 
 					_rider.GetAspect<Rider>().Transport = null;
 					_rider = null;
@@ -47,16 +45,15 @@ namespace Roguelike.Core.Aspects
 		#endregion
 
 		public Transport(IObject holder)
-		{
-			_holder = holder;
-		}
+			: base(holder)
+		{ }
 	}
 
 	public class Rider : IAspect
 	{
 		#region Properties
 
-		private readonly IObject _holder;
+		private readonly IObject Holder;
 
 		public Transport? Transport
 		{
@@ -64,7 +61,7 @@ namespace Roguelike.Core.Aspects
 			set
 			{
 				_transport = value;
-				_holder.CurrentCell.RefreshView(false);
+				Holder.CurrentCell.RefreshView(false);
 			}
 		}
 
@@ -74,7 +71,7 @@ namespace Roguelike.Core.Aspects
 
 		public Rider(IObject holder)
 		{
-			_holder = holder;
+			Holder = holder;
 		}
 	}
 

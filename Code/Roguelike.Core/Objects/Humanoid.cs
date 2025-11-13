@@ -63,10 +63,10 @@ namespace Roguelike.Core.Objects
 
 			AddAspects(
 				mannequin,
-				new Skilled(),
+				new Skilled(this),
 				new Rider(this),
 				new Interlocutor(this),
-				new Appearance(hairColor, haircut));
+				new Appearance(this, hairColor, haircut));
 
 #warning Need to recalculate total weight here because mannequin is not included now - even if it's empty.
 		}
@@ -80,7 +80,7 @@ namespace Roguelike.Core.Objects
 
 		public override Body CreateBody()
 		{
-			return Body.CreateHumanoid();
+			return Body.CreateHumanoid(this);
 		}
 
 		public override string GetDescription(Language language, IAlive forWhom)

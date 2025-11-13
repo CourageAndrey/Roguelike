@@ -7,5 +7,7 @@
 		{ get; }
 
 		ActionResult Do();
+
+		Time SetNextActionTime(Time longevity);
 	}
 }

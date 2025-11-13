@@ -167,7 +167,7 @@ namespace Roguelike.Core
 		{
 			foreach (var a in GetActiveObjects(false))
 			{
-				a.NextActionTime = World.Time;
+				a.Initialize(World);
 			}
 		}
 

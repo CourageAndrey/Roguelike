@@ -125,12 +125,11 @@ namespace Roguelike.Core
 				alive.State.SetActivity(actionResult.NewActivity);
 			}
 
-#warning Wrong typecast.
-			(actor as Active).NextActionTime += actionResult.Longevity;
-			if ((actor.NextActionTime != null) && (actor.NextActionTime > _time))
+			var nextActionTime = actor.SetNextActionTime(actionResult.Longevity);
+			if (nextActionTime > _time)
 			{
 				var previousDayPart = _time.DayPart;
-				_time = actor.NextActionTime.Value;
+				_time = nextActionTime;
 				if (_time.DayPart != previousDayPart)
 				{
 					Hero.Camera.RefreshVisibleCells();

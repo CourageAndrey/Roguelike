@@ -12,7 +12,7 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Objects
 {
-	public abstract class Alive : Active, IAlive
+	public abstract class Alive : Object, IAlive
 	{
 		#region Properties
 
@@ -150,7 +150,12 @@ namespace Roguelike.Core.Objects
 				new State(balance, this),
 				_inventory,
 				new Fighter(this),
-				new Thief(this));
+				new Thief(this),
+				new Active(this, () =>
+				{
+					var result = DoImplementation();
+					return new ActionResult(result.Longevity.Scale(Speed), result.LogMessages);
+				}));
 
 			Weight = GetTotalWeight();
 		}
@@ -186,12 +191,6 @@ namespace Roguelike.Core.Objects
 			return new ActionResult(
 				Time.FromTicks(balance.Time, balance.ActionLongevity.DropItem),
 				string.Format(CultureInfo.InvariantCulture, language.DropItem, GetDescription(game.Language, game.Hero), item));
-		}
-
-		public sealed override ActionResult Do()
-		{
-			var result = DoImplementation();
-			return new ActionResult(result.Longevity.Scale(Speed), result.LogMessages);
 		}
 
 		protected abstract ActionResult DoImplementation();

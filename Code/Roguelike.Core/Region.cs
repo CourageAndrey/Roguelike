@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 
 namespace Roguelike.Core
@@ -182,7 +183,14 @@ namespace Roguelike.Core
 					{
 						for (int z = 0; z < Size.Z; z++)
 						{
-							actives.AddRange(_cells[x, y, z].Objects.OfType<Active>());
+							foreach (var o in _cells[x, y, z].Objects)
+							{
+								Active active;
+								if ((active = o.TryGetAspect<Active>()) != null)
+								{
+									actives.Add(active);
+								}
+							}
 						}
 					}
 				}
@@ -193,7 +201,7 @@ namespace Roguelike.Core
 
 				foreach (var active in actives)
 				{
-					active.OnLogMessage += OnLogMessage;
+					active.Holder.OnLogMessage += OnLogMessage;
 				}
 
 				_activeCache = new Queue<Active>(actives);
@@ -207,7 +215,7 @@ namespace Roguelike.Core
 			{
 				foreach (var active in _activeCache)
 				{
-					active.OnLogMessage -= OnLogMessage;
+					active.Holder.OnLogMessage -= OnLogMessage;
 				}
 			}
 			_activeCache = null;

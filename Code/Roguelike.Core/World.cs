@@ -96,7 +96,7 @@ namespace Roguelike.Core
 			var currentRegion = Hero.GetRegion();
 			var actors = currentRegion.GetActiveObjects();
 			var nextActor = actors.Dequeue();
-			while (nextActor != Hero)
+			while (nextActor.Holder != Hero)
 			{
 				var beforeActionTime = nextActor.NextActionTime;
 				var performedAction = nextActor.Do();
@@ -112,14 +112,14 @@ namespace Roguelike.Core
 			currentRegion.ResetActiveCache();
 		}
 
-		public void ApplyAction(IActive actor, ActionResult actionResult)
+		public void ApplyAction(Active actor, ActionResult actionResult)
 		{
 			foreach (string line in actionResult.LogMessages)
 			{
 				Game.WriteLog(line);
 			}
 
-			var alive = actor as IAlive;
+			var alive = actor.Holder as IAlive;
 			if (alive != null && actionResult.NewActivity != null)
 			{
 				alive.State.SetActivity(actionResult.NewActivity);

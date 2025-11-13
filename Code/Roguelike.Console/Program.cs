@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 
 using Roguelike.Core;
+using Roguelike.Core.Aspects;
+using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Console
@@ -50,7 +52,7 @@ namespace Roguelike.Console
 				if (performedAction != null)
 				{
 					var longevity = performedAction.Longevity.Scale(hero.Speed);
-					world.ApplyAction(hero, new ActionResult(longevity, performedAction.LogMessages));
+					world.ApplyAction(hero.GetAspect<Active>(), new ActionResult(longevity, performedAction.LogMessages));
 					world.DoOneStep();
 					hero.State.PassTime(longevity, language);
 				}

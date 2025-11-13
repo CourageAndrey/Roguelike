@@ -416,7 +416,7 @@ namespace Roguelike.Core.Aspects
 			_foodLevel /= 20;
 			_waterLevel /= 5;
 			var hero = Holder.GetHero();
-			(Holder as Active)?.WriteToLog(string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Vomit, Holder.GetDescription(language, hero)));
+			Holder.WriteToLog(string.Format(CultureInfo.InvariantCulture, language.LogActionFormats.Vomit, Holder.GetDescription(language, hero)));
 		}
 
 		public void PassTime(Time span, Language language)

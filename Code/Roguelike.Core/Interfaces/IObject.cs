@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Linq;
 
 using Roguelike.Core.Aspects;
 
@@ -22,27 +21,27 @@ namespace Roguelike.Core.Interfaces
 
 	public static class ObjectExtensions
 	{
-		public static Vector GetPosition(this IObject obj)
+		public static Vector? GetPosition(this IObject obj)
 		{
 			return obj.CurrentCell?.Position;
 		}
 
-		public static Region GetRegion(this IObject obj)
+		public static Region? GetRegion(this IObject obj)
 		{
 			return obj.CurrentCell?.Region;
 		}
 
-		public static World GetWorld(this IObject obj)
+		public static World? GetWorld(this IObject obj)
 		{
 			return obj.GetRegion()?.World;
 		}
 
-		public static Game GetGame(this IObject obj)
+		public static Game? GetGame(this IObject obj)
 		{
 			return obj.GetWorld()?.Game;
 		}
 
-		public static IHero GetHero(this IObject obj)
+		public static IHero? GetHero(this IObject obj)
 		{
 			return obj.GetWorld()?.Hero;
 		}
@@ -63,7 +62,7 @@ namespace Roguelike.Core.Interfaces
 				var language = game.Language.LogActionFormats;
 
 				var alive = obj as IAlive;
-				IAlive target = null;
+				IAlive? target = null;
 				bool canAttack =	alive?.Fighter?.IsAggressive == true &&
 									alive?.Fighter?.WeaponToFight?.GetAspect<Weapon>()?.IsRange == false &&
 									(target = newCell.Objects.OfType<IAlive>().FirstOrDefault()) != null;
@@ -76,7 +75,7 @@ namespace Roguelike.Core.Interfaces
 				}
 				else
 				{
-					Activity newActivity = alive?.Fighter?.IsAggressive == false
+					Activity? newActivity = alive?.Fighter?.IsAggressive == false
 						? (alive?.Thief?.IsSneaking == true ? Activity.Sneaks : Activity.Walks)
 						: null;
 

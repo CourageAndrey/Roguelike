@@ -74,8 +74,7 @@ namespace Roguelike.Core.Objects
 		protected override decimal GetTotalWeight()
 		{
 			var mannequin = this.TryGetAspect<Mannequin>();
-			return base.GetTotalWeight() +
-					(mannequin?.GetAllItems() ?? Array.Empty<IItem>() as IEnumerable<IItem>).Sum(wear => wear.Weight);
+			return base.GetTotalWeight() + (mannequin?.GetAllItems() ?? Array.Empty<IItem>()).Sum(wear => wear.Weight);
 		}
 
 		public override Body CreateBody()

@@ -185,7 +185,7 @@ namespace Roguelike.Core
 						{
 							foreach (var o in _cells[x, y, z].Objects)
 							{
-								Active active;
+								Active? active;
 								if ((active = o.TryGetAspect<Active>()) != null)
 								{
 									actives.Add(active);

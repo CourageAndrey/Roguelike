@@ -61,12 +61,11 @@ namespace Roguelike.Core
 				houseY1 += maxHouseDimension + seed.Next(1, 2);
 			}
 
-#warning Make settlement names localizable
-			region.Places.Add(new Settlement(houses, l => "Citytown village"));
+			var race = region.OriginationOf.First();
+			region.Places.Add(new Settlement(houses, l => race.DefaultSettlementName));
 
 			for (int i = 0; i < houses.Count; i++)
 			{
-				var race = region.OriginationOf.First();
 				var profession = Profession.Everyman;
 				string surname = profession.IsSurname
 					? profession.GetName(language.Character.Professions)

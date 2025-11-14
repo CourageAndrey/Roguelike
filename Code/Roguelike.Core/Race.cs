@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Drawing;
 
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
@@ -30,6 +27,9 @@ namespace Roguelike.Core
 		public IReadOnlyList<string> Surnames
 		{ get; }
 
+		public string DefaultSettlementName
+		{ get; }
+
 		#endregion
 
 		private Race(
@@ -40,7 +40,8 @@ namespace Roguelike.Core
 			IEnumerable<Color> hairColors,
 			IEnumerable<string> surnames,
 			Func<Profession, Properties> getProperties,
-			Func<Profession, IEnumerable<IItem>> getItems)
+			Func<Profession, IEnumerable<IItem>> getItems,
+			string defaultSettlementName)
 		{
 			_getRaceName = getName;
 			_dressCostume = dressCostume;
@@ -50,6 +51,7 @@ namespace Roguelike.Core
 			Surnames = surnames.ToArray();
 			_getProperties = getProperties;
 			_getItems = getItems;
+			DefaultSettlementName = defaultSettlementName;
 		}
 
 		public string GetName(LanguageRaces language)
@@ -156,7 +158,8 @@ namespace Roguelike.Core
 				"Adams",
 			},
 			profession => new Properties(10, 10, 30, 10, 10, 10),
-			profession => Array.Empty<IItem>());
+			profession => Array.Empty<IItem>(),
+			"Citytown village");
 
 		public static readonly Race Nomad = new Race(
 			language => "Nomad",
@@ -215,7 +218,8 @@ namespace Roguelike.Core
 				"Oktaj",
 			},
 			profession => new Properties(10, 10, 30, 10, 10, 10),
-			profession => Array.Empty<IItem>());
+			profession => Array.Empty<IItem>(),
+			"Qaryat al-madina al-balad");
 
 		public static readonly Race Highlander = new Race(
 			language => "Highlander",
@@ -267,7 +271,8 @@ namespace Roguelike.Core
 				"Walsh",
 			},
 			profession => new Properties(10, 10, 30, 10, 10, 10),
-			profession => Array.Empty<IItem>());
+			profession => Array.Empty<IItem>(),
+			"Bailebhaile sráidbhaile");
 
 		public static readonly Race Jungleman = new Race(
 			language => "Jungleman",
@@ -314,7 +319,8 @@ namespace Roguelike.Core
 				"kojotl",
 			},
 			profession => new Properties(10, 10, 30, 10, 10, 10),
-			profession => Array.Empty<IItem>());
+			profession => Array.Empty<IItem>(),
+			"Altépetl-calpolli ranchito");
 
 		public static readonly Race Nordman = new Race(
 			language => "Nordman",
@@ -385,7 +391,8 @@ namespace Roguelike.Core
 				"Björk",
 			},
 			profession => new Properties(10, 10, 30, 10, 10, 10),
-			profession => Array.Empty<IItem>());
+			profession => Array.Empty<IItem>(),
+			"Bystad landsby");
 
 		public static readonly IReadOnlyCollection<Race> All = new[]
 		{

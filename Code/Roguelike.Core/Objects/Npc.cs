@@ -1,4 +1,5 @@
 ﻿using Roguelike.Core.Configuration;
+using Roguelike.Core.Localization;
 using Roguelike.Core.Places;
 
 using System.Drawing;
@@ -13,8 +14,8 @@ namespace Roguelike.Core.Objects
 
 		#endregion
 
-		public Npc(Balance balance, Race race, bool sexIsMale, Time birthDate, string surname, Profession profession, Color hairColor, Haircut haircut, Settlement birthPlace)
-			: base(balance, race, sexIsMale, birthDate, race.GenerateName(sexIsMale, surname), profession, hairColor, haircut, birthPlace)
+		public Npc(Balance balance, Race race, bool sexIsMale, Time birthDate, string surname, Profession profession, Color hairColor, Haircut haircut, Settlement birthPlace, Language language)
+			: base(balance, race, sexIsMale, birthDate, race.GenerateName(sexIsMale, surname, language.Character.Races), profession, hairColor, haircut, birthPlace)
 		{ }
 
 		protected override ActionResult DoImplementation()

@@ -12,9 +12,8 @@ namespace Roguelike.Core
 	{
 		#region Properties
 
-		private readonly Func<LanguageRaces, string> _getRaceName;
+		private readonly Func<LanguageRaces, LanguageRace> _getRaceInfo;
 		private readonly Action<Humanoid> _dressCostume;
-		private readonly Func<bool, string, string> _generateName;
 		private readonly Func<Profession, Properties> _getProperties;
 		private readonly Func<Profession, IEnumerable<IItem>> _getItems;
 
@@ -24,39 +23,27 @@ namespace Roguelike.Core
 		public IReadOnlyCollection<Color> HairColors
 		{ get; }
 
-		public IReadOnlyList<string> Surnames
-		{ get; }
-
-		public string DefaultSettlementName
-		{ get; }
-
 		#endregion
 
 		private Race(
-			Func<LanguageRaces, string> getName,
+			Func<LanguageRaces, LanguageRace> getRaceInfo,
 			Action<Humanoid> dressCostume,
-			Func<bool, string, string> generateName,
 			Color skinColor,
 			IEnumerable<Color> hairColors,
-			IEnumerable<string> surnames,
 			Func<Profession, Properties> getProperties,
-			Func<Profession, IEnumerable<IItem>> getItems,
-			string defaultSettlementName)
+			Func<Profession, IEnumerable<IItem>> getItems)
 		{
-			_getRaceName = getName;
+			_getRaceInfo = getRaceInfo;
 			_dressCostume = dressCostume;
-			_generateName = generateName;
 			SkinColor = skinColor;
 			HairColors = hairColors.ToArray();
-			Surnames = surnames.ToArray();
 			_getProperties = getProperties;
 			_getItems = getItems;
-			DefaultSettlementName = defaultSettlementName;
 		}
 
 		public string GetName(LanguageRaces language)
 		{
-			return _getRaceName(language);
+			return _getRaceInfo(language).Name;
 		}
 
 		public void DressCostume(Humanoid humanoid)
@@ -64,9 +51,22 @@ namespace Roguelike.Core
 			_dressCostume(humanoid);
 		}
 
-		public string GenerateName(bool sexIsMale, string familyName)
+		public string GenerateName(bool sexIsMale, string familyName, LanguageRaces language)
 		{
-			return _generateName(sexIsMale, familyName);
+			var raceInfo = _getRaceInfo(language);
+			var names = sexIsMale ? raceInfo.Names.Male : raceInfo.Names.Female;
+			var random = new Random(DateTime.Now.Millisecond);
+			return names[random.Next(0, names.Length - 1)] + " " + familyName;
+		}
+
+		public IReadOnlyList<string> GetSurnames(LanguageRaces language)
+		{
+			return _getRaceInfo(language).Surnames;
+		}
+
+		public string GetDefaultSettlementName(LanguageRaces language)
+		{
+			return _getRaceInfo(language).DefaultSettlementName;
 		}
 
 		public Properties GetProperties(Profession profession)
@@ -81,15 +81,8 @@ namespace Roguelike.Core
 
 		#region List
 
-		private static string GenerateRandomName(bool isMale, IList<string> maleNames, IList<string> femaleNames, string familyName)
-		{
-			var names = isMale ? maleNames : femaleNames;
-			var random = new Random(DateTime.Now.Millisecond);
-			return names[random.Next(0, names.Count - 1)] + " " + familyName;
-		}
-
 		public static readonly Race PlainsMan = new Race(
-			language => "Plainsman",
+			language => language.Plainsman,
 			humanoid =>
 			{
 				if (humanoid.SexIsMale)
@@ -103,66 +96,13 @@ namespace Roguelike.Core
 					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
 				}
 			},
-			(sexIsMale, familyName) =>
-			{
-				var maleNames = new List<string>
-				{
-					"John",
-					"Bill",
-					"Bob",
-					"Tom",
-					"Edward",
-					"Harry",
-					"Jack",
-					"Charles",
-					"George",
-					"Henry",
-					"Louis",
-					"Oscar",
-				};
-
-				var femaleNames = new List<string>
-				{
-					"Emma",
-					"Alice",
-					"Berta",
-					"Ella",
-					"Charlotte",
-					"Amelia",
-					"Lillian",
-					"Eleanor",
-					"Lucy",
-					"Juliet",
-				};
-
-				return GenerateRandomName(sexIsMale, maleNames, femaleNames, familyName);
-			},
 			Color.White,
 			new[] { Color.Black },
-			new[]
-			{
-				"Black",
-				"White",
-				"Green",
-				"Brown",
-				"Evans",
-				"Stone",
-				"Roberts",
-				"Mills",
-				"Lewis",
-				"Morgan",
-				"Florence",
-				"Campbell",
-				"Bronte",
-				"Bell",
-				"Adams",
-			},
 			profession => new Properties(10, 10, 30, 10, 10, 10),
-			profession => Array.Empty<IItem>(),
-			"Citytown village");
+			profession => Array.Empty<IItem>());
 
 		public static readonly Race Nomad = new Race(
-			language => "Nomad",
+			language => language.Nomad,
 			humanoid =>
 			{
 				if (humanoid.SexIsMale)
@@ -176,53 +116,13 @@ namespace Roguelike.Core
 					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.SandyBrown);
 				}
 			},
-			(sexIsMale, familyName) =>
-			{
-				var maleNames = new List<string>
-				{
-					"Abbas",
-					"Abu",
-					"Aziz",
-					"Ali",
-					"Valid",
-					"Jabir",
-					"Zahir",
-					"Imran",
-					"Ibrahim",
-					"Karim",
-					"Maimun",
-					"Mubarak",
-				};
-
-				var femaleNames = new List<string>
-				{
-					"Aisha",
-					"Basma",
-					"Jamila",
-					"Zainab",
-					"Zuhra",
-					"Leila",
-					"Mariam",
-				};
-
-				return GenerateRandomName(sexIsMale, maleNames, femaleNames, familyName);
-			},
 			Color.SaddleBrown,
 			new[] { Color.Black },
-			new[]
-			{
-				"Hagan",
-				"Hulgana",
-				"Shona",
-				"Naran",
-				"Oktaj",
-			},
 			profession => new Properties(10, 10, 30, 10, 10, 10),
-			profession => Array.Empty<IItem>(),
-			"Qaryat al-madina al-balad");
+			profession => Array.Empty<IItem>());
 
 		public static readonly Race Highlander = new Race(
-			language => "Highlander",
+			language => language.Highlander,
 			humanoid =>
 			{
 				if (humanoid.SexIsMale)
@@ -235,47 +135,14 @@ namespace Roguelike.Core
 					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.DarkGreen);
 					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.White);
 				}
-			},
-			(sexIsMale, familyName) =>
-			{
-				var maleNames = new List<string>
-				{
-					"Breasal",
-					"Brian",
-					"Conall",
-					"Conan",
-					"Kenneth",
-					"Lorcan",
-					"Niall",
-					"Rian",
-				};
-
-				var femaleNames = new List<string>
-				{
-					"Eithne",
-					"Deirdre",
-					"Sorcha",
-				};
-
-				return GenerateRandomName(sexIsMale, maleNames, femaleNames, familyName);
 			},
 			Color.LightGray,
 			new[] { Color.Black },
-			new[]
-			{
-				"McCartney",
-				"O'Sullivan",
-				"O'Connor",
-				"O'Neill",
-				"O'Reilly",
-				"Walsh",
-			},
 			profession => new Properties(10, 10, 30, 10, 10, 10),
-			profession => Array.Empty<IItem>(),
-			"Bailebhaile sráidbhaile");
+			profession => Array.Empty<IItem>());
 
 		public static readonly Race Jungleman = new Race(
-			language => "Jungleman",
+			language => language.Jungleman,
 			humanoid =>
 			{
 				if (humanoid.SexIsMale)
@@ -289,41 +156,13 @@ namespace Roguelike.Core
 					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LimeGreen);
 				}
 			},
-			(sexIsMale, familyName) =>
-			{
-				var maleNames = new List<string>
-				{
-					"Amokstly",
-					"Zolin",
-					"Ikstly",
-					"Kitlaly",
-					"Koatle",
-				};
-
-				var femaleNames = new List<string>
-				{
-					"Zelcine",
-					"Iskacine",
-					"Papan",
-					"Tlako",
-				};
-
-				return GenerateRandomName(sexIsMale, maleNames, femaleNames, familyName);
-			},
 			Color.RosyBrown,
 			new[] { Color.Black },
-			new[]
-			{
-				"Atl",
-				"Ake",
-				"kojotl",
-			},
 			profession => new Properties(10, 10, 30, 10, 10, 10),
-			profession => Array.Empty<IItem>(),
-			"Altépetl-calpolli ranchito");
+			profession => Array.Empty<IItem>());
 
 		public static readonly Race Nordman = new Race(
-			language => "Nordman",
+			language => language.Nordman,
 			humanoid =>
 			{
 				if (humanoid.SexIsMale)
@@ -337,62 +176,10 @@ namespace Roguelike.Core
 					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.White);
 				}
 			},
-			(sexIsMale, familyName) =>
-			{
-				var maleNames = new List<string>
-				{
-					"Oscar",
-					"Liam",
-					"Axel",
-					"Noah",
-					"Nils",
-					"Arvid",
-					"Theodor",
-					"Olle",
-					"Erik",
-					"Viggo",
-					"Ebbe",
-					"Elton",
-					"Otto",
-				};
-
-				var femaleNames = new List<string>
-				{
-					"Elsa",
-					"Agnes",
-					"Olivia",
-					"Julia",
-					"Ebba",
-					"Linnea",
-					"Freja",
-					"Astrid",
-					"Signe",
-					"Tyra",
-					"Tuva",
-					"Tilde",
-				};
-
-				return GenerateRandomName(sexIsMale, maleNames, femaleNames, familyName);
-			},
 			Color.White,
 			new[] { Color.White },
-			new[]
-			{
-				"Andersson",
-				"Johansson",
-				"Karlsson",
-				"Nilsson",
-				"Eriksson",
-				"Pettersson",
-				"Lindberg",
-				"Lindgren",
-				"Bergström",
-				"Fredriksson",
-				"Björk",
-			},
 			profession => new Properties(10, 10, 30, 10, 10, 10),
-			profession => Array.Empty<IItem>(),
-			"Bystad landsby");
+			profession => Array.Empty<IItem>());
 
 		public static readonly IReadOnlyCollection<Race> All = new[]
 		{

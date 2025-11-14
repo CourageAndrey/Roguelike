@@ -7,9 +7,25 @@ namespace Roguelike.Core.Localization
 	{
 		#region Properties
 
-		//[XmlElement]
-		//public string RACE
-		//{ get; set; }
+		[XmlElement]
+		public LanguageRace Plainsman
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageRace Nomad
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageRace Highlander
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageRace Jungleman
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageRace Nordman
+		{ get; set; }
 
 		#endregion
 
@@ -17,6 +33,11 @@ namespace Roguelike.Core.Localization
 		{
 			return new LanguageRaces
 			{
+				Plainsman = LanguageRace.CreatePlainsman(),
+				Nomad = LanguageRace.CreateNomad(),
+				Highlander = LanguageRace.CreateHighlander(),
+				Jungleman = LanguageRace.CreateJungleman(),
+				Nordman = LanguageRace.CreateNordman(),
 			};
 		}
 	}

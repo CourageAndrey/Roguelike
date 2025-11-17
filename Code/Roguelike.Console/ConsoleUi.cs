@@ -228,86 +228,232 @@ namespace Roguelike.Console
 		{
 			startDialog(() =>
 			{
-				if (!string.IsNullOrEmpty(title))
-				{
-					System.Console.WriteLine($"=== {title} ===");
-					System.Console.WriteLine();
-				}
+				var lines = text.ToString().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+				int maxDisplayLines = _screenHeight - 5; // Reserve space for title and controls
 
-				System.Console.Write(text);
-				System.Console.ReadKey(true);
+				if (lines.Length <= maxDisplayLines)
+				{
+					// Short message - display without scrolling
+					if (!string.IsNullOrEmpty(title))
+					{
+						System.Console.WriteLine($"=== {title} ===");
+						System.Console.WriteLine();
+					}
+
+					System.Console.Write(text);
+					System.Console.ReadKey(true);
+				}
+				else
+				{
+					// Long message - use scrolling
+					DisplayScrollableText(title, lines, maxDisplayLines);
+				}
 			});
 		}
 
 		public bool TrySelectItem(string question, IEnumerable<ListItem> items, out ListItem selectedItem)
 		{
-			bool result = false;
-			ListItem selected = null;
-
-			startDialog(() =>
-			{
-				System.Console.WriteLine(question);
-				System.Console.WriteLine();
-
-				var itemsList = new List<ListItem>(items);
-				int index = 1;
-				foreach (var item in itemsList)
-				{
-					System.Console.ForegroundColor = item.IsAvailable ? ConsoleColor.White : ConsoleColor.Gray;
-					System.Console.WriteLine($"{index++}. {item.Text}");
-				}
-
-				System.Console.WriteLine();
-
-				string input = System.Console.ReadLine();
-				if (int.TryParse(input, out index) &&
-					index >= 1 &&
-					index <= itemsList.Count &&
-					itemsList[index - 1].IsAvailable)
-				{
-					result = true;
-					selected = itemsList[index - 1];
-				}
-			});
+			var itemsList = items.ToList();
+			bool result = DisplayScrollableList(
+				question,
+				itemsList,
+				item => item.IsAvailable,
+				item => item.Text,
+				item => item.IsAvailable ? ConsoleColor.White : ConsoleColor.Gray,
+				out ListItem selected,
+				out int _);
 
 			selectedItem = selected;
 			return result;
 		}
 
-		public bool TrySelectItems(string question, IEnumerable<ListItem> items, out IList<ListItem> selectedItems)
+		private bool DisplayScrollableMultiSelectList<T>(
+			string question,
+			List<T> items,
+			Func<T, bool> isAvailable,
+			Func<T, string> getText,
+			Func<T, ConsoleColor> getColor,
+			out IList<T> selectedItems)
 		{
-			var selected = new List<ListItem>();
+			var selected = new HashSet<int>();
+			bool result = false;
 
 			startDialog(() =>
 			{
-				System.Console.WriteLine(question);
-				System.Console.WriteLine();
+				int maxDisplayLines = _screenHeight - 7; // Reserve space for header, controls, and input
+				int scrollPosition = 0;
+				int currentIndex = 0;
+				bool done = false;
 
-				var itemsList = new List<ListItem>(items);
-				int index = 1;
-				foreach (var item in itemsList)
+				while (!done)
 				{
-					System.Console.ForegroundColor = item.IsAvailable ? ConsoleColor.White : ConsoleColor.Gray;
-					System.Console.WriteLine($"{index++}. {item.Text}");
-				}
+					System.Console.Clear();
+					System.Console.WriteLine(question);
+					System.Console.WriteLine();
 
-				System.Console.WriteLine();
-
-				string inputs = System.Console.ReadLine();
-				foreach (string input in (inputs ?? string.Empty).Split(" "))
-				{
-					if (int.TryParse(input, out index) &&
-						index >= 1 &&
-						index <= itemsList.Count &&
-						itemsList[index - 1].IsAvailable)
+					// Display items in the current scroll window
+					int displayCount = Math.Min(maxDisplayLines, items.Count - scrollPosition);
+					for (int i = 0; i < displayCount; i++)
 					{
-						selected.Add(itemsList[index - 1]);
+						int itemIndex = scrollPosition + i;
+						var item = items[itemIndex];
+						bool isSelected = selected.Contains(itemIndex);
+						bool isCurrent = itemIndex == currentIndex;
+						bool available = isAvailable(item);
+
+						// Set background for current item
+						if (isCurrent)
+						{
+							System.Console.BackgroundColor = ConsoleColor.DarkGray;
+						}
+
+						// Show checkbox and item
+						System.Console.ForegroundColor = getColor(item);
+						string checkbox = isSelected ? "[X]" : "[ ]";
+						System.Console.WriteLine($"{itemIndex + 1}. {checkbox} {getText(item)}");
+
+						// Reset background
+						if (isCurrent)
+						{
+							System.Console.BackgroundColor = ConsoleColor.Black;
+						}
+					}
+
+					System.Console.WriteLine();
+
+					// Show scroll indicators and controls
+					System.Console.ForegroundColor = ConsoleColor.DarkGray;
+					if (scrollPosition > 0)
+					{
+						System.Console.Write("↑ ");
+					}
+					if (scrollPosition + maxDisplayLines < items.Count)
+					{
+						System.Console.Write("↓ ");
+					}
+					System.Console.Write("ARROWS navigate | SPACE toggle | ENTER confirm | ESC cancel | or type numbers");
+					System.Console.ForegroundColor = ConsoleColor.White;
+					System.Console.WriteLine();
+
+					var key = System.Console.ReadKey(true);
+					switch (key.Key)
+					{
+						case ConsoleKey.UpArrow:
+							if (currentIndex > 0)
+							{
+								currentIndex--;
+								// Auto-scroll if needed
+								if (currentIndex < scrollPosition)
+								{
+									scrollPosition = currentIndex;
+								}
+							}
+							break;
+
+						case ConsoleKey.DownArrow:
+							if (currentIndex < items.Count - 1)
+							{
+								currentIndex++;
+								// Auto-scroll if needed
+								if (currentIndex >= scrollPosition + maxDisplayLines)
+								{
+									scrollPosition = currentIndex - maxDisplayLines + 1;
+								}
+							}
+							break;
+
+						case ConsoleKey.PageUp:
+							currentIndex = Math.Max(0, currentIndex - maxDisplayLines);
+							scrollPosition = Math.Max(0, scrollPosition - maxDisplayLines);
+							break;
+
+						case ConsoleKey.PageDown:
+							currentIndex = Math.Min(items.Count - 1, currentIndex + maxDisplayLines);
+							scrollPosition = Math.Min(items.Count - maxDisplayLines, scrollPosition + maxDisplayLines);
+							if (scrollPosition < 0) scrollPosition = 0;
+							break;
+
+						case ConsoleKey.Home:
+							currentIndex = 0;
+							scrollPosition = 0;
+							break;
+
+						case ConsoleKey.End:
+							currentIndex = items.Count - 1;
+							scrollPosition = Math.Max(0, items.Count - maxDisplayLines);
+							break;
+
+						case ConsoleKey.Spacebar:
+							// Toggle selection of current item
+							if (isAvailable(items[currentIndex]))
+							{
+								if (selected.Contains(currentIndex))
+								{
+									selected.Remove(currentIndex);
+								}
+								else
+								{
+									selected.Add(currentIndex);
+								}
+							}
+							break;
+
+						case ConsoleKey.Enter:
+							done = true;
+							result = selected.Count > 0;
+							break;
+
+						case ConsoleKey.Escape:
+							done = true;
+							result = false;
+							selected.Clear();
+							break;
+
+						default:
+							// Try number input
+							if (char.IsDigit(key.KeyChar))
+							{
+								System.Console.Write(key.KeyChar);
+								string numberInput = key.KeyChar + System.Console.ReadLine();
+
+								foreach (string input in numberInput.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries))
+								{
+									if (int.TryParse(input, out int index) &&
+										index >= 1 &&
+										index <= items.Count &&
+										isAvailable(items[index - 1]))
+									{
+										int idx = index - 1;
+										if (selected.Contains(idx))
+										{
+											selected.Remove(idx);
+										}
+										else
+										{
+											selected.Add(idx);
+										}
+									}
+								}
+							}
+							break;
 					}
 				}
 			});
 
-			selectedItems = selected;
-			return selectedItems.Count > 0;
+			selectedItems = selected.OrderBy(i => i).Select(i => items[i]).ToList();
+			return result;
+		}
+
+		public bool TrySelectItems(string question, IEnumerable<ListItem> items, out IList<ListItem> selectedItems)
+		{
+			var itemsList = items.ToList();
+			return DisplayScrollableMultiSelectList(
+				question,
+				itemsList,
+				item => item.IsAvailable,
+				item => item.Text,
+				item => item.IsAvailable ? ConsoleColor.White : ConsoleColor.Gray,
+				out selectedItems);
 		}
 
 		public void ShowCharacter(Game game, IHumanoid humanoid)
@@ -315,75 +461,270 @@ namespace Roguelike.Console
 			var language = game.Language;
 			var languageUi = language.Ui.CharacterScreen;
 			int propetyLength = language.Character.Properties.GetAll().Max(p => p.Length);
-			startDialog(() =>
+
+			var lines = new List<string>();
+
+			// Header
+			lines.Add($"=== {humanoid.Name} ===");
+			string sex = humanoid.SexIsMale ? language.Character.SexIsMale : language.Character.SexIsFemale;
+			lines.Add($"{sex} {humanoid.Race.GetName(language.Character.Races)}, {humanoid.GetAge(humanoid.GetWorld().Time)} {language.Character.AgeYears}");
+			lines.Add(string.Format(
+				humanoid.Appearance.Haircut != Haircut.Bald ? languageUi.AppearanceFormat : languageUi.AppearanceFormatBald,
+				humanoid.SkinColor.Name.ToLowerInvariant(),
+				humanoid.Appearance.Haircut.GetName(language.Character.Haircuts),
+				humanoid.Appearance.HairColor.Name.ToLowerInvariant()));
+			lines.Add("");
+
+			// State
+			lines.Add($"=== {languageUi.State.ToUpperInvariant()} ===");
+			lines.Add($"{humanoid.State.GetDescription(language, game.Hero)}");
+			lines.Add("");
+
+			// Body
+			lines.Add($"=== {languageUi.Body.ToUpperInvariant()} ===");
+			lines.Add($"... under construction ...");
+			lines.Add("");
+
+			// Stats
+			lines.Add($"=== {languageUi.Stats.ToUpperInvariant()} ===");
+			lines.Add($"{language.Character.Properties.Strength.PadLeft(propetyLength)} : {humanoid.Properties.Strength}");
+			lines.Add($"{language.Character.Properties.Endurance.PadLeft(propetyLength)} : {humanoid.Properties.Endurance}");
+			lines.Add($"{language.Character.Properties.Reaction.PadLeft(propetyLength)} : {humanoid.Properties.Reaction}");
+			lines.Add($"{language.Character.Properties.Perception.PadLeft(propetyLength)} : {humanoid.Properties.Perception}");
+			lines.Add($"{language.Character.Properties.Intelligence.PadLeft(propetyLength)} : {humanoid.Properties.Intelligence}");
+			lines.Add($"{language.Character.Properties.Willpower.PadLeft(propetyLength)} : {humanoid.Properties.Willpower}");
+			lines.Add("");
+
+			// Skills
+			lines.Add($"=== {languageUi.Skills.ToUpperInvariant()} ===");
+			lines.Add($"... under construction ...");
+
+			int maxDisplayLines = _screenHeight - 5;
+			if (lines.Count <= maxDisplayLines)
 			{
-				System.Console.ForegroundColor = ConsoleColor.Cyan;
-				System.Console.WriteLine($"=== {humanoid.Name} ===");
-				System.Console.ForegroundColor = ConsoleColor.White;
-				string sex = humanoid.SexIsMale ? language.Character.SexIsMale : language.Character.SexIsFemale;
-				System.Console.WriteLine($"{sex} {humanoid.Race.GetName(language.Character.Races)}, {humanoid.GetAge(humanoid.GetWorld().Time)} {language.Character.AgeYears}");
-				System.Console.WriteLine(
-					humanoid.Appearance.Haircut != Haircut.Bald ? languageUi.AppearanceFormat : languageUi.AppearanceFormatBald,
-					humanoid.SkinColor.Name.ToLowerInvariant(),
-					humanoid.Appearance.Haircut.GetName(language.Character.Haircuts),
-					humanoid.Appearance.HairColor.Name.ToLowerInvariant());
-				System.Console.WriteLine();
-
-				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
-				System.Console.WriteLine($"=== {languageUi.State.ToUpperInvariant()} ===");
-				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.WriteLine($"{humanoid.State.GetDescription(language, game.Hero)}");
-				System.Console.WriteLine();
-
-				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
-				System.Console.WriteLine($"=== {languageUi.Body.ToUpperInvariant()} ===");
-				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.WriteLine($"... under construction ...");
-				System.Console.WriteLine();
-
-				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
-				System.Console.WriteLine($"=== {languageUi.Stats.ToUpperInvariant()} ===");
-				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.WriteLine($"{language.Character.Properties.Strength.PadLeft(propetyLength)} : {humanoid.Properties.Strength}");
-				System.Console.WriteLine($"{language.Character.Properties.Endurance.PadLeft(propetyLength)} : {humanoid.Properties.Endurance}");
-				System.Console.WriteLine($"{language.Character.Properties.Reaction.PadLeft(propetyLength)} : {humanoid.Properties.Reaction}");
-				System.Console.WriteLine($"{language.Character.Properties.Perception.PadLeft(propetyLength)} : {humanoid.Properties.Perception}");
-				System.Console.WriteLine($"{language.Character.Properties.Intelligence.PadLeft(propetyLength)} : {humanoid.Properties.Intelligence}");
-				System.Console.WriteLine($"{language.Character.Properties.Willpower.PadLeft(propetyLength)} : {humanoid.Properties.Willpower}");
-				System.Console.WriteLine();
-
-				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
-				System.Console.WriteLine($"=== {languageUi.Skills.ToUpperInvariant()} ===");
-				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.WriteLine($"... under construction ...");
-
-				System.Console.ReadKey(true);
-			});
+				startDialog(() =>
+				{
+					foreach (var line in lines)
+					{
+						System.Console.WriteLine(line);
+					}
+					System.Console.ReadKey(true);
+				});
+			}
+			else
+			{
+				DisplayScrollableText(humanoid.Name, lines.ToArray(), maxDisplayLines);
+			}
 		}
 
 		public void ShowInventory(Game game, IHumanoid humanoid)
 		{
-			startDialog(() =>
+			var language = game.Language;
+			var lines = new List<string>();
+
+			foreach (var itemTypeGroup in humanoid.Inventory.Items.GroupBy(item => item.Type))
 			{
-				var language = game.Language;
+				lines.Add($"=== {itemTypeGroup.Key.GetName(language.Items.ItemTypes)}: ===");
 
-				foreach (var itemTypeGroup in humanoid.Inventory.Items.GroupBy(item => item.Type))
+				foreach (var item in itemTypeGroup)
 				{
-					System.Console.ForegroundColor = ConsoleColor.Yellow;
-					System.Console.WriteLine($"=== {itemTypeGroup.Key.GetName(language.Items.ItemTypes)}: ===");
-					System.Console.ForegroundColor = ConsoleColor.White;
+					lines.Add(item.GetDescription(language, humanoid));
+				}
 
-					foreach (var item in itemTypeGroup)
+				lines.Add("");
+			}
+
+			int maxDisplayLines = _screenHeight - 5;
+			if (lines.Count <= maxDisplayLines)
+			{
+				startDialog(() =>
+				{
+					foreach (var line in lines)
 					{
-						System.Console.ForegroundColor = item.Material.Color.ToConsole();
-						System.Console.WriteLine(item.GetDescription(language, humanoid));
+						System.Console.WriteLine(line);
 					}
+					System.Console.ReadKey(true);
+				});
+			}
+			else
+			{
+				DisplayScrollableText($"{humanoid.Name} - Inventory", lines.ToArray(), maxDisplayLines);
+			}
+		}
 
+		private void DisplayScrollableText(string title, string[] lines, int maxDisplayLines)
+		{
+			int scrollPosition = 0;
+			int totalLines = lines.Length;
+
+			while (true)
+			{
+				Clear(true);
+
+				if (!string.IsNullOrEmpty(title))
+				{
+					System.Console.WriteLine($"=== {title} ===");
 					System.Console.WriteLine();
 				}
 
-				System.Console.ReadKey(true);
-			});
+				int displayableLines = Math.Min(maxDisplayLines, totalLines - scrollPosition);
+				for (int i = 0; i < displayableLines; i++)
+				{
+					System.Console.WriteLine(lines[scrollPosition + i]);
+				}
+
+				// Show scroll indicators
+				System.Console.WriteLine();
+				if (scrollPosition > 0)
+				{
+					System.Console.Write("↑ UP ");
+				}
+				if (scrollPosition + maxDisplayLines < totalLines)
+				{
+					System.Console.Write("↓ DOWN ");
+				}
+				System.Console.Write("ESC to close");
+
+				var key = System.Console.ReadKey(true);
+				switch (key.Key)
+				{
+					case ConsoleKey.UpArrow:
+					case ConsoleKey.PageUp:
+						scrollPosition = Math.Max(0, scrollPosition - 1);
+						break;
+					case ConsoleKey.DownArrow:
+					case ConsoleKey.PageDown:
+						scrollPosition = Math.Min(totalLines - maxDisplayLines, scrollPosition + 1);
+						break;
+					case ConsoleKey.Home:
+						scrollPosition = 0;
+						break;
+					case ConsoleKey.End:
+						scrollPosition = Math.Max(0, totalLines - maxDisplayLines);
+						break;
+					case ConsoleKey.Escape:
+					case ConsoleKey.Enter:
+					case ConsoleKey.Spacebar:
+						return;
+				}
+			}
+		}
+
+		private bool DisplayScrollableList<T>(string question, List<T> items, Func<T, bool> isAvailable, Func<T, string> getText, Func<T, ConsoleColor> getColor, out T selectedItem, out int selectedIndex)
+		{
+			selectedItem = default(T);
+			selectedIndex = -1;
+
+			if (items.Count == 0)
+			{
+				return false;
+			}
+
+			int scrollPosition = 0;
+			int selectedPosition = 0;
+			int maxDisplayLines = _screenHeight - 6; // Reserve space for title and controls
+
+			while (true)
+			{
+				Clear(true);
+				System.Console.WriteLine(question);
+				System.Console.WriteLine();
+
+				// Adjust scroll position to keep selected item visible
+				if (selectedPosition < scrollPosition)
+				{
+					scrollPosition = selectedPosition;
+				}
+				if (selectedPosition >= scrollPosition + maxDisplayLines)
+				{
+					scrollPosition = selectedPosition - maxDisplayLines + 1;
+				}
+
+				int displayableLines = Math.Min(maxDisplayLines, items.Count - scrollPosition);
+				for (int i = 0; i < displayableLines; i++)
+				{
+					int itemIndex = scrollPosition + i;
+					var item = items[itemIndex];
+					bool available = isAvailable(item);
+					bool isSelected = itemIndex == selectedPosition;
+
+					if (isSelected)
+					{
+						System.Console.BackgroundColor = ConsoleColor.DarkGray;
+					}
+
+					System.Console.ForegroundColor = available ? getColor(item) : ConsoleColor.DarkGray;
+					System.Console.WriteLine($"{itemIndex + 1}. {getText(item)}");
+
+					if (isSelected)
+					{
+						System.Console.BackgroundColor = ConsoleColor.Black;
+					}
+				}
+
+				System.Console.WriteLine();
+				System.Console.ForegroundColor = ConsoleColor.Gray;
+				if (scrollPosition > 0)
+				{
+					System.Console.Write("↑ ");
+				}
+				if (scrollPosition + maxDisplayLines < items.Count)
+				{
+					System.Console.Write("↓ ");
+				}
+				System.Console.Write("ARROWS to navigate | ENTER to select | ESC to cancel");
+				System.Console.ForegroundColor = ConsoleColor.White;
+
+				var key = System.Console.ReadKey(true);
+				switch (key.Key)
+				{
+					case ConsoleKey.UpArrow:
+						selectedPosition = Math.Max(0, selectedPosition - 1);
+						break;
+					case ConsoleKey.DownArrow:
+						selectedPosition = Math.Min(items.Count - 1, selectedPosition + 1);
+						break;
+					case ConsoleKey.PageUp:
+						selectedPosition = Math.Max(0, selectedPosition - maxDisplayLines);
+						break;
+					case ConsoleKey.PageDown:
+						selectedPosition = Math.Min(items.Count - 1, selectedPosition + maxDisplayLines);
+						break;
+					case ConsoleKey.Home:
+						selectedPosition = 0;
+						break;
+					case ConsoleKey.End:
+						selectedPosition = items.Count - 1;
+						break;
+					case ConsoleKey.Enter:
+						if (isAvailable(items[selectedPosition]))
+						{
+							selectedItem = items[selectedPosition];
+							selectedIndex = selectedPosition;
+							return true;
+						}
+						break;
+					case ConsoleKey.Escape:
+						return false;
+					default:
+						// Also support number input for backward compatibility
+						if (char.IsDigit(key.KeyChar))
+						{
+							System.Console.Write(key.KeyChar);
+							string input = key.KeyChar + System.Console.ReadLine();
+							if (int.TryParse(input, out int index) &&
+								index >= 1 &&
+								index <= items.Count &&
+								isAvailable(items[index - 1]))
+							{
+								selectedItem = items[index - 1];
+								selectedIndex = index - 1;
+								return true;
+							}
+						}
+						break;
+				}
+			}
 		}
 
 		public ActionResult ShowEquipment(Game game, Mannequin mannequin)

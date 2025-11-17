@@ -228,10 +228,26 @@ namespace Roguelike.Console
 		{
 			startDialog(() =>
 			{
-				var lines = text.ToString().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+				// Apply word wrapping to the text
+				var rawLines = text.ToString().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+				var wrappedLines = new List<string>();
+				int maxWidth = _screenWidth - 2; // Leave margin
+
+				foreach (var line in rawLines)
+				{
+					if (string.IsNullOrEmpty(line))
+					{
+						wrappedLines.Add(line);
+					}
+					else
+					{
+						wrappedLines.AddRange(WrapLine(line, maxWidth));
+					}
+				}
+
 				int maxDisplayLines = _screenHeight - 5; // Reserve space for title and controls
 
-				if (lines.Length <= maxDisplayLines)
+				if (wrappedLines.Count <= maxDisplayLines)
 				{
 					// Short message - display without scrolling
 					if (!string.IsNullOrEmpty(title))
@@ -240,15 +256,61 @@ namespace Roguelike.Console
 						System.Console.WriteLine();
 					}
 
-					System.Console.Write(text);
+					foreach (var line in wrappedLines)
+					{
+						System.Console.WriteLine(line);
+					}
 					System.Console.ReadKey(true);
 				}
 				else
 				{
 					// Long message - use scrolling
-					DisplayScrollableText(title, lines, maxDisplayLines);
+					DisplayScrollableText(title, wrappedLines.ToArray(), maxDisplayLines);
 				}
 			});
+		}
+
+		private IEnumerable<string> WrapLine(string line, int maxWidth)
+		{
+			if (line.Length <= maxWidth)
+			{
+				yield return line;
+				yield break;
+			}
+
+			int currentPos = 0;
+			while (currentPos < line.Length)
+			{
+				int remainingLength = line.Length - currentPos;
+				int segmentLength = Math.Min(maxWidth, remainingLength);
+
+				// If this is not the last segment, try to break at a word boundary
+				if (segmentLength == maxWidth && currentPos + segmentLength < line.Length)
+				{
+					// Look for the last space in this segment
+					int lastSpace = line.LastIndexOf(' ', currentPos + segmentLength - 1, segmentLength);
+
+					if (lastSpace > currentPos)
+					{
+						// Break at the last space
+						segmentLength = lastSpace - currentPos;
+						yield return line.Substring(currentPos, segmentLength);
+						currentPos = lastSpace + 1; // Skip the space
+					}
+					else
+					{
+						// No space found, must break in the middle of a word
+						yield return line.Substring(currentPos, segmentLength);
+						currentPos += segmentLength;
+					}
+				}
+				else
+				{
+					// Last segment or fits entirely
+					yield return line.Substring(currentPos, segmentLength);
+					currentPos += segmentLength;
+				}
+			}
 		}
 
 		public bool TrySelectItem(string question, IEnumerable<ListItem> items, out ListItem selectedItem)

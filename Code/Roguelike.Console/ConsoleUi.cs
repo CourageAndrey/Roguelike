@@ -17,7 +17,7 @@ namespace Roguelike.Console
 	{
 		public ConsoleUi()
 		{
-			System.Console.OutputEncoding = Encoding.UTF8;
+			System.Console.OutputEncoding = DefaultEncoding;
 
 			_screenWidth = System.Console.WindowWidth;
 			_screenHeight = System.Console.WindowHeight;
@@ -230,13 +230,141 @@ namespace Roguelike.Console
 			{
 				if (!string.IsNullOrEmpty(title))
 				{
-					System.Console.WriteLine($"=== {title} ===");
+					System.Console.ForegroundColor = HeaderForegroundColor;
+					string headerSymbols = new string('=', (System.Console.WindowWidth - title.Length - 2) / 2);
+					System.Console.WriteLine($"{headerSymbols} {title} {headerSymbols}");
+					System.Console.ForegroundColor = DefaultForegroundColor;
 					System.Console.WriteLine();
 				}
 
-				System.Console.Write(text);
-				System.Console.ReadKey(true);
+				var lines = wrapIfNecessary(text.ToString().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None));
+				int scrolledTextHeight = _screenHeight - 4;
+				bool isMultiline = scrolledTextHeight < lines.Count;
+
+				bool	isUpEnabled = false,
+						isDownEnabled = false,
+						isPgUpEnabled = false,
+						isPgDnEnabled = false,
+						isHomeEnabled = false,
+						isEndEnabled = false;
+
+				bool exitText = false;
+				int firstLine = 0;
+				do
+				{
+					System.Console.CursorTop = 2;
+					System.Console.CursorLeft = 0;
+
+					if (isMultiline)
+					{
+						System.Console.Write(new string(' ', scrolledTextHeight * _screenWidth));
+						System.Console.CursorTop = 2;
+						System.Console.CursorLeft = 0;
+
+						foreach (string line in lines.Skip(firstLine).Take(scrolledTextHeight))
+						{
+							System.Console.WriteLine(line);
+						}
+
+						isUpEnabled = isPgUpEnabled = isHomeEnabled = firstLine > 0;
+						isDownEnabled = isPgDnEnabled = isEndEnabled = firstLine < lines.Count - scrolledTextHeight;
+					}
+					else
+					{
+						foreach (string line in lines)
+						{
+							System.Console.WriteLine(line);
+						}
+					}
+
+					System.Console.CursorTop = _screenHeight - 1;
+					System.Console.CursorLeft = 0;
+					var writeButton = (string caption, bool isEnabled) =>
+					{
+						System.Console.ForegroundColor = isEnabled ? HighlightForegroundColor : DisabledForegroundColor;
+						System.Console.Write(caption);
+					};
+
+					writeButton("Esc ", true);
+					writeButton("Up ", isUpEnabled);
+					writeButton("Down ", isDownEnabled);
+					writeButton("PageUp ", isPgUpEnabled);
+					writeButton("PageDown ", isPgDnEnabled);
+					writeButton("Home ", isHomeEnabled);
+					writeButton("End", isEndEnabled);
+					System.Console.ForegroundColor = DefaultForegroundColor;
+
+					bool needToReact = false;
+					do
+					{
+						var key = System.Console.ReadKey(true);
+						switch (key.Key)
+						{
+							case ConsoleKey.Escape:
+								needToReact = true;
+								exitText = true;
+								break;
+							case ConsoleKey.UpArrow when isUpEnabled:
+								needToReact = true;
+								firstLine--;
+								break;
+							case ConsoleKey.DownArrow when isDownEnabled:
+								needToReact = true;
+								firstLine++;
+								break;
+							case ConsoleKey.PageUp when isPgUpEnabled:
+								needToReact = true;
+								firstLine -= (scrolledTextHeight - 1);
+								break;
+							case ConsoleKey.PageDown when isPgDnEnabled:
+								needToReact = true;
+								firstLine += (scrolledTextHeight - 1);
+								break;
+							case ConsoleKey.Home when isHomeEnabled:
+								needToReact = true;
+								firstLine = 0;
+								break;
+							case ConsoleKey.End when isEndEnabled:
+								needToReact = true;
+								firstLine = lines.Count - scrolledTextHeight + 5;
+								break;
+						}
+
+						
+					} while (!needToReact);
+				} while (!exitText);
 			});
+		}
+
+		private List<string> wrapIfNecessary(string[] lines)
+		{
+			var wrappedLines = new List<string>();
+
+			foreach (string line in lines)
+			{
+				string rest = line;
+				while (rest.Length > _screenWidth)
+				{
+					string part = rest.Remove(_screenWidth);
+					int breakPos = part.LastIndexOf(' ');
+
+					if (breakPos >= 0)
+					{
+						part = part.Remove(breakPos);
+						breakPos = breakPos + 1;
+					}
+					else
+					{
+						breakPos = _screenWidth;
+					}
+
+					wrappedLines.Add(part);
+					rest = rest.Substring(breakPos);
+				}
+				wrappedLines.Add(rest);
+			}
+
+			return wrappedLines;
 		}
 
 		public bool TrySelectItem(string question, IEnumerable<ListItem> items, out ListItem selectedItem)
@@ -253,7 +381,7 @@ namespace Roguelike.Console
 				int index = 1;
 				foreach (var item in itemsList)
 				{
-					System.Console.ForegroundColor = item.IsAvailable ? ConsoleColor.White : ConsoleColor.Gray;
+					System.Console.ForegroundColor = item.IsAvailable ? DefaultForegroundColor : DisabledForegroundColor;
 					System.Console.WriteLine($"{index++}. {item.Text}");
 				}
 
@@ -625,8 +753,8 @@ namespace Roguelike.Console
 			System.Console.CursorLeft = 0;
 			if (resetColors)
 			{
-				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.BackgroundColor = ConsoleColor.Black;
+				System.Console.ForegroundColor = DefaultForegroundColor;
+				System.Console.BackgroundColor = DefaultBackgroundColor;
 			}
 		}
 	}

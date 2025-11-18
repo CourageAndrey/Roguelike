@@ -79,10 +79,10 @@ namespace Roguelike.Console
 
 			public void Draw()
 			{
-				System.Console.ForegroundColor = ConsoleColor.Yellow;
+				System.Console.ForegroundColor = ConsoleUi.HighlightForegroundColor;
 				System.Console.Write($"[{LetterString}] ");
 
-				System.Console.ForegroundColor = ConsoleColor.White;
+				System.Console.ForegroundColor = ConsoleUi.DefaultForegroundColor;
 				System.Console.WriteLine(Description);
 			}
 

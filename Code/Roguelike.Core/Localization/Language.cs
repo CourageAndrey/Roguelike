@@ -121,7 +121,78 @@ x - sneak
 r - read book
 o - open/close (door)
 s - ride (horse)
-, - pick item",
+, - pick item
+
+adasdasdasd
+adasdsadadas
+dfasfasfeww
+asdafdqwdqdas  sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+dasddasda adassdsa  sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+asdadasdada sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+23434r23 sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+23dfrwsac
+fw343rtfas
+fdsdfg34trfr
+wfdsfasa
+645y75rfd
+dsfdsdfsdfsfs
+sfdsfd
+
+53484 743 477 747 55732 23739
+
+sdfsfsdfsfsfd sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+sdgsdfsdf sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+sdfsdfsfdsfd sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+
+adasdasdasd
+adasdsadadas
+dfasfasfeww
+asdafdqwdqdas
+dasddasda adassdsa
+
+53484 743 477 747 55732 23739
+asdadasdada
+23434r23
+23dfrwsac
+fw343rtfas
+fdsdfg34trfr sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+wfdsfasa
+645y75rfd
+dsfdsdfsdfsfs sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+sfdsfd
+
+53484 743 477 747 55732 23739
+
+53484 743 477 747 55732 23739 sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+
+sdfsfsdfsfsfd
+sdgsdfsdf
+sdfsdfsfdsfd
+
+adasdasdasd
+adasdsadadas sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+dfasfasfeww
+asdafdqwdqdas
+dasddasda adassdsa
+
+53484 743 477 747 55732 23739
+53484 743 477 747 55732 23739 sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf
+
+asdadasdada
+23434r23
+23dfrwsac
+fw343rtfas
+fdsdfg34trfr
+wfdsfasa
+645y75rfd
+dsfdsdfsdfsfs
+sfdsfd
+
+53484 743 477 747 55732 23739 sflklfkdd ssdlasdkasd sdadkadakfds rffwefokfwe eewqkfodskspfodksf apdoakd
+
+sdfsfsdfsfsfd
+sdgsdfsdf
+sdfsdfsfdsfd",
 
 				Directions = LanguageDirections.CreateDefault(),
 

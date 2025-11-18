@@ -237,7 +237,7 @@ namespace Roguelike.Console
 					System.Console.WriteLine();
 				}
 
-				var lines = wrapIfNecessary(text.ToString().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None));
+				var lines = text.ToString().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).WrapIfNecessary(_screenWidth);
 				int scrolledTextHeight = _screenHeight - 4;
 				bool isMultiline = scrolledTextHeight < lines.Count;
 
@@ -336,36 +336,7 @@ namespace Roguelike.Console
 			});
 		}
 
-		private List<string> wrapIfNecessary(string[] lines)
-		{
-			var wrappedLines = new List<string>();
-
-			foreach (string line in lines)
-			{
-				string rest = line;
-				while (rest.Length > _screenWidth)
-				{
-					string part = rest.Remove(_screenWidth);
-					int breakPos = part.LastIndexOf(' ');
-
-					if (breakPos >= 0)
-					{
-						part = part.Remove(breakPos);
-						breakPos = breakPos + 1;
-					}
-					else
-					{
-						breakPos = _screenWidth;
-					}
-
-					wrappedLines.Add(part);
-					rest = rest.Substring(breakPos);
-				}
-				wrappedLines.Add(rest);
-			}
-
-			return wrappedLines;
-		}
+		
 
 		public bool TrySelectItem(string question, IEnumerable<ListItem> items, out ListItem selectedItem)
 		{

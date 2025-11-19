@@ -38,9 +38,9 @@ namespace Roguelike.Console
 		{ get; internal set; }
 
 		private Cell _cell;
-		private ConsoleColor? _lastForeColor;
-		private ConsoleColor? _lastBackColor;
-		private string _lastText;
+		internal ConsoleColor? _lastForeColor;
+		internal ConsoleColor? _lastBackColor;
+		internal string _lastText;
 
 		#endregion
 

@@ -250,6 +250,7 @@ namespace Roguelike.Console
 			}
 			else
 			{
+				var cellsToUpdate = new List<CellViewModel>();
 				foreach (var cellModel in _cellsViewsCache.Values)
 				{
 					if (cellModel.X >= _screenXOfCameraLeft &&
@@ -260,9 +261,136 @@ namespace Roguelike.Console
 						delta.ContainsKey(cellModel.Cell))
 					{
 						cellModel.Invalidate();
-						cellModel.Update(senderCamera);
+						cellsToUpdate.Add(cellModel);
 					}
 				}
+
+				if (cellsToUpdate.Count > 0)
+				{
+					if (_consoleOutputHandle.HasValue && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+					{
+						UpdateCellsFast(cellsToUpdate, senderCamera);
+					}
+					else
+					{
+						UpdateCellsSlow(cellsToUpdate, senderCamera);
+					}
+				}
+			}
+		}
+
+		[SupportedOSPlatform("windows")]
+		private void UpdateCellsFast(List<CellViewModel> cellsToUpdate, Camera camera)
+		{
+			if (cellsToUpdate.Count == 0)
+			{
+				return;
+			}
+
+			// Find the bounding rectangle of all cells to update
+			int minX = int.MaxValue, maxX = int.MinValue;
+			int minY = int.MaxValue, maxY = int.MinValue;
+
+			foreach (var cellModel in cellsToUpdate)
+			{
+				if (cellModel.X < minX) minX = cellModel.X;
+				if (cellModel.X > maxX) maxX = cellModel.X;
+				if (cellModel.Y < minY) minY = cellModel.Y;
+				if (cellModel.Y > maxY) maxY = cellModel.Y;
+			}
+
+			// Clamp to screen bounds
+			minX = Math.Max(0, minX);
+			maxX = Math.Min(_screenWidth - 1, maxX);
+			minY = Math.Max(0, minY);
+			maxY = Math.Min(_screenHeight - 1, maxY);
+
+			int width = maxX - minX + 1;
+			int height = maxY - minY + 1;
+			int bufferSize = width * height;
+			var buffer = new CHAR_INFO[bufferSize];
+
+			// Build buffer with all cells in the region
+			// Compute content for ALL cells based on their current state
+			var cellsToUpdateSet = new HashSet<CellViewModel>(cellsToUpdate);
+			for (int y = minY; y <= maxY; y++)
+			{
+				for (int x = minX; x <= maxX; x++)
+				{
+					var cellModel = _cellViewModels[x, y];
+					int index = (y - minY) * width + (x - minX);
+
+					// Compute cell content based on current state
+					ObjectViewModel cellObjectModel;
+					ConsoleColor foreground;
+					ConsoleColor background;
+					string text;
+
+					if (cellModel.Cell == null || !camera.MapMemory.Contains(cellModel.Cell))
+					{
+						cellObjectModel = ObjectViewModel.Empty;
+						foreground = cellObjectModel.Foreground;
+						background = cellObjectModel.Background;
+						text = cellObjectModel.Text;
+					}
+					else
+					{
+						// Ensure CurrentObjectView is set
+						if (cellModel.CurrentObjectView == null)
+						{
+							cellModel.CurrentObjectView = cellModel.Cell.GetModel();
+						}
+
+						cellObjectModel = cellModel.CurrentObjectView;
+
+						bool isVisible;
+						bool visible = camera.VisibleCells.TryGetValue(cellModel.Cell, out isVisible) && isVisible;
+
+						if (visible)
+						{
+							foreground = cellObjectModel.Foreground;
+							background = cellObjectModel.Background;
+						}
+						else
+						{
+							foreground = cellObjectModel.Foreground.ToGrayScale();
+							background = cellObjectModel.Background.ToGrayScale();
+						}
+
+						text = cellObjectModel.Text;
+					}
+
+					buffer[index].UnicodeChar = text.Length > 0 ? text[0] : ' ';
+					buffer[index].Attributes = MakeColorAttribute(foreground, background);
+
+					// Update cached values for cells that were actually updated
+					if (cellsToUpdateSet.Contains(cellModel))
+					{
+						cellModel._lastForeColor = foreground;
+						cellModel._lastBackColor = background;
+						cellModel._lastText = text;
+					}
+				}
+			}
+
+			var bufferSizeCoord = new COORD { X = (short)width, Y = (short)height };
+			var bufferCoord = new COORD { X = 0, Y = 0 };
+			var writeRegion = new SMALL_RECT
+			{
+				Left = (short)minX,
+				Top = (short)minY,
+				Right = (short)maxX,
+				Bottom = (short)maxY
+			};
+
+			WriteConsoleOutput(_consoleOutputHandle.Value, buffer, bufferSizeCoord, bufferCoord, ref writeRegion);
+		}
+
+		private void UpdateCellsSlow(List<CellViewModel> cellsToUpdate, Camera camera)
+		{
+			foreach (var cellModel in cellsToUpdate)
+			{
+				cellModel.Update(camera);
 			}
 		}
 

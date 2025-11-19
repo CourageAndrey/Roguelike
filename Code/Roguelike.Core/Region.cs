@@ -160,6 +160,21 @@ namespace Roguelike.Core
 			return result;
 		}
 
+		public IEnumerable<Cell> GetCells(int fromX, int toX, int fromY, int toY, int z)
+		{
+			for (int x = fromX; x <= toX; x++)
+			{
+				for (int y = fromY; y <= toY; y++)
+				{
+					var cell = GetCell(x, y, z);
+					if (cell != null)
+					{
+						yield return cell;
+					}
+				}
+			}
+		}
+
 		#endregion
 
 		#region Step performing

@@ -208,17 +208,14 @@ namespace Roguelike.Core.Aspects
 			var region = camera.Cell.Region;
 			var position = camera.Cell.Position;
 
-			for (int x = position.X - viewDistance; x <= position.X + viewDistance; x++)
+			foreach (var cell in region.GetCells(
+				position.X - viewDistance,
+				position.X + viewDistance,
+				position.Y - viewDistance,
+				position.Y + viewDistance,
+				position.Z))
 			{
-				for (int y = position.Y - viewDistance; y <= position.Y + viewDistance; y++)
-				{
-					var vector = new Vector(x, y, position.Z);
-					var cell = region.GetCell(vector);
-					if (cell != null)
-					{
-						camera.MapMemory.Add(cell);
-					}
-				}
+				camera.MapMemory.Add(cell);
 			}
 
 			camera.RefreshVisibleCells();

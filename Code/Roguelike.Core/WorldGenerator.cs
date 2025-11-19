@@ -92,16 +92,7 @@ namespace Roguelike.Core
 			new Bed().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);
 			new Bed().placeIntoFreeCell(region, seed, finalX1 + 1, finalX2 - 1, finalY1 + 1, finalY2 - 1, z);
 
-			var allHouseCells = new List<Cell>();
-			for (int x = finalX1; x <= finalX2; x++)
-			{
-				for (int y = finalY1; y <= finalY2; y++)
-				{
-					allHouseCells.Add(region.GetCell(x, y, z));
-				}
-			}
-
-			var house = new House(allHouseCells);
+			var house = new House(region.GetCells(finalX1, finalX2, finalY1, finalY2, z));
 			region.Places.Add(house);
 			return house;
 		}
@@ -133,15 +124,12 @@ namespace Roguelike.Core
 					throw new Exception("Only up, down, left and right doors are available.");
 			}
 
-			for (int x = x1; x <= x2; x++)
+			foreach (var cell in region.GetCells(x1, x2, y1, y2, z))
 			{
-				for (int y = y1; y <= y2; y++)
+				var removedObjects = new List<Object>(cell.Objects);
+				foreach (var o in removedObjects)
 				{
-					var removedObjects = new List<Object>(region.GetCell(x, y, z)!.Objects);
-					foreach (var o in removedObjects)
-					{
-						o.MoveTo(null);
-					}
+					o.MoveTo(null);
 				}
 			}
 
@@ -158,14 +146,10 @@ namespace Roguelike.Core
 
 			var weather = new Weather(region);
 			var interior = new InteriorCellEnvironment(weather);
-			for (int x = x1; x <= x2; x++)
+			foreach (var cell in region.GetCells(x1, x2, y1, y2, z))
 			{
-				for (int y = y1; y <= y2; y++)
-				{
-					var cell = region.GetCell(x, y, z)!;
-					cell.ChangeBackground(CellBackground.Floor);
-					cell.MakeInterior(interior);
-				}
+				cell.ChangeBackground(CellBackground.Floor);
+				cell.MakeInterior(interior);
 			}
 
 			var doorCell = region.GetCell(doorX, doorY, z)!;
@@ -229,19 +213,7 @@ namespace Roguelike.Core
 
 		private static void placeIntoFreeCell(this Object @object, Region region, Random seed, int x1, int x2, int y1, int y2, int z)
 		{
-			var freeCells = new List<Cell>();
-			for (int x = x1; x <= x2; x++)
-			{
-				for (int y = y1; y <= y2; y++)
-				{
-					var cell = region.GetCell(x, y, z)!;
-					if (cell.IsTransparent)
-					{
-						freeCells.Add(cell);
-					}
-				}
-			}
-
+			var freeCells = new List<Cell>(region.GetCells(x1, x2, y1, y2, z).Where(c => c.IsTransparent));
 			@object.MoveTo(freeCells[seed.Next(0, freeCells.Count - 1)]);
 		}
 	}

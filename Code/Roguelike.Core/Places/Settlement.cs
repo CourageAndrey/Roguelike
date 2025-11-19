@@ -60,18 +60,11 @@ namespace Roguelike.Core.Places
 			}
 
 			var region = houses.First().Cells.First().Region;
-			for (int x = minX; x <= maxX; x++)
+			for (int z = minZ; z <= maxZ; z++)
 			{
-				for (int y = minY; y <= maxY; y++)
+				foreach (var cell in region.GetCells(minX, maxX, minY, maxY, z))
 				{
-					for (int z = minZ; z <= maxZ; z++)
-					{
-						var cell = region.GetCell(x, y, z);
-						if (cell != null)
-						{
-							yield return cell;
-						}
-					}
+					yield return cell;
 				}
 			}
 		}

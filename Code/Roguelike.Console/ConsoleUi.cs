@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
@@ -19,8 +20,8 @@ namespace Roguelike.Console
 		{
 			System.Console.OutputEncoding = DefaultEncoding;
 
-			_screenWidth = System.Console.WindowWidth;
-			_screenHeight = System.Console.WindowHeight;
+			_screenWidth = System.Console.WindowWidth /*= System.Console.LargestWindowWidth*/;
+			_screenHeight = System.Console.WindowHeight /*= System.Console.LargestWindowHeight*/;
 			_halfScreenWidth = _screenWidth / 2;
 			_halfScreenHeight = _screenHeight / 2;
 
@@ -36,7 +37,10 @@ namespace Roguelike.Console
 			System.Console.Clear();
 			System.Console.CursorVisible = false;
 
-			LockConsoleSize(_screenWidth, _screenHeight);
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+			{
+				AdjustWindowsConsole(_screenWidth, _screenHeight);
+			}
 		}
 
 		#region DrawAPI

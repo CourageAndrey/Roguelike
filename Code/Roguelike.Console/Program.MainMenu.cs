@@ -19,12 +19,11 @@ namespace Roguelike.Console
 
 		private static Game ShowMainMenu(ConsoleUi ui, Language language)
 		{
-			MenuPoint helpMenuPoint;
 			var menuPoints = new[]
 			{
 				new MenuPoint("N", language.Ui.MainScreen.NewGame, () => CreateNewGame(ui, language)),
 				new MenuPoint("L", language.Ui.MainScreen.LoadGame, () => LoadGame(ui, language)),
-				helpMenuPoint = new MenuPoint(language.Ui.AnyOtherKey, language.Ui.MainScreen.Help, null),
+				new MenuPoint(language.Ui.AnyOtherKey, language.Ui.MainScreen.Help, null),
 				new MenuPoint("E", language.Ui.MainScreen.Exit, () => null),
 			}.ToDictionary(mp => mp.Letter, mp => mp);
 

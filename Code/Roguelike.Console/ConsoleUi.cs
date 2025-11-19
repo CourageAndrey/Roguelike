@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading;
 
@@ -40,6 +41,11 @@ namespace Roguelike.Console
 			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 			{
 				AdjustWindowsConsole(_screenWidth, _screenHeight);
+				_consoleOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+			}
+			else
+			{
+				_consoleOutputHandle = null;
 			}
 		}
 
@@ -51,6 +57,7 @@ namespace Roguelike.Console
 		private readonly CellViewModel[,] _cellViewModels;
 		private readonly IDictionary<Cell, CellViewModel> _cellsViewsCache = new Dictionary<Cell, CellViewModel>();
 		private Camera _camera;
+		private readonly IntPtr? _consoleOutputHandle;
 
 		public Camera Camera
 		{
@@ -95,6 +102,84 @@ namespace Roguelike.Console
 		}
 
 		public void Redraw(Cell[][] cells, int minRow, int maxRow, int minColumn, int maxColumn)
+		{
+			if (_consoleOutputHandle.HasValue && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+			{
+				RedrawFast(cells, minRow, maxRow, minColumn, maxColumn);
+			}
+			else
+			{
+				RedrawSlow(cells, minRow, maxRow, minColumn, maxColumn);
+			}
+		}
+
+		[SupportedOSPlatform("windows")]
+		private void RedrawFast(Cell[][] cells, int minRow, int maxRow, int minColumn, int maxColumn)
+		{
+			int width = maxColumn - minColumn;
+			int height = maxRow - minRow;
+			int bufferSize = width * height;
+			var buffer = new CHAR_INFO[bufferSize];
+
+			for (int r = minRow; r < maxRow; r++)
+			{
+				for (int c = minColumn; c < maxColumn; c++)
+				{
+					Cell currentCell;
+					ObjectViewModel cellObjectModel;
+					ConsoleColor currentForeground;
+					ConsoleColor currentBackground;
+
+					_cellViewModels[c, r].Cell = currentCell = cells[r][c];
+					if (currentCell != null)
+					{
+						_cellsViewsCache[currentCell] = _cellViewModels[c, r];
+					}
+
+					if (currentCell != null && _camera.MapMemory.Contains(currentCell))
+					{
+						cellObjectModel = currentCell.GetModel();
+
+						bool isVisible;
+						if (_camera.VisibleCells.TryGetValue(currentCell, out isVisible) && isVisible)
+						{
+							currentForeground = cellObjectModel.Foreground;
+							currentBackground = cellObjectModel.Background;
+						}
+						else
+						{
+							currentForeground = cellObjectModel.Foreground.ToGrayScale();
+							currentBackground = cellObjectModel.Background.ToGrayScale();
+						}
+					}
+					else
+					{
+						cellObjectModel = ObjectViewModel.Empty;
+						currentForeground = cellObjectModel.Foreground;
+						currentBackground = cellObjectModel.Background;
+					}
+
+					int index = (r - minRow) * width + (c - minColumn);
+					string text = cellObjectModel.Text;
+					buffer[index].UnicodeChar = text.Length > 0 ? text[0] : ' ';
+					buffer[index].Attributes = MakeColorAttribute(currentForeground, currentBackground);
+				}
+			}
+
+			var bufferSizeCoord = new COORD { X = (short)width, Y = (short)height };
+			var bufferCoord = new COORD { X = 0, Y = 0 };
+			var writeRegion = new SMALL_RECT
+			{
+				Left = (short)minColumn,
+				Top = (short)minRow,
+				Right = (short)(maxColumn - 1),
+				Bottom = (short)(maxRow - 1)
+			};
+
+			WriteConsoleOutput(_consoleOutputHandle.Value, buffer, bufferSizeCoord, bufferCoord, ref writeRegion);
+		}
+
+		private void RedrawSlow(Cell[][] cells, int minRow, int maxRow, int minColumn, int maxColumn)
 		{
 			var text = new StringBuilder();
 			System.Console.ForegroundColor = ObjectViewModel.DefaultForeground;

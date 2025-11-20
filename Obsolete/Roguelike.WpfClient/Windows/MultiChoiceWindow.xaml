@@ -1,0 +1,27 @@
+﻿<windows:RoguelikeWindow x:Class="Roguelike.WpfClient.Windows.MultiChoiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:windows="clr-namespace:Roguelike.WpfClient.Windows"
+        xmlns:converters="clr-namespace:Roguelike.WpfClient.Converters"
+        Title="MultiChoiceWindow" PreviewKeyDown="enterKeyDown" Height="300" Width="300">
+	<Window.Resources>
+		<converters:AvailableConverter x:Key="availableConverter" />
+		<converters:BorderConverter x:Key="borderConverter" />
+	</Window.Resources>
+	<DockPanel LastChildFill="True">
+		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Name="buttonsPanel">
+			<Button Content="{Binding Path=UiCommonOk, Mode=OneTime, Converter={StaticResource borderConverter}}" Click="okClick" />
+			<Button Content="{Binding Path=UiCommonCancel, Mode=OneTime, Converter={StaticResource borderConverter}}" Click="cancelClick" />
+		</StackPanel>
+		<ListBox Name="listBox">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal">
+						<CheckBox IsChecked="{Binding Path=IsSelected, Mode=TwoWay}" Foreground="{Binding Path=IsAvailable, Mode=OneTime, Converter={StaticResource availableConverter}}" IsEnabled="{Binding Path=IsAvailable, Mode=OneWay}" />
+						<Label Content="{Binding Path=Text, Mode=OneTime}" Foreground="{Binding Path=IsAvailable, Mode=OneTime, Converter={StaticResource availableConverter}}" />
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</DockPanel>
+</windows:RoguelikeWindow>

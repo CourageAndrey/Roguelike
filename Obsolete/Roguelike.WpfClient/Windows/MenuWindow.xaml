@@ -1,0 +1,17 @@
+﻿<windows:RoguelikeWindow x:Class="Roguelike.WpfClient.Windows.MenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:windows="clr-namespace:Roguelike.WpfClient.Windows"
+        xmlns:converters="clr-namespace:Roguelike.WpfClient.Converters"
+        Title="Roguelike Main Menu" Loaded="menuWindowLoaded" Closed="onClosed">
+	<Window.Resources>
+		<converters:BorderConverter x:Key="borderConverter" />
+	</Window.Resources>
+	<StackPanel Orientation="Vertical">
+		<ListBox Name="listBoxLanguages" DisplayMemberPath="Name" />
+		<Button Content="{Binding ElementName=listBoxLanguages, Path=SelectedItem.UiMainNewGame, Converter={StaticResource borderConverter}, Mode=OneWay}" Click="newGameClick" />
+		<Button Content="{Binding ElementName=listBoxLanguages, Path=SelectedItem.UiMainLoadGame, Converter={StaticResource borderConverter}, Mode=OneWay}" Click="loadSaveClick" />
+		<Button Content="{Binding ElementName=listBoxLanguages, Path=SelectedItem.UiMainHelp, Converter={StaticResource borderConverter}, Mode=OneWay}" Click="viewHelpClick" />
+		<Button Content="{Binding ElementName=listBoxLanguages, Path=SelectedItem.UiMainExit, Converter={StaticResource borderConverter}, Mode=OneWay}" Click="exitClick" />
+	</StackPanel>
+</windows:RoguelikeWindow>

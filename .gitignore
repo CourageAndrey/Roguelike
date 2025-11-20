@@ -1,0 +1,14 @@
+Code/*.suo
+Code/*.user
+Code/*.userprefs
+Code/TestResults
+Code/*/bin
+Code/*/obj
+Code/.vs
+Obsolete/*.suo
+Obsolete/*.user
+Obsolete/*.userprefs
+Obsolete/TestResults
+Obsolete/*/bin
+Obsolete/*/obj
+Obsolete/.vs

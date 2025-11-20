@@ -1,106 +1,104 @@
 Roguelike comprehensive description
 
-1	Мир
-1.1	Пространство
-Перемещение осуществляется в трёхмерном пространстве. Мир разбит на области, или регионы, каждый из которых разбит на ячейки размером в 1х1х1 шаг. Расстояние между соседними ячейками равняется единице только для клеток, отличающихся на одну координату (соседние по горизонтали, по вертикали либо по высоте). Для диагональных клеток – расстояние определяется по законам геометрии.
-Области бывают внешние (уличные, в них действует погода) и внутренние (помещения или пещеры, где погода не действует). Все ячейки внутренней области являются внутренними. Все ячейки внешней области, за исключением находящихся в помещении или пещере, являются внешними. 
+# 1 World
+## 1.1 Space
+World is divided into regions, each region is divided into cells of 1x1x1 step size. All space is 3-dimensional. The distance between adjacent cells equals to 1 for cells differing by one coordinate (X, Y or Z). For diagonal cells, the distance is determined by the laws of geometry.
+Areas can be external (outdoor, where weather applies) or internal (rooms or caves, having its own microclimate connected with outdoor one using some balance mechanism). Cells of these areas are correspondingly external or internal.
 
-1.2	 Время
-Время мира измеряется по современному григорианскому календарю с точностью до долей секунды. Все объекты мира живут в рамках единой временной шкалы, которая скрыта за последовательностью их ходов.
-Согласно дате сменяются сезоны года (зима, весна, лето и осень, по три месяца на каждый), согласно времени – время суток (ночь, утро, день и вечер, по 6 часов на каждое, ночь начинается в 22:00).
+## 1.2 Time
+World time is measured according to the modern Gregorian calendar with precision to fractions of a second. All world objects exist within a unified timeline, which is hidden behind the sequence of their turns.
+According to the date, seasons change (winter, spring, summer, and autumn, three months each), according to time – time of day (night, morning, day, and evening, 6 hours each, night begins at 22:00).
 
-1.3	 Видимость объектов
-Видны не все ячейки мира одновременно.
-Видимость ячеек определяется силой зрения наблюдателя – «достаёт» его глаз до определённой ячейки или нет. В ячейках мира располагаются объекты, которых в одной ячейке может быть несколько. Они могут быть прозрачными (сквозь них видно соседние клетки) или нет (за ними ничего не видно).
-Некоторые объекты являются издающими звук – такие слышно на некотором расстоянии, определяемом «развитостью» ушей наблюдателя, вне зависимости от наличия на пути звука стен и объектов.
-Некоторые объекты являются издающими запах – вокруг таких и за ними при передвижении ненадолго остаётся «след», который может быть уловлен теми, кто имеет достаточно чуткий нос. При наличии ветра запаховая «аура» от неподвижных объектов смещается в направлении ветра.
-Обратите внимание, что видимость имеют ячейки, я звук и запах издают объекты мира.
+## 1.3 Object visibility
+Not all world cells are visible simultaneously.
+Cell visibility is determined by the observer's vision strength – whether their eye "reaches" a certain cell or not. World objects are located in cells, and there can be several objects in one cell. Cell can be transparent (neighboring cells are visible through iy) or not (nothing is visible behind it).
+Some objects emit sound – these can be heard at a certain distance, determined by the observer's ear strength, regardless of walls and objects in the sound's path.
+Some objects emit smell – around such objects and behind them when moving, a "trace" briefly remains, which can be detected by those with a sensitive enough nose. In the presence of wind, the smelling "aura" from stationary objects shifts in the direction of the wind.
+Note that visibility applies to cells, while sound and smell are emitted by world objects.
 
-1.4	 Погода
-Внешние ячейки имеют погоду, которая определяется:
-•	температурой (ниже или выше нуля);
-•	осадками;
-•	силой ветра;
-•	видимостью солнца.
-Каждое существо обладает диапазоном комфортных температур, минимальной переносимой температурой (если до минимальной – есть риск простудиться, ниже её – обморожение и возможность умереть, защититься можно с помощью тёплой одежды) и максимальной переносимой (до максимальной – можно потерять сознание, выше – есть шанс поджариться, защиты нет). На холоде до состояния льда замерзают жидкости, на жаре – вскипают. На холоде остывает еда и горячие объекты. Температура в зданиях и пещерах зависит от наличия дверей и действующего источника огня.
-Осадки имеют силу, с которой льёт дождь или сыплется снег. Находясь под ними без плаща или зонта, промокает одежда, также можно заболеть. Сильные осадки могут промочить уложенные неправильно бумажные вещи или заржавить металлические. Во время грозы металлические и находящиеся высоко объекты могут притянуть молнию.
-Ветер может сбивать летящие метательные снаряды, сдвигать лёгкие объекты и мешать перемещению.
-Если солнце закрыто, то ухудшается видимость. 
+## 1.4 Weather
+External cells have weather, which is determined by:
+- temperature (below or above zero);
+- precipitation;
+- wind strength;
+- sun visibility/brightness.
+Each creature has a range of comfortable temperatures, a minimum tolerable temperature (if down to the minimum – there is a risk of catching a cold, below it – frostbite and possibility of death, protection is possible with warm clothing) and a maximum tolerable (up to the maximum – can lose consciousness, above – there is a chance of being roasted, no protection). In cold down to ice state, liquids freeze, in heat – they boil. In cold, food and hot objects cool down. Temperature in buildings and caves depends on the presence of doors and an active fire source.
+Precipitation has strength, with which rain pours or snow falls. Being under them without a cloak or umbrella, clothing gets wet, and one can also get sick. Heavy precipitation can wet improperly stored paper items or rust metal ones. During thunderstorms, metal objects and those located high can attract lightning.
+Wind can knock down flying missiles, move lightweight objects, and resist ones movement.
+If the sun is obscured, visibility deteriorates.
 
-1.5	 Объекты
-Ячейки мира содержат в себе объекты. Объект имеет следующие свойства:
-•	материал, из которого он сделан (некоторые материалы являются горючими);
-•	является ли объект прозрачным, то есть можно ли видеть то, что находится за ним, и проходит ли сквозь него свет;
-•	является ли объект препятствием, то есть можно ли стать на клетку, на которой стоит такой объект. Очевидно, что на одной клетке одновременно может находиться не более одного объекта-препятствия;
-•	вес, который учитывается, если объект кто-то будет переносить или его поставят на не слишком прочную опору типа льда.
-Некоторые объекты мира представляют собой живые существа, которые двигаются и действуют согласно какой-либо логике.
-Если никаких объектов в ячейке нет, то в этой клетке на экране прорисовывается фон ячейки (её пол, земля или иное покрытие).
+## 1.5 Objects
+World cells contain objects. An object has the following properties:
+- material it is made of (some materials are flammable);
+- whether the object is transparent, i.e., whether what is behind it can be seen, and whether light passes through it;
+- whether the object is an obstacle, i.e., whether one can step on the cell where such an object stands. Obviously, no more than one obstacle object can be on one cell simultaneously;
+- weight, which is considered if someone will carry the object or it is placed on a not too strong support like ice.
+Some world objects are living creatures that move and act according to some logic.
+If there are no objects in a cell, then the cell's background (its floor, ground, or other covering) is drawn on the screen in that cell.
 
-1.6	 Пол
-«Нижняя часть» ячейки (пол или земля) определяет:
-•	силу издаваемого при ходьбе по нему звука;
-•	оставляемые на нём следы;
-•	можно ли посадить в этой клетке определённое растение;
-•	трудность обнаружения на нём растений, грибов и брошенных предметов.
+## 1.6 Floor
+The "lower part" of a cell (floor or ground) determines:
+- the strength of sound produced when walking on it;
+- tracks left on it;
+- whether a certain plant can be planted in this cell;
+- the difficulty of detecting plants, mushrooms, and dropped items on it.
 
- 
-2	Существа
-2.1	Общие свойства
-Как и любой объект, живое существо имеет вес. Помимо этого, каждое существо имеет список предметов, которые могут быть найдены на его теле после смерти. Все живые существа имеют такие предметы, определяемые их телом: внутренние органы, кожу или шкуру, иные трофеи навроде клыков. Кроме того, люди и иные разумные существа имеют инвентари, содержащие предметы, которые могут быть у них украдены.
-Все живые существа имеют тело, состоящее из органов следующих типов:
-•	двигательная конечность (ноги, щупальца, плавники, хвосты), потеря которой затрудняет движение;
-•	активная конечность, позволяющая взаимодействовать с предметами (руки, щупальца, хоботы);
-•	атакующий орган (руки, ноги, пасти, рога);
-•	орган чувств (глаза, уши, носы);
-•	мыслительный орган, повреждение которого приводит к потере сознания (как правило, это мозг);
-•	иное (внутренние органы).
-При этом любой орган может быть жизненно необходимым, что означает, что его потеря или критическое повреждение приведёт к немедленной смерти владельца.
-Каждый орган имеет ряд очков, потеря которых приводит к его необратимому повреждению:
-•	как много крови может потерять орган;
-•	как много ударов может вынести орган (эта величина близка по своему смыслу к обычному в ролевых играх понятию «хитпойнтов»).
+# 2 Creatures
+## 2.1 General properties
+Like any object, a living creature has weight. In addition, each creature has a list of items that can be found on its body after death. All living creatures have such items, determined by their body: internal organs, skin or hide, other trophies like fangs. Moreover, people and other intelligent creatures have inventories containing items that can be stolen from them.
+All living creatures have a body consisting of organs of the following types:
+- locomotive limb (legs, tentacles, fins, tails), the loss of which hinders movement;
+- active limb, allowing interaction with objects (hands, tentacles, trunks);
+- attacking organ (hands, legs, jaws, horns);
+- sensory organ (eyes, ears, noses);
+- thinking organ, damage to which leads to loss of consciousness (as a rule, this is the brain);
+- other (internal organs).
+At the same time, any organ can be vital, which means that its loss or critical damage will lead to the immediate death of the owner.
+Each organ has a number of points, the loss of which leads to its irreversible damage:
+- how much blood the organ can lose;
+- how many hits the organ can withstand (this value is close in meaning to the common concept of "hit points" in role-playing games).
 
-2.2	 Характеристики
-Для определения эффективности тех или иных действий используются следующие характеристики, присущие персонажам (неигровым и игроку):
-•	сила определяет, как много может носить на себе персонаж и как сильно он бъёт руками или тяжёлым оружием;
-•	реакция определяет, как быстро персонаж выполняет свои действия, и его способность к уклонению, а также владение лёгким фехтовальным оружием;
-•	интеллект определяет скорость выполнения требующих умственных усилий действий (например, чтения) и количество доступной памяти, в которой могут сохраняться карты местности, список заданий, приёмы боя, алхимические рецепты и иностранные языки;
-•	воля определяет то, как хорошо персонаж переносит голод и болевой шок;
-•	обаяние определяет способность договариваться с людьми;
-•	восприятие определяется тем, насколько развиты имеющиеся органы слуха, зрения и нюха. Влияет на дальность «видимости объектов». Зрение влияет на точность стрельбы;
-•	внешность влияет на отношение других персонажей и определяется чистотой персонажа, его телосложением, надетыми на нём вещами, следами (в том числе перенесённых) заболеваний.
+## 2.2 Characteristics
+To determine the effectiveness of certain actions, the following characteristics inherent to characters (non-player and player) are used:
+- **strength** determines how much a character can carry and how hard they hit with hands or heavy weapons;
+- **reaction** determines how quickly a character performs their actions, and their ability to dodge, as well as proficiency with light fencing weapons;
+- **intelligence** determines the speed of performing actions requiring mental effort (for example, reading) and the amount of available memory, in which maps of terrain, task lists, combat techniques, alchemical recipes, and foreign languages can be stored;
+- **will power** determines how well a character endures hunger and pain shock;
+- **charisma** determines the ability to negotiate with people;
+- **perception** is determined by how developed the available organs of hearing, sight, and smell are. Affects the range of "object visibility". Vision affects shooting accuracy;
+- **appearance** affects the attitude of other characters and is determined by the character's cleanliness, their physique, items worn on them, signs of diseases (including already transferred).
 
-2.3	 Инвентарь
-Все живые существа имеют инвентарь по умолчанию, который содержит их части тела и всё то, что можно поднять с их трупа. Помимо этого, персонажи могут носить на себе предметы гардероба, перечисленные ниже. Строго говоря, каждое существо может иметь носимые вещи: ошейник у собаки, седло у лошади и т.п.
-•	шляпа или шлем на голову;
-•	нательная одежда или бельё (например, рубаха, рубище или набедренная повязка);
-•	платье (имеется в виду любая верхняя одежда: кафтан, сюртук, женское платье и им подобные, сюда же входит поддоспешник);
-•	накидка (наружная часть платья: тулупы, шубы, доспехи);
-•	плащ (набрасывается на плечи для защиты от непогоды);
-•	рукавицы или перчатки (защищают руки при фехтовании, алхимии, ковке металла и т.п.);
-•	сапоги (защищают ноги от воды, снега и т.п. Болотоступы помогаю при передвижении по трясине, снегоступы – соответственно, по снегу).
-Помимо этого, на себя можно цеплять амулеты, кольца, браслеты и иные украшения.
-Очевидно, что кроме защиты от холода и осадков, одежда выполняет и другие функции. На отношение к вам персонажей зависит стоимость одежды, её целость и изношенность, а также чистота (например, от пятен крови). Очевидно, что представители разных фракций будут носить разную одежду и оценивать незнакомых персонажей именно по носимой униформе.
-Персонаж может носить на себе несколько вещей-инвенторей, которые содержат в себе другие вещи: мешочек для драгоценностей, тубус для бумаги, пояс с зельями, колчан со стрелами, полный барахла рюкзак и иные. Стоит понимать, что каждая такая вещь ограничивает подвижность персонажа. Слишком много вещей унести с собой нельзя. Если, в силу некоторых обстоятельств, персонаж оказался нагружен выше своего максимума, определяемого силой, его раздавит насмерть. 
+## 2.3 Inventory
+All living creatures have a default inventory that contains their body parts and everything that can be picked up from their corpse. In addition, characters can wear wardrobe items listed below. in general, each creature can have wearable items: a collar on a dog, a saddle on a horse, etc.
+- hat or helmet on the head;
+- underwear (for example, a shirt, rags, or loincloth);
+- dress (meaning any outer clothing: caftan, frock coat, women's dress and the like, this also includes gambeson);
+- cloak (outer part of dress: sheepskin coats, fur coats, armor);
+- raincoat (thrown over shoulders for protection from bad weather);
+- gauntlets or gloves (protect hands during fencing, alchemy, metal forging, etc.);
+- boots (protect feet from water, snow, etc. Swamp boots help when moving through swamps, snowshoes – respectively, through snow).
+In addition, one can attach amulets, rings, bracelets, and other jewelry to oneself.
+Obviously, besides protection from cold and precipitation, clothing performs other functions. The attitude of characters towards you depends on the cost of clothing, its integrity and wear, as well as cleanliness (for example, from blood stains). Obviously, representatives of different factions will wear different clothing and evaluate unfamiliar characters precisely by the uniform worn.
+A character can carry several inventory items on themselves, which contain other items: a pouch for jewelry, a tube for paper, a belt with potions, a quiver with arrows, a backpack full of junk, and others. It should be understood that each such item limits the character's mobility. Too many items cannot be carried. If, due to some circumstances, a character is loaded above their maximum, determined by strength, they will be crushed to death.
 
-2.4	 Еда и голод, быт и рутина
-Для успешного поддержания собственной жизни персонаж в игре должен:
-•	есть и пить;
-•	спать;
-•	следить за своим видом: умываться, чинить одежду и снаряжение.
-То, насколько сильно персонаж будет нуждаться во всём этом, зависит от того, что и как долго он делает. Физические и умственные нагрузки быстрее вызывают и голод, и жажду, и утомление. Путешествия по труднопроходимой местности и бои загрязняют снаряжение. В результате боёв некоторое снаряжение может нуждаться в ремонте и заточке.
-Если долго не есть – снижается сила и реакция, умереть от голода довольно сложно. Умереть от жажды намного проще, недостаток воды снижает силу и интеллект. Сильная воля позволяют терпеть голод и жажду дольше. Можно умереть, выпив слишком много воды или объевшись. Регулярные переедания вызывают повышение веса персонажа, что приведёт к потере силы, скорости реакции и внешности. Недосып очень сильно снижает все характеристики и приводит к галлюцинациям, потерям сознания и даже смерти. Если не следить за собой, то снизится внешность персонажа, затупленное и поломанное снаряжение будет работать хуже, а тело начнёт издавать более ощутимый запах.
-Полезные советы. Приготовленная еда питательнее сырой и дольше хранится. Воду перед употреблением лучше кипятить. Употребление алкоголя вызывает негативные последствия и привыкание. Не исправленное вовремя снаряжение иногда безвозвратно ломается и рвётся. 
+## 2.4 Food and hunger, daily life and routine
+To successfully maintain their own life, a character in the game must:
+- eat and drink;
+- sleep;
+- take care of their appearance: wash, repair clothing and equipment.
+How much a character will need all of this depends on what they do and for how long. Physical and mental loads cause hunger, thirst, and fatigue faster. Traveling through difficult terrain and battles contaminate equipment. As a result of battles, some equipment may need repair and sharpening.
+If one doesn't eat for a long time – strength and reaction decrease, dying from hunger is quite difficult. Dying from thirst is much easier, lack of water reduces strength and intelligence. Strong will allows one to endure hunger and thirst longer. One can die by drinking too much water or overeating. Regular overeating causes an increase in the character's weight, which will lead to loss of strength, reaction speed, and appearance. Sleep deprivation greatly reduces all characteristics and leads to hallucinations, loss of consciousness, and even death. If one doesn't take care of oneself, the character's appearance will decrease, dulled and broken equipment will work worse, and the body will begin to emit a more noticeable smell.
+Useful tips. Cooked food is more nutritious than raw and keeps longer. Water is better boiled before consumption. Alcohol consumption causes negative consequences and addiction. Equipment not fixed in time sometimes breaks and tears irreversibly.
 
-2.5	 Живой мир
-Мир вокруг игрока живёт и развивается по своим собственным законам. Но установленное в нём равновесие можно нарушить. Далее примеры.
-Если в лесу или на болоте в жаркую сухую погоду оставить непогашенный костёр, это может привести к большому лесному пожару.
-Если в определённой местности перебить всех животных одного вида, то они не скоро вновь появятся в этой местности. И то – только если им будет откуда вернуться. Хищники, у которых исчезла добыча, тоже вымрут. Собирать все растения и грибы не опасно в силу биологии растений (количества рассеваемых ими семян).
-Людям ежедневно нужно пить – и воду для этого нужно доставлять от ближайших источников. Запруженная река или отравленный колодец – хорошая причина для быстрого вымирания жителей отдельной деревни или замка.
-Людям нужно есть. Именно потому они выращивают растения и животных. Потравленные и пожжённые посевы, заражённые или украденные животные, отравленные продукты в амбарах – тоже уважительная причина сокращения численности населения.
-Одежда и доспехи, инструменты и оружие – всё со временем изнашивается и приходит в негодность. Для нормального функционирования людского поселения в нём самом или неподалёку должны находиться мастерские, мельницы, кузницы, шахты и тому подобное.
-В местах обитания людей ночью стараются зажигать освещение.
-В двух словах – мир игры прекрасно живёт и обходится без игрока.
- 
-3	Общество
-Люди относятся к разным народам, которые имеют свои сильные и слабые стороны, а также особенности внешности и язык. Регионы (и в особенности населённые пункты) относятся к разным странам, которые имеют свой язык, валюту и руководящую иерархию. Мир при генерации создаёт продолжительную историю для каждого народа и государства.
+## 2.5 Living world
+The world around the player lives and develops according to its own laws. But the established balance can be disrupted. Examples below.
+- If in a forest or swamp in hot dry weather an unextinguished campfire is left, this can lead to a large forest fire.
+- If in a certain area all animals of one species are killed, they will not soon reappear in that area. And only if they have somewhere to return from. Predators whose prey has disappeared will also die out. Collecting all plants and mushrooms is not dangerous due to plant biology (the amount of seeds they scatter).
+- People need to drink daily – and water for this needs to be delivered from the nearest sources. A dammed river or poisoned well – a good reason for the rapid extinction of residents of a separate village or castle.
+- People need to eat. That is why they grow plants and animals. Poisoned and burned crops, infected or stolen animals, poisoned products in barns – also a valid reason for population reduction.
+- Clothing and armor, tools and weapons – everything wears out over time and becomes unusable. For normal functioning of a human settlement, workshops, mills, forges, mines, and the like must be located in it or nearby.
+- In places where people live, they try to light illumination at night.
+- In short – the game world lives perfectly and gets along without the player.
 
+# 3 Society
+People treat other people, who have their own strengths and weaknesses, as well as appearance features and language. Regions (and especially settlements) belong to different countries, which have their own language, currency, and governing hierarchy. The world, when generated, creates a long history for each people and state.

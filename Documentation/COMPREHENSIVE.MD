@@ -103,6 +103,86 @@ The world around the player lives and develops according to its own laws. But th
 - In places where people live, they try to light illumination at night.
 - In short – the game world lives perfectly and gets along without the player.
 
+## 2.6 Skills
+- carpentry
+- smithing
+- masonry
+- pottery
+- NO mining and woodpicking - AXES weapon mastery instead
+- cooking
+- alchemy
+- herbalism
+- hunting
+- fishing
+- agriculture
+- animal husbandry (include milking cows and goats, and beekeeping)
+- spinning and weaving
+- leathercraft
+- healing
+- sneaking
+- pickpocketing
+- mechanics (include picking locks and disarming traps)
+- alertness (include detecting traps)
+- swimming
+- climbing
+- hygiene
+- trade
+- speechcraft
+- etiquette
+- literacy (reading and writing)
+- foreign languages
+- music (depends on concrete instruments: string, percussion or wind ones)
+
+## 2.7 Weapon mastery
+Depending on selected weapon item in hands, there are following masteries:
+- hand-to hand, including boxing, kicking and wrestling
+- blades: swords, daggers, sabers, etc.
+- maces, including flails and hammers, etc.
+- polearms, including spears and forks
+- bows and crossbows
+- slings and other throwing staff
+
+## 2.8 Craft and recipes
+All characters (both playable and non-playable ones) have "memory cells" (depenging on their intelligency), which allow to master skills, languages, weapons and recipes. All of them can have different difficulty (requires different numbers of memory). If there is no free memory cells, then new skills and knowledge can't be obtained or improved. If number of memory cells decreases somehow (for example, if head is damaged), some of skills or recipes can be decreased or lost/forgotten.
+
+## 2.9 Traits
+Number of traits on start depends on game difficulty level. Then with game progress character can obtain new traits.
+- increase characteristics: very strong, very intelligent, etc.
+- increase skills: inborn hunter, inborn healer, etc.
+- increase skills progress: fast learner of ...
+- long-lived or short-lived, which modify maximum character life span
+- increase (up to full immunity) or decreasing (up to critical vulnerability) elemental resistance
+- increase or decrease derived numbers like movement speed, reaction speed, carrying capacity, shooting range, hunger and thirst, etc.
+
+## 2.10 States
+- dirty
+- poisoned
+- drunk
+- hangover (can be also caused by drug addiction)
+- scared
+- lightning burned
+- acid burned
+- fire burned
+- sun burned
+- frozen
+- confused
+- losing blood
+- falling asleep `(must be combined with next one)`
+- tired
+
+## 2.11 Diseases
+- fever
+- cough
+- fungus `(грибок)`
+- leprosy
+- lues `(сифилис)`
+- plague
+- ulcer `(язва)`
+- worms
+- dermatitis
+- migraine `(мигрень)`
+- itch `(зуд, чесотка)`
+
 # 3 Society
 People belong to different peoples, who have their own strengths and weaknesses, as well as appearance features and language. Regions (and especially settlements) belong to different countries, which have their own language, currency, and governing hierarchy. The world, when generated, creates a long history for each people and state.
 

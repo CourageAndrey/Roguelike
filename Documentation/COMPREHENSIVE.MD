@@ -67,6 +67,7 @@ To determine the effectiveness of certain actions, the following characteristics
 - **charisma** determines the ability to negotiate with people;
 - **perception** is determined by how developed the available organs of hearing, sight, and smell are. Affects the range of "object visibility". Vision affects shooting accuracy;
 - **appearance** affects the attitude of other characters and is determined by the character's cleanliness, their physique, items worn on them, signs of diseases (including already transferred).
+- **luck** allows sometimes avoid danger or win.
 
 Also, people have skills and traits related to these characteristics.
 
@@ -136,7 +137,8 @@ Then, the Creator created lesser deities to serve him and world inhabitants:
 - god of craft, who helps to transform and combine materials into one another
 - god of trade, who allows people to exchange the results of their work with each other
 - god of theft, who watches those who act unfairly
-- god of magic, who makes it possible to do unusual things and transform elements.
+- god of magic, who makes it possible to do unusual things and transform elements
+- god of luck, who assists people according to his unknown will.
 
 Then the god of life created people of different races:
 - plainsmen, who are good at agriculture and science

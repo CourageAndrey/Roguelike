@@ -29,7 +29,7 @@ If the sun is obscured, visibility deteriorates.
 
 ## 1.5 Objects
 World cells contain objects. An object has the following properties:
-- material it is made of (some materials are flammable);
+- material it is made of (some materials are flammable, can drain etc.);
 - whether the object is transparent, i.e., whether what is behind it can be seen, and whether light passes through it;
 - whether the object is an obstacle, i.e., whether one can step on the cell where such an object stands. Obviously, no more than one obstacle object can be on one cell simultaneously;
 - weight, which is considered when someone carries the object or it is placed on a not too strong support like ice.
@@ -234,7 +234,7 @@ Then the god of life created people of different races:
 - highlanders, strong and enduring, who are the best miners and smiths
 - northmen, who resist cold and frosty tundras, good fishermen and sailors
 - junglemen, who resist poison and diseases, good at survival and hunting, even when hunting other people
-People of different races have their own countries, languages, laws, armies and money – and also their own pantheons. They worship the forces of nature and gods listed above – however, their pantheons are completely different, they can emphasize different aspects of gods, ignore some of them or invent their own deities. Despite all differences, they talk, trade and marry each other, and sometimes live far away from their native countries.
+People of different races have their own countries, languages, laws, armies and money – and also their own pantheons. They worship the forces of nature and gods listed above – however, their pantheons are completely different, they can emphasize different aspects of gods, ignore some of them or invent their own deities. Despite all differences, they talk, trade and marry each other, and sometimes live far away from their native countries. Moreover, they have their own versions of world history (which is generated randomly), based on real facts, rumors, biases and propaganda.
 Also, this god helps to plant and collect crops.
 
 The god of death made living creatures mortal. When someone dies, the death god disassembles the creature into the elements it consists of and returns them to nature.
@@ -281,12 +281,27 @@ When water > STR*10, then the character feels unwell (REA -1, PER -1, WIL -1).
 When water > STR*30, then the character dies because of water poisoning.
 Overeating and overdrinking can also lead to vomiting, which decreases food and water points - and also can decrease some diseases and poisoning.
 
-When a character hits someone without a weapon, the basic damage is 1..STR/2 HP. Target can resist damage based on STR and WIL **TBD**
-Also, Floor(STR/10) is added to weapon damage (except crossbows and other mechanical).
+When a character tries to damage someone (using melee or range weapon or bare hands) game checks if hit happens.
+ATTACK RATING (for attacker) = REA + STR/2 + WIL/8 + LUK/10 + bonuses from skill, weapon, traits, etc.
+DEFENCE RATING (for defender) = REA + LUK/5 + bonuses from skill, armor+shield+weapon, traits, etc. for first attack per turn, for others DR is decreased by 2,4,8,...
+Probability of hit = 50% + (AR-DR)/(AR+DR) (of course, within range 0..100%)
+Weapon cause its damage + STR/5 + LUK/10 + WIL/20 HP of concrete type + - * / weapon and armor bonuses. STR and WIL bonuses here don't add for crossbows and other mechanical weapons.
+Bare hands cause 1..STR/2 HP of bludgeoning damage.
+Bludgeoning damage is reduced by WIL/10 times (1 min).
 
 Time of every action is multiplied by (1-Power(0.05, REA-10)).
 
-Memory is based on INT - **TBD**.
+Memory is based on INT, each 1 INT grants 10 memory cells. There are some bonuses to memory.
+What can be stored in memory:
+- persons and places - 1 cell for any of them
+- any cooking, alchemic or other craft recipes = also 1
+- languages = 1..10 depending on mastery
+- music instruments = 1..4 depending on mastery
+- skills - 1 cell for 10 in any skill level
 
 Visible range is PER cells during the day, 3/4 PER for morning and evening and 1/4 PER during night. When a light source (like candle or torch) with L power is equipped, daytime debuff is reduced by L cells. Also, weather can decrease visibility range (fog, heavy rain and snowfall). Static light sources (fires, candles, etc.) with L power make around them an L cell radius area, which remains visible disregarding daytime.
-Max shooting range is STR cells. Range penalty is **TBD**.
+Max shooting range without penalty is STR cells. Then each 1 cell reduces hit probability (AR) by 15%.
+Full AR = PER + REA/5 + LUK/10 + bonuses
+DR = REA + LUK/5 + bonuses
+Probability of hit is the same as for melee.
+If there are obstacles during missile track, missile can hit it with (100%-PoH) probability.

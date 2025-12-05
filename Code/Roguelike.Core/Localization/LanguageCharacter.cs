@@ -47,6 +47,18 @@ namespace Roguelike.Core.Localization
 		public LanguageHaircuts Haircuts
 		{ get; set; }
 
+		[XmlElement]
+		public LanguageTraits Traits
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageSkills Skills
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageWeaponMasteries WeaponMasteries
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageCharacter CreateDefault()
@@ -72,6 +84,12 @@ namespace Roguelike.Core.Localization
 				Professions = LanguageProfessions.CreateDefault(),
 
 				Haircuts = LanguageHaircuts.CreateDefault(),
+
+				Traits = LanguageTraits.CreateDefault(),
+
+				Skills = LanguageSkills.CreateDefault(),
+
+				WeaponMasteries = LanguageWeaponMasteries.CreateDefault(),
 			};
 		}
 	}

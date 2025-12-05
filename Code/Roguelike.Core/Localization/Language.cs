@@ -52,6 +52,14 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public LanguageDamage Damage
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageElements Elements
+		{ get; set; }
+
+		[XmlElement]
 		public string GameWin
 		{ get; set; }
 
@@ -126,6 +134,10 @@ s - ride (horse)
 				Directions = LanguageDirections.CreateDefault(),
 
 				Character = LanguageCharacter.CreateDefault(),
+
+				Damage = LanguageDamage.CreateDefault(),
+
+				Elements = LanguageElements.CreateDefault(),
 
 				GameWin = "Congratulations! You win the game.",
 				GameDefeat = "Sorry, but game is over.",

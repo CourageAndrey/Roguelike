@@ -45,7 +45,7 @@ namespace Roguelike.Core.Localization
 				Body = "Body",
 				State = "State",
 				Stats = "Stats",
-				Skills = "Skills",
+				Skills = "Skillses",
 				WearedItems = "Weared Items",
 				Inventory = "Inventory",
 				AppearanceFormat = "{0} skin, {1} with {2} hair",

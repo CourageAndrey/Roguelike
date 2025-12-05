@@ -26,6 +26,9 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Willpower
 		{ get; set; }
+		[XmlElement]
+		public string Luck
+		{ get; set; }
 
 		#endregion
 
@@ -39,6 +42,7 @@ namespace Roguelike.Core.Localization
 				Perception = "Perception",
 				Intelligence = "Intelligence",
 				Willpower = "Willpower",
+				Luck = "Luck",
 			};
 		}
 
@@ -52,6 +56,7 @@ namespace Roguelike.Core.Localization
 				Perception,
 				Intelligence,
 				Willpower,
+				Luck,
 			};
 		}
 	}

@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace Roguelike.Core.Localization
 {
@@ -95,6 +96,40 @@ namespace Roguelike.Core.Localization
 				Literacy = "Literacy",
 				Foreign = "Foreign",
 				Music = "Music",
+			};
+		}
+
+		public List<string> GetAll()
+		{
+			return new List<string>
+			{
+				Carpentry,
+				Smithing,
+				Masonry,
+				Pottery,
+				Cooking,
+				Alchemy,
+				Herbalism,
+				Hunting,
+				Fishing,
+				Agriculture,
+				AnimalHusbandry,
+				SpinningAndWeaving,
+				Leathercraft,
+				Healing,
+				Sneaking,
+				Pickpocketing,
+				Mechanics,
+				Alertness,
+				Swimming,
+				Climbing,
+				Hygiene,
+				Trade,
+				Speechcraft,
+				Etiquette,
+				Literacy,
+				Foreign,
+				Music,
 			};
 		}
 	}

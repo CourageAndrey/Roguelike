@@ -340,8 +340,6 @@ namespace Roguelike.Console
 			});
 		}
 
-		
-
 		public bool TrySelectItem(string question, IEnumerable<ListItem> items, out ListItem selectedItem)
 		{
 			bool result = false;
@@ -417,7 +415,8 @@ namespace Roguelike.Console
 		{
 			var language = game.Language;
 			var languageUi = language.Ui.CharacterScreen;
-			int propetyLength = language.Character.Properties.GetAll().Max(p => p.Length);
+			int propertyLength = language.Character.Properties.GetAll().Max(p => p.Length);
+			int skillLength = language.Character.Skills.GetAll().Max(s => s.Length);
 			startDialog(() =>
 			{
 				System.Console.ForegroundColor = ConsoleColor.Cyan;
@@ -447,18 +446,23 @@ namespace Roguelike.Console
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
 				System.Console.WriteLine($"=== {languageUi.Stats.ToUpperInvariant()} ===");
 				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.WriteLine($"{language.Character.Properties.Strength.PadLeft(propetyLength)} : {humanoid.Properties.Strength}");
-				System.Console.WriteLine($"{language.Character.Properties.Endurance.PadLeft(propetyLength)} : {humanoid.Properties.Endurance}");
-				System.Console.WriteLine($"{language.Character.Properties.Reaction.PadLeft(propetyLength)} : {humanoid.Properties.Reaction}");
-				System.Console.WriteLine($"{language.Character.Properties.Perception.PadLeft(propetyLength)} : {humanoid.Properties.Perception}");
-				System.Console.WriteLine($"{language.Character.Properties.Intelligence.PadLeft(propetyLength)} : {humanoid.Properties.Intelligence}");
-				System.Console.WriteLine($"{language.Character.Properties.Willpower.PadLeft(propetyLength)} : {humanoid.Properties.Willpower}");
+				System.Console.WriteLine($"{language.Character.Properties.Strength.PadLeft(propertyLength)} : {humanoid.Properties.Strength}");
+				System.Console.WriteLine($"{language.Character.Properties.Endurance.PadLeft(propertyLength)} : {humanoid.Properties.Endurance}");
+				System.Console.WriteLine($"{language.Character.Properties.Reaction.PadLeft(propertyLength)} : {humanoid.Properties.Reaction}");
+				System.Console.WriteLine($"{language.Character.Properties.Perception.PadLeft(propertyLength)} : {humanoid.Properties.Perception}");
+				System.Console.WriteLine($"{language.Character.Properties.Intelligence.PadLeft(propertyLength)} : {humanoid.Properties.Intelligence}");
+				System.Console.WriteLine($"{language.Character.Properties.Willpower.PadLeft(propertyLength)} : {humanoid.Properties.Willpower}");
+				System.Console.WriteLine($"{language.Character.Properties.Luck.PadLeft(propertyLength)} : {humanoid.Properties.Luck}");
 				System.Console.WriteLine();
 
 				System.Console.ForegroundColor = ConsoleColor.DarkYellow;
 				System.Console.WriteLine($"=== {languageUi.Skills.ToUpperInvariant()} ===");
 				System.Console.ForegroundColor = ConsoleColor.White;
-				System.Console.WriteLine($"... under construction ...");
+#warning REMOVE REDUNDAND TAKE, ADD SCROLLING
+				foreach (var skill in language.Character.Skills.GetAll().Take(5))
+				{
+					System.Console.WriteLine($"{skill.PadLeft(skillLength)} : ?");
+				}
 
 				System.Console.ReadKey(true);
 			});

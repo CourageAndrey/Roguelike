@@ -98,7 +98,7 @@ namespace Roguelike.Core
 			},
 			Color.White,
 			new[] { Color.Black },
-			profession => new Properties(10, 10, 30, 10, 10, 10),
+			profession => new Properties(10, 10, 30, 10, 10, 10, 10),
 			profession => Array.Empty<IItem>());
 
 		public static readonly Race Nomad = new Race(
@@ -118,7 +118,7 @@ namespace Roguelike.Core
 			},
 			Color.SaddleBrown,
 			new[] { Color.Black },
-			profession => new Properties(10, 10, 30, 10, 10, 10),
+			profession => new Properties(10, 10, 30, 10, 10, 10, 10),
 			profession => Array.Empty<IItem>());
 
 		public static readonly Race Highlander = new Race(
@@ -138,7 +138,7 @@ namespace Roguelike.Core
 			},
 			Color.LightGray,
 			new[] { Color.Black },
-			profession => new Properties(10, 10, 30, 10, 10, 10),
+			profession => new Properties(10, 10, 30, 10, 10, 10, 10),
 			profession => Array.Empty<IItem>());
 
 		public static readonly Race Jungleman = new Race(
@@ -158,7 +158,7 @@ namespace Roguelike.Core
 			},
 			Color.RosyBrown,
 			new[] { Color.Black },
-			profession => new Properties(10, 10, 30, 10, 10, 10),
+			profession => new Properties(10, 10, 30, 10, 10, 10, 10),
 			profession => Array.Empty<IItem>());
 
 		public static readonly Race Nordman = new Race(
@@ -178,7 +178,7 @@ namespace Roguelike.Core
 			},
 			Color.White,
 			new[] { Color.White },
-			profession => new Properties(10, 10, 30, 10, 10, 10),
+			profession => new Properties(10, 10, 30, 10, 10, 10, 10),
 			profession => Array.Empty<IItem>());
 
 		public static readonly IReadOnlyCollection<Race> All = new[]

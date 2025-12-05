@@ -24,6 +24,9 @@ namespace Roguelike.Core.Aspects
 		public int Willpower
 		{ get; }
 
+		public int Luck
+		{ get; }
+
 		#endregion
 
 		public Properties(
@@ -32,7 +35,8 @@ namespace Roguelike.Core.Aspects
 			int reaction,
 			int perception,
 			int intelligence,
-			int willpower)
+			int willpower,
+			int luck)
 		{
 			Strength = strength;
 			Endurance = endurance;
@@ -40,6 +44,7 @@ namespace Roguelike.Core.Aspects
 			Perception = perception;
 			Intelligence = intelligence;
 			Willpower = willpower;
+			Luck = luck;
 		}
 
 		public override string ToString()
@@ -49,7 +54,7 @@ namespace Roguelike.Core.Aspects
 
 		public static Properties Empty()
 		{
-			return new Properties(0, 0, 0, 0, 0, 0);
+			return new Properties(0, 0, 0, 0, 0, 0, 0);
 		}
 
 		public Properties Merge(Properties? other)
@@ -65,7 +70,8 @@ namespace Roguelike.Core.Aspects
 				Reaction + other.Reaction,
 				Perception + other.Perception,
 				Intelligence + other.Intelligence,
-				Willpower + other.Willpower);
+				Willpower + other.Willpower,
+				Luck + other.Luck);
 		}
 	}
 }

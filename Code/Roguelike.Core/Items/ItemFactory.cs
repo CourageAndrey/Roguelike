@@ -14,7 +14,20 @@ namespace Roguelike.Core.Items
 		public static IItem CreateMissile(MissileType missileType)
 		{
 			return new Item(
-				(language, alive) => language.Items.Arrow,
+				(language, alive) =>
+				{
+					switch (missileType)
+					{
+						case MissileType.Arrow:
+							return language.Items.Arrow;
+						case MissileType.Bolt:
+							return language.Items.Bolt;
+						case MissileType.Bullet:
+							return language.Items.Bullet;
+						default:
+							throw new ArgumentOutOfRangeException(nameof(missileType), missileType, null);
+					}
+				},
 				() => 0.1m,
 				ItemType.Weapon,
 				Color.White,

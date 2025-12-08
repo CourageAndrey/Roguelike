@@ -195,6 +195,8 @@ namespace Roguelike.Core
 			wife.Race.DressCostume(wife);
 			wife.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 
+			husband.Interlocutor.GetAcquainted(wife);
+			wife.Interlocutor.GetAcquainted(husband);
 			house.Settle(husband, wife);
 
 			return husband;

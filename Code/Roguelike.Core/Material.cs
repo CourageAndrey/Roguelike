@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+
 using Roguelike.Core;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;

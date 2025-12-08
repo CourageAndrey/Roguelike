@@ -267,7 +267,7 @@ namespace Roguelike.Console
 
 						foreach (string line in lines.Skip(firstLine).Take(scrolledTextHeight))
 						{
-							System.Console.WriteLine(line);
+							WriteColoredLine(line);
 						}
 
 						isUpEnabled = isPgUpEnabled = isHomeEnabled = firstLine > 0;
@@ -277,7 +277,7 @@ namespace Roguelike.Console
 					{
 						foreach (string line in lines)
 						{
-							System.Console.WriteLine(line);
+							WriteColoredLine(line);
 						}
 					}
 
@@ -338,6 +338,37 @@ namespace Roguelike.Console
 					} while (!needToReact);
 				} while (!exitText);
 			});
+		}
+
+		private static readonly char[] HighlightChars = new[] { '{', '}' };
+
+		private void WriteColoredLine(string text)
+		{
+			while (text.Length > 0)
+			{
+				int index = text.IndexOfAny(HighlightChars);
+				if (index > 0)
+				{
+					System.Console.Write(text.Remove(index));
+				}
+				else if (index < 0)
+				{
+					System.Console.Write(text);
+				}
+
+				if (index >= 0)
+				{
+					System.Console.ForegroundColor = text[index] == '{'
+						? HighlightForegroundColor
+						: DefaultForegroundColor;
+					text = text.Substring(index + 1);
+				}
+				else
+				{
+					text = string.Empty;
+				}
+			}
+			System.Console.WriteLine();
 		}
 
 		public bool TrySelectItem(string question, IEnumerable<ListItem> items, out ListItem selectedItem)

@@ -1,4 +1,4 @@
-﻿using System.Xml.Serialization;
+using System.Xml.Serialization;
 
 namespace Roguelike.Core.Localization
 {
@@ -35,6 +35,10 @@ namespace Roguelike.Core.Localization
 		public string Liquid
 		{ get; set; }
 
+		[XmlElement]
+		public LanguageMetals Metals
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageMaterials CreateDefault()
@@ -50,6 +54,7 @@ namespace Roguelike.Core.Localization
 				Bone = "Bone",
 				Food = "Food",
 				Liquid = "Liquid",
+				Metals = LanguageMetals.CreateDefault(),
 			};
 		}
 	}

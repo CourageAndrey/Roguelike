@@ -17,6 +17,9 @@ namespace Roguelike.Core
 		public Color Color
 		{ get; }
 
+		public Material? Parent
+		{ get; }
+
 		public bool CanBurn
 		{ get; private set; }
 
@@ -34,9 +37,22 @@ namespace Roguelike.Core
 
 		#endregion
 
-		private Material(Func<LanguageMaterials, string> getName, Color color)
+		private Material(Func<LanguageMaterials, string> getName, Color color, Material? parent = null)
 		{
 			_getName = getName;
+
+			Parent = parent;
+			if (parent != null)
+			{
+				Color = parent.Color;
+
+				CanBurn = parent.CanBurn;
+				CanDrain = parent.CanDrain;
+				CanRust = parent.CanRust;
+				CanConductElectricity = parent.CanConductElectricity;
+				CanDrawn = parent.CanDrawn;
+			}
+
 			Color = color;
 		}
 
@@ -60,6 +76,12 @@ namespace Roguelike.Core
 		private Material MakeRustable()
 		{
 			CanRust = true;
+			return this;
+		}
+
+		private Material MakeRustproof()
+		{
+			CanRust = false;
 			return this;
 		}
 
@@ -104,13 +126,26 @@ namespace Roguelike.Core
 		#region List
 
 		public static readonly Material Wood = new Material(language => language.Wood, Color.Brown).MakeBurnable();
+
 		public static readonly Material Metal = new Material(language => language.Metal, Color.Blue).MakeConductingElectricity().MakeDrawnable().MakeRustable();
+		public static readonly Material Brass = new Material(language => language.Metals.Brass, Color.SandyBrown, Metal);
+		public static readonly Material Iron = new Material(language => language.Metals.Iron, Color.Blue, Metal);
+		public static readonly Material Steel = new Material(language => language.Metals.Steel, Color.DeepSkyBlue, Metal);
+		public static readonly Material Mithril = new Material(language => language.Metals.Mithril, Color.LightGray, Metal).MakeRustproof();
+		public static readonly Material Adamantine = new Material(language => language.Metals.Adamantine, Color.DarkGray, Metal).MakeRustproof();
+
 		public static readonly Material Stone = new Material(language => language.Stone, Color.Gray).MakeDrawnable();
+
 		public static readonly Material Skin = new Material(language => language.Skin, Color.Transparent).MakeBurnable();
+
 		public static readonly Material Fabric = new Material(language => language.Fabric, Color.Transparent).MakeBurnable().MakeDrainable();
+
 		public static readonly Material Paper = new Material(language => language.Paper, Color.White).MakeBurnable().MakeDrainable();
+
 		public static readonly Material Bone = new Material(language => language.Bone, Color.LightGray).MakeBurnable();
+
 		public static readonly Material Food = new Material(language => language.Food, Color.LimeGreen).MakeBurnable();
+
 		public static readonly Material Liquid = new Material(language => language.Liquid, Color.Blue).MakeConductingElectricity();
 
 		public static readonly ICollection<Material> All = new List<Material>

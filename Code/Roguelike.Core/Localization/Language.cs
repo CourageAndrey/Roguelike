@@ -87,6 +87,10 @@ namespace Roguelike.Core.Localization
 		public LanguageObjects Objects
 		{ get; set; }
 
+		[XmlElement]
+		public LanguageWeather Weather
+		{ get; set; }
+
 		#endregion
 
 		public static Language CreateDefault()
@@ -151,6 +155,8 @@ namespace Roguelike.Core.Localization
 				Materials = LanguageMaterials.CreateDefault(),
 
 				Objects = LanguageObjects.CreateDefault(),
+
+				Weather = LanguageWeather.CreateDefault(),
 			};
 		}
 

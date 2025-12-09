@@ -84,5 +84,82 @@ namespace Roguelike.Core.Mechanics
 		{
 			return list[seed.Next(0, list.Count - 1)];
 		}
+
+		public static Direction GetOpposite(this Direction direction)
+		{
+			switch (direction)
+			{
+				case Direction.Left:
+					return Direction.Right;
+				case Direction.Right:
+					return Direction.Left;
+				case Direction.Up:
+					return Direction.Down;
+				case Direction.Down:
+					return Direction.Up;
+				case Direction.UpLeft:
+					return Direction.DownRight;
+				case Direction.UpRight:
+					return Direction.DownLeft;
+				case Direction.DownLeft:
+					return Direction.UpRight;
+				case Direction.DownRight:
+					return Direction.UpLeft;
+				case Direction.None:
+					return Direction.None;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(direction));
+			}
+		}
+
+		public static (int dx, int dy) ToVector(this Direction direction)
+		{
+			int dx = 0, dy = 0;
+
+			if ((direction & Direction.Left) != 0)
+			{
+				dx = -1;
+			}
+			if ((direction & Direction.Right) != 0)
+			{
+				dx = 1;
+			}
+
+			if ((direction & Direction.Up) != 0)
+			{
+				dy = -1;
+			}
+			if ((direction & Direction.Down) != 0)
+			{
+				dy = 1;
+			}
+
+			return (dx, dy);
+		}
+
+		public static Direction FromVector(int dx, int dy)
+		{
+			Direction result = Direction.None;
+
+			if (dx < 0)
+			{
+				result |= Direction.Left;
+			}
+			else if (dx > 0)
+			{
+				result |= Direction.Right;
+			}
+
+			if (dy < 0)
+			{
+				result |= Direction.Up;
+			}
+			else if (dy > 0)
+			{
+				result |= Direction.Down;
+			}
+
+			return result;
+		}
 	}
 }

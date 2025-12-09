@@ -23,6 +23,18 @@ namespace Roguelike.Core.RolePlaying
 		public IReadOnlyCollection<Color> HairColors
 		{ get; }
 
+		public double MinTolerableTemperature
+		{ get; }
+
+		public double MaxTolerableTemperature
+		{ get; }
+
+		public double ComfortableMinTemperature
+		{ get; }
+
+		public double ComfortableMaxTemperature
+		{ get; }
+
 		#endregion
 
 		private Race(
@@ -31,7 +43,11 @@ namespace Roguelike.Core.RolePlaying
 			Color skinColor,
 			IEnumerable<Color> hairColors,
 			Func<Profession, Properties> getProperties,
-			Func<Profession, IEnumerable<IItem>> getItems)
+			Func<Profession, IEnumerable<IItem>> getItems,
+			double minTolerableTemperature = -10.0,
+			double maxTolerableTemperature = 40.0,
+			double comfortableMinTemperature = 15.0,
+			double comfortableMaxTemperature = 25.0)
 		{
 			_getRaceInfo = getRaceInfo;
 			_dressCostume = dressCostume;
@@ -39,6 +55,10 @@ namespace Roguelike.Core.RolePlaying
 			HairColors = hairColors.ToArray();
 			_getProperties = getProperties;
 			_getItems = getItems;
+			MinTolerableTemperature = minTolerableTemperature;
+			MaxTolerableTemperature = maxTolerableTemperature;
+			ComfortableMinTemperature = comfortableMinTemperature;
+			ComfortableMaxTemperature = comfortableMaxTemperature;
 		}
 
 		public string GetName(LanguageRaces language)
@@ -119,7 +139,11 @@ namespace Roguelike.Core.RolePlaying
 			Color.SaddleBrown,
 			new[] { Color.Black },
 			profession => new Properties(10, 10, 30, 10, 10, 10, 10),
-			profession => Array.Empty<IItem>());
+			profession => Array.Empty<IItem>(),
+			minTolerableTemperature: -5.0,
+			maxTolerableTemperature: 42.0,
+			comfortableMinTemperature: 15.0,
+			comfortableMaxTemperature: 30.0);
 
 		public static readonly Race Highlander = new Race(
 			language => language.Highlander,
@@ -159,7 +183,11 @@ namespace Roguelike.Core.RolePlaying
 			Color.RosyBrown,
 			new[] { Color.Black },
 			profession => new Properties(10, 10, 30, 10, 10, 10, 10),
-			profession => Array.Empty<IItem>());
+			profession => Array.Empty<IItem>(),
+			minTolerableTemperature: 0.0,
+			maxTolerableTemperature: 45.0,
+			comfortableMinTemperature: 20.0,
+			comfortableMaxTemperature: 35.0);
 
 		public static readonly Race Nordman = new Race(
 			language => language.Nordman,
@@ -179,7 +207,11 @@ namespace Roguelike.Core.RolePlaying
 			Color.White,
 			new[] { Color.White },
 			profession => new Properties(10, 10, 30, 10, 10, 10, 10),
-			profession => Array.Empty<IItem>());
+			profession => Array.Empty<IItem>(),
+			minTolerableTemperature: -20.0,
+			maxTolerableTemperature: 35.0,
+			comfortableMinTemperature: 5.0,
+			comfortableMaxTemperature: 20.0);
 
 		public static readonly IReadOnlyCollection<Race> All = new[]
 		{

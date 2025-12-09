@@ -22,6 +22,9 @@
 		public FoodBalance Food
 		{ get; set; }
 
+		public WeatherBalance Weather
+		{ get; set; }
+
 		public int MaxLogSize
 		{ get; set; }
 
@@ -37,6 +40,7 @@
 				Distance = DistanceBalance.CreateDefault(),
 				Player = PlayerBalance.CreateDefault(),
 				Food = FoodBalance.CreateDefault(),
+				Weather = WeatherBalance.CreateDefault(),
 
 				MaxLogSize = 512,
 			};

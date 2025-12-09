@@ -26,11 +26,11 @@
 
 **Purpose**: Configuration and shared weather infrastructure
 
-- [ ] T001 Create WeatherBalance.cs configuration class in Code/Roguelike.Core/Configuration/WeatherBalance.cs
-- [ ] T002 Add Weather property to Balance.cs in Code/Roguelike.Core/Configuration/Balance.cs
-- [ ] T003 [P] Create LanguageWeather.cs localization class in Code/Roguelike.Core/Localization/LanguageWeather.cs
-- [ ] T004 [P] Add Weather property to Language.cs in Code/Roguelike.Core/Localization/Language.cs
-- [ ] T005 Add wind direction utilities to Direction.cs in Code/Roguelike.Core/Direction.cs
+- [X] T001 Create WeatherBalance.cs configuration class in Code/Roguelike.Core/Configuration/WeatherBalance.cs
+- [X] T002 Add Weather property to Balance.cs in Code/Roguelike.Core/Configuration/Balance.cs
+- [X] T003 [P] Create LanguageWeather.cs localization class in Code/Roguelike.Core/Localization/LanguageWeather.cs
+- [X] T004 [P] Add Weather property to Language.cs in Code/Roguelike.Core/Localization/Language.cs
+- [X] T005 Add wind direction utilities to Direction.cs in Code/Roguelike.Core/Direction.cs
 
 ---
 
@@ -40,12 +40,12 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Enhance Weather.cs with seasonal/time-based temperature calculation in Code/Roguelike.Core/Weather.cs
-- [ ] T007 Add precipitation strength levels to Weather.cs in Code/Roguelike.Core/Weather.cs
-- [ ] T008 Add sun visibility state to Weather.cs in Code/Roguelike.Core/Weather.cs
-- [ ] T009 Implement weather transition logic in Weather.cs in Code/Roguelike.Core/Weather.cs
-- [ ] T010 Add temperature comfort ranges to Race class or creature definitions in Code/Roguelike.Core/Race.cs
-- [ ] T011 Integrate weather update timing into World.DoOneStep() in Code/Roguelike.Core/World.cs
+- [X] T006 Enhance Weather.cs with seasonal/time-based temperature calculation in Code/Roguelike.Core/Weather.cs
+- [X] T007 Add precipitation strength levels to Weather.cs in Code/Roguelike.Core/Weather.cs
+- [X] T008 Add sun visibility state to Weather.cs in Code/Roguelike.Core/Weather.cs
+- [X] T009 Implement weather transition logic in Weather.cs in Code/Roguelike.Core/Weather.cs
+- [X] T010 Add temperature comfort ranges to Race class or creature definitions in Code/Roguelike.Core/Race.cs
+- [X] T011 Integrate weather update timing into World.DoOneStep() in Code/Roguelike.Core/World.cs
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 

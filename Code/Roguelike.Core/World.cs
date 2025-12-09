@@ -130,6 +130,14 @@ namespace Roguelike.Core
 			{
 				var previousDayPart = _time.DayPart;
 				_time = nextActionTime;
+				
+				// Update weather if it's time for a change
+				var currentRegion = Hero.GetRegion();
+				if (_time >= currentRegion.Weather.NextChangeTime)
+				{
+					currentRegion.Weather.Change();
+				}
+				
 				if (_time.DayPart != previousDayPart)
 				{
 					Hero.Camera.RefreshVisibleCells();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Core
 {

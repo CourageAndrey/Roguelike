@@ -1,9 +1,7 @@
-﻿using System;
-
-using Roguelike.Core.Interfaces;
+﻿using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
-namespace Roguelike.Core
+namespace Roguelike.Core.Mechanics
 {
 	public class Activity : IDescriptive
 	{

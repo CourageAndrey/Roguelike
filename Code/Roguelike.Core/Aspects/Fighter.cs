@@ -6,6 +6,7 @@ using System.Threading;
 
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Core.Aspects
 {

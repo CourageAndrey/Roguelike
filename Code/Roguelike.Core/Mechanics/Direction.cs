@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 using Roguelike.Core.Localization;
 
-namespace Roguelike.Core
+namespace Roguelike.Core.Mechanics
 {
 	[Flags]
 	public enum Direction

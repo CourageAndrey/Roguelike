@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Roguelike.Core.Mechanics;
+using System;
 using System.Collections.Generic;
 
 namespace Roguelike.Core.Interfaces

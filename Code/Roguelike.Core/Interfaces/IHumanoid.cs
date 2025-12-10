@@ -2,6 +2,7 @@
 
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Places;
+using Roguelike.Core.RolePlaying;
 
 namespace Roguelike.Core.Interfaces
 {

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Roguelike.Core.Interfaces;
+﻿using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Objects
 {
-	public class ItemsPile : Object, IItemsContainer
+	public class ItemsPile : Mechanics.Object, IItemsContainer
 	{
 		#region Properties
 

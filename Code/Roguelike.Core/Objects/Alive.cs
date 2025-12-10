@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Threading;
 
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Core.Objects
 {
-	public abstract class Alive : Object, IAlive
+	public abstract class Alive : Mechanics.Object, IAlive
 	{
 		#region Properties
 

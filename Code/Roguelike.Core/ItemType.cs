@@ -1,6 +1,4 @@
-﻿using System;
-
-using Roguelike.Core.Localization;
+﻿using Roguelike.Core.Localization;
 
 namespace Roguelike.Core
 {

@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
-using System.Linq;
 
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Core.Objects
 {

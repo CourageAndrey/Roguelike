@@ -9,7 +9,9 @@ using System.Xml.Serialization;
 
 using Roguelike.Core;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Mechanics;
 using Roguelike.Core.Objects;
+using Roguelike.Core.RolePlaying;
 
 namespace Roguelike.Console
 {

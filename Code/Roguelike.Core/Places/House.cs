@@ -3,6 +3,7 @@ using System.Linq;
 
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.Mechanics;
 using Roguelike.Core.Objects;
 
 namespace Roguelike.Core.Places

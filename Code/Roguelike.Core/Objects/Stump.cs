@@ -3,7 +3,7 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Objects
 {
-	public class Stump : Object
+	public class Stump : Mechanics.Object
 	{
 		#region Properties
 

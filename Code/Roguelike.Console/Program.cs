@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-using Roguelike.Core;
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Console
 {

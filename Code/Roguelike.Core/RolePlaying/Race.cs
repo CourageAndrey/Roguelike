@@ -6,7 +6,7 @@ using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
 using Roguelike.Core.Objects;
 
-namespace Roguelike.Core
+namespace Roguelike.Core.RolePlaying
 {
 	public class Race
 	{

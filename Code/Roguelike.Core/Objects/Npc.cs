@@ -1,8 +1,10 @@
-﻿using Roguelike.Core.Configuration;
-using Roguelike.Core.Localization;
-using Roguelike.Core.Places;
+﻿using System.Drawing;
 
-using System.Drawing;
+using Roguelike.Core.Configuration;
+using Roguelike.Core.Localization;
+using Roguelike.Core.Mechanics;
+using Roguelike.Core.Places;
+using Roguelike.Core.RolePlaying;
 
 namespace Roguelike.Core.Objects
 {

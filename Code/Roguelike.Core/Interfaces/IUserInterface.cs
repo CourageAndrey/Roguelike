@@ -2,6 +2,7 @@
 using System.Text;
 
 using Roguelike.Core.Aspects;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Core.Interfaces
 {

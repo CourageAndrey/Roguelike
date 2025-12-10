@@ -5,7 +5,7 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Objects
 {
-	public class Corpse : Object
+	public class Corpse : Mechanics.Object
 	{
 		#region Properties
 

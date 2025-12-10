@@ -4,7 +4,7 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Objects
 {
-	public class Pool : Object
+	public class Pool : Mechanics.Object
 	{
 		#region Properties
 

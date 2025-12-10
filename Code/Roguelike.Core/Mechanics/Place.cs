@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Roguelike.Core
+﻿namespace Roguelike.Core.Mechanics
 {
 	public abstract class Place
 	{

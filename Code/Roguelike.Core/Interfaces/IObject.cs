@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 
 using Roguelike.Core.Aspects;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Core.Interfaces
 {

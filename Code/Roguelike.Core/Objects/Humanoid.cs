@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Drawing;
 
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Mechanics;
 using Roguelike.Core.Places;
+using Roguelike.Core.RolePlaying;
 
 namespace Roguelike.Core.Objects
 {

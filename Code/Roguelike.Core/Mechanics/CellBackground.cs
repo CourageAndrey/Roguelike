@@ -1,4 +1,4 @@
-﻿namespace Roguelike.Core
+﻿namespace Roguelike.Core.Mechanics
 {
 	public class CellBackground
 	{

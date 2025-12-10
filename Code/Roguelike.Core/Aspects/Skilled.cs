@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.RolePlaying;
 
 namespace Roguelike.Core.Aspects
 {

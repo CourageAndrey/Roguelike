@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using Roguelike.Core;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Console.ViewModels
 {

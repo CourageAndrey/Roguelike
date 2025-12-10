@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-
-namespace Roguelike.Core
+﻿namespace Roguelike.Core.Mechanics
 {
 	public enum Precipitation
 	{

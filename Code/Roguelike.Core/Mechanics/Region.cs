@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using Roguelike.Core.Aspects;
+﻿using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
+using Roguelike.Core.RolePlaying;
 
-namespace Roguelike.Core
+namespace Roguelike.Core.Mechanics
 {
 	public class Region
 	{

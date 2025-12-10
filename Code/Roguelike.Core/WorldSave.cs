@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
-
+using Roguelike.Core.Mechanics;
 using Roguelike.Core.Saves;
 
 namespace Roguelike.Core

@@ -7,6 +7,7 @@ using System.Threading;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Core.Aspects
 {

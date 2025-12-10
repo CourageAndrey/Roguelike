@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Linq;
 
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Mechanics;
 using Roguelike.Core.Objects;
 using Roguelike.Core.Places;
+using Roguelike.Core.RolePlaying;
 
 namespace Roguelike.Core
 {
@@ -126,7 +125,7 @@ namespace Roguelike.Core
 
 			foreach (var cell in region.GetCells(x1, x2, y1, y2, z))
 			{
-				var removedObjects = new List<Object>(cell.Objects);
+				var removedObjects = new List<Mechanics.Object>(cell.Objects);
 				foreach (var o in removedObjects)
 				{
 					o.MoveTo(null);
@@ -213,7 +212,7 @@ namespace Roguelike.Core
 			transport.placeIntoFreeCell(region, seed, x1, x2, y1, y2, z);
 		}
 
-		private static void placeIntoFreeCell(this Object @object, Region region, Random seed, int x1, int x2, int y1, int y2, int z)
+		private static void placeIntoFreeCell(this Mechanics.Object @object, Region region, Random seed, int x1, int x2, int y1, int y2, int z)
 		{
 			var freeCells = new List<Cell>(region.GetCells(x1, x2, y1, y2, z).Where(c => c.IsTransparent));
 			@object.MoveTo(freeCells[seed.Next(0, freeCells.Count - 1)]);

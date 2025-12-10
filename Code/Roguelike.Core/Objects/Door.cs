@@ -1,11 +1,9 @@
-﻿using System;
-
-using Roguelike.Core.Interfaces;
+﻿using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Objects
 {
-	public class Door : Object, IDoor
+	public class Door : Mechanics.Object, IDoor
 	{
 		#region Properties
 

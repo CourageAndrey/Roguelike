@@ -4,7 +4,7 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Objects
 {
-	public class Fire : Object
+	public class Fire : Mechanics.Object
 	{
 		#region Properties
 

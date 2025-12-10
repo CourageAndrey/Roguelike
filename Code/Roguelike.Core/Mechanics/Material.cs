@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 
-using Roguelike.Core;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
-namespace Roguelike.Core
+namespace Roguelike.Core.Mechanics
 {
 	public class Material : IColorful
 	{

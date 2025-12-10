@@ -3,7 +3,7 @@ using Roguelike.Core.Localization;
 
 namespace Roguelike.Core.Objects
 {
-	public class Wall : Object
+	public class Wall : Mechanics.Object
 	{
 		#region Properties
 

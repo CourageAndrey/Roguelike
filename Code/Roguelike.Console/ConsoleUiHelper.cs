@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 
-using Roguelike.Core;
 using Roguelike.Core.Objects;
 using Roguelike.Console.ViewModels;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Console
 {
@@ -18,7 +18,7 @@ namespace Roguelike.Console
 			var objectToDisplay = cell.GetTopVisibleObject();
 			if (objectToDisplay == null) return BackgroundViewModel.All[cell.Background];
 
-			Func<Core.Object, ObjectViewModel> modelCreator = null;
+			Func<Core.Mechanics.Object, ObjectViewModel> modelCreator = null;
 			var objectType = objectToDisplay.GetType();
 			while (objectType != null)
 			{
@@ -41,7 +41,7 @@ namespace Roguelike.Console
 			}
 		}
 
-		private static readonly IDictionary<Type, Func<Core.Object, ObjectViewModel>> modelCreators = new Dictionary<Type, Func<Core.Object, ObjectViewModel>>
+		private static readonly IDictionary<Type, Func<Core.Mechanics.Object, ObjectViewModel>> modelCreators = new Dictionary<Type, Func<Core.Mechanics.Object, ObjectViewModel>>
 		{
 			{ typeof(Humanoid), o => new HumanoidViewModel((Humanoid) o) },
 			{ typeof(Dog), o => new DogViewModel((Dog) o) },

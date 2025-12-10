@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Roguelike.Core.Mechanics;
+using System;
 using System.Xml.Serialization;
 
 namespace Roguelike.Core.Saves

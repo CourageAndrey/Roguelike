@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Core.Objects
 {
-	public class Tree : Object, ITree
+	public class Tree : Mechanics.Object, ITree
 	{
 		#region Properties
 

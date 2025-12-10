@@ -1,6 +1,6 @@
-﻿using Roguelike.Core;
-using Roguelike.Core.Interfaces;
+﻿using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Console
 {

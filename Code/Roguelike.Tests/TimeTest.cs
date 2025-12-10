@@ -2,8 +2,8 @@ using System;
 
 using NUnit.Framework;
 
-using Roguelike.Core;
 using Roguelike.Core.Configuration;
+using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Tests
 {

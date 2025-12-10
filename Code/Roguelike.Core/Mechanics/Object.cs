@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-
-using Roguelike.Core.Aspects;
+﻿using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Localization;
 
-namespace Roguelike.Core
+namespace Roguelike.Core.Mechanics
 {
 	public abstract class Object : IObject
 	{

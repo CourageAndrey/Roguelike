@@ -1,6 +1,6 @@
 ﻿using Roguelike.Core.Localization;
 
-namespace Roguelike.Core
+namespace Roguelike.Core.RolePlaying
 {
 	public class Damage
 	{

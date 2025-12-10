@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Roguelike.Core.Configuration;
 
-using Roguelike.Core.Configuration;
-
-namespace Roguelike.Core
+namespace Roguelike.Core.Mechanics
 {
 	public enum Season
 	{

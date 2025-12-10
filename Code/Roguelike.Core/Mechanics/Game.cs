@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Text;
 
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
@@ -10,7 +6,7 @@ using Roguelike.Core.Localization;
 using Roguelike.Core.Objects;
 using Roguelike.Core.Saves;
 
-namespace Roguelike.Core
+namespace Roguelike.Core.Mechanics
 {
 	public class Game
 	{

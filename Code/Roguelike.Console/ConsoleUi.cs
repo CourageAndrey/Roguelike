@@ -10,6 +10,7 @@ using Roguelike.Core;
 using Roguelike.Core.Aspects;
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
+using Roguelike.Core.Mechanics;
 using Roguelike.Core.Objects;
 
 namespace Roguelike.Console

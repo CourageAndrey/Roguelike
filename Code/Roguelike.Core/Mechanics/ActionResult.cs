@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 
 using Roguelike.Core.Configuration;
 using Roguelike.Core.Interfaces;
 
-namespace Roguelike.Core
+namespace Roguelike.Core.Mechanics
 {
 	public class ActionResult
 	{

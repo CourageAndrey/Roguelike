@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-
-namespace Roguelike.Core
+﻿namespace Roguelike.Core
 {
 	public class EventCollection<T> : ICollection<T>
 	{

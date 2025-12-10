@@ -143,12 +143,11 @@ namespace Roguelike.Core
 				new Wall().MoveTo(region.GetCell(x2, y, z));
 			}
 
-			var weather = new Weather(region);
-			var interior = new InteriorCellEnvironment(weather);
+			var microClimate = new Weather(region, true);
 			foreach (var cell in region.GetCells(x1, x2, y1, y2, z))
 			{
 				cell.ChangeBackground(CellBackground.Floor);
-				cell.MakeInterior(interior);
+				cell.MakeInterior(microClimate);
 			}
 
 			var doorCell = region.GetCell(doorX, doorY, z)!;

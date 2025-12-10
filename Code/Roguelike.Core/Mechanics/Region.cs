@@ -17,9 +17,6 @@ namespace Roguelike.Core.Mechanics
 		public Vector Size
 		{ get; }
 
-		public CellEnvironment DefaultCellEnvironment
-		{ get; }
-
 		public ICollection<Place> Places
 		{ get; }
 
@@ -35,8 +32,6 @@ namespace Roguelike.Core.Mechanics
 
 			Size = size;
 
-			DefaultCellEnvironment = new ExteriorCellEnvironment(this);
-
 			_cells = new Cell[Size.X, Size.Y, Size.Z];
 			for (int x = 0; x < Size.X; x++)
 			{
@@ -51,7 +46,7 @@ namespace Roguelike.Core.Mechanics
 
 			Places = new List<Place>();
 
-			Weather = new Weather(this);
+			Weather = new Weather(this, false);
 		}
 
 		#region GetCell-methods

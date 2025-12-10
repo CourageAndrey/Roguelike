@@ -25,6 +25,9 @@
 		public Region Region
 		{ get; }
 
+		public bool IsInterior
+		{ get; }
+
 		public double Temperature
 		{ get; private set; } // C degrees
 
@@ -50,14 +53,16 @@
 
 		#endregion
 
-		public Weather(Region region)
+		public Weather(Region region, bool isInterior)
 		{
 			Region = region;
+			IsInterior = isInterior;
 			Change();
 		}
 
 		internal void Change()
 		{
+#warning If IsInterior=TRUE need to change separately
 			var balance = Region.World.Balance.Weather;
 			var time = Region.World.Time;
 			var seed = new Random(DateTime.Now.Millisecond);

@@ -12,8 +12,8 @@ namespace Roguelike.Core.Mechanics
 		public Region Region
 		{ get; }
 
-		public CellEnvironment Environment
-		{ get; private set; }
+		public Weather Weather
+		{ get { return _weather ?? Region.Weather; } }
 
 		public CellBackground Background
 		{ get; private set; }
@@ -28,13 +28,13 @@ namespace Roguelike.Core.Mechanics
 
 		private readonly List<Object> _objects = new List<Object>();
 		private IReadOnlyCollection<Object>? _objectsView;
+		private Weather? _weather;
 
 		#endregion
 
 		public Cell(Region region, Vector position, CellBackground background)
 		{
 			Region = region;
-			Environment = region.DefaultCellEnvironment;
 			Position = position;
 			Background = background;
 		}
@@ -89,9 +89,9 @@ namespace Roguelike.Core.Mechanics
 			}
 		}
 
-		public void MakeInterior(InteriorCellEnvironment environment)
+		public void MakeInterior(Weather weather)
 		{
-			Environment = environment;
+			_weather = weather;
 		}
 	}
 

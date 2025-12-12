@@ -11,6 +11,18 @@ namespace Roguelike.Core.Localization.Items
 		public string BottleOFWater
 		{ get; set; }
 
+		[XmlElement]
+		public string HealingPotion
+		{ get; set; }
+
+		[XmlElement]
+		public string ManaPotion
+		{ get; set; }
+
+		[XmlElement]
+		public string StrengthPotion
+		{ get; set; }
+
 		#endregion
 
 		public static LanguagePotions CreateDefault()
@@ -18,6 +30,9 @@ namespace Roguelike.Core.Localization.Items
 			return new LanguagePotions
 			{
 				BottleOFWater = "Bottle of plain water",
+				HealingPotion = "Healing potion",
+				ManaPotion = "Mana potion",
+				StrengthPotion = "Strength potion",
 			};
 		}
 	}

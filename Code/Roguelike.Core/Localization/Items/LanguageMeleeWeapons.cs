@@ -23,6 +23,30 @@ namespace Roguelike.Core.Localization.Items
 		public string Spear
 		{ get; set; }
 
+		[XmlElement]
+		public string Dagger
+		{ get; set; }
+
+		[XmlElement]
+		public string Axe
+		{ get; set; }
+
+		[XmlElement]
+		public string Club
+		{ get; set; }
+
+		[XmlElement]
+		public string Warhammer
+		{ get; set; }
+
+		[XmlElement]
+		public string Rapier
+		{ get; set; }
+
+		[XmlElement]
+		public string Flail
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageMeleeWeapons CreateDefault()
@@ -33,6 +57,12 @@ namespace Roguelike.Core.Localization.Items
 				Sword = "Sword",
 				Mace = "Mace",
 				Spear = "Spear",
+				Dagger = "Dagger",
+				Axe = "Axe",
+				Club = "Club",
+				Warhammer = "Warhammer",
+				Rapier = "Rapier",
+				Flail = "Flail",
 			};
 		}
 	}

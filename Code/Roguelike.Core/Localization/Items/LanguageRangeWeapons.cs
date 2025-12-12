@@ -19,6 +19,18 @@ namespace Roguelike.Core.Localization.Items
 		public string Sling
 		{ get; set; }
 
+		[XmlElement]
+		public string Longbow
+		{ get; set; }
+
+		[XmlElement]
+		public string Shortbow
+		{ get; set; }
+
+		[XmlElement]
+		public string HeavyCrossbow
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageRangeWeapons CreateDefault()
@@ -28,6 +40,9 @@ namespace Roguelike.Core.Localization.Items
 				Bow = "Bow",
 				Crossbow = "Crossbow",
 				Sling = "Sling",
+				Longbow = "Longbow",
+				Shortbow = "Shortbow",
+				HeavyCrossbow = "Heavy crossbow",
 			};
 		}
 	}

@@ -11,6 +11,18 @@ namespace Roguelike.Core.Localization.Items
 		public string Ring
 		{ get; set; }
 
+		[XmlElement]
+		public string Amulet
+		{ get; set; }
+
+		[XmlElement]
+		public string Necklace
+		{ get; set; }
+
+		[XmlElement]
+		public string Bracelet
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageJewelry CreateDefault()
@@ -18,6 +30,9 @@ namespace Roguelike.Core.Localization.Items
 			return new LanguageJewelry
 			{
 				Ring = "Ring",
+				Amulet = "Amulet",
+				Necklace = "Necklace",
+				Bracelet = "Bracelet",
 			};
 		}
 	}

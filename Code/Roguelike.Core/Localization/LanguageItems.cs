@@ -50,6 +50,10 @@ namespace Roguelike.Core.Localization
 		{ get; set; }
 
 		[XmlElement]
+		public LanguageArmor Armor
+		{ get; set; }
+
+		[XmlElement]
 		public LanguageSpecial Special
 		{ get; set; }
 
@@ -69,6 +73,7 @@ namespace Roguelike.Core.Localization
 				Papers = LanguagePapers.CreateDefault(),
 				Missiles = LanguageMissiles.CreateDefault(),
 				Jewelry = LanguageJewelry.CreateDefault(),
+				Armor = LanguageArmor.CreateDefault(),
 				Special = LanguageSpecial.CreateDefault(),
 			};
 		}

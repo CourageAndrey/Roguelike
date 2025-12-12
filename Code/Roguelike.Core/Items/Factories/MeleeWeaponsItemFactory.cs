@@ -53,5 +53,77 @@ namespace Roguelike.Core.Items.Factories
 				new MeleeWeapon()
 			);
 		}
+
+		public IItem CreateDagger()
+		{
+			return new Item(
+				(language, alive) => language.Items.MeleeWeapons.Dagger,
+				() => 0.5m,
+				ItemType.Weapon,
+				Material.Metal.Color,
+				Material.Metal,
+				new MeleeWeapon()
+			);
+		}
+
+		public IItem CreateAxe()
+		{
+			return new Item(
+				(language, alive) => language.Items.MeleeWeapons.Axe,
+				() => 2.5m,
+				ItemType.Weapon,
+				Material.Metal.Color,
+				Material.Metal,
+				new MeleeWeapon()
+			);
+		}
+
+		public IItem CreateClub()
+		{
+			return new Item(
+				(language, alive) => language.Items.MeleeWeapons.Club,
+				() => 1.5m,
+				ItemType.Weapon,
+				Material.Wood.Color,
+				Material.Wood,
+				new MeleeWeapon()
+			);
+		}
+
+		public IItem CreateWarhammer()
+		{
+			return new Item(
+				(language, alive) => language.Items.MeleeWeapons.Warhammer,
+				() => 3.5m,
+				ItemType.Weapon,
+				Material.Metal.Color,
+				Material.Metal,
+				new MeleeWeapon()
+			);
+		}
+
+		public IItem CreateRapier()
+		{
+			return new Item(
+				(language, alive) => language.Items.MeleeWeapons.Rapier,
+				() => 1m,
+				ItemType.Weapon,
+				Material.Metal.Color,
+				Material.Metal,
+				new MeleeWeapon()
+			);
+		}
+
+		public IItem CreateFlail()
+		{
+			return new Item(
+				(language, alive) => language.Items.MeleeWeapons.Flail,
+				() => 2.5m,
+				ItemType.Weapon,
+				Material.Metal.Color,
+				Material.Metal,
+				new MeleeWeapon()
+			);
+		}
 	}
 }

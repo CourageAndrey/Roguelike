@@ -41,5 +41,41 @@ namespace Roguelike.Core.Items.Factories
 				new RangeWeapon(MissileType.Bullet)
 			);
 		}
+
+		public IItem CreateLongbow()
+		{
+			return new Item(
+				(language, alive) => language.Items.RangeWeapons.Longbow,
+				() => 1.5m,
+				ItemType.Weapon,
+				Material.Wood.Color,
+				Material.Wood,
+				new RangeWeapon(MissileType.Arrow)
+			);
+		}
+
+		public IItem CreateShortbow()
+		{
+			return new Item(
+				(language, alive) => language.Items.RangeWeapons.Shortbow,
+				() => 0.8m,
+				ItemType.Weapon,
+				Material.Wood.Color,
+				Material.Wood,
+				new RangeWeapon(MissileType.Arrow)
+			);
+		}
+
+		public IItem CreateHeavyCrossbow()
+		{
+			return new Item(
+				(language, alive) => language.Items.RangeWeapons.HeavyCrossbow,
+				() => 4m,
+				ItemType.Weapon,
+				Material.Metal.Color,
+				Material.Metal,
+				new RangeWeapon(MissileType.Bolt)
+			);
+		}
 	}
 }

@@ -22,6 +22,8 @@ namespace Roguelike.Core.Items
 
 		public static readonly ClothesItemFactory Clothes = new();
 
+		public static readonly ArmorItemFactory Armor = new();
+
 		public static readonly SpecialItemFactory Special = new();
 	}
 }

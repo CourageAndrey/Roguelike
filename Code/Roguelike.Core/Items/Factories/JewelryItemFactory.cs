@@ -19,5 +19,41 @@ namespace Roguelike.Core.Items.Factories
 				new Wear(WearSlot.Jewelry)
 			);
 		}
+
+		public IItem CreateAmulet()
+		{
+			return new Item(
+				(language, alive) => language.Items.Jewelry.Amulet,
+				() => 0.1m,
+				ItemType.Wear,
+				Color.Gold,
+				Material.Metal,
+				new Wear(WearSlot.Jewelry)
+			);
+		}
+
+		public IItem CreateNecklace()
+		{
+			return new Item(
+				(language, alive) => language.Items.Jewelry.Necklace,
+				() => 0.15m,
+				ItemType.Wear,
+				Color.Silver,
+				Material.Metal,
+				new Wear(WearSlot.Jewelry)
+			);
+		}
+
+		public IItem CreateBracelet()
+		{
+			return new Item(
+				(language, alive) => language.Items.Jewelry.Bracelet,
+				() => 0.08m,
+				ItemType.Wear,
+				Color.Gold,
+				Material.Metal,
+				new Wear(WearSlot.Jewelry)
+			);
+		}
 	}
 }

@@ -79,5 +79,41 @@ namespace Roguelike.Core.Items.Factories
 				new Wear(WearSlot.Cover)
 			);
 		}
+
+		public IItem CreateCap(Color clothColor)
+		{
+			return new Item(
+				(language, alive) => language.Items.Clothes.Cap,
+				() => 0.3m,
+				ItemType.Wear,
+				clothColor,
+				Material.Fabric,
+				new Wear(WearSlot.Head)
+			);
+		}
+
+		public IItem CreateBoots(Color clothColor)
+		{
+			return new Item(
+				(language, alive) => language.Items.Clothes.Boots,
+				() => 0.8m,
+				ItemType.Wear,
+				clothColor,
+				Material.Fabric,
+				new Wear(WearSlot.Foots)
+			);
+		}
+
+		public IItem CreateGloves(Color clothColor)
+		{
+			return new Item(
+				(language, alive) => language.Items.Clothes.Gloves,
+				() => 0.2m,
+				ItemType.Wear,
+				clothColor,
+				Material.Fabric,
+				new Wear(WearSlot.Hands)
+			);
+		}
 	}
 }

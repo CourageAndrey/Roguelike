@@ -31,6 +31,18 @@ namespace Roguelike.Core.Localization.Items
 		public string HoodedCloak
 		{ get; set; }
 
+		[XmlElement]
+		public string Cap
+		{ get; set; }
+
+		[XmlElement]
+		public string Boots
+		{ get; set; }
+
+		[XmlElement]
+		public string Gloves
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageClothes CreateDefault()
@@ -43,6 +55,9 @@ namespace Roguelike.Core.Localization.Items
 				Mantle = "Mantle",
 				Gown = "Gown",
 				HoodedCloak = "HoodedCloak",
+				Cap = "Cap",
+				Boots = "Boots",
+				Gloves = "Gloves",
 			};
 		}
 	}

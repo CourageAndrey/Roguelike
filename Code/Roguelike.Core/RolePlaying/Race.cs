@@ -107,13 +107,13 @@ namespace Roguelike.Core.RolePlaying
 			{
 				if (humanoid.SexIsMale)
 				{
-					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
-					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.Clothes.CreateTrousers(Color.Brown);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.Clothes.CreateShirt(Color.LightGray);
 				}
 				else
 				{
-					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.Red);
-					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.Clothes.CreateSkirt(Color.Red);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.Clothes.CreateShirt(Color.LightGray);
 				}
 			},
 			Color.White,
@@ -127,13 +127,13 @@ namespace Roguelike.Core.RolePlaying
 			{
 				if (humanoid.SexIsMale)
 				{
-					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
-					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.Brown);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.Clothes.CreateTrousers(Color.Brown);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.Clothes.CreateShirt(Color.Brown);
 				}
 				else
 				{
-					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.SandyBrown);
-					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.SandyBrown);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.Clothes.CreateSkirt(Color.SandyBrown);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.Clothes.CreateShirt(Color.SandyBrown);
 				}
 			},
 			Color.SaddleBrown,
@@ -151,13 +151,13 @@ namespace Roguelike.Core.RolePlaying
 			{
 				if (humanoid.SexIsMale)
 				{
-					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.DarkGreen);
-					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.White);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.Clothes.CreateTrousers(Color.DarkGreen);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.Clothes.CreateShirt(Color.White);
 				}
 				else
 				{
-					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.DarkGreen);
-					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.White);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.Clothes.CreateSkirt(Color.DarkGreen);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.Clothes.CreateShirt(Color.White);
 				}
 			},
 			Color.LightGray,
@@ -171,13 +171,13 @@ namespace Roguelike.Core.RolePlaying
 			{
 				if (humanoid.SexIsMale)
 				{
-					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.DarkGreen);
-					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LimeGreen);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.Clothes.CreateTrousers(Color.DarkGreen);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.Clothes.CreateShirt(Color.LimeGreen);
 				}
 				else
 				{
-					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.DarkGreen);
-					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LimeGreen);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.Clothes.CreateSkirt(Color.DarkGreen);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.Clothes.CreateShirt(Color.LimeGreen);
 				}
 			},
 			Color.RosyBrown,
@@ -195,13 +195,13 @@ namespace Roguelike.Core.RolePlaying
 			{
 				if (humanoid.SexIsMale)
 				{
-					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
-					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.White);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.Clothes.CreateTrousers(Color.Brown);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.Clothes.CreateShirt(Color.White);
 				}
 				else
 				{
-					humanoid.Mannequin.LowerBodyWear = ItemFactory.CreateSkirt(Color.Brown);
-					humanoid.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.White);
+					humanoid.Mannequin.LowerBodyWear = ItemFactory.Clothes.CreateSkirt(Color.Brown);
+					humanoid.Mannequin.UpperBodyWear = ItemFactory.Clothes.CreateShirt(Color.White);
 				}
 			},
 			Color.White,

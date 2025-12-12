@@ -55,18 +55,18 @@ namespace Roguelike.Core.Mechanics
 				seed.Next(10, region.Size.Y - 50),
 				0)!;
 			Hero.MoveTo(heroCell);
-			Hero.Inventory.Items.Add(ItemFactory.CreateHatchet());
-			Hero.Inventory.Items.Add(ItemFactory.CreateBow());
+			Hero.Inventory.Items.Add(ItemFactory.MeleeWeapons.CreateHatchet());
+			Hero.Inventory.Items.Add(ItemFactory.RangeWeapons.CreateBow());
 			for (int i = 0; i < 3; i++)
 			{
-				Hero.Inventory.Items.Add(ItemFactory.CreateLoafOfBread());
-				Hero.Inventory.Items.Add(ItemFactory.CreateBottleOFWater());
+				Hero.Inventory.Items.Add(ItemFactory.Food.CreateLoafOfBread());
+				Hero.Inventory.Items.Add(ItemFactory.Potions.CreateBottleOFWater());
 			}
-			Hero.Mannequin.LowerBodyWear = ItemFactory.CreateTrousers(Color.Brown);
-			Hero.Mannequin.UpperBodyWear = ItemFactory.CreateShirt(Color.LightGray);
-			Hero.Mannequin.Jewelry.Add(ItemFactory.CreateRing());
-			Hero.Inventory.Items.Add(new Pack(ItemFactory.CreateMissile(MissileType.Arrow), 20));
-			Hero.Inventory.Items.Add(ItemFactory.CreateBook(Color.Coral, l => l.HelloWorld, l => l.HelloWorld));
+			Hero.Mannequin.LowerBodyWear = ItemFactory.Clothes.CreateTrousers(Color.Brown);
+			Hero.Mannequin.UpperBodyWear = ItemFactory.Clothes.CreateShirt(Color.LightGray);
+			Hero.Mannequin.Jewelry.Add(ItemFactory.Jewelry.CreateRing());
+			Hero.Inventory.Items.Add(new Pack(ItemFactory.Missiles.CreateMissile(MissileType.Arrow), 20));
+			Hero.Inventory.Items.Add(ItemFactory.Papers.CreateBook(Color.Coral, l => l.HelloWorld, l => l.HelloWorld));
 			Hero.Camera.MakeMapKnown(balance.Distance.HeroInitialView);
 
 			region.CreateVillage(

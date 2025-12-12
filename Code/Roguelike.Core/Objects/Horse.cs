@@ -61,7 +61,7 @@ namespace Roguelike.Core.Objects
 			{
 				if (CurrentCell.Background == CellBackground.Grass)
 				{
-					return Eat(ItemFactory.CreateGrass(State.GetFoodToFull()));
+					return Eat(ItemFactory.Special.CreateGrass(State.GetFoodToFull()));
 				}
 				else
 				{

@@ -47,7 +47,7 @@ namespace Roguelike.Core.Objects
 		{
 			CurrentCell.AddObject(new Stump());
 			CurrentCell.RemoveObject(this);
-			return new IItem[] { ItemFactory.CreateLog() };
+			return new IItem[] { ItemFactory.Tools.CreateLog() };
 		}
 
 		public override string GetDescription(Language language, IAlive forWhom)

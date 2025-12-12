@@ -11,7 +11,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateGrass(int nutricity)
 		{
 			return new Item(
-				(language, alive) => language.Items.Grass,
+				(language, alive) => language.Items.Special.Grass,
 				() => 0,
 				ItemType.Food,
 				Color.DarkGreen,

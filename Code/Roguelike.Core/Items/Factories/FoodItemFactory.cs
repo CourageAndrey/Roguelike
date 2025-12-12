@@ -11,7 +11,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateLoafOfBread()
 		{
 			return new Item(
-				(language, alive) => language.Items.LoafOfBread,
+				(language, alive) => language.Items.Food.LoafOfBread,
 				() => 0.4m,
 				ItemType.Food,
 				Color.Brown,

@@ -12,7 +12,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateBook(Color coverColor, Func<LanguageBooks, string> getTitle, Func<LanguageBooks, string> getText)
 		{
 			return new Item(
-				(language, alive) => language.Items.Book,
+				(language, alive) => language.Items.Papers.Book,
 				() => 1,
 				ItemType.Paper,
 				coverColor,

@@ -11,7 +11,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateShirt(Color clothColor)
 		{
 			return new Item(
-				(language, alive) => language.Items.Shirt,
+				(language, alive) => language.Items.Clothes.Shirt,
 				() => 1,
 				ItemType.Wear,
 				clothColor,
@@ -23,7 +23,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateSkirt(Color clothColor)
 		{
 			return new Item(
-				(language, alive) => language.Items.Skirt,
+				(language, alive) => language.Items.Clothes.Skirt,
 				() => 1,
 				ItemType.Wear,
 				clothColor,
@@ -35,7 +35,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateTrousers(Color clothColor)
 		{
 			return new Item(
-				(language, alive) => language.Items.Trousers,
+				(language, alive) => language.Items.Clothes.Trousers,
 				() => 1,
 				ItemType.Wear,
 				clothColor,
@@ -47,7 +47,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateMantle(Color clothColor)
 		{
 			return new Item(
-				(language, alive) => language.Items.Mantle,
+				(language, alive) => language.Items.Clothes.Mantle,
 				() => 2,
 				ItemType.Wear,
 				clothColor,
@@ -59,7 +59,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateGown(Color clothColor)
 		{
 			return new Item(
-				(language, alive) => language.Items.Gown,
+				(language, alive) => language.Items.Clothes.Gown,
 				() => 3,
 				ItemType.Wear,
 				clothColor,
@@ -71,7 +71,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateHoodedCloak(Color clothColor)
 		{
 			return new Item(
-				(language, alive) => language.Items.HoodedCloak,
+				(language, alive) => language.Items.Clothes.HoodedCloak,
 				() => 2,
 				ItemType.Wear,
 				clothColor,

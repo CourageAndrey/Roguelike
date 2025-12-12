@@ -9,7 +9,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateBow()
 		{
 			return new Item(
-				(language, alive) => language.Items.Bow,
+				(language, alive) => language.Items.RangeWeapons.Bow,
 				() => 1,
 				ItemType.Weapon,
 				Material.Wood.Color,
@@ -21,7 +21,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateCrossbow()
 		{
 			return new Item(
-				(language, alive) => language.Items.Crossbow,
+				(language, alive) => language.Items.RangeWeapons.Crossbow,
 				() => 3,
 				ItemType.Weapon,
 				Material.Wood.Color,
@@ -33,7 +33,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateSling()
 		{
 			return new Item(
-				(language, alive) => language.Items.Sling,
+				(language, alive) => language.Items.RangeWeapons.Sling,
 				() => 0.25m,
 				ItemType.Weapon,
 				Material.Skin.Color,

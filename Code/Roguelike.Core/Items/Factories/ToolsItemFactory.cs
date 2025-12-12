@@ -10,7 +10,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateLog()
 		{
 			return new Item(
-				(language, alive) => language.Items.LoafOfBread,
+				(language, alive) => language.Items.Tools.Log,
 				() => 0.5m,
 				ItemType.Tool,
 				Color.Brown,

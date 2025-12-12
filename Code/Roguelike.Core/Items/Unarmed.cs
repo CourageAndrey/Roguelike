@@ -17,7 +17,7 @@ namespace Roguelike.Core.Items
 
 		public Unarmed(IAlive fighter)
 			: base(
-				(language, alive) => language.Items.Unarmed,
+				(language, alive) => language.Items.Special.Unarmed,
 				() => 0,
 				ItemType.Weapon,
 				default(Color),

@@ -1,5 +1,7 @@
 ﻿using System.Xml.Serialization;
 
+using Roguelike.Core.Localization.Items;
+
 namespace Roguelike.Core.Localization
 {
 	[XmlType]
@@ -11,125 +13,45 @@ namespace Roguelike.Core.Localization
 		public LanguageItemTypes ItemTypes
 		{ get; set; }
 
-		#region Clothes
-
 		[XmlElement]
-		public string Trousers
-		{ get; set; }
-		[XmlElement]
-		public string Skirt
-		{ get; set; }
-		[XmlElement]
-		public string Shirt
-		{ get; set; }
-		[XmlElement]
-		public string Mantle
-		{ get; set; }
-		[XmlElement]
-		public string Gown
-		{ get; set; }
-		[XmlElement]
-		public string HoodedCloak
-		{ get; set; }
-
-		#endregion
-
-		#region Tools
-
-		[XmlElement]
-		public string Log
-		{ get; set; }
-
-		#endregion
-
-		#region Food
-
-		[XmlElement]
-		public string LoafOfBread
-		{ get; set; }
-
-		#endregion
-
-		#region Potions
-
-		[XmlElement]
-		public string BottleOFWater
-		{ get; set; }
-
-		#endregion
-
-		#region Melee weapons
-
-		[XmlElement]
-		public string Hatchet
-		{ get; set; }
-		[XmlElement]
-		public string Sword
-		{ get; set; }
-		[XmlElement]
-		public string Mace
-		{ get; set; }
-		[XmlElement]
-		public string Spear
-		{ get; set; }
-
-		#endregion
-
-		#region Range weapons
-
-		[XmlElement]
-		public string Bow
-		{ get; set; }
-		[XmlElement]
-		public string Crossbow
-		{ get; set; }
-		[XmlElement]
-		public string Sling
-		{ get; set; }
-
-		#endregion
-
-		#region Papers
-
-		[XmlElement]
-		public string Book
-		{ get; set; }
-
-		#endregion
-
-		#region Missiles
-
-		[XmlElement]
-		public string Arrow
-		{ get; set; }
-		[XmlElement]
-		public string Bolt
-		{ get; set; }
-		[XmlElement]
-		public string Bullet
-		{ get; set; }
-
-		#endregion
-
-		#region Jewelry
-
-		[XmlElement]
-		public string Ring
-		{ get; set; }
-
-		#endregion
-
-		#region Special
-
-		[XmlElement]
-		public string Unarmed
+		public LanguageClothes Clothes
 		{ get; set; }
 
 		[XmlElement]
-		public string Grass
+		public LanguageTools Tools
 		{ get; set; }
 
-		#endregion
+		[XmlElement]
+		public LanguageFood Food
+		{ get; set; }
+
+		[XmlElement]
+		public LanguagePotions Potions
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageMeleeWeapons MeleeWeapons
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageRangeWeapons RangeWeapons
+		{ get; set; }
+
+		[XmlElement]
+		public LanguagePapers Papers
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageMissiles Missiles
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageJewelry Jewelry
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageSpecial Special
+		{ get; set; }
 
 		#endregion
 
@@ -138,29 +60,16 @@ namespace Roguelike.Core.Localization
 			return new LanguageItems
 			{
 				ItemTypes = LanguageItemTypes.CreateDefault(),
-				Trousers = "Trousers",
-				Skirt = "Skirt",
-				Shirt = "Shirt",
-				Mantle = "Mantle",
-				Gown = "Gown",
-				HoodedCloak = "HoodedCloak",
-				Log = "Wooden log",
-				LoafOfBread = "Loaf of bread",
-				BottleOFWater = "Bottle of plain water",
-				Hatchet = "Hatchet",
-				Sword = "Sword",
-				Mace = "Mace",
-				Spear = "Spear",
-				Bow = "Bow",
-				Crossbow = "Crossbow",
-				Sling = "Sling",
-				Book = "Book",
-				Arrow = "Arrow",
-				Bolt = "Bolt",
-				Bullet = "Sling bullet",
-				Unarmed = "Bare hands (fight unarmed)",
-				Ring = "Ring",
-				Grass = "Grass",
+				Clothes = LanguageClothes.CreateDefault(),
+				Tools = LanguageTools.CreateDefault(),
+				Food = LanguageFood.CreateDefault(),
+				Potions = LanguagePotions.CreateDefault(),
+				MeleeWeapons = LanguageMeleeWeapons.CreateDefault(),
+				RangeWeapons = LanguageRangeWeapons.CreateDefault(),
+				Papers = LanguagePapers.CreateDefault(),
+				Missiles = LanguageMissiles.CreateDefault(),
+				Jewelry = LanguageJewelry.CreateDefault(),
+				Special = LanguageSpecial.CreateDefault(),
 			};
 		}
 	}

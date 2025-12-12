@@ -9,7 +9,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateHatchet()
 		{
 			return new Item(
-				(language, alive) => language.Items.Hatchet,
+				(language, alive) => language.Items.MeleeWeapons.Hatchet,
 				() => 2,
 				ItemType.Weapon,
 				Material.Metal.Color,
@@ -21,7 +21,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateSword()
 		{
 			return new Item(
-				(language, alive) => language.Items.Sword,
+				(language, alive) => language.Items.MeleeWeapons.Sword,
 				() => 1.5m,
 				ItemType.Weapon,
 				Material.Metal.Color,
@@ -33,7 +33,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateMace()
 		{
 			return new Item(
-				(language, alive) => language.Items.Mace,
+				(language, alive) => language.Items.MeleeWeapons.Mace,
 				() => 2,
 				ItemType.Weapon,
 				Material.Wood.Color,
@@ -45,7 +45,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateSpear()
 		{
 			return new Item(
-				(language, alive) => language.Items.Spear,
+				(language, alive) => language.Items.MeleeWeapons.Spear,
 				() => 3,
 				ItemType.Weapon,
 				Material.Wood.Color,

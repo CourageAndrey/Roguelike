@@ -11,7 +11,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateBottleOFWater()
 		{
 			return new Item(
-				(language, alive) => language.Items.BottleOFWater,
+				(language, alive) => language.Items.Potions.BottleOFWater,
 				() => 0.6m,
 				ItemType.Potion,
 				Color.DodgerBlue,

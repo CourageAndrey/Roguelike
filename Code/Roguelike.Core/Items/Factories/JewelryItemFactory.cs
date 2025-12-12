@@ -11,7 +11,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateRing()
 		{
 			return new Item(
-				(language, alive) => language.Items.Ring,
+				(language, alive) => language.Items.Jewelry.Ring,
 				() => 0.02m,
 				ItemType.Wear,
 				Color.Aquamarine,

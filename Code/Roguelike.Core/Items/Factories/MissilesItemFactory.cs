@@ -26,7 +26,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateArrow()
 		{
 			return new Item(
-				(language, alive) => language.Items.Arrow,
+				(language, alive) => language.Items.Missiles.Arrow,
 				() => 0.1m,
 				ItemType.Weapon,
 				Color.White,
@@ -37,7 +37,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateBolt()
 		{
 			return new Item(
-				(language, alive) => language.Items.Bolt,
+				(language, alive) => language.Items.Missiles.Bolt,
 				() => 0.1m,
 				ItemType.Weapon,
 				Color.White,
@@ -48,7 +48,7 @@ namespace Roguelike.Core.Items.Factories
 		public IItem CreateBullet()
 		{
 			return new Item(
-				(language, alive) => language.Items.Bullet,
+				(language, alive) => language.Items.Missiles.Bullet,
 				() => 0.1m,
 				ItemType.Weapon,
 				Color.White,

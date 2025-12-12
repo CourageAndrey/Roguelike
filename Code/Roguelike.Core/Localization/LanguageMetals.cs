@@ -8,7 +8,10 @@ namespace Roguelike.Core.Localization
 		#region Properties
 
 		[XmlElement]
-		public string Brass
+		public string Copper
+		{ get; set; }
+		[XmlElement]
+		public string Bronze
 		{ get; set; }
 		[XmlElement]
 		public string Iron
@@ -22,6 +25,18 @@ namespace Roguelike.Core.Localization
 		[XmlElement]
 		public string Adamantine
 		{ get; set; }
+		[XmlElement]
+		public string Ethereum
+		{ get; set; }
+		[XmlElement]
+		public string Silver
+		{ get; set; }
+		[XmlElement]
+		public string Gold
+		{ get; set; }
+		[XmlElement]
+		public string Platinum
+		{ get; set; }
 
 		#endregion
 
@@ -29,11 +44,16 @@ namespace Roguelike.Core.Localization
 		{
 			return new LanguageMetals
 			{
-				Brass = "Brass",
+				Bronze = "Bronze",
 				Iron = "Iron",
 				Steel = "Steel",
 				Mithril = "Mithril",
 				Adamantine = "Adamantine",
+				Ethereum = "Ethereum",
+				Copper = "Copper",
+				Silver = "Silver",
+				Gold = "Gold",
+				Platinum = "Platinum",
 			};
 		}
 	}

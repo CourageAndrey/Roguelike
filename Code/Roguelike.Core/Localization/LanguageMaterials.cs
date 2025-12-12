@@ -39,6 +39,22 @@ namespace Roguelike.Core.Localization
 		public LanguageMetals Metals
 		{ get; set; }
 
+		[XmlElement]
+		public LanguageWoods Woods
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageStones Stones
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageSkins Skins
+		{ get; set; }
+
+		[XmlElement]
+		public LanguageFabrics Fabrics
+		{ get; set; }
+
 		#endregion
 
 		public static LanguageMaterials CreateDefault()
@@ -55,6 +71,10 @@ namespace Roguelike.Core.Localization
 				Food = "Food",
 				Liquid = "Liquid",
 				Metals = LanguageMetals.CreateDefault(),
+				Woods = LanguageWoods.CreateDefault(),
+				Stones = LanguageStones.CreateDefault(),
+				Skins = LanguageSkins.CreateDefault(),
+				Fabrics = LanguageFabrics.CreateDefault(),
 			};
 		}
 	}

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-
-using Roguelike.Core.Interfaces;
+﻿using Roguelike.Core.Interfaces;
 using Roguelike.Core.Mechanics;
 
 namespace Roguelike.Core.Aspects
@@ -15,10 +10,14 @@ namespace Roguelike.Core.Aspects
 		public Cell Cell
 		{ get { return Holder.CurrentCell!; } }
 
-		public double Distance
-		{ get { return _getDistance(); } }
+		public decimal EffectiveDistance
+		{ get { return _getEffectiveDistance(); } }
 
-		private readonly Func<double> _getDistance;
+		public decimal MaxDistance
+		{ get { return _getMaxDistance(); } }
+
+		private readonly Func<decimal> _getEffectiveDistance;
+		private readonly Func<decimal> _getMaxDistance;
 
 		public ICollection<Cell> MapMemory
 		{ get; }
@@ -30,18 +29,21 @@ namespace Roguelike.Core.Aspects
 
 		#endregion
 
-		public Camera(IObject holder, Func<double> getDistance)
+		public Camera(IObject holder, Func<decimal> getEffectiveDistance, Func<decimal> getMaxDistance)
 			: base(holder)
 		{
-			_getDistance = getDistance;
+			_getEffectiveDistance = getEffectiveDistance;
+			_getMaxDistance = getMaxDistance;
 			MapMemory = new HashSet<Cell>();
 			VisibleCells = new Dictionary<Cell, bool>();
 		}
 
 		public void RefreshVisibleCells()
 		{
-			int viewRadius = (int) Math.Ceiling(Distance);
-			double distanceSquare = Distance * Distance;
+			int effectiveViewRadius = (int) Math.Ceiling(EffectiveDistance);
+			int maxViewRadius = (int) Math.Ceiling(MaxDistance);
+			decimal effectiveDistanceSquare = EffectiveDistance * EffectiveDistance;
+			decimal maxDistanceSquare = MaxDistance * MaxDistance;
 			var position = Cell.Position;
 
 			var previouslyVisibleCells = VisibleCells;
@@ -55,11 +57,13 @@ namespace Roguelike.Core.Aspects
 				ProcessCellVisibility(cell, true, previouslyVisibleCells, delta);
 			}
 
-			for (int radius = 2; radius <= viewRadius; radius++)
+			for (int radius = 2; radius <= effectiveViewRadius /*maxViewRadius*/; radius++)
 			{
 				foreach (var cell in Cell.EnumerateCellsAround(radius))
 				{
-					if (position.GetDistanceSquare(cell.Position) <= distanceSquare)
+#warning Take fires and torches into account
+
+					if (position.GetDistanceSquare(cell.Position) <= (double) effectiveDistanceSquare)
 					{
 						ProcessCellVisibility(cell, IsNeighborTransparent(cell.Position), previouslyVisibleCells, delta);
 					}

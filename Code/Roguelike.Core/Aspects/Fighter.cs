@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
+﻿using System.Globalization;
 
 using Roguelike.Core.Interfaces;
 using Roguelike.Core.Items;
@@ -16,6 +12,7 @@ namespace Roguelike.Core.Aspects
 
 		public IItem WeaponToFight
 		{ get; private set; }
+#warning Take shield and also left/right hands into account
 
 		public bool IsAggressive
 		{ get; private set; }

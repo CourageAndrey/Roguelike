@@ -204,7 +204,7 @@ namespace Roguelike.Console
 
 		private void updateCameraScreenBounds(Camera camera)
 		{
-			int cameraDistance = (int) Math.Ceiling(_camera.Distance);
+			int cameraDistance = (int) Math.Ceiling(_camera.EffectiveDistance);
 			var cameraPosition = camera.Cell.Position;
 
 			_screenXOfCameraLeft = Math.Max(0, cameraPosition.X - _worldXOfScreenLeft - cameraDistance - 1);

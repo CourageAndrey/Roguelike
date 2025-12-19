@@ -30,14 +30,17 @@ namespace Roguelike.Core.Objects
 				startSettings.Haircut,
 				GetFakeSettlement(region))
 		{
-			AddAspects(new Camera(this, GetVisibleDistance));
+			AddAspects(new Camera(this, GetEffectiveVisibleDistance, GetMaxVisibleDistance));
 		}
 
-		private double GetVisibleDistance()
+		private decimal GetEffectiveVisibleDistance()
 		{
-			double distance = Properties.Perception;
-			var world = this.GetWorld();
+			// base distance
+			decimal baseDistance = GetMaxVisibleDistance(),
+					distance = baseDistance;
 
+			// take daytime into account
+			var world = this.GetWorld();
 			var time = world.Time.DayPart;
 			var balance = world.Balance.Distance;
 			if (time == DayPart.Night)
@@ -54,9 +57,21 @@ namespace Roguelike.Core.Objects
 			}
 			distance /= 100;
 
-#warning Take dungeons into account
+			var lightSource = Fighter.WeaponToFight?.TryGetAspect<LightSource>();
+			if (lightSource != null)
+			{
+				distance = Math.Min(baseDistance, distance + lightSource.Power);
+			}
+
+			var weather = this.GetRegion().Weather;
+			distance *= (decimal) weather.VisibilityBonus;
 
 			return Math.Max(1, distance);
+		}
+
+		private decimal GetMaxVisibleDistance()
+		{
+			return Properties.Perception;
 		}
 
 		private static Settlement GetFakeSettlement(Region region)

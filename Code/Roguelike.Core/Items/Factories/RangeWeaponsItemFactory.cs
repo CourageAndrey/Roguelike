@@ -14,7 +14,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Wood.Color,
 				Material.Wood,
-				new RangeWeapon(MissileType.Arrow)
+				new RangeWeapon(DamageType.Piercing, WeaponMastery.Bows, MissileType.Arrow)
 			);
 		}
 
@@ -26,7 +26,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Wood.Color,
 				Material.Wood,
-				new RangeWeapon(MissileType.Bolt)
+				new RangeWeapon(DamageType.Piercing, WeaponMastery.Bows, MissileType.Bolt)
 			);
 		}
 
@@ -38,7 +38,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Skin.Color,
 				Material.Skin,
-				new RangeWeapon(MissileType.Bullet)
+				new RangeWeapon(DamageType.Piercing, WeaponMastery.Throwing, MissileType.Bullet)
 			);
 		}
 
@@ -50,7 +50,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Wood.Color,
 				Material.Wood,
-				new RangeWeapon(MissileType.Arrow)
+				new RangeWeapon(DamageType.Piercing, WeaponMastery.Bows, MissileType.Arrow)
 			);
 		}
 
@@ -62,7 +62,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Wood.Color,
 				Material.Wood,
-				new RangeWeapon(MissileType.Arrow)
+				new RangeWeapon(DamageType.Piercing, WeaponMastery.Bows, MissileType.Arrow)
 			);
 		}
 
@@ -74,7 +74,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Metal.Color,
 				Material.Metal,
-				new RangeWeapon(MissileType.Bolt)
+				new RangeWeapon(DamageType.Piercing, WeaponMastery.Bows, MissileType.Bolt)
 			);
 		}
 	}

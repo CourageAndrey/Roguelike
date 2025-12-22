@@ -14,7 +14,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Metal.Color,
 				Material.Metal,
-				new MeleeWeapon(), new TreeChopper()
+				new MeleeWeapon(DamageType.Chopping, WeaponMastery.Axes), new TreeChopper()
 			);
 		}
 
@@ -26,7 +26,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Metal.Color,
 				Material.Metal,
-				new MeleeWeapon()
+				new MeleeWeapon(DamageType.Slashing, WeaponMastery.Blades)
 			);
 		}
 
@@ -38,7 +38,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Wood.Color,
 				Material.Wood,
-				new MeleeWeapon()
+				new MeleeWeapon(DamageType.Bludgeoning, WeaponMastery.Maces)
 			);
 		}
 
@@ -50,7 +50,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Wood.Color,
 				Material.Wood,
-				new MeleeWeapon()
+				new MeleeWeapon(DamageType.Piercing, WeaponMastery.Polearms)
 			);
 		}
 
@@ -62,7 +62,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Metal.Color,
 				Material.Metal,
-				new MeleeWeapon()
+				new MeleeWeapon(DamageType.Piercing, WeaponMastery.Blades)
 			);
 		}
 
@@ -74,7 +74,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Metal.Color,
 				Material.Metal,
-				new MeleeWeapon()
+				new MeleeWeapon(DamageType.Chopping, WeaponMastery.Axes)
 			);
 		}
 
@@ -86,7 +86,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Wood.Color,
 				Material.Wood,
-				new MeleeWeapon()
+				new MeleeWeapon(DamageType.Bludgeoning, WeaponMastery.Maces)
 			);
 		}
 
@@ -98,7 +98,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Metal.Color,
 				Material.Metal,
-				new MeleeWeapon()
+				new MeleeWeapon(DamageType.Bludgeoning, WeaponMastery.Maces)
 			);
 		}
 
@@ -110,7 +110,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Metal.Color,
 				Material.Metal,
-				new MeleeWeapon()
+				new MeleeWeapon(DamageType.Piercing, WeaponMastery.Blades)
 			);
 		}
 
@@ -122,7 +122,7 @@ namespace Roguelike.Core.Items.Factories
 				ItemType.Weapon,
 				Material.Metal.Color,
 				Material.Metal,
-				new MeleeWeapon()
+				new MeleeWeapon(DamageType.Bludgeoning, WeaponMastery.Maces)
 			);
 		}
 	}

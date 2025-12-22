@@ -22,7 +22,7 @@ namespace Roguelike.Core.Items
 				ItemType.Weapon,
 				default(Color),
 				Material.Skin,
-				new MeleeWeapon())
+				new MeleeWeapon(DamageType.Bludgeoning, WeaponMastery.HandToHand))
 		{
 			Fighter = fighter;
 		}
